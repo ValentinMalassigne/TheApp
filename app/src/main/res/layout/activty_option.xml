@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/menu_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_list"
+    android:gravity="center"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+        <Button
+            android:id="@+id/menu_button"
+            app:backgroundTint="@null"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="@android:dimen/app_icon_size"
+            android:background="@drawable/button_shape"
+            android:text="@string/menu_button"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+        <Button
+            android:id="@+id/language_button"
+            app:backgroundTint="@null"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:background="@drawable/button_shape"
+            android:layout_marginTop="@android:dimen/app_icon_size"
+            android:text="@string/language_button"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+        <Button
+            android:id="@+id/about_button"
+            app:backgroundTint="@null"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:background="@drawable/button_shape"
+            android:layout_marginTop="@android:dimen/app_icon_size"
+            android:text="@string/about_button"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
