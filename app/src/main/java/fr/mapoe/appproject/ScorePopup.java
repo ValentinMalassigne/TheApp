@@ -92,7 +92,6 @@ public class ScorePopup extends Dialog {
             score.setTextColor(Color.BLACK);
             score.setGravity(Gravity.CENTER);
             rowLayout.addView(score);
-
             id++;
 
         }

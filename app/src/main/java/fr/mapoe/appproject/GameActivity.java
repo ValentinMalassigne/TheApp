@@ -92,7 +92,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 GameAnswerPopup gameAnswerPopup = new GameAnswerPopup(activity);
                 String answer = "";
-                Boolean customAnswer = false;
+                boolean customAnswer = false;
                 String currentText= "";
                 // envoie situationnel
 
@@ -268,14 +268,19 @@ public class GameActivity extends AppCompatActivity {
         while(!playerTab[i].equals(currentPlayer)){
             i++;
         }
-        if(alcoholTab[i].equals("drink0")){
-            res="fais 5 pompes";
-        }else if(alcoholTab[i].equals("drink1")){
-            res="bois 1 gorgée";
-        } else if(alcoholTab[i].equals("drink2")){
-            res="bois 2 gorgées";
-        } else if(alcoholTab[i].equals("drink3")){
-            res="bois 3 gorgées";
+        switch (alcoholTab[i]) {
+            case "drink0":
+                res = "fais 5 pompes";
+                break;
+            case "drink1":
+                res = "bois 1 gorgée";
+                break;
+            case "drink2":
+                res = "bois 2 gorgées";
+                break;
+            case "drink3":
+                res = "bois 3 gorgées";
+                break;
         }
         return res;
     }
@@ -434,7 +439,7 @@ public class GameActivity extends AppCompatActivity {
         return res;
     }
     private Boolean checkGameEnd(){
-        Boolean res=false;
+        boolean res=false;
         switch (playerTab.length){
             case 2:
                 if(turnNumber>=15){
