@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="500dp"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/convergence"
+        android:gravity="center"
+        android:includeFontPadding="true"
+
+        android:text="@string/info_text"
+        android:textColor="@color/black"
+        android:textSize="20dp" />
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/drink_2"
+        ></ImageView>
+    <Button
+        android:layout_marginTop="50dp"
+        app:backgroundTint="@null"
+        android:id="@+id/ok_button"
+        android:text="@string/ok_button"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:background="@drawable/button_shape" />
+
+
+</LinearLayout> 

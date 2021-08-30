@@ -7,6 +7,7 @@ import androidx.core.content.res.ResourcesCompat;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import java.util.Arrays;
 
 public class CharacterChooseActivity extends AppCompatActivity {
 
@@ -38,9 +39,8 @@ public class CharacterChooseActivity extends AppCompatActivity {
     private int idLayouts=100;
     private int idImageButtons=200;
     private int idDeletePlayerButton=300;
-    private boolean[] onLoseFocusHistory = new boolean[10];
+    private boolean onLoseFocusHistory = false;
     private CharacterChooseActivity characterChooseActivity = this;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +49,8 @@ public class CharacterChooseActivity extends AppCompatActivity {
         
         Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.convergence);
 
-        for(int i=0;i<tempTab.length;i++){
-            tempTab[i] = "drink2";
-            onLoseFocusHistory[i]= false;
-        }
+        Arrays.fill(tempTab, "drink2");
+
         this.scrollViewLayout =(LinearLayout) findViewById(R.id.myDynamicLayout);
 
         this.addPlayer= (Button) findViewById(R.id.add_player_button);
@@ -93,7 +91,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
             editText.setId(nbJoueurs); //id du premier editText : 1
             editText.setInputType(InputType.TYPE_CLASS_TEXT);
             editText.setTypeface(typeface);
-            //createPopupOnLoseFocus(editText,nbJoueurs);
             ImageButton imageButton = new ImageButton(getApplicationContext());
             imageButton.setId(idImageButtons);//id du premier bouton : 201
             imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -112,6 +109,25 @@ public class CharacterChooseActivity extends AppCompatActivity {
             containerLayout.addView(editText);
             containerLayout.addView(imageButton);
         }
+
+        int firstEditTextID=1;
+        EditText editText = (EditText) findViewById(firstEditTextID);
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(!hasFocus && !editText.getText().toString().equals("") && !onLoseFocusHistory ){
+                    InfoPopup infoPopup = new InfoPopup(activity);
+                    infoPopup.getOkButton().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            infoPopup.dismiss();
+                        }
+                    });
+                    infoPopup.build();
+                    onLoseFocusHistory = true;
+                }
+            }
+        });
 
         // ajout des EditText à chaque clique
         addPlayer.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +176,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
                         editText.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT,8));
                         editText.setId(nbJoueurs); //id du premier editText : 1
                         editText.setTypeface(typeface);
-                        //createPopupOnLoseFocus(editText,nbJoueurs);
                         ImageButton imageButton = new ImageButton(getApplicationContext());
                         imageButton.setId(idImageButtons);//id du premier bouton : 201
                         imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -236,22 +251,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
         });
     }
 
-    // fonction pour creer une popup quand on perd le focus
-    private void createPopupOnLoseFocus(EditText editText, int currentEditTextID){
-        // si on perd le focus
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-
-                if(!hasFocus && !editText.getText().toString().equals("") && !onLoseFocusHistory[currentEditTextID-1]  ){
-                    createPopup(editText,currentEditTextID);
-                    onLoseFocusHistory[currentEditTextID-1] = true;
-
-                }
-            }
-        });
-    }
-
     private void deletePlayer(int id){
         if(nbJoueurs>2) {
             id = id - 300;
@@ -287,7 +286,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         }
     }
 
-    // créer la popup
+    // créer la popup de selection d'alcool
     public void createPopup(EditText editText, int currentEditTextID){
 
         PopupDrinkSelection popupDrinkSelection = new PopupDrinkSelection(activity);
