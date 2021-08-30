@@ -27,4 +27,4 @@ public class AboutActivity extends AppCompatActivity {
         });
     }
 }
-//test git
+//test git Aurélien
