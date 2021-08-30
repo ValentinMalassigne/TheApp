@@ -225,9 +225,16 @@ public class CharacterChooseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                EditText LastEditText = findViewById(nbJoueurs);
+                int errors=0;
+                EditText verifEditText;
+                for (int i=1;i<=nbJoueurs;i++){
+                    verifEditText=findViewById(i);
+                    if(verifEditText.getText().toString().equals("")){
+                        errors+=1;
+                    }
+                }
 
-                if (!LastEditText.getText().toString().equals("")) {
+                if (errors==0) {
                     tabJoueurs = new String[nbJoueurs][2];
                     for (int i = 0; i < nbJoueurs; i++) {
                         int temp = i + 1;
@@ -235,7 +242,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
                         String playerName = editText.getText().toString();
                         tabJoueurs[i][0] = playerName;
                         tabJoueurs[i][1] = tempTab[i];
-
                     }
 
                         Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
@@ -244,7 +250,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
                 }
                 else
-                    Toast.makeText(getApplicationContext(), "Veuillez remplir le champ precedent", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -296,7 +302,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         popupDrinkSelection.getDrinkImage0().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), editText.getText() +" à pas soif", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), editText.getText() +getString(R.string.drink_0_message), Toast.LENGTH_SHORT).show();
                 addTemporaryTab(currentEditTextID,"drink0");
                 popupDrinkSelection.dismiss();
                 ImageButton imageButton = (ImageButton) findViewById(currentEditTextID+200);
