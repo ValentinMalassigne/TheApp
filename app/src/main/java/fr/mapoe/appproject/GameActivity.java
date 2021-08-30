@@ -97,18 +97,18 @@ public class GameActivity extends AppCompatActivity {
                 // envoie situationnel
 
                 if (currentChallenge[3].equals("Gage")){
-                    currentText =currentPlayer +" à reussi le gage ?";
+                    currentText =currentPlayer +getString(R.string.gage_success_question);
                 }
                 if (currentChallenge[3].equals("Mini-Jeu")){
-                    currentText = currentPlayer+ " à t'il réussi le Mini-Jeu";
+                    currentText = currentPlayer+ getString(R.string.miniGame_success_question);
                 }
                 if (currentChallenge[3].equals("Question/Action")) {
-                    currentText = currentPlayer + " à t'il répondu/ fait l'action";
+                    currentText = currentPlayer + getString(R.string.answer_action_success);
                     customAnswer = true;
                     answer = currentChallenge[1];
                 }
                 if (currentChallenge[3].equals("Anecdote")){
-                    currentText = "L'annecdote de "+currentPlayer +" est-elle satisfaisante ?";
+                    currentText = getString(R.string.the_annecdote)+currentPlayer +getString(R.string.satisfying_question);
                 }
 
                 // envoie
@@ -130,7 +130,7 @@ public class GameActivity extends AppCompatActivity {
                                 scoreTab[i] = Integer.toString(newScore);
                             }
                         }
-                        Toast.makeText(getApplicationContext(), currentPlayer+" marque "+currentChallenge[0]+" points !"   , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), currentPlayer+getString(R.string.scoring)+currentChallenge[0]+getString(R.string.points)   , Toast.LENGTH_SHORT).show();
                         gameAnswerPopup.dismiss();
                         try {
                             newDisplay(view);
@@ -269,13 +269,13 @@ public class GameActivity extends AppCompatActivity {
             i++;
         }
         if(alcoholTab[i].equals("drink0")){
-            res="fais 5 pompes";
+            res=getString(R.string.drink0_punition);
         }else if(alcoholTab[i].equals("drink1")){
-            res="bois 1 gorgée";
+            res=getString(R.string.drink1_punition);
         } else if(alcoholTab[i].equals("drink2")){
-            res="bois 2 gorgées";
+            res=getString(R.string.drink2_punition);
         } else if(alcoholTab[i].equals("drink3")){
-            res="bois 3 gorgées";
+            res=getString(R.string.drink3_punition);
         }
         return res;
     }

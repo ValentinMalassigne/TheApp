@@ -86,7 +86,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                 }
             });
             EditText editText = new EditText(getApplicationContext());
-            editText.setHint("Nom joueur "+nbJoueurs);
+            editText.setHint(getString(R.string.playe_name_hint)+nbJoueurs);
             editText.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT,8));
             editText.setId(nbJoueurs); //id du premier editText : 1
             editText.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -141,7 +141,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                     int one = 1;
                     EditText editText1 = findViewById(one);
                     if (previousEditText.getText().toString().equals("") || editText1.getText().toString().equals("")){ // le champ est vide
-                        Toast.makeText(getApplicationContext(), "Veuillez remplir le champ precedent", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.previous_name_missing_error), Toast.LENGTH_SHORT).show();
 
                     }
                     else {
@@ -171,7 +171,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
                         //ajout du text et du bouton au horizontal layout
                         EditText editText = new EditText(getApplicationContext());
-                        editText.setHint("Nom joueur "+nbJoueurs);
+                        editText.setHint(getString(R.string.playe_name_hint)+nbJoueurs);
                         editText.setInputType(InputType.TYPE_CLASS_TEXT);
                         editText.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT,8));
                         editText.setId(nbJoueurs); //id du premier editText : 1
@@ -199,7 +199,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Vous avez atteint le nombre maximum de joueur", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.maximum_player_error), Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -257,7 +257,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
                 }
                 else
-                    Toast.makeText(getApplicationContext(), "Veuillez remplir tous les champs", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.missing_names_error), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -295,7 +295,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
             idDeletePlayerButton--;
         }else{
             //dire qu'il ne peut pas supprimer un joueur quand ils ne sont que 2
-            Toast.makeText(getApplicationContext(), "Impossible d'être moins que 2 joueurs.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.minimum_player_error), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -321,7 +321,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         popupDrinkSelection.getDrinkImage1().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), editText.getText() +" à pas très soif", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), editText.getText() +getString(R.string.drink_1_message), Toast.LENGTH_SHORT).show();
                 popupDrinkSelection.dismiss();
                 addTemporaryTab(currentEditTextID,"drink1");
                 ImageButton imageButton = (ImageButton) findViewById(currentEditTextID+200);
@@ -332,7 +332,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         popupDrinkSelection.getDrinkImage2().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), editText.getText() +" à soif", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), editText.getText() +getString(R.string.drink_2_message), Toast.LENGTH_SHORT).show();
                 popupDrinkSelection.dismiss();
                 addTemporaryTab(currentEditTextID,"drink2");
                 ImageButton imageButton = (ImageButton) findViewById(currentEditTextID+200);
@@ -343,7 +343,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         popupDrinkSelection.getDrinkImage3().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), editText.getText() +" est déglingo", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), editText.getText() +getString(R.string.drink_3_message), Toast.LENGTH_SHORT).show();
                 popupDrinkSelection.dismiss();
                 addTemporaryTab(currentEditTextID,"drink3");
                 ImageButton imageButton = (ImageButton) findViewById(currentEditTextID+200);

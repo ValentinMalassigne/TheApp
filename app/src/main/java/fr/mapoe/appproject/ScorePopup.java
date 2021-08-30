@@ -42,7 +42,7 @@ public class ScorePopup extends Dialog {
         this.rowLayout = (TableRow) findViewById(id);
 
         TextView name = new TextView(getContext());
-        name.setText("Nom");
+        name.setText(R.string.name);
         name.setTypeface(typeface);
         name.setTextSize(25);
         name.setTextColor(Color.BLACK);
@@ -51,7 +51,7 @@ public class ScorePopup extends Dialog {
 
 
         TextView score = new TextView(getContext());
-        score.setText("Score");
+        score.setText(R.string.score);
         score.setTypeface(typeface);
         score.setTextSize(25);
         score.setTextColor(Color.BLACK);
