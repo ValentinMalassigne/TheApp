@@ -1,11 +1,5 @@
 package fr.mapoe.appproject;
 
-
-
-import static fr.mapoe.appproject.CharacterChooseActivity.resetCharacterChooseActivity;
-import static fr.mapoe.appproject.GameActivity.resetGameActivity;
-import static fr.mapoe.appproject.MainActivity.resetMainActivity;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -44,7 +38,6 @@ public class GameEndActivity extends AppCompatActivity {
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                resetGame();
                 Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
                 startActivity(mainActivity);
                 finish();
@@ -143,20 +136,10 @@ public class GameEndActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        resetGame();
         Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
         startActivity(mainActivity);
         finish();
     }
 
-    private static void resetGame(){
-        resetGameEndActivity();
-        resetGameActivity();
-        resetCharacterChooseActivity();
-        resetMainActivity();
-    }
 
-    public static void resetGameEndActivity(){
-        GameEndActivity gameEndActivity=new GameEndActivity();
-    }
 }

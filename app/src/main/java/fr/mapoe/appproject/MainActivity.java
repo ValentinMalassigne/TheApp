@@ -45,7 +45,4 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public static void resetMainActivity(){
-        MainActivity mainActivity=new MainActivity();
-    }
 }
