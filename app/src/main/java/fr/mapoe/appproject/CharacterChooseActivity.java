@@ -293,8 +293,4 @@ public class CharacterChooseActivity extends AppCompatActivity {
         startActivity(mainActivity);
         finish();
     }
-    public static String[][] getPlayersFromCharacterChoose() { return tabJoueurs; }
-
-
-
 }
