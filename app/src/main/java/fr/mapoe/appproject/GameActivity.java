@@ -17,13 +17,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
-    public static String[][] TAB_PLAYER = CharacterChooseActivity.getPlayersFromCharacterChoose();
-    public static String[][] scoreTab = new String[TAB_PLAYER.length][2];
 
+
+    private String[] playerTab, alcoholTab, scoreTab;
     private ArrayList<String> challengeList=new ArrayList<String>();
     private ArrayList<String> miniGamesList = new ArrayList<String>();
     private ArrayList<String> sentenceList = new ArrayList<String>();
@@ -41,6 +42,7 @@ public class GameActivity extends AppCompatActivity {
     private Activity activity;
     private int turnNumber=-1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +50,21 @@ public class GameActivity extends AppCompatActivity {
         AnimationBg.startBackgroundAnimation(findViewById(R.id.game_layout));
         this.activity = this;
         this.gameLayout = (ConstraintLayout) findViewById(R.id.game_layout);
+
+
+
+        // recuperer les données
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            playerTab = extras.getStringArray("playerTab");
+            alcoholTab = extras.getStringArray("alcoholTab");
+        }
+
+
+        // initialisation du tableau scoreTab et le remplir
+        scoreTab = new String[playerTab.length];
+        Arrays.fill(scoreTab, "0");
+
         //setUp des list
         try {
             SetupList();
@@ -55,18 +72,14 @@ public class GameActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //pour test le score
-        for(int i=0;i<scoreTab.length;i++){
-            scoreTab[i][0]= TAB_PLAYER[i][0];
-            scoreTab[i][1] = "0";
-        }
+
         //Generer la popup du score
         this.scoreButton = (ImageButton) findViewById(R.id.score_button);
         scoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ScorePopup scorePopup = new ScorePopup(activity);
-                scorePopup.setScore(scoreTab);
+                scorePopup.setScore(playerTab,scoreTab);
                 scorePopup.build();
             }
         });
@@ -109,12 +122,12 @@ public class GameActivity extends AppCompatActivity {
 
                         // ajout au score
                         for (int i=0;i<scoreTab.length;i++){
-                            if (scoreTab[i][0].equals(currentPlayer)){
+                            if (playerTab[i].equals(currentPlayer)){
 
                                 int scoreInt = Integer.parseInt(currentChallenge[0]);
-                                int currentPlayerScore = Integer.parseInt(scoreTab[i][1]);
-
-                                scoreTab[i][1] = Integer.toString(scoreInt+currentPlayerScore);
+                                int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                                int newScore = scoreInt+currentPlayerScore;
+                                scoreTab[i] = Integer.toString(newScore);
                             }
                         }
                         Toast.makeText(getApplicationContext(), currentPlayer+" marque "+currentChallenge[0]+" points !"   , Toast.LENGTH_SHORT).show();
@@ -150,6 +163,8 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // ouvre l'activity End game
                 Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
+                gameEndActivity.putExtra("playerTab", playerTab);
+                gameEndActivity.putExtra("scoreTab", scoreTab);
                 startActivity(gameEndActivity);
                 finish();
 
@@ -163,7 +178,6 @@ public class GameActivity extends AppCompatActivity {
     }
     public void newDisplay(View view) throws IOException{
         getPlayerTurn();
-        String[] temp = new String[4];
         GetNextInformations();
         String phrase = currentChallenge[2];
         String type = currentChallenge[3];
@@ -251,16 +265,16 @@ public class GameActivity extends AppCompatActivity {
     private String getPunition(){
         String res="";
         int i=0;
-        while(!TAB_PLAYER[i][0].equals(currentPlayer)){
+        while(!playerTab[i].equals(currentPlayer)){
             i++;
         }
-        if(TAB_PLAYER[i][1].equals("drink0")){
+        if(alcoholTab[i].equals("drink0")){
             res="fais 5 pompes";
-        }else if(TAB_PLAYER[i][1].equals("drink1")){
+        }else if(alcoholTab[i].equals("drink1")){
             res="bois 1 gorgée";
-        } else if(TAB_PLAYER[i][1].equals("drink2")){
+        } else if(alcoholTab[i].equals("drink2")){
             res="bois 2 gorgées";
-        } else if(TAB_PLAYER[i][1].equals("drink3")){
+        } else if(alcoholTab[i].equals("drink3")){
             res="bois 3 gorgées";
         }
         return res;
@@ -364,8 +378,8 @@ public class GameActivity extends AppCompatActivity {
 
         if(!checkGameEnd()) {
             if (playerTurn.size()==0){
-                for (int i=0;i<TAB_PLAYER.length;i++){
-                    playerTurn.add(TAB_PLAYER[i][0]);
+                for (int i=0;i<playerTab.length;i++){
+                    playerTurn.add(playerTab[i]);
                 }
                 turnNumber++;//un tour correspond à avoir vidé la liste des joueurs cad que tout le monde ait joué
             }
@@ -411,17 +425,17 @@ public class GameActivity extends AppCompatActivity {
 
         while (res.equals(nom)){
             int min=0;
-            int max = TAB_PLAYER.length-1;
+            int max = playerTab.length-1;
             Random r = new Random();
             int number = r.nextInt((max - min) + 1) + min;
-            res=TAB_PLAYER[number][0];
+            res=playerTab[number];
         }
 
         return res;
     }
     private Boolean checkGameEnd(){
         Boolean res=false;
-        switch (TAB_PLAYER.length){
+        switch (playerTab.length){
             case 2:
                 if(turnNumber>=15){
                     res=true;
@@ -463,10 +477,4 @@ public class GameActivity extends AppCompatActivity {
         }
         return res;
     }
-
-    public static String[][] getScoreTab() {
-        return scoreTab;
-    }
-    
 }
-

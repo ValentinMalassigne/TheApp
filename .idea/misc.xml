@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/TheApp/app/src/main/res/layout/activity_about.xml" value="0.22083333333333333" />
+        <entry key="..\:/TheApp/app/src/main/res/layout/activity_game.xml" value="0.25416666666666665" />
+        <entry key="..\:/TheApp/app/src/main/res/layout/activity_popup_drink_selection.xml" value="0.25416666666666665" />
+        <entry key="..\:/TheApp/app/src/main/res/layout/info_popup.xml" value="0.25416666666666665" />
+        <entry key="..\:/TheApp/app/src/main/res/layout/score_popup.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout/activity_character_choose.xml" value="0.4" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout/activity_game.xml" value="0.264" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout/activity_game_end.xml" value="0.25416666666666665" />

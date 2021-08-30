@@ -22,8 +22,9 @@ public class GameEndActivity extends AppCompatActivity {
     private TableRow rowLayout;
     private TableLayout tableLayout;
     private Button menuButton;
-    private static String[][] SCORE_TAB = GameActivity.getScoreTab();
-    private String[][] tabClass = new String[SCORE_TAB.length][2];
+    private String[][] tabClass;
+    private String[] playerTab,scoreTab;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +32,24 @@ public class GameEndActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_end);
         AnimationBg.startBackgroundAnimation(findViewById(R.id.score_main_layout));
 
-
-
+        // recuperer les données
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            playerTab = extras.getStringArray("playerTab");
+            scoreTab = extras.getStringArray("scoreTab");
+        }
+        // remplir le tableau à 2 dim contenant pseudo+score
+        String[][] SCORE_TAB = new String[playerTab.length][2];
+        for(int i=0;i<SCORE_TAB.length;i++){
+                SCORE_TAB[i][0] = playerTab[i];
+                SCORE_TAB[i][1] = scoreTab[i];
+        }
         this.tableLayout = (TableLayout) findViewById(R.id.idTable);
         this.menuButton = (Button) findViewById(R.id.menu_button);
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
                 startActivity(mainActivity);
                 finish();
@@ -81,6 +93,7 @@ public class GameEndActivity extends AppCompatActivity {
         id++;
 
         // refaire un tableau dans le bonne ordre
+        tabClass = new String[SCORE_TAB.length][2];
         int index;
         int min;
         for (int i=0;i<SCORE_TAB.length;i++) {
@@ -136,10 +149,9 @@ public class GameEndActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
+
         Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
         startActivity(mainActivity);
         finish();
     }
-
-
 }

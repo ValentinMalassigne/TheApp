@@ -60,7 +60,7 @@ public class ScorePopup extends Dialog {
         rowLayout.addView(score);
         id++;
     }
-    public void setScore(String[][] scoreTab){
+    public void setScore(String[] playerTab,String[] scoreTab){
 
         this.tableLayout = (TableLayout) findViewById(R.id.idTable);
 
@@ -75,18 +75,18 @@ public class ScorePopup extends Dialog {
             row.setId(id);
             tableLayout.addView(row);
             this.rowLayout = (TableRow) findViewById(id);
-
+            // affichage du nom
             TextView name = new TextView(getContext());
-            name.setText(scoreTab[i][0]);
+            name.setText(playerTab[i]);
             name.setTypeface(typeface);
             name.setTextSize(25);
             name.setTextColor(Color.BLACK);
             rowLayout.addView(name);
 
 
-
+            // affichage du score
             TextView score = new TextView(getContext());
-            score.setText(scoreTab[i][1]);
+            score.setText(scoreTab[i]);
             score.setTypeface(typeface);
             score.setTextSize(25);
             score.setTextColor(Color.BLACK);
