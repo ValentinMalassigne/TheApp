@@ -435,36 +435,46 @@ public class GameActivity extends AppCompatActivity {
     }
     private Boolean checkGameEnd(){
         Boolean res=false;
-        if(playerTab.length==2 && turnNumber>=15){
-            res=true;
-        }
-        if(playerTab.length==3 && turnNumber>=10){
-            res=true;
-        }
-        if(playerTab.length==4 && turnNumber>=7){
-            res=true;
-        }
-        if(playerTab.length==5 && turnNumber>=6){
-            res=true;
-        }
-        if(playerTab.length==6 && turnNumber>=5){
-            res=true;
-        }
-        if(playerTab.length==7 && turnNumber>=4){
-            res=true;
-        }
-        if(playerTab.length==8 && turnNumber>=3){
-            res=true;
-        }
-        if(playerTab.length==9 && turnNumber>=3){
-            res=true;
-        }
-        if(playerTab.length>=10 && turnNumber>=3) {
-            res = true;
+        switch (playerTab.length){
+            case 2:
+                if(turnNumber>=15){
+                    res=true;
+                }
+                break;
+            case 3:
+                if(turnNumber>=10){
+                    res=true;
+                }
+                break;
+            case 4:
+                if(turnNumber>=7){
+                    res=true;
+                }
+                break;
+            case 5:
+                if(turnNumber>=6){
+                    res=true;
+                }
+                break;
+            case 6:
+                if(turnNumber>=5){
+                    res=true;
+                }
+                break;
+            case 7:
+                if(turnNumber>=4){
+                    res=true;
+                }
+                break;
+            case 8:
+            case 9:
+            case 10:
+                if(turnNumber>=3){
+                    res=true;
+                }
+                break;
+            default:
         }
         return res;
     }
-
-
-
 }

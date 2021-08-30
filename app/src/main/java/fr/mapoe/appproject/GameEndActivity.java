@@ -22,7 +22,7 @@ public class GameEndActivity extends AppCompatActivity {
     private TableRow rowLayout;
     private TableLayout tableLayout;
     private Button menuButton;
-    private String[][] SCORE_TAB,tabClass;
+    private String[][] tabClass;
     private String[] playerTab,scoreTab;
 
 

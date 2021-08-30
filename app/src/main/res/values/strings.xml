@@ -21,4 +21,10 @@
     <string name="info_text">N\'oublie pas de selectionner la quantitée d\'alcool du joueur en clickant sur</string>
     <string name="player1">Joueur 1</string>
     <string name="ok_button">Ok</string>
+    <string name="playe_name_hint">Nom Joueur </string>
+    <string name="previous_name_missing_error">Veuillez remplir le champ precedent.</string>
+    <string name="maximum_player_error">Vous avez atteint le nombre maximum de joueur.</string>
+    <string name="minimum_player_error">Impossible d\'être moins que 2 joueurs.</string>
+    <string name="missing_names_error">Veuillez remplir tous les champs.</string>
+    <string name="drink_0_message"> à pas soif</string>
 </resources>
