@@ -44,7 +44,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_choose);
-        
+
         Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.convergence);
 
 
@@ -195,20 +195,27 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
                 EditText LastEditText = findViewById(nbJoueurs);
 
+                String[] playerTab = new String[nbJoueurs], alcoholTab = new String[nbJoueurs];
+
                 if (!LastEditText.getText().toString().equals("")) {
                     tabJoueurs = new String[nbJoueurs][2];
                     for (int i = 0; i < nbJoueurs; i++) {
                         int temp = i + 1;
                         EditText editText = findViewById(temp);
                         String playerName = editText.getText().toString();
+                        playerTab[i] = playerName;
+                        alcoholTab[i] = tempTab[i];
                         tabJoueurs[i][0] = playerName;
                         tabJoueurs[i][1] = tempTab[i];
 
                     }
 
-                        Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
-                        startActivity(gameActivity);
-                        finish();
+                    Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
+                    gameActivity.putExtra("playerTab", playerTab);
+                    gameActivity.putExtra("alcoholTab", alcoholTab);
+                    startActivity(gameActivity);
+                    finish();
+
 
                 }
                 else
@@ -288,9 +295,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
     }
     public static String[][] getPlayersFromCharacterChoose() { return tabJoueurs; }
 
-    public static void resetCharacterChooseActivity(){
-        CharacterChooseActivity characterChooseActivity=new CharacterChooseActivity();
-    }
+
 
 }
-
