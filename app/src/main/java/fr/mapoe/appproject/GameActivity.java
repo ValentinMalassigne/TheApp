@@ -165,6 +165,7 @@ public class GameActivity extends AppCompatActivity {
                 Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
                 gameEndActivity.putExtra("playerTab", playerTab);
                 gameEndActivity.putExtra("scoreTab", scoreTab);
+                gameEndActivity.putExtra("cpt",turnNumber);
                 startActivity(gameEndActivity);
                 finish();
 
@@ -397,6 +398,8 @@ public class GameActivity extends AppCompatActivity {
         else{
             // ouvre l'activity End game
             Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
+            gameEndActivity.putExtra("playerTab", playerTab);
+            gameEndActivity.putExtra("scoreTab", scoreTab);
             startActivity(gameEndActivity);
             finish();
         }

@@ -9,34 +9,33 @@
     android:background="@drawable/gradient_list"
     android:gravity="center"
     tools:context=".MainActivity">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintTop_toTopOf="parent"
-    >
+
 
     <ImageButton
         android:id="@+id/x_button"
-        android:layout_width="30dp"
+        android:layout_width="32dp"
 
-        android:layout_height="30dp"
+        android:layout_height="32dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        android:src="@drawable/x_icon" />
+        android:src="@drawable/x_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageButton
         android:id="@+id/score_button"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="300dp"
-        android:src="@drawable/s_icon" />
+        android:src="@drawable/s_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
-</LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/main_layout"
@@ -44,8 +43,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="30dp">
 
         <TextView
             android:id="@+id/current_title_display"
@@ -78,6 +76,7 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             app:backgroundTint="@null" />
+
     </LinearLayout>
 
 

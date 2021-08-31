@@ -26,17 +26,19 @@ public class GameEndActivity extends AppCompatActivity {
     private String[] playerTab,scoreTab;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_end);
         AnimationBg.startBackgroundAnimation(findViewById(R.id.score_main_layout));
-
+        int turnNumber = 0;
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             playerTab = extras.getStringArray("playerTab");
             scoreTab = extras.getStringArray("scoreTab");
+
         }
         // remplir le tableau à 2 dim contenant pseudo+score
         String[][] SCORE_TAB = new String[playerTab.length][2];
@@ -44,6 +46,9 @@ public class GameEndActivity extends AppCompatActivity {
                 SCORE_TAB[i][0] = playerTab[i];
                 SCORE_TAB[i][1] = scoreTab[i];
         }
+        
+
+        
         this.tableLayout = (TableLayout) findViewById(R.id.idTable);
         this.menuButton = (Button) findViewById(R.id.menu_button);
         menuButton.setOnClickListener(new View.OnClickListener() {

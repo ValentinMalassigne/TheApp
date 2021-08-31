@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout = "@id/main_layout"
     android:background="@drawable/gradient_list"
+    android:layout="@id/main_layout"
     tools:context=".CharacterChooseActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="396dp"
-        android:layout_height="413dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_margin="10sp"
         android:orientation="vertical"
-        android:padding="10sp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="7dp"
         tools:ignore="MissingConstraints">
 
         <TextView
@@ -32,24 +33,26 @@
 
         <Button
             android:id="@+id/add_player_button"
-            app:backgroundTint="@null"
             android:layout_width="180dp"
             android:layout_height="50dp"
+            android:layout_gravity="center"
             android:background="@drawable/button_shape"
+            android:text="@string/addPlayer_button"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
-            android:layout_gravity="center"
-            android:text="@string/addPlayer_button" />
+            app:backgroundTint="@null" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="321dp">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/myDynamicLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:orientation="vertical">
+
+            </LinearLayout>
         </ScrollView>
 
     </LinearLayout>
@@ -66,34 +69,34 @@
 
         <Button
             android:id="@+id/menu_button"
-            app:backgroundTint="@null"
             android:layout_width="180dp"
             android:layout_height="50dp"
-            android:background="@drawable/button_shape"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
             android:layout_gravity="left"
             android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
+            android:background="@drawable/button_shape"
             android:text="@string/menu_button"
-            android:layout_marginLeft="10dp" />
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            app:backgroundTint="@null" />
 
         <Button
             android:id="@+id/game_button"
-            app:backgroundTint="@null"
             android:layout_width="180dp"
             android:layout_height="50dp"
-            android:background="@drawable/button_shape"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
             android:layout_alignParentEnd="false"
+            android:layout_alignParentRight="false"
             android:layout_gravity="right"
             android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
+            android:background="@drawable/button_shape"
             android:text="@string/game_button"
-            android:layout_alignParentRight="false"
-            android:layout_marginRight="10dp" />
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            app:backgroundTint="@null" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

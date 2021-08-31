@@ -18,13 +18,12 @@
         android:textColor="@color/black"
         android:textSize="20dp" />
 
-        <ImageView
-            android:layout_marginTop="20dp"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:src="@drawable/drink_2"
-            ></ImageView>
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:src="@drawable/drink_2" />
     <Button
         android:layout_marginTop="50dp"
         app:backgroundTint="@null"
