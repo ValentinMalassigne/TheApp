@@ -9,10 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class GameSelectionActivity extends AppCompatActivity {
 
-    private Button backButton;
     private Button goToAbout;
-    private Button goToCharacter;
-    private Button goToSimpleWheel;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -20,7 +17,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_selection);
 
         // go to menu
-        this.backButton = (Button) findViewById(R.id.menu_button);
+        Button backButton = (Button) findViewById(R.id.menu_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,7 +28,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         });
 
         // go to character choose
-        this.goToCharacter = (Button) findViewById(R.id.game1_button);
+        Button goToCharacter = (Button) findViewById(R.id.character_choose_button);
         goToCharacter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,7 +39,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         });
 
         // go to Simple Wheel
-        this.goToSimpleWheel = (Button) findViewById(R.id.game2_button);
+        Button goToSimpleWheel = (Button) findViewById(R.id.wheel_button);
         goToSimpleWheel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,5 +49,22 @@ public class GameSelectionActivity extends AppCompatActivity {
             }
         });
 
+        // go to card game
+        Button goToCardGame = (Button) findViewById(R.id.card_button);
+        goToCardGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cardGameActivity = new Intent(getApplicationContext(), CardGameActivity.class);
+                startActivity(cardGameActivity);
+                finish();
+            }
+        });
+
+    }
+    @Override
+    public void onBackPressed() {
+        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(mainActivity);
+        finish();
     }
 }

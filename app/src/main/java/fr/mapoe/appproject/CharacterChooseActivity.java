@@ -359,8 +359,8 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
-        startActivity(mainActivity);
+        Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
+        startActivity(gameSelectionActivity);
         finish();
     }
 }

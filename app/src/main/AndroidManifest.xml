@@ -10,14 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppProject">
         <activity
+            android:name=".CardGameActivity"
+            android:screenOrientation="portrait"
+            android:exported="true" />
+        <activity
             android:name=".GameSelectionActivity"
             android:exported="true"
             android:label="@string/title_activity_game_selection"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppProject.NoActionBar" />
         <activity
             android:name=".SimpleWheelActivity"
             android:exported="true"
             android:label="@string/title_activity_simple_wheel"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppProject.NoActionBar" />
         <activity
             android:name=".GameEndActivity"
