@@ -53,5 +53,7 @@
     <string name="title_activity_game_selection">GameSelectionActivity</string>
     <string name="game2">Jeu 2</string>
     <string name="game1">jeu 1</string>
+    <string name="you_drink">Tu bois \ </string>
+    <string name="sips">\ gorgées.</string>
 
 </resources>
