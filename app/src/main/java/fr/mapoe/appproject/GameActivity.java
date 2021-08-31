@@ -67,7 +67,7 @@ public class GameActivity extends AppCompatActivity {
 
         //setUp des list
         try {
-            SetupList();
+            setUpList();
             newDisplay(gameLayout);
         } catch (IOException e) {
             e.printStackTrace();
@@ -189,48 +189,37 @@ public class GameActivity extends AppCompatActivity {
         currentTextDisplay.setText(phrase);
     }
 
-    public void SetupList() throws IOException {
+    public void setUpList() throws IOException {
 
-        InputStream inputStream;
-        inputStream = this.getResources().openRawResource(R.raw.gages);
+        String language = "fr";
+        InputStream inputStream = null;
+        if(language.equals("fr"))
+            inputStream = this.getResources().openRawResource(R.raw.frsentences);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
+        reader.readLine();
         String tempLine = reader.readLine();
-        while (tempLine!= null) {
-            gagesList.add(tempLine);
-            tempLine = reader.readLine();
-        }
-        inputStream.close();
-
-        inputStream = this.getResources().openRawResource(R.raw.anecdotes);
-        reader = new BufferedReader(new InputStreamReader(inputStream));
-
-        tempLine = reader.readLine();
-        while (tempLine != null) {
+        while (!tempLine.equals("gages")) {
             anecdotesList.add(tempLine);
             tempLine = reader.readLine();
         }
-
-        inputStream.close();
-        inputStream = this.getResources().openRawResource(R.raw.minijeux);
-        reader = new BufferedReader(new InputStreamReader(inputStream));
-
         tempLine = reader.readLine();
-        while (tempLine != null) {
+        while (!tempLine.equals("minigames")) {
+            gagesList.add(tempLine);
+            tempLine = reader.readLine();
+        }
+        tempLine = reader.readLine();
+        while (!tempLine.equals("questions")) {
             miniGamesList.add(tempLine);
             tempLine = reader.readLine();
         }
-
-        inputStream.close();
-        inputStream = this.getResources().openRawResource(R.raw.questionsactions);
-        reader = new BufferedReader(new InputStreamReader(inputStream));
-
         tempLine = reader.readLine();
-        while (tempLine != null) {
+        while (tempLine!=null) {
             sentenceList.add(tempLine);
             tempLine = reader.readLine();
         }
+
         inputStream.close();
+
     }
 
     public void GetNextInformations() throws  IOException
@@ -382,6 +371,7 @@ public class GameActivity extends AppCompatActivity {
                     playerTurn.add(playerTab[i]);
                 }
                 turnNumber++;//un tour correspond à avoir vidé la liste des joueurs cad que tout le monde ait joué
+
             }
             int min=0;
             int max = playerTurn.size()-1;
@@ -392,6 +382,8 @@ public class GameActivity extends AppCompatActivity {
         else{
             // ouvre l'activity End game
             Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
+            gameEndActivity.putExtra("playerTab", playerTab);
+            gameEndActivity.putExtra("scoreTab", scoreTab);
             startActivity(gameEndActivity);
             finish();
         }
@@ -433,6 +425,7 @@ public class GameActivity extends AppCompatActivity {
 
         return res;
     }
+
     private Boolean checkGameEnd(){
         Boolean res=false;
         switch (playerTab.length){
