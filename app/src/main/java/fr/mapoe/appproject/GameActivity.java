@@ -67,7 +67,7 @@ public class GameActivity extends AppCompatActivity {
 
         //setUp des list
         try {
-            SetupList();
+            setUpList();
             newDisplay(gameLayout);
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,23 +92,23 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 GameAnswerPopup gameAnswerPopup = new GameAnswerPopup(activity);
                 String answer = "";
-                boolean customAnswer = false;
+                Boolean customAnswer = false;
                 String currentText= "";
                 // envoie situationnel
 
                 if (currentChallenge[3].equals("Gage")){
-                    currentText =currentPlayer +" à reussi le gage ?";
+                    currentText =currentPlayer +" "+getString(R.string.gage_success_question);
                 }
                 if (currentChallenge[3].equals("Mini-Jeu")){
-                    currentText = currentPlayer+ " à t'il réussi le Mini-Jeu";
+                    currentText = currentPlayer+ getString(R.string.miniGame_success_question);
                 }
                 if (currentChallenge[3].equals("Question/Action")) {
-                    currentText = currentPlayer + " à t'il répondu/ fait l'action";
+                    currentText = currentPlayer +" "+ getString(R.string.answer_action_success);
                     customAnswer = true;
                     answer = currentChallenge[1];
                 }
                 if (currentChallenge[3].equals("Anecdote")){
-                    currentText = "L'annecdote de "+currentPlayer +" est-elle satisfaisante ?";
+                    currentText = getString(R.string.the_annecdote)+currentPlayer +" "+getString(R.string.satisfying_question);
                 }
 
                 // envoie
@@ -130,7 +130,7 @@ public class GameActivity extends AppCompatActivity {
                                 scoreTab[i] = Integer.toString(newScore);
                             }
                         }
-                        Toast.makeText(getApplicationContext(), currentPlayer+" marque "+currentChallenge[0]+" points !"   , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), currentPlayer+" "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points)   , Toast.LENGTH_SHORT).show();
                         gameAnswerPopup.dismiss();
                         try {
                             newDisplay(view);
@@ -165,7 +165,6 @@ public class GameActivity extends AppCompatActivity {
                 Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
                 gameEndActivity.putExtra("playerTab", playerTab);
                 gameEndActivity.putExtra("scoreTab", scoreTab);
-                gameEndActivity.putExtra("cpt",turnNumber);
                 startActivity(gameEndActivity);
                 finish();
 
@@ -190,48 +189,37 @@ public class GameActivity extends AppCompatActivity {
         currentTextDisplay.setText(phrase);
     }
 
-    public void SetupList() throws IOException {
+    public void setUpList() throws IOException {
 
-        InputStream inputStream;
-        inputStream = this.getResources().openRawResource(R.raw.gages);
+        String language = "fr";
+        InputStream inputStream = null;
+        if(language.equals("fr"))
+            inputStream = this.getResources().openRawResource(R.raw.frsentences);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
+        reader.readLine();
         String tempLine = reader.readLine();
-        while (tempLine!= null) {
-            gagesList.add(tempLine);
-            tempLine = reader.readLine();
-        }
-        inputStream.close();
-
-        inputStream = this.getResources().openRawResource(R.raw.anecdotes);
-        reader = new BufferedReader(new InputStreamReader(inputStream));
-
-        tempLine = reader.readLine();
-        while (tempLine != null) {
+        while (!tempLine.equals("gages")) {
             anecdotesList.add(tempLine);
             tempLine = reader.readLine();
         }
-
-        inputStream.close();
-        inputStream = this.getResources().openRawResource(R.raw.minijeux);
-        reader = new BufferedReader(new InputStreamReader(inputStream));
-
         tempLine = reader.readLine();
-        while (tempLine != null) {
+        while (!tempLine.equals("minigames")) {
+            gagesList.add(tempLine);
+            tempLine = reader.readLine();
+        }
+        tempLine = reader.readLine();
+        while (!tempLine.equals("questions")) {
             miniGamesList.add(tempLine);
             tempLine = reader.readLine();
         }
-
-        inputStream.close();
-        inputStream = this.getResources().openRawResource(R.raw.questionsactions);
-        reader = new BufferedReader(new InputStreamReader(inputStream));
-
         tempLine = reader.readLine();
-        while (tempLine != null) {
+        while (tempLine!=null) {
             sentenceList.add(tempLine);
             tempLine = reader.readLine();
         }
+
         inputStream.close();
+
     }
 
     public void GetNextInformations() throws  IOException
@@ -269,19 +257,14 @@ public class GameActivity extends AppCompatActivity {
         while(!playerTab[i].equals(currentPlayer)){
             i++;
         }
-        switch (alcoholTab[i]) {
-            case "drink0":
-                res = "fais 5 pompes";
-                break;
-            case "drink1":
-                res = "bois 1 gorgée";
-                break;
-            case "drink2":
-                res = "bois 2 gorgées";
-                break;
-            case "drink3":
-                res = "bois 3 gorgées";
-                break;
+        if(alcoholTab[i].equals("drink0")){
+            res=getString(R.string.drink0_punition);
+        }else if(alcoholTab[i].equals("drink1")){
+            res=getString(R.string.drink1_punition);
+        } else if(alcoholTab[i].equals("drink2")){
+            res=getString(R.string.drink2_punition);
+        } else if(alcoholTab[i].equals("drink3")){
+            res=getString(R.string.drink3_punition);
         }
         return res;
     }
@@ -294,12 +277,12 @@ public class GameActivity extends AppCompatActivity {
             if(sentence.substring(i,i+1).equals("§")){
                 if(Nom.equals("")) {
                     Nom=currentPlayer;
-                    res.append(" ").append(Nom).append(" ");
+                    res.append(Nom);
                 }else{
-                    res.append(" ").append(getRandomPlayer(Nom)).append(" ");
+                    res.append(getRandomPlayer(Nom));
                 }
             }else if(sentence.substring(i,i+1).equals("¤")) {
-                res.append(" ").append(getPunition()).append(" ");
+                res.append(getPunition());
             }else{
                 res.append(sentence.charAt(i));
             }
@@ -388,6 +371,7 @@ public class GameActivity extends AppCompatActivity {
                     playerTurn.add(playerTab[i]);
                 }
                 turnNumber++;//un tour correspond à avoir vidé la liste des joueurs cad que tout le monde ait joué
+
             }
             int min=0;
             int max = playerTurn.size()-1;
@@ -441,8 +425,9 @@ public class GameActivity extends AppCompatActivity {
 
         return res;
     }
+
     private Boolean checkGameEnd(){
-        boolean res=false;
+        Boolean res=false;
         switch (playerTab.length){
             case 2:
                 if(turnNumber>=15){

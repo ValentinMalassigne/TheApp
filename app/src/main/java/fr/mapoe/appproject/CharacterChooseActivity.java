@@ -85,7 +85,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                 }
             });
             EditText editText = new EditText(getApplicationContext());
-            editText.setHint("Nom joueur "+playerNb);
+            editText.setHint(getString(R.string.playe_name_hint)+" "+playerNb);
             editText.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT,8));
             editText.setId(playerNb); //id du premier editText : 1
             editText.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -170,7 +170,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
                         //ajout du text et du bouton au horizontal layout
                         EditText editText = new EditText(getApplicationContext());
-                        editText.setHint("Nom joueur "+playerNb);
+                        editText.setHint(getString(R.string.playe_name_hint)+" "+playerNb);
                         editText.setInputType(InputType.TYPE_CLASS_TEXT);
                         editText.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT,8));
                         editText.setId(playerNb); //id du premier editText : 1

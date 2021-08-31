@@ -21,10 +21,25 @@
     <string name="info_text">N\'oublie pas de selectionner la quantitée d\'alcool du joueur en clickant sur</string>
     <string name="player1">Joueur 1</string>
     <string name="ok_button">Ok</string>
-    <string name="playe_name_hint">Nom Joueur </string>
+    <string name="playe_name_hint">Nom Joueur</string>
     <string name="previous_name_missing_error">Veuillez remplir le champ precedent.</string>
     <string name="maximum_player_error">Vous avez atteint le nombre maximum de joueur.</string>
     <string name="minimum_player_error">Impossible d\'être moins que 2 joueurs.</string>
     <string name="missing_names_error">Veuillez remplir tous les champs.</string>
     <string name="drink_0_message"> à pas soif</string>
+    <string name="drink_1_message">à pas très soif</string>
+    <string name="drink_2_message">à soif</string>
+    <string name="drink_3_message">est déglingo</string>
+    <string name="gage_success_question"> à réussi le gage ?</string>
+    <string name="miniGame_success_question"> à t\'il réussi le Mini-Jeux</string>
+    <string name="answer_action_success"> à t\'il répondu/fait l\'action</string>
+    <string name="the_annecdote">L\'anecdote de </string>
+    <string name="satisfying_question"> est-elle satifaisante ?</string>
+    <string name="scoring"> marque </string>
+    <string name="points"> points !</string>
+    <string name="drink0_punition">fais 5 pompes !</string>
+    <string name="drink1_punition">bois 1 gorgée !</string>
+    <string name="drink2_punition">bois 2 gorgée !</string>
+    <string name="drink3_punition">bois 3 gorgée !</string>
+
 </resources>
