@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button goToOption;
-    private Button goToCharacter;
+    private Button gotToGameSelection;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,18 +31,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // go to character choose
-        this.goToCharacter = (Button) findViewById(R.id.game_button);
-        goToCharacter.setOnClickListener(new View.OnClickListener() {
+        // go to GameSelection
+        this.gotToGameSelection = (Button) findViewById(R.id.game_selection_button);
+        gotToGameSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent characterChooseActivity = new Intent(getApplicationContext(), CharacterChooseActivity.class);
-                startActivity(characterChooseActivity);
+                Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
+                startActivity(gameSelectionActivity);
                 finish();
             }
         });
-
-
 
     }
 

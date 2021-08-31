@@ -10,29 +10,44 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppProject">
         <activity
+            android:name=".GameSelectionActivity"
+            android:exported="true"
+            android:label="@string/title_activity_game_selection"
+            android:theme="@style/Theme.AppProject.NoActionBar" />
+        <activity
+            android:name=".SimpleWheelActivity"
+            android:exported="true"
+            android:label="@string/title_activity_simple_wheel"
+            android:theme="@style/Theme.AppProject.NoActionBar" />
+        <activity
             android:name=".GameEndActivity"
-            android:screenOrientation="portrait"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashScreenActivity"
-            android:screenOrientation="portrait"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".OptionActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".AboutActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".CharacterChooseActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".GameActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OptionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CharacterChooseActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GameActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

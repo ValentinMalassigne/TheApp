@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    android:id="@+id/menu_layout"
+    android:id="@+id/game_selection_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_list"
@@ -16,19 +16,30 @@
         android:gravity="center">
 
         <Button
-            android:id="@+id/game_selection_button"
+            android:id="@+id/game1_button"
             app:backgroundTint="@null"
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:background="@drawable/button_shape"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:text="@string/start_button"/>
+            android:text="@string/game1"/>
 
         <Button
             app:backgroundTint="@null"
-            android:id="@+id/option_button"
-            android:text="@string/option_button"
+            android:id="@+id/game2_button"
+            android:text="@string/game2"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:background="@drawable/button_shape"
+            android:layout_marginTop="20dp"
+            />
+        <Button
+            app:backgroundTint="@null"
+            android:id="@+id/menu_button"
+            android:text="@string/menu_button"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:layout_width="200dp"

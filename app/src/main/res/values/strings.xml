@@ -41,5 +41,17 @@
     <string name="drink1_punition">bois 1 gorgée !</string>
     <string name="drink2_punition">bois 2 gorgée !</string>
     <string name="drink3_punition">bois 3 gorgée !</string>
+    <string name="title_activity_simple_wheel">SimpleWheelActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_game_selection">GameSelectionActivity</string>
+    <string name="game2">Jeu 2</string>
+    <string name="game1">jeu 1</string>
 
 </resources>
