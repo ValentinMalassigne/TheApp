@@ -93,4 +93,10 @@ public class SimpleWheelActivity extends AppCompatActivity {
             sectorDegrees[i]=(i+1)*sectorDegree;
         }
     }
+    @Override
+    public void onBackPressed() {
+        Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
+        startActivity(gameSelectionActivity);
+        finish();
+    }
 }

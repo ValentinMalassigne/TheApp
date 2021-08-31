@@ -51,9 +51,14 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_game_selection">GameSelectionActivity</string>
-    <string name="game2">Jeu 2</string>
-    <string name="game1">jeu 1</string>
+    <string name="game2">Roulette</string>
+    <string name="game1">Apéro Chill</string>
+    <string name="game3">Rouge ou Noir</string>
     <string name="you_drink">Tu bois \ </string>
     <string name="sips">\ gorgées.</string>
+    <string name="win">Gagné</string>
+    <string name="loose">perdu</string>
+    <string name="remain">"Il reste "</string>
+    <string name="cardPack">cartes dans le paquet</string>
 
 </resources>
