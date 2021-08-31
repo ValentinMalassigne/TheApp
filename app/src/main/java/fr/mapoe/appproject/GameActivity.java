@@ -100,7 +100,7 @@ public class GameActivity extends AppCompatActivity {
                     currentText =currentPlayer +" "+getString(R.string.gage_success_question);
                 }
                 if (currentChallenge[3].equals("Mini-Jeu")){
-                    currentText = currentPlayer+ getString(R.string.miniGame_success_question);
+                    currentText = currentPlayer+" "+ getString(R.string.miniGame_success_question);
                 }
                 if (currentChallenge[3].equals("Question/Action")) {
                     currentText = currentPlayer +" "+ getString(R.string.answer_action_success);

@@ -77,7 +77,7 @@ public class GameEndActivity extends AppCompatActivity {
         this.rowLayout = (TableRow) findViewById(id);
 
         TextView name = new TextView(getApplicationContext());
-        name.setText("Nom");
+        name.setText(getString(R.string.name));
         name.setTypeface(typeface);
         name.setTextSize(25);
         name.setTextColor(Color.BLACK);
@@ -87,7 +87,7 @@ public class GameEndActivity extends AppCompatActivity {
 
 
         TextView score = new TextView(getApplicationContext());
-        score.setText("Score");
+        score.setText(getString(R.string.score));
         score.setTypeface(typeface);
         score.setTextSize(25);
         score.setTextColor(Color.BLACK);
