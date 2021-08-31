@@ -97,18 +97,18 @@ public class GameActivity extends AppCompatActivity {
                 // envoie situationnel
 
                 if (currentChallenge[3].equals("Gage")){
-                    currentText =currentPlayer +getString(R.string.gage_success_question);
+                    currentText =currentPlayer +" "+getString(R.string.gage_success_question);
                 }
                 if (currentChallenge[3].equals("Mini-Jeu")){
-                    currentText = currentPlayer+ getString(R.string.miniGame_success_question);
+                    currentText = currentPlayer+" "+ getString(R.string.miniGame_success_question);
                 }
                 if (currentChallenge[3].equals("Question/Action")) {
-                    currentText = currentPlayer + getString(R.string.answer_action_success);
+                    currentText = currentPlayer +" "+ getString(R.string.answer_action_success);
                     customAnswer = true;
                     answer = currentChallenge[1];
                 }
                 if (currentChallenge[3].equals("Anecdote")){
-                    currentText = getString(R.string.the_annecdote)+currentPlayer +getString(R.string.satisfying_question);
+                    currentText = getString(R.string.the_annecdote)+currentPlayer +" "+getString(R.string.satisfying_question);
                 }
 
                 // envoie
@@ -130,7 +130,7 @@ public class GameActivity extends AppCompatActivity {
                                 scoreTab[i] = Integer.toString(newScore);
                             }
                         }
-                        Toast.makeText(getApplicationContext(), currentPlayer+getString(R.string.scoring)+currentChallenge[0]+getString(R.string.points)   , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), currentPlayer+" "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points)   , Toast.LENGTH_SHORT).show();
                         gameAnswerPopup.dismiss();
                         try {
                             newDisplay(view);
@@ -277,12 +277,12 @@ public class GameActivity extends AppCompatActivity {
             if(sentence.substring(i,i+1).equals("§")){
                 if(Nom.equals("")) {
                     Nom=currentPlayer;
-                    res.append(" ").append(Nom).append(" ");
+                    res.append(Nom);
                 }else{
-                    res.append(" ").append(getRandomPlayer(Nom)).append(" ");
+                    res.append(getRandomPlayer(Nom));
                 }
             }else if(sentence.substring(i,i+1).equals("¤")) {
-                res.append(" ").append(getPunition()).append(" ");
+                res.append(getPunition());
             }else{
                 res.append(sentence.charAt(i));
             }

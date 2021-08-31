@@ -21,7 +21,7 @@
     <string name="info_text">N\'oublie pas de selectionner la quantitée d\'alcool du joueur en clickant sur</string>
     <string name="player1">Joueur 1</string>
     <string name="ok_button">Ok</string>
-    <string name="playe_name_hint">Nom Joueur </string>
+    <string name="playe_name_hint">Nom Joueur</string>
     <string name="previous_name_missing_error">Veuillez remplir le champ precedent.</string>
     <string name="maximum_player_error">Vous avez atteint le nombre maximum de joueur.</string>
     <string name="minimum_player_error">Impossible d\'être moins que 2 joueurs.</string>
@@ -37,9 +37,9 @@
     <string name="satisfying_question"> est-elle satifaisante ?</string>
     <string name="scoring"> marque </string>
     <string name="points"> points !</string>
-    <string name="drink0_punition"> fais 5 pompes !</string>
-    <string name="drink1_punition"> bois 1 gorgée !</string>
-    <string name="drink2_punition"> bois 2 gorgée !</string>
-    <string name="drink3_punition"> bois 3 gorgée !</string>
+    <string name="drink0_punition">fais 5 pompes !</string>
+    <string name="drink1_punition">bois 1 gorgée !</string>
+    <string name="drink2_punition">bois 2 gorgée !</string>
+    <string name="drink3_punition">bois 3 gorgée !</string>
 
 </resources>
