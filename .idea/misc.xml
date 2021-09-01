@@ -3,6 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/TheApp/app/src/main/res/drawable/black_button_shape.xml" value="0.202734375" />
+        <entry key="..\:/TheApp/app/src/main/res/drawable/button_shape.xml" value="0.202734375" />
+        <entry key="..\:/TheApp/app/src/main/res/drawable/gradient_1.xml" value="0.202734375" />
+        <entry key="..\:/TheApp/app/src/main/res/drawable/gradient_2.xml" value="0.1875" />
+        <entry key="..\:/TheApp/app/src/main/res/drawable/gradient_3.xml" value="0.202734375" />
+        <entry key="..\:/TheApp/app/src/main/res/drawable/gradient_4.xml" value="0.202734375" />
+        <entry key="..\:/TheApp/app/src/main/res/drawable/gradient_5.xml" value="0.202734375" />
+        <entry key="..\:/TheApp/app/src/main/res/drawable/gradient_6.xml" value="0.202734375" />
+        <entry key="..\:/TheApp/app/src/main/res/drawable/grandient_list2.xml" value="0.202734375" />
+        <entry key="..\:/TheApp/app/src/main/res/drawable/red_button_shape.xml" value="0.202734375" />
         <entry key="..\:/TheApp/app/src/main/res/layout/activity_about.xml" value="0.22083333333333333" />
         <entry key="..\:/TheApp/app/src/main/res/layout/activity_card.xml" value="0.4" />
         <entry key="..\:/TheApp/app/src/main/res/layout/activity_card_game.xml" value="0.20969202898550723" />

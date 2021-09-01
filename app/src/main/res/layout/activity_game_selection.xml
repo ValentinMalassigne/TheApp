@@ -40,11 +40,11 @@
             app:backgroundTint="@null"
             android:id="@+id/card_button"
             android:text="@string/game3"
-            android:textColor="#FFFFFF"
-            android:textSize="15sp"
             android:layout_width="200dp"
             android:layout_height="60dp"
-            android:background="@drawable/button_shape"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:background="@drawable/gradient_list2"
             android:layout_marginTop="20dp"
             />
         <Button

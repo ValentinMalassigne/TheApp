@@ -1,6 +1,7 @@
 package fr.mapoe.appproject;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,11 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 public class GameSelectionActivity extends AppCompatActivity {
 
     private Button goToAbout;
+    private AnimationDrawable animationDrawable;
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_selection);
+
 
         // go to menu
         Button backButton = (Button) findViewById(R.id.menu_button);
@@ -51,6 +54,9 @@ public class GameSelectionActivity extends AppCompatActivity {
 
         // go to card game
         Button goToCardGame = (Button) findViewById(R.id.card_button);
+        animationDrawable = (AnimationDrawable) goToCardGame.getBackground();
+        animationDrawable.setEnterFadeDuration(1500);
+        animationDrawable.setExitFadeDuration(1500);
         goToCardGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,5 +72,19 @@ public class GameSelectionActivity extends AppCompatActivity {
         Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(mainActivity);
         finish();
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(animationDrawable!=null && !animationDrawable.isRunning()){
+            animationDrawable.start();
+        }
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(animationDrawable!=null && animationDrawable.isRunning()){
+            animationDrawable.stop();
+        }
     }
 }

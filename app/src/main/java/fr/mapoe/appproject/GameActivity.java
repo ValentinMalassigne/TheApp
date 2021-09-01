@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +25,7 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity {
 
 
-
+    // sentence
     private String[] playerTab, alcoholTab, scoreTab;
     private ArrayList<String> challengeList=new ArrayList<String>();
     private ArrayList<String> miniGamesList = new ArrayList<String>();
@@ -33,14 +35,37 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String> gagesList = new ArrayList<String>();
     private String[] currentChallenge = new String[4];
     private String currentPlayer ="";
-    private ConstraintLayout gameLayout;
-    private TextView currentTextDisplay;
-    private TextView currentTitleDisplay;
-    private ImageButton scoreButton;
-    private ImageButton xButton;
-    private Button answerButton;
     private Activity activity;
     private int turnNumber=-1;
+    private LinearLayout mainLayout;
+    private LinearLayout cardBodyLayout;
+    private LinearLayout footerCardLayout;
+    private ImageView cardImage;
+    private final ArrayList<Integer> idRedCardList,idBlackCardList;
+    private TextView playerCardTurn;
+
+    {
+        idRedCardList = new ArrayList<Integer>(Arrays.asList
+                (R.drawable.h01, R.drawable.h02, R.drawable.h03, R.drawable.h04,
+                        R.drawable.h05, R.drawable.h06, R.drawable.h07, R.drawable.h08,
+                        R.drawable.h09, R.drawable.h10, R.drawable.h11, R.drawable.h12,
+                        R.drawable.h13, R.drawable.d01, R.drawable.d02, R.drawable.d03,
+                        R.drawable.d04, R.drawable.d05, R.drawable.d06, R.drawable.d07,
+                        R.drawable.d08, R.drawable.d09, R.drawable.d10, R.drawable.d11,
+                        R.drawable.d12, R.drawable.d13)
+        );
+    }
+    {
+        idBlackCardList = new ArrayList<Integer>(Arrays.asList
+                (R.drawable.c01, R.drawable.c02, R.drawable.c03, R.drawable.c04, R.drawable.c05,
+                        R.drawable.c06, R.drawable.c07, R.drawable.c08, R.drawable.c09,
+                        R.drawable.c10, R.drawable.c11, R.drawable.c12, R.drawable.c13,
+                        R.drawable.s01, R.drawable.s02, R.drawable.s03, R.drawable.s04,
+                        R.drawable.s05, R.drawable.s06, R.drawable.s07, R.drawable.s08,
+                        R.drawable.s09, R.drawable.s10, R.drawable.s11, R.drawable.s12,
+                        R.drawable.s13)
+        );
+    }
 
 
     @Override
@@ -49,9 +74,7 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         AnimationBg.startBackgroundAnimation(findViewById(R.id.game_layout));
         this.activity = this;
-        this.gameLayout = (ConstraintLayout) findViewById(R.id.game_layout);
-
-
+        ConstraintLayout gameLayout = (ConstraintLayout) findViewById(R.id.game_layout);
 
         // recuperer les données
         Bundle extras = getIntent().getExtras();
@@ -59,7 +82,6 @@ public class GameActivity extends AppCompatActivity {
             playerTab = extras.getStringArray("playerTab");
             alcoholTab = extras.getStringArray("alcoholTab");
         }
-
 
         // initialisation du tableau scoreTab et le remplir
         scoreTab = new String[playerTab.length];
@@ -74,7 +96,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
         //Generer la popup du score
-        this.scoreButton = (ImageButton) findViewById(R.id.score_button);
+        ImageButton scoreButton = (ImageButton) findViewById(R.id.score_button);
         scoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +108,7 @@ public class GameActivity extends AppCompatActivity {
 
         // Generer la popup réponse
 
-        this.answerButton = (Button) findViewById(R.id.answer_button);
+        Button answerButton = (Button) findViewById(R.id.answer_button);
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,7 +179,7 @@ public class GameActivity extends AppCompatActivity {
         });
 
 
-        this.xButton = (ImageButton) findViewById(R.id.x_button);
+        ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
         xButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,8 +204,8 @@ public class GameActivity extends AppCompatActivity {
         String phrase = currentChallenge[2];
         String type = currentChallenge[3];
 
-        this.currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
-        this.currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
+        TextView currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
+        TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
 
         currentTitleDisplay.setText(type);
         currentTextDisplay.setText(phrase);
@@ -411,11 +433,11 @@ public class GameActivity extends AppCompatActivity {
         return challengeList.remove(number);
     }
 
-    private String getRandomPlayer(String nom){
+    private String getRandomPlayer(String name){
 
-        String res=nom;
+        String res=name;
 
-        while (res.equals(nom)){
+        while (res.equals(name)){
             int min=0;
             int max = playerTab.length-1;
             Random r = new Random();
@@ -469,5 +491,139 @@ public class GameActivity extends AppCompatActivity {
             default:
         }
         return res;
+    }
+    private String randomCard(){
+        String cardColor = "";
+        Random generate = new Random(System.currentTimeMillis());
+
+        // si les 2 listes sont pleines
+        if(idBlackCardList.size()!=0 && idRedCardList.size()!=0) {
+            if (generate.nextBoolean()) {
+                // on tire une rouge
+                int rdmId = idRedCardList.remove(generate.nextInt(idRedCardList.size()));
+                cardImage.setImageResource(rdmId);
+                cardColor = "red";
+            }
+            else {
+                // on tire une noir
+                int rdmId = idBlackCardList.remove(generate.nextInt(idBlackCardList.size()));
+                cardImage.setImageResource(rdmId);
+                cardColor = "black";
+            }
+        }
+        // si rouge pleines et noir vide
+        else if(idRedCardList.size()!=0 && idBlackCardList.size()==0){
+            int rdmId = idRedCardList.remove(generate.nextInt(idRedCardList.size()));
+            cardImage.setImageResource(rdmId);
+            cardColor = "red";
+        }
+        // si rouge vide et noir pleines
+        else if(idRedCardList.size() ==0 && idBlackCardList.size()!=0){
+            int rdmId = idBlackCardList.remove(generate.nextInt(idBlackCardList.size()));
+            cardImage.setImageResource(rdmId);
+            cardColor = "black";
+        }
+        return cardColor;
+    }
+    private void startCardGame(){
+        //card
+
+        this.footerCardLayout = (LinearLayout) findViewById(R.id.footer_layout);
+        this.mainLayout = (LinearLayout) findViewById(R.id.main_layout);
+        this.cardBodyLayout = (LinearLayout) findViewById(R.id.card_body_layout);
+        this.playerCardTurn = (TextView) findViewById(R.id.player_name_display);
+
+        mainLayout.setVisibility(View.GONE);
+        footerCardLayout.setVisibility(View.VISIBLE);
+        cardBodyLayout.setVisibility(View.VISIBLE);
+        playerCardTurn.setText(currentPlayer + " à toi de jouer mon grand !");
+
+        // pour card Game
+        Button blackButton = (Button) findViewById(R.id.black_button);
+        Button redButton = (Button) findViewById(R.id.red_button);
+        Button nextButton = (Button) findViewById(R.id.next_button);
+        TextView cardColor = (TextView) findViewById(R.id.card_color_display);
+        TextView orText = (TextView) findViewById(R.id.or_text);
+        this.cardImage = (ImageView) findViewById(R.id.card_image);
+
+        blackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (randomCard().equals("black")) { // gagné
+                    cardColor.setText(R.string.win);
+
+                    // ajout au score
+                    for (int i=0;i<scoreTab.length;i++){
+                        if (playerTab[i].equals(currentPlayer)){
+
+                            int scoreInt = Integer.parseInt(currentChallenge[0]);
+                            int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                            int newScore = scoreInt+currentPlayerScore;
+                            scoreTab[i] = Integer.toString(newScore);
+                        }
+                    }
+                    Toast.makeText(getApplicationContext(), currentPlayer+" "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points)   , Toast.LENGTH_SHORT).show();
+                }
+                else{ //perdu
+                    cardColor.setText(getString(R.string.loose)+"\n"+ getPunition());
+
+                }
+                blackButton.setVisibility(View.GONE);
+                redButton.setVisibility(View.GONE);
+                orText.setVisibility(View.GONE);
+                playerCardTurn.setVisibility(View.GONE);
+                nextButton.setVisibility(View.VISIBLE);
+
+            }
+        });
+        redButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // gagné
+                if(randomCard().equals("red")){
+                    cardColor.setText(R.string.win);
+                    // ajout au score
+                    for (int i=0;i<scoreTab.length;i++){
+                        if (playerTab[i].equals(currentPlayer)){
+
+                            int scoreInt = Integer.parseInt(currentChallenge[0]);
+                            int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                            int newScore = scoreInt+currentPlayerScore;
+                            scoreTab[i] = Integer.toString(newScore);
+                        }
+                    }
+                    Toast.makeText(getApplicationContext(), currentPlayer+" "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points)   , Toast.LENGTH_SHORT).show();
+                }
+                // perdu
+                else{
+                    cardColor.setText(getString(R.string.loose)+"\n"+ getPunition());
+                }
+
+                blackButton.setVisibility(View.GONE);
+                redButton.setVisibility(View.GONE);
+                orText.setVisibility(View.GONE);
+                playerCardTurn.setVisibility(View.GONE);
+                nextButton.setVisibility(View.VISIBLE);
+
+            }
+        });
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // reviens à main
+                mainLayout.setVisibility(View.VISIBLE);
+                footerCardLayout.setVisibility(View.GONE);
+                cardBodyLayout.setVisibility(View.GONE);
+                // reinit les paramètre pour la prochaine fois
+                blackButton.setVisibility(View.VISIBLE);
+                redButton.setVisibility(View.VISIBLE);
+                orText.setVisibility(View.VISIBLE);
+                playerCardTurn.setVisibility(View.VISIBLE);
+                nextButton.setVisibility(View.GONE);
+                cardColor.setText("");
+                cardImage.setImageResource(R.drawable.cardback);
+            }
+        });
     }
 }
