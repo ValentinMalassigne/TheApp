@@ -52,11 +52,12 @@ public class CardGameActivity extends AppCompatActivity {
         Button redButton = (Button) findViewById(R.id.red_button);
         TextView cardColor = (TextView) findViewById(R.id.card_color_display);
         this.cardImage = (ImageView) findViewById(R.id.card_image);
-
+        Random generate = new Random(System.currentTimeMillis());
         blackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (randomCard().equals("black"))
+                int test = generate.nextInt(2);
+                if (randomCard(test).equals("black"))
                     cardColor.setText(R.string.win);
                 else
                     cardColor.setText(R.string.loose);
@@ -66,8 +67,9 @@ public class CardGameActivity extends AppCompatActivity {
         redButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int test = generate.nextInt(2);
 
-                if(randomCard().equals("red")){
+                if(randomCard(test).equals("red")){
                     cardColor.setText(R.string.win);
                 }
                 else
@@ -75,14 +77,14 @@ public class CardGameActivity extends AppCompatActivity {
             }
         });
     }
-    private String randomCard(){
+    private String randomCard(int test){
         String cardColor = "";
         Random generate = new Random(System.currentTimeMillis());
         TextView nbCard = (TextView) findViewById(R.id.nb_card);
 
         // si les 2 listes sont pleines
         if(idBlackCardList.size()!=0 && idRedCardList.size()!=0) {
-            if (generate.nextBoolean()) {
+            if (test==0) {
                 // on tire une rouge
                 int rdmId = idRedCardList.remove(generate.nextInt(idRedCardList.size()));
                 cardImage.setImageResource(rdmId);

@@ -492,13 +492,13 @@ public class GameActivity extends AppCompatActivity {
         }
         return res;
     }
-    private String randomCard(){
+    private String randomCard(int randomNumber){
         String cardColor = "";
         Random generate = new Random(System.currentTimeMillis());
 
         // si les 2 listes sont pleines
         if(idBlackCardList.size()!=0 && idRedCardList.size()!=0) {
-            if (generate.nextBoolean()) {
+            if (randomNumber==0) {
                 // on tire une rouge
                 int rdmId = idRedCardList.remove(generate.nextInt(idRedCardList.size()));
                 cardImage.setImageResource(rdmId);
@@ -547,10 +547,12 @@ public class GameActivity extends AppCompatActivity {
         this.cardImage = (ImageView) findViewById(R.id.card_image);
 
         blackButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-
-                if (randomCard().equals("black")) { // gagné
+                Random generate = new Random(System.currentTimeMillis());
+                int randomNumber = generate.nextInt(2);
+                if (randomCard(randomNumber).equals("black")) { // gagné
                     cardColor.setText(R.string.win);
 
                     // ajout au score
@@ -580,8 +582,10 @@ public class GameActivity extends AppCompatActivity {
         redButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Random generate = new Random(System.currentTimeMillis());
+                int randomNumber = generate.nextInt(2);
                 // gagné
-                if(randomCard().equals("red")){
+                if(randomCard(randomNumber).equals("red")){
                     cardColor.setText(R.string.win);
                     // ajout au score
                     for (int i=0;i<scoreTab.length;i++){
