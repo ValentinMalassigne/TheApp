@@ -7,6 +7,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -24,8 +27,6 @@ import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
-
-    // sentence
     private String[] playerTab, alcoholTab, scoreTab;
     private ArrayList<String> challengeList=new ArrayList<String>();
     private ArrayList<String> miniGamesList = new ArrayList<String>();
@@ -35,6 +36,7 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String> gagesList = new ArrayList<String>();
     private String[] currentChallenge = new String[4];
     private String currentPlayer ="";
+    private ConstraintLayout gameLayout;
     private Activity activity;
     private int turnNumber=-1;
     private LinearLayout mainLayout;
@@ -66,7 +68,6 @@ public class GameActivity extends AppCompatActivity {
                         R.drawable.s13)
         );
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,6 +189,7 @@ public class GameActivity extends AppCompatActivity {
                 gameEndActivity.putExtra("playerTab", playerTab);
                 gameEndActivity.putExtra("scoreTab", scoreTab);
                 startActivity(gameEndActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
 
             }
@@ -195,9 +197,8 @@ public class GameActivity extends AppCompatActivity {
 
     }
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() {}
 
-    }
     public void newDisplay(View view) throws IOException{
         getPlayerTurn();
         GetNextInformations();
@@ -209,6 +210,7 @@ public class GameActivity extends AppCompatActivity {
 
         currentTitleDisplay.setText(type);
         currentTextDisplay.setText(phrase);
+
     }
 
     public void setUpList() throws IOException {
@@ -246,31 +248,37 @@ public class GameActivity extends AppCompatActivity {
 
     public void GetNextInformations() throws  IOException
     {
-
         String type = getChallengeTurn();
         String[] tempTab =GetNextChallenge(type);
         String ligne = tempTab[1];
-        currentChallenge[3]= tempTab[0];
-        String points;
-        String answers;
-        String sentence;
-        points= ligne.substring(0,1);
+        if(ligne.equals("Spinning Wheel")){
+            setUpWheel();
+        }else if(ligne.equals("Red or Black")) {
+            startCardGame();
+        }else{
+            currentChallenge[3]= tempTab[0];
+            String points;
+            String answers;
+            String sentence;
+            points= ligne.substring(0,1);
 
-        boolean temp = false;
-        int i=0;
-        while (!temp){
-            if(ligne.substring(i,i+1).equals("ç")){
-                temp=true;
-            }else {
-                i++;
+            boolean temp = false;
+            int i=0;
+            while (!temp){
+                if(ligne.substring(i,i+1).equals("ç")){
+                    temp=true;
+                }else {
+                    i++;
+                }
             }
-        }
-        answers=ligne.substring(2,i);
-        sentence=ligne.substring(i+1);
+            answers=ligne.substring(2,i);
+            sentence=ligne.substring(i+1);
 
-        currentChallenge[0]=points;
-        currentChallenge[1]=SetNamesInSentence(answers);
-        currentChallenge[2]=SetNamesInSentence(sentence);
+            currentChallenge[0]=points;
+            currentChallenge[1]=SetNamesInSentence(answers);
+            currentChallenge[2]=SetNamesInSentence(sentence);
+        }
+
 
     }
     private String getPunition(){
@@ -385,7 +393,7 @@ public class GameActivity extends AppCompatActivity {
         return res;
     }
 
-    public void getPlayerTurn(){
+    private void getPlayerTurn(){
 
         if(!checkGameEnd()) {
             if (playerTurn.size()==0){
@@ -448,8 +456,8 @@ public class GameActivity extends AppCompatActivity {
         return res;
     }
 
-    private Boolean checkGameEnd(){
-        Boolean res=false;
+    private boolean checkGameEnd(){
+        boolean res=false;
         switch (playerTab.length){
             case 2:
                 if(turnNumber>=15){
@@ -492,6 +500,109 @@ public class GameActivity extends AppCompatActivity {
         }
         return res;
     }
+
+    private void setUpWheel(){
+        LinearLayout main_layout=findViewById(R.id.main_layout);
+        main_layout.setVisibility(View.GONE);
+        LinearLayout wheel_layout=findViewById(R.id.wheel_layout);
+        wheel_layout.setVisibility(View.VISIBLE);
+        TextView wheel_player_call = findViewById(R.id.wheel_player_call);
+        wheel_player_call.setText(currentPlayer+getString(R.string.wheel_player_call));
+        getWheelGame();
+    }
+
+    private void getWheelGame(){
+        final String[] sectors = {"0","3","2","1","1","2","1","1","1","2","1","3"};
+        final int[] sectorDegrees = new int[sectors.length];
+        final Random random = new Random();
+
+        ImageView spinBtn = findViewById(R.id.spinBtn);
+        ImageView wheel = findViewById(R.id.wheel);
+
+        spinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinWheel(random,sectors,sectorDegrees,wheel);
+            }
+        });
+
+        //on donne le degré lié à chaque valeur de la roue
+        int sectorDegree=360/sectors.length;
+        for(int i=0;i<sectors.length;i++){
+            sectorDegrees[i]=(i+1)*sectorDegree;
+        }
+
+    }
+
+    private void spinWheel(Random random,String[] sectors,int[] sectorDegrees, ImageView wheel){
+        int degree=0;
+        degree= random.nextInt(sectors.length-1);
+        RotateAnimation rotateAnimation = new RotateAnimation(0, (360* sectors.length)+sectorDegrees[degree],RotateAnimation.RELATIVE_TO_SELF,0.5f,RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(3600);
+        rotateAnimation.setFillAfter(true);
+        rotateAnimation.setInterpolator(new DecelerateInterpolator());
+        int finalDegree = degree;
+        rotateAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //on fait disparaitre le bouton de spin
+                ImageView spinBtn= findViewById(R.id.spinBtn);
+                spinBtn.setVisibility(View.GONE);
+
+                //on fait apparaitre le résultat de la roue
+                TextView wheel_result_display;
+                wheel_result_display= findViewById(R.id.wheel_result_display);
+                wheel_result_display.setVisibility(View.VISIBLE);
+                String result =currentPlayer+getString(R.string.you_drink)+sectors[sectors.length-(finalDegree +1)]+getString(R.string.sips);
+                wheel_result_display.setText(result);
+
+                // ajout au score
+                for (int i=0;i<scoreTab.length;i++){
+                    if (playerTab[i].equals(currentPlayer)){
+
+                        int scoreInt = Integer.parseInt(sectors[sectors.length-(finalDegree +1)]);
+                        int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                        int newScore = scoreInt+currentPlayerScore;
+                        scoreTab[i] = Integer.toString(newScore);
+                    }
+                }
+
+                //on fait apparaitre le bouton suivant
+                Button next_button = findViewById(R.id.next_button);
+                next_button.setVisibility(View.VISIBLE);
+                next_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //on fait disparaitre les elements de la roulette et on remet les textview de base
+                        LinearLayout main_layout=findViewById(R.id.main_layout);
+                        main_layout.setVisibility(View.VISIBLE);
+                        TextView wheel_result_display = findViewById(R.id.wheel_result_display);
+                        wheel_result_display.setVisibility(View.GONE);
+                        Button next_button = findViewById(R.id.next_button);
+                        next_button.setVisibility(View.GONE);
+                        LinearLayout wheel_layout=findViewById(R.id.wheel_layout);
+                        wheel_layout.setVisibility(View.GONE);
+                        //on supprime le gone du spinBtn car il doit être a nouveau visible si la roulette est encore appelée
+                        ImageView spinBtn= findViewById(R.id.spinBtn);
+                        spinBtn.setVisibility(View.VISIBLE);
+                        try {
+                            newDisplay(gameLayout);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        wheel.startAnimation(rotateAnimation);
+    }
+
     private String randomCard(int randomNumber){
         String cardColor = "";
         Random generate = new Random(System.currentTimeMillis());
@@ -525,6 +636,7 @@ public class GameActivity extends AppCompatActivity {
         }
         return cardColor;
     }
+
     private void startCardGame(){
         //card
 
@@ -541,15 +653,15 @@ public class GameActivity extends AppCompatActivity {
         // pour card Game
         Button blackButton = (Button) findViewById(R.id.black_button);
         Button redButton = (Button) findViewById(R.id.red_button);
-        Button nextButton = (Button) findViewById(R.id.next_button);
+        Button nextButton = (Button) findViewById(R.id.next_button_red_or_black_game);
         TextView cardColor = (TextView) findViewById(R.id.card_color_display);
         TextView orText = (TextView) findViewById(R.id.or_text);
         this.cardImage = (ImageView) findViewById(R.id.card_image);
 
         blackButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
+
                 Random generate = new Random(System.currentTimeMillis());
                 int randomNumber = generate.nextInt(2);
                 if (randomCard(randomNumber).equals("black")) { // gagné
@@ -584,7 +696,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Random generate = new Random(System.currentTimeMillis());
                 int randomNumber = generate.nextInt(2);
-                // gagné
+                //gagné
                 if(randomCard(randomNumber).equals("red")){
                     cardColor.setText(R.string.win);
                     // ajout au score

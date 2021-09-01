@@ -207,14 +207,15 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
 
 
-        // go to menu
+        // go to game selection
         this.goToMenu= (Button) findViewById(R.id.menu_button);
 
         goToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(mainActivity);
+                Intent gameSelectionActivity = new Intent(getApplicationContext(),GameSelectionActivity.class);
+                startActivity(gameSelectionActivity);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();
             }
         });
@@ -252,6 +253,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                     gameActivity.putExtra("playerTab", playerTab);
                     gameActivity.putExtra("alcoholTab", alcoholTab);
                     startActivity(gameActivity);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();
 
 
@@ -361,6 +363,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
         startActivity(gameSelectionActivity);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
         finish();
     }
 }

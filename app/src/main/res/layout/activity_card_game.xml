@@ -9,10 +9,10 @@
     android:gravity="center"
     android:id="@+id/card_game_layout"
     tools:context=".MainActivity">
+
     <ImageButton
         android:id="@+id/x_button"
         android:layout_width="32dp"
-
         android:layout_height="32dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
@@ -56,8 +56,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,10 +82,9 @@
 
         <Button
             android:id="@+id/red_button"
-
-            android:text="Rouge"
             android:textColor="#FFFFFF"
             android:textSize="23sp"
+            android:text="@string/red"
             app:backgroundTint="@null"
             android:layout_width="137dp"
             android:layout_height="52dp"
@@ -101,14 +98,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ou"
+            android:text="@string/or"
             android:textSize="20sp"
             android:fontFamily="@font/convergence"
             android:textColor="@color/black"
             android:layout_marginRight="30dp"
             android:layout_marginLeft="30dp" />
         <Button
-            android:text="Noir"
             android:textColor="#FFFFFF"
             android:textSize="23sp"
             android:layout_width="137dp"
@@ -118,6 +114,7 @@
             android:shadowDx="3"
             android:shadowDy="-1"
             android:shadowRadius="7"
+            android:text="@string/black"
             android:id="@+id/black_button"
             app:backgroundTint="@null" />
 

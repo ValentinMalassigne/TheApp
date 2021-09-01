@@ -49,29 +49,34 @@ public class CardGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_game);
 
-        AnimationBg.startBackgroundAnimation(findViewById(R.id.card_game_layout));
         ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
         xButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // ouvre l'activity End game
                 Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
                 startActivity(gameSelectionActivity);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();
+
             }
         });
+
+        AnimationBg.startBackgroundAnimation(findViewById(R.id.card_game_layout));
         Button blackButton = (Button) findViewById(R.id.black_button);
         Button redButton = (Button) findViewById(R.id.red_button);
         TextView cardColor = (TextView) findViewById(R.id.card_color_display);
         this.cardImage = (ImageView) findViewById(R.id.card_image);
         this.nbCard = (TextView) findViewById(R.id.nb_card);
+
         Random generate = new Random(System.currentTimeMillis());
         blackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String nb = Integer.toString(idBlackCardList.size()+idRedCardList.size()-1);
                 nbCard.setText(nb);
-                int test = generate.nextInt(2);
-                if (randomCard(test).equals("black"))
+                int randomNumber = generate.nextInt(2);
+                if (randomCard(randomNumber).equals("black"))
                     cardColor.setText(R.string.win);
                 else
                     cardColor.setText(R.string.loose);
@@ -83,8 +88,8 @@ public class CardGameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String nb = Integer.toString(idBlackCardList.size()+idRedCardList.size()-1);
                 nbCard.setText(nb);
-                int test = generate.nextInt(2);
-                if(randomCard(test).equals("red")){
+                int randomNumber = generate.nextInt(2);
+                if(randomCard(randomNumber).equals("red")){
                     cardColor.setText(R.string.win);
                 }
                 else
@@ -92,14 +97,14 @@ public class CardGameActivity extends AppCompatActivity {
             }
         });
     }
-    private String randomCard(int test){
+    private String randomCard(int randomNumber){
         String cardColor = "";
         Random generate = new Random(System.currentTimeMillis());
         this.nbCard = (TextView) findViewById(R.id.nb_card);
 
         // si les 2 listes sont pleines
         if(idBlackCardList.size()!=0 && idRedCardList.size()!=0) {
-            if (test==0) {
+            if (randomNumber==0) {
                 // on tire une rouge
                 int rdmId = idRedCardList.remove(generate.nextInt(idRedCardList.size()));
                 cardImage.setImageResource(rdmId);
@@ -108,7 +113,6 @@ public class CardGameActivity extends AppCompatActivity {
             else {
                 // on tire une noir
                 int rdmId = idBlackCardList.remove(generate.nextInt(idBlackCardList.size()));
-                //nbCard.setText(getString(idBlackCardList.size()+idRedCardList.size()));
                 cardImage.setImageResource(rdmId);
                 cardColor = "black";
 
@@ -124,18 +128,17 @@ public class CardGameActivity extends AppCompatActivity {
         else if(idRedCardList.size() ==0 && idBlackCardList.size()!=0){
             int rdmId = idBlackCardList.remove(generate.nextInt(idBlackCardList.size()));
             cardImage.setImageResource(rdmId);
-            cardColor = "black";
-        }
-        // si les 2 sont vides
-        else if(idRedCardList.size()==0 && idBlackCardList.size()==0){
 
+            cardColor = "black";
         }
         return cardColor;
     }
+
     @Override
     public void onBackPressed() {
         Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
         startActivity(gameSelectionActivity);
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         finish();
     }
 }

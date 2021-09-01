@@ -47,21 +47,24 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Suivant</string>
     <string name="previous">Previous</string>
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_game_selection">GameSelectionActivity</string>
     <string name="game2">Roulette</string>
     <string name="game1">Apéro Chill</string>
     <string name="game3">Rouge ou Noir</string>
-    <string name="you_drink">Tu bois \ </string>
+    <string name="you_drink">\ bois\ </string>
     <string name="sips">\ gorgées.</string>
     <string name="win">Gagné</string>
     <string name="loose">perdu</string>
     <string name="remain">"Il reste "</string>
     <string name="cardPack">cartes dans le paquet</string>
-    <string name="or">Ou</string>
+    <string name="next_button">suivant</string>
+    <string name="wheel_player_call">\ lance la roue en cliquant sur SPIN</string>
+    <string name="or">ou</string>
     <string name="black">Noir</string>
-    <string name="end_of_fun">Fin du fun</string>
+    <string name="red">Rouge</string>
+    <string name="end_of_black_or_red">Fin du fun</string>
+    <string name="games_election_button">Choix du Jeu</string>
 
 </resources>

@@ -26,7 +26,7 @@
             android:gravity="center"
             android:text="@string/game_end_title"
             android:textColor="@color/black"
-            android:textSize="25dp" />
+            android:textSize="25sp" />
 
         <ScrollView
             android:layout_width="match_parent"

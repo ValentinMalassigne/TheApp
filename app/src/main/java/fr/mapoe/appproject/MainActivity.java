@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent optionActivity = new Intent(getApplicationContext(), OptionActivity.class);
                 startActivity(optionActivity);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();
             }
         });
@@ -34,10 +35,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
                 startActivity(gameSelectionActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
 
     }
+
+    @Override
+    public void onBackPressed() {}
 
 }

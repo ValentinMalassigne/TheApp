@@ -22,9 +22,16 @@ public class AboutActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent optionActivity = new Intent(getApplicationContext(), OptionActivity.class);
                 startActivity(optionActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(mainActivity);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+        finish();
+    }
 }
-//test git Aurélien

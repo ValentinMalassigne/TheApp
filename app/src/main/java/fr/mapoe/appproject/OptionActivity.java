@@ -24,6 +24,7 @@ public class OptionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
                 startActivity(mainActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
@@ -35,9 +36,20 @@ public class OptionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent aboutActivity = new Intent(getApplicationContext(), AboutActivity.class);
                 startActivity(aboutActivity);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();
             }
         });
 
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(mainActivity);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+        finish();
     }
 }

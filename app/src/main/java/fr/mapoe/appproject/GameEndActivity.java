@@ -57,6 +57,7 @@ public class GameEndActivity extends AppCompatActivity {
 
                 Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
                 startActivity(mainActivity);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();
             }
         });
@@ -157,6 +158,7 @@ public class GameEndActivity extends AppCompatActivity {
 
         Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
         startActivity(mainActivity);
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         finish();
     }
 }
