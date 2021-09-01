@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,15 +24,28 @@ public class SimpleWheelActivity extends AppCompatActivity {
     private boolean isSpinning=false;
 
     private ImageView wheel;
-    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_wheel);
 
+        ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
+        xButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // ouvre l'activity GameSelection
+                Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
+                startActivity(gameSelectionActivity);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+                finish();
+
+            }
+        });
+
         final ImageView spinBtn = findViewById(R.id.spinBtn);
         wheel = findViewById(R.id.wheel);
+
 
         AnimationBg.startBackgroundAnimation(findViewById(R.id.simple_wheel_layout));
 
@@ -44,17 +58,6 @@ public class SimpleWheelActivity extends AppCompatActivity {
                     spin();
                     isSpinning=true;
                 }
-            }
-        });
-
-        // go to menu
-        this.backButton = (Button) findViewById(R.id.menu_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
-                startActivity(mainActivity);
-                finish();
             }
         });
     }
@@ -97,6 +100,7 @@ public class SimpleWheelActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
         startActivity(gameSelectionActivity);
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         finish();
     }
 }

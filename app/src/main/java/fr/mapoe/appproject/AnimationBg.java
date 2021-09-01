@@ -1,6 +1,7 @@
 package fr.mapoe.appproject;
 
 import android.graphics.drawable.AnimationDrawable;
+import android.widget.Button;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -15,4 +16,6 @@ public class AnimationBg {
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
     }
+
+
 }

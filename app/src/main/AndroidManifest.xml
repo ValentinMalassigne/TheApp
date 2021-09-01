@@ -12,6 +12,7 @@
         <activity
             android:name=".CardGameActivity"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppProject.NoActionBar"
             android:exported="true" />
         <activity
             android:name=".GameSelectionActivity"
@@ -28,10 +29,12 @@
         <activity
             android:name=".GameEndActivity"
             android:exported="true"
+            android:theme="@style/Theme.AppProject.NoActionBar"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true"
+            android:theme="@style/Theme.AppProject.NoActionBar"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,19 +44,25 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppProject.NoActionBar"/>
         <activity
             android:name=".OptionActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppProject.NoActionBar"/>
         <activity
             android:name=".AboutActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppProject.NoActionBar"
+            />
         <activity
             android:name=".CharacterChooseActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppProject.NoActionBar"/>
         <activity
             android:name=".GameActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppProject.NoActionBar"/>
 
         <meta-data
             android:name="preloaded_fonts"
