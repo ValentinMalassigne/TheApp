@@ -3,9 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
-    android:layout_height="500dp"
+    android:layout_height="300dp"
     android:orientation="vertical"
-    android:layout_gravity="center" >
+    android:layout_gravity="center"
+    android:background="@drawable/popupbg_shape"
+    android:id="@+id/info_layout">
 
     <TextView
         android:layout_width="wrap_content"
