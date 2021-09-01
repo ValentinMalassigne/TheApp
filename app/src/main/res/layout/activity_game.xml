@@ -34,16 +34,24 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-
-
-
+<!--
+    <Button
+        android:id="@+id/roulette_button"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/button_shape"
+        android:text="roulette"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:backgroundTint="@null"
+        tools:ignore="MissingConstraints" />
+-->
     <LinearLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteY="30dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/current_title_display"
@@ -77,6 +85,67 @@
             android:textSize="18sp"
             app:backgroundTint="@null" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wheel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/wheel_player_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/convergence"
+            android:gravity="center"
+            android:text="@string/first_display_text"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:src="@drawable/arrow"/>
+
+        <ImageView
+            android:id="@+id/wheel"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/wheel"
+            />
+
+        <ImageView
+            android:id="@+id/spinBtn"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:src="@drawable/spin"/>
+
+        <TextView
+            android:id="@+id/wheel_result_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/convergence"
+            android:gravity="center"
+            android:text="@string/first_display_text"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_shape"
+            android:text="@string/next_button"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:backgroundTint="@null"
+            android:visibility="gone" />
     </LinearLayout>
 
 

@@ -24,6 +24,7 @@ minigames
 4 nullç§ va chercher un objet que § choisit, si § ramène l'objet avant toi tu bois ¤ gorgées
 4 nullç§ et § décrivez la vie de § en disant un mot chacun votre tour
 4 nullç§ raconte une anecdote (vrai ou fausse), les autres doivent devinée si elle est vrai ou fausse.
+Spinning Wheel
 questions
 1 si oui¤ç§ as-tu déjà été bourré avec ta famille ?
 1 si les autres ne sont pas d'accord ¤ç§ qui tient le mieux l'alcool dans le groupe ?

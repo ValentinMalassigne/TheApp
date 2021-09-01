@@ -7,10 +7,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -83,6 +90,16 @@ public class GameActivity extends AppCompatActivity {
                 scorePopup.build();
             }
         });
+
+        //bouton de test
+        /*Button roulette_button;
+        roulette_button = (Button) findViewById(R.id.roulette_button);
+        roulette_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setUpWheel();
+            }
+        });*/
 
         // Generer la popup réponse
 
@@ -187,6 +204,7 @@ public class GameActivity extends AppCompatActivity {
 
         currentTitleDisplay.setText(type);
         currentTextDisplay.setText(phrase);
+
     }
 
     public void setUpList() throws IOException {
@@ -228,27 +246,32 @@ public class GameActivity extends AppCompatActivity {
         String type = getChallengeTurn();
         String[] tempTab =GetNextChallenge(type);
         String ligne = tempTab[1];
-        currentChallenge[3]= tempTab[0];
-        String points;
-        String answers;
-        String sentence;
-        points= ligne.substring(0,1);
+        if(ligne.equals("Spinning Wheel")){
+            setUpWheel();
+        }else{
+            currentChallenge[3]= tempTab[0];
+            String points;
+            String answers;
+            String sentence;
+            points= ligne.substring(0,1);
 
-        boolean temp = false;
-        int i=0;
-        while (!temp){
-            if(ligne.substring(i,i+1).equals("ç")){
-                temp=true;
-            }else {
-                i++;
+            boolean temp = false;
+            int i=0;
+            while (!temp){
+                if(ligne.substring(i,i+1).equals("ç")){
+                    temp=true;
+                }else {
+                    i++;
+                }
             }
-        }
-        answers=ligne.substring(2,i);
-        sentence=ligne.substring(i+1);
+            answers=ligne.substring(2,i);
+            sentence=ligne.substring(i+1);
 
-        currentChallenge[0]=points;
-        currentChallenge[1]=SetNamesInSentence(answers);
-        currentChallenge[2]=SetNamesInSentence(sentence);
+            currentChallenge[0]=points;
+            currentChallenge[1]=SetNamesInSentence(answers);
+            currentChallenge[2]=SetNamesInSentence(sentence);
+        }
+
 
     }
     private String getPunition(){
@@ -363,7 +386,7 @@ public class GameActivity extends AppCompatActivity {
         return res;
     }
 
-    public void getPlayerTurn(){
+    private void getPlayerTurn(){
 
         if(!checkGameEnd()) {
             if (playerTurn.size()==0){
@@ -469,5 +492,107 @@ public class GameActivity extends AppCompatActivity {
             default:
         }
         return res;
+    }
+
+    private void setUpWheel(){
+        LinearLayout main_layout=findViewById(R.id.main_layout);
+        main_layout.setVisibility(View.GONE);
+        LinearLayout wheel_layout=findViewById(R.id.wheel_layout);
+        wheel_layout.setVisibility(View.VISIBLE);
+        TextView wheel_player_call = findViewById(R.id.wheel_player_call);
+        wheel_player_call.setText(currentPlayer+getString(R.string.wheel_player_call));
+        getWheelGame();
+    }
+
+    private void getWheelGame(){
+        final String[] sectors = {"0","3","2","1","1","2","1","1","1","2","1","3"};
+        final int[] sectorDegrees = new int[sectors.length];
+        final Random random = new Random();
+
+        ImageView spinBtn = findViewById(R.id.spinBtn);
+        ImageView wheel = findViewById(R.id.wheel);
+
+        spinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinWheel(random,sectors,sectorDegrees,wheel);
+            }
+        });
+
+        //on donne le degré lié à chaque valeur de la roue
+        int sectorDegree=360/sectors.length;
+        for(int i=0;i<sectors.length;i++){
+            sectorDegrees[i]=(i+1)*sectorDegree;
+        }
+
+    }
+
+    private void spinWheel(Random random,String[] sectors,int[] sectorDegrees, ImageView wheel){
+        int degree=0;
+        degree= random.nextInt(sectors.length-1);
+        RotateAnimation rotateAnimation = new RotateAnimation(0, (360* sectors.length)+sectorDegrees[degree],RotateAnimation.RELATIVE_TO_SELF,0.5f,RotateAnimation.RELATIVE_TO_SELF, 0.5f);
+        rotateAnimation.setDuration(3600);
+        rotateAnimation.setFillAfter(true);
+        rotateAnimation.setInterpolator(new DecelerateInterpolator());
+        int finalDegree = degree;
+        rotateAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {}
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                //on fait disparaitre le bouton de spin
+                ImageView spinBtn= findViewById(R.id.spinBtn);
+                spinBtn.setVisibility(View.GONE);
+
+                //on fait apparaitre le résultat de la roue
+                TextView wheel_result_display;
+                wheel_result_display= findViewById(R.id.wheel_result_display);
+                wheel_result_display.setVisibility(View.VISIBLE);
+                String result =currentPlayer+getString(R.string.you_drink)+sectors[sectors.length-(finalDegree +1)]+getString(R.string.sips);
+                wheel_result_display.setText(result);
+
+                // ajout au score
+                for (int i=0;i<scoreTab.length;i++){
+                    if (playerTab[i].equals(currentPlayer)){
+
+                        int scoreInt = Integer.parseInt(sectors[sectors.length-(finalDegree +1)]);
+                        int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                        int newScore = scoreInt+currentPlayerScore;
+                        scoreTab[i] = Integer.toString(newScore);
+                    }
+                }
+
+                //on fait apparaitre le bouton suivant
+                Button next_button = findViewById(R.id.next_button);
+                next_button.setVisibility(View.VISIBLE);
+                next_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //on fait disparaitre les elements de la roulette et on remet les textview de base
+                        LinearLayout main_layout=findViewById(R.id.main_layout);
+                        main_layout.setVisibility(View.VISIBLE);
+                        TextView wheel_result_display = findViewById(R.id.wheel_result_display);
+                        wheel_result_display.setVisibility(View.GONE);
+                        Button next_button = findViewById(R.id.next_button);
+                        next_button.setVisibility(View.GONE);
+                        LinearLayout wheel_layout=findViewById(R.id.wheel_layout);
+                        wheel_layout.setVisibility(View.GONE);
+                        //on supprime le gone du spinBtn car il doit être a nouveau visible si la roulette est encore appelée
+                        ImageView spinBtn= findViewById(R.id.spinBtn);
+                        spinBtn.setVisibility(View.VISIBLE);
+                        try {
+                            newDisplay(gameLayout);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        wheel.startAnimation(rotateAnimation);
     }
 }
