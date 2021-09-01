@@ -9,6 +9,42 @@
     android:gravity="center"
     android:id="@+id/card_game_layout"
     tools:context=".MainActivity">
+    <ImageButton
+        android:id="@+id/x_button"
+        android:layout_width="32dp"
+
+        android:layout_height="32dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/x_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nb_card"
+        android:layout_marginRight="10dp"
+        android:fontFamily="@font/convergence"
+        android:text="52"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText">
+        ></TextView>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/cardback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -20,14 +56,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/nb_card"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="25sp" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,8 +68,8 @@
             android:textSize="25sp" />
 
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="200dp"
+            android:layout_width="180dp"
+            android:layout_height="250dp"
             android:id="@+id/card_image"
             android:src="@drawable/cardback" />
     </LinearLayout>

@@ -1,18 +1,14 @@
 package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+
 public class MainActivity extends AppCompatActivity {
-    private Button goToOption;
-    private Button gotToGameSelection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         AnimationBg.startBackgroundAnimation(findViewById(R.id.menu_layout));
 
         //go to option
-        this.goToOption = (Button) findViewById(R.id.option_button);
+        Button goToOption = (Button) findViewById(R.id.option_button);
         goToOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // go to GameSelection
-        this.gotToGameSelection = (Button) findViewById(R.id.game_selection_button);
+        Button gotToGameSelection = (Button) findViewById(R.id.game_selection_button);
         gotToGameSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

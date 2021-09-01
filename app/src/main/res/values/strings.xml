@@ -62,5 +62,6 @@
     <string name="cardPack">cartes dans le paquet</string>
     <string name="or">Ou</string>
     <string name="black">Noir</string>
+    <string name="end_of_fun">Fin du fun</string>
 
 </resources>
