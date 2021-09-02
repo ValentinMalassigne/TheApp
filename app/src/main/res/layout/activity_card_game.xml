@@ -10,42 +10,6 @@
     android:id="@+id/card_game_layout"
     tools:context=".MainActivity">
 
-    <ImageButton
-        android:id="@+id/x_button"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/x_icon"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/nb_card"
-        android:layout_marginRight="10dp"
-        android:fontFamily="@font/convergence"
-        android:text="52"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText">
-        ></TextView>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/cardback"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -59,6 +23,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/nb_card"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/card_color_display"
             android:layout_marginBottom="20dp"
             android:gravity="center"
@@ -66,8 +39,8 @@
             android:textSize="25sp" />
 
         <ImageView
-            android:layout_width="180dp"
-            android:layout_height="250dp"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
             android:id="@+id/card_image"
             android:src="@drawable/cardback" />
     </LinearLayout>
@@ -81,40 +54,29 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
-            android:id="@+id/red_button"
-            android:textColor="#FFFFFF"
-            android:textSize="23sp"
-            android:text="@string/red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:background="@color/red"
+            android:text="Rouge"
             app:backgroundTint="@null"
-            android:layout_width="137dp"
-            android:layout_height="52dp"
-            android:background="@drawable/red_button_shape"
-            android:shadowColor="#000000"
-            android:shadowDx="3"
-            android:shadowDy="-1"
-            android:shadowRadius="7"
+            android:id="@+id/red_button"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/or"
+            android:text="Ou"
             android:textSize="20sp"
             android:fontFamily="@font/convergence"
             android:textColor="@color/black"
-            android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp" />
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp" />
         <Button
-            android:textColor="#FFFFFF"
-            android:textSize="23sp"
-            android:layout_width="137dp"
-            android:layout_height="52dp"
-            android:background="@drawable/black_button_shape"
-            android:shadowColor="#FFFFFF"
-            android:shadowDx="3"
-            android:shadowDy="-1"
-            android:shadowRadius="7"
-            android:text="@string/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:text="Noir"
             android:id="@+id/black_button"
             app:backgroundTint="@null" />
 

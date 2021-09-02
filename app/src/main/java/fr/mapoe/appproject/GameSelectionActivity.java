@@ -1,20 +1,15 @@
 package fr.mapoe.appproject;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-
 public class GameSelectionActivity extends AppCompatActivity {
 
+    private Button goToAbout;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -22,59 +17,54 @@ public class GameSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_selection);
 
         // go to menu
-        ImageButton backButton = (ImageButton) findViewById(R.id.menu_button);
+        Button backButton = (Button) findViewById(R.id.menu_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
                 startActivity(mainActivity);
-                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();
             }
         });
 
         // go to character choose
-        LinearLayout goToCharacter = (LinearLayout) findViewById(R.id.character_choose_image);
+        Button goToCharacter = (Button) findViewById(R.id.character_choose_button);
         goToCharacter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent characterChooseActivity = new Intent(getApplicationContext(), CharacterChooseActivity.class);
                 startActivity(characterChooseActivity);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
 
         // go to Simple Wheel
-        LinearLayout goToSimpleWheel = (LinearLayout) findViewById(R.id.wheel_image);
+        Button goToSimpleWheel = (Button) findViewById(R.id.wheel_button);
         goToSimpleWheel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent simpleWheelActivity = new Intent(getApplicationContext(), SimpleWheelActivity.class);
                 startActivity(simpleWheelActivity);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
 
         // go to card game
-        LinearLayout goToCardGame = (LinearLayout) findViewById(R.id.card_image);
+        Button goToCardGame = (Button) findViewById(R.id.card_button);
         goToCardGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent cardGameActivity = new Intent(getApplicationContext(), CardGameActivity.class);
                 startActivity(cardGameActivity);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
-    }
 
+    }
     @Override
     public void onBackPressed() {
         Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(mainActivity);
-        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         finish();
     }
 }

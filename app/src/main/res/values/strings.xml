@@ -31,8 +31,8 @@
     <string name="drink_2_message">à soif</string>
     <string name="drink_3_message">est déglingo</string>
     <string name="gage_success_question"> à réussi le gage ?</string>
-    <string name="miniGame_success_question">à t\'il réussi le Mini-Jeux ?</string>
-    <string name="answer_action_success">à t\'il répondu/fait l\'action ?</string>
+    <string name="miniGame_success_question"> à t\'il réussi le Mini-Jeux</string>
+    <string name="answer_action_success"> à t\'il répondu/fait l\'action</string>
     <string name="the_annecdote">L\'anecdote de </string>
     <string name="satisfying_question"> est-elle satifaisante ?</string>
     <string name="scoring"> marque </string>
@@ -45,27 +45,20 @@
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Suivant</string>
+    <string name="next">Next</string>
     <string name="previous">Previous</string>
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_game_selection">GameSelectionActivity</string>
     <string name="game2">Roulette</string>
     <string name="game1">Apéro Chill</string>
     <string name="game3">Rouge ou Noir</string>
-    <string name="you_drink">\ bois\ </string>
+    <string name="you_drink">Tu bois \ </string>
     <string name="sips">\ gorgées.</string>
     <string name="win">Gagné</string>
     <string name="loose">perdu</string>
     <string name="remain">"Il reste "</string>
     <string name="cardPack">cartes dans le paquet</string>
-    <string name="next_button">suivant</string>
-    <string name="wheel_player_call">\ lance la roue en cliquant sur SPIN</string>
-    <string name="or">ou</string>
-    <string name="black">Noir</string>
-    <string name="red">Rouge</string>
-    <string name="end_of_black_or_red">Fin du fun</string>
-    <string name="games_election_button">Choix du Jeu</string>
-    <string name="title_activity_game_selection2">GameSelectionActivity2</string>
 
 </resources>

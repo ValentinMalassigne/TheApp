@@ -135,7 +135,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if (nbJoueurs < 10) {
+                if (nbJoueurs <= 10) {
 
                     EditText previousEditText=findViewById(nbJoueurs);
                     int one = 1;
@@ -207,15 +207,14 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
 
 
-        // go to game selection
+        // go to menu
         this.goToMenu= (Button) findViewById(R.id.menu_button);
 
         goToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent gameSelectionActivity = new Intent(getApplicationContext(),GameSelectionActivity.class);
-                startActivity(gameSelectionActivity);
-                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+                Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(mainActivity);
                 finish();
             }
         });
@@ -253,7 +252,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
                     gameActivity.putExtra("playerTab", playerTab);
                     gameActivity.putExtra("alcoholTab", alcoholTab);
                     startActivity(gameActivity);
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();
 
 
@@ -363,7 +361,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
         startActivity(gameSelectionActivity);
-        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
         finish();
     }
 }
