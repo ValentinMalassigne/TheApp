@@ -38,13 +38,13 @@ public class GameActivity extends AppCompatActivity {
     private String currentPlayer ="";
     private ConstraintLayout gameLayout;
     private Activity activity;
-    private int turnNumber=-1;
     private LinearLayout mainLayout;
     private LinearLayout cardBodyLayout;
     private LinearLayout footerCardLayout;
     private ImageView cardImage;
     private final ArrayList<Integer> idRedCardList,idBlackCardList;
     private TextView playerCardTurn;
+    private int displayCounter=0;
 
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
@@ -200,17 +200,18 @@ public class GameActivity extends AppCompatActivity {
     public void onBackPressed() {}
 
     public void newDisplay(View view) throws IOException{
+        displayCounter++;
         getPlayerTurn();
-        GetNextInformations();
-        String phrase = currentChallenge[2];
-        String type = currentChallenge[3];
+        if(GetNextInformations()){//on vérifie si on continue a construire la page avec lex textView
+            String phrase = currentChallenge[2];
+            String type = currentChallenge[3];
 
-        TextView currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
-        TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
+            TextView currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
+            TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
 
-        currentTitleDisplay.setText(type);
-        currentTextDisplay.setText(phrase);
-
+            currentTitleDisplay.setText(type);
+            currentTextDisplay.setText(phrase);
+        }
     }
 
     public void setUpList() throws IOException {
@@ -246,15 +247,17 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public void GetNextInformations() throws  IOException
+    public boolean GetNextInformations() throws  IOException
     {
         String type = getChallengeTurn();
         String[] tempTab =GetNextChallenge(type);
         String ligne = tempTab[1];
         if(ligne.equals("Spinning Wheel")){
             setUpWheel();
+            return(false);//false veut dire que l'on ne continue pas la construction de la page avec les textView
         }else if(ligne.equals("Red or Black")) {
             startCardGame();
+            return(false);//false veut dire que l'on ne continue pas la construction de la page avec les textView
         }else{
             currentChallenge[3]= tempTab[0];
             String points;
@@ -277,6 +280,7 @@ public class GameActivity extends AppCompatActivity {
             currentChallenge[0]=points;
             currentChallenge[1]=SetNamesInSentence(answers);
             currentChallenge[2]=SetNamesInSentence(sentence);
+            return(true);//true veut dire que l'on continue la construction de la page avec les textView
         }
 
 
@@ -400,7 +404,6 @@ public class GameActivity extends AppCompatActivity {
                 for (int i=0;i<playerTab.length;i++){
                     playerTurn.add(playerTab[i]);
                 }
-                turnNumber++;//un tour correspond à avoir vidé la liste des joueurs cad que tout le monde ait joué
 
             }
             int min=0;
@@ -415,6 +418,7 @@ public class GameActivity extends AppCompatActivity {
             gameEndActivity.putExtra("playerTab", playerTab);
             gameEndActivity.putExtra("scoreTab", scoreTab);
             startActivity(gameEndActivity);
+            overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             finish();
         }
     }
@@ -460,39 +464,27 @@ public class GameActivity extends AppCompatActivity {
         boolean res=false;
         switch (playerTab.length){
             case 2:
-                if(turnNumber>=15){
-                    res=true;
-                }
-                break;
             case 3:
-                if(turnNumber>=10){
+            case 5:
+            case 6:
+            case 10:
+                if(displayCounter>30){
                     res=true;
                 }
                 break;
             case 4:
-                if(turnNumber>=7){
-                    res=true;
-                }
-                break;
-            case 5:
-                if(turnNumber>=6){
-                    res=true;
-                }
-                break;
-            case 6:
-                if(turnNumber>=5){
-                    res=true;
-                }
-                break;
             case 7:
-                if(turnNumber>=4){
+                if(displayCounter>28){
                     res=true;
                 }
                 break;
             case 8:
+                if(displayCounter>24){
+                    res=true;
+                }
+                break;
             case 9:
-            case 10:
-                if(turnNumber>=3){
+                if(displayCounter>27){
                     res=true;
                 }
                 break;
@@ -739,6 +731,11 @@ public class GameActivity extends AppCompatActivity {
                 nextButton.setVisibility(View.GONE);
                 cardColor.setText("");
                 cardImage.setImageResource(R.drawable.cardback);
+                try {
+                    newDisplay(gameLayout);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
