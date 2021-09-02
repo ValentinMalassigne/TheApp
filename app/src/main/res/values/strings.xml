@@ -31,8 +31,8 @@
     <string name="drink_2_message">à soif</string>
     <string name="drink_3_message">est déglingo</string>
     <string name="gage_success_question"> à réussi le gage ?</string>
-    <string name="miniGame_success_question"> à t\'il réussi le Mini-Jeux</string>
-    <string name="answer_action_success"> à t\'il répondu/fait l\'action</string>
+    <string name="miniGame_success_question">à t\'il réussi le Mini-Jeux ?</string>
+    <string name="answer_action_success">à t\'il répondu/fait l\'action ?</string>
     <string name="the_annecdote">L\'anecdote de </string>
     <string name="satisfying_question"> est-elle satifaisante ?</string>
     <string name="scoring"> marque </string>
@@ -66,5 +66,5 @@
     <string name="red">Rouge</string>
     <string name="end_of_black_or_red">Fin du fun</string>
     <string name="games_election_button">Choix du Jeu</string>
-
+    <string name="title_activity_game_selection2">GameSelectionActivity2</string>
 </resources>

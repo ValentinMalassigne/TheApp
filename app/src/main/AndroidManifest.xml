@@ -29,13 +29,13 @@
         <activity
             android:name=".GameEndActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppProject.NoActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppProject.NoActionBar" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppProject.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppProject.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

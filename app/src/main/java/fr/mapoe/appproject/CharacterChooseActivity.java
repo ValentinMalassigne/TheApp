@@ -137,7 +137,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if (nbJoueurs <= 10) {
+                if (nbJoueurs < 10) {
 
                     EditText previousEditText=findViewById(nbJoueurs);
                     int one = 1;

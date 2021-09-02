@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.text.HtmlCompat;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -46,7 +47,7 @@ public class GameActivity extends AppCompatActivity {
     private String currentPlayer ="";
     private ConstraintLayout gameLayout;
     private Activity activity;
-    private int turnNumber=-1;
+    private int displayCounter = 0;
     private LinearLayout mainLayout;
     private LinearLayout cardBodyLayout;
     private LinearLayout footerCardLayout;
@@ -119,25 +120,25 @@ public class GameActivity extends AppCompatActivity {
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //GameAnswerPopup gameAnswerPopup = new GameAnswerPopup(activity);
                 String answer = "";
                 Boolean customAnswer = false;
                 String currentText= "";
                 // envoie situationnel
 
                 if (currentChallenge[3].equals("Gage")){
-                    currentText =currentPlayer +" "+getString(R.string.gage_success_question);
-                }
+                    currentText ="<b>"+currentPlayer +"</b> "+getString(R.string.gage_success_question);                }
                 if (currentChallenge[3].equals("Mini-Jeu")){
-                    currentText = currentPlayer+" "+ getString(R.string.miniGame_success_question);
+                    currentText = "<b>"+currentPlayer+"</b> "+ getString(R.string.miniGame_success_question);
                 }
                 if (currentChallenge[3].equals("Question/Action")) {
-                    currentText = currentPlayer +" "+ getString(R.string.answer_action_success);
+                    currentText = "<b>"+currentPlayer +"</b> "+ getString(R.string.answer_action_success);
                     customAnswer = true;
                     answer = currentChallenge[1];
+                    if(answer.equals("null"))
+                        customAnswer=false;
                 }
                 if (currentChallenge[3].equals("Anecdote")){
-                    currentText = getString(R.string.the_annecdote)+currentPlayer +" "+getString(R.string.satisfying_question);
+                    currentText = getString(R.string.the_annecdote)+" <b>"+currentPlayer +"</b> "+getString(R.string.satisfying_question);
                 }
                 showAnswerPopup(R.layout.game_answer_popup,currentText,answer,customAnswer);
             }
@@ -171,7 +172,7 @@ public class GameActivity extends AppCompatActivity {
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        textDisplay.setText(text);
+        textDisplay.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
         if(customAnswer){
             answerDisplay.setVisibility(View.VISIBLE);
             answerDisplay.setText(answer);
@@ -288,17 +289,19 @@ public class GameActivity extends AppCompatActivity {
     public void onBackPressed() {}
 
     public void newDisplay(View view) throws IOException{
+        displayCounter++;
         getPlayerTurn();
-        GetNextInformations();
-        String phrase = currentChallenge[2];
-        String type = currentChallenge[3];
 
-        TextView currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
-        TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
+        if(GetNextInformations()) {//on vérifie si on continue a construire la page avec lex textView
+            String phrase = currentChallenge[2];
+            String type = currentChallenge[3];
 
-        currentTitleDisplay.setText(type);
-        currentTextDisplay.setText(phrase);
+            TextView currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
+            TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
 
+            currentTitleDisplay.setText(type);
+            currentTextDisplay.setText(HtmlCompat.fromHtml(phrase,HtmlCompat.FROM_HTML_MODE_LEGACY));
+        }
     }
 
     public void setUpList() throws IOException {
@@ -334,11 +337,12 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public void GetNextInformations() throws  IOException
+    public boolean GetNextInformations() throws  IOException
     {
         String type = getChallengeTurn();
         String[] tempTab =GetNextChallenge(type);
         String ligne = tempTab[1];
+        boolean result=false;
         if(ligne.equals("Spinning Wheel")){
             setUpWheel();
         }else if(ligne.equals("Red or Black")) {
@@ -365,9 +369,10 @@ public class GameActivity extends AppCompatActivity {
             currentChallenge[0]=points;
             currentChallenge[1]=SetNamesInSentence(answers);
             currentChallenge[2]=SetNamesInSentence(sentence);
+            result =true;
         }
 
-
+        return result;
     }
     private String getPunition(){
         String res="";
@@ -395,9 +400,9 @@ public class GameActivity extends AppCompatActivity {
             if(sentence.substring(i,i+1).equals("§")){
                 if(Nom.equals("")) {
                     Nom=currentPlayer;
-                    res.append(Nom);
+                    res.append("<b>").append(Nom).append("</b>");
                 }else{
-                    res.append(getRandomPlayer(Nom));
+                    res.append("<b>").append(getRandomPlayer(Nom)).append("</b>");
                 }
             }else if(sentence.substring(i,i+1).equals("¤")) {
                 res.append(getPunition());
@@ -488,7 +493,6 @@ public class GameActivity extends AppCompatActivity {
                 for (int i=0;i<playerTab.length;i++){
                     playerTurn.add(playerTab[i]);
                 }
-                turnNumber++;//un tour correspond à avoir vidé la liste des joueurs cad que tout le monde ait joué
 
             }
             int min=0;
@@ -503,6 +507,7 @@ public class GameActivity extends AppCompatActivity {
             gameEndActivity.putExtra("playerTab", playerTab);
             gameEndActivity.putExtra("scoreTab", scoreTab);
             startActivity(gameEndActivity);
+            overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             finish();
         }
     }
@@ -548,39 +553,27 @@ public class GameActivity extends AppCompatActivity {
         boolean res=false;
         switch (playerTab.length){
             case 2:
-                if(turnNumber>=15){
-                    res=true;
-                }
-                break;
             case 3:
-                if(turnNumber>=10){
+            case 5:
+            case 6:
+            case 10:
+                if(displayCounter>30){
                     res=true;
                 }
                 break;
             case 4:
-                if(turnNumber>=7){
-                    res=true;
-                }
-                break;
-            case 5:
-                if(turnNumber>=6){
-                    res=true;
-                }
-                break;
-            case 6:
-                if(turnNumber>=5){
-                    res=true;
-                }
-                break;
             case 7:
-                if(turnNumber>=4){
+                if(displayCounter>28){
                     res=true;
                 }
                 break;
             case 8:
+                if(displayCounter>24){
+                    res=true;
+                }
+                break;
             case 9:
-            case 10:
-                if(turnNumber>=3){
+                if(displayCounter>27){
                     res=true;
                 }
                 break;
@@ -595,7 +588,7 @@ public class GameActivity extends AppCompatActivity {
         LinearLayout wheel_layout=findViewById(R.id.wheel_layout);
         wheel_layout.setVisibility(View.VISIBLE);
         TextView wheel_player_call = findViewById(R.id.wheel_player_call);
-        wheel_player_call.setText(currentPlayer+getString(R.string.wheel_player_call));
+        wheel_player_call.setText(HtmlCompat.fromHtml("<b>"+currentPlayer+"</b>"+getString(R.string.wheel_player_call),HtmlCompat.FROM_HTML_MODE_LEGACY));
         getWheelGame();
     }
 
@@ -644,8 +637,8 @@ public class GameActivity extends AppCompatActivity {
                 TextView wheel_result_display;
                 wheel_result_display= findViewById(R.id.wheel_result_display);
                 wheel_result_display.setVisibility(View.VISIBLE);
-                String result =currentPlayer+getString(R.string.you_drink)+sectors[sectors.length-(finalDegree +1)]+getString(R.string.sips);
-                wheel_result_display.setText(result);
+                String result ="<b>"+currentPlayer+"</b>"+getString(R.string.you_drink)+sectors[sectors.length-(finalDegree +1)]+getString(R.string.sips);
+                wheel_result_display.setText(HtmlCompat.fromHtml(result,HtmlCompat.FROM_HTML_MODE_LEGACY));
 
                 // ajout au score
                 for (int i=0;i<scoreTab.length;i++){
@@ -736,7 +729,7 @@ public class GameActivity extends AppCompatActivity {
         mainLayout.setVisibility(View.GONE);
         footerCardLayout.setVisibility(View.VISIBLE);
         cardBodyLayout.setVisibility(View.VISIBLE);
-        playerCardTurn.setText(currentPlayer + " à toi de jouer mon grand !");
+        playerCardTurn.setText(HtmlCompat.fromHtml("<b>"+ currentPlayer + "</b> à toi de jouer mon grand !",HtmlCompat.FROM_HTML_MODE_LEGACY));
 
         // pour card Game
         Button blackButton = (Button) findViewById(R.id.black_button);
@@ -827,6 +820,11 @@ public class GameActivity extends AppCompatActivity {
                 nextButton.setVisibility(View.GONE);
                 cardColor.setText("");
                 cardImage.setImageResource(R.drawable.cardback);
+                try {
+                    newDisplay(gameLayout);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
