@@ -3,20 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:layout_width="350dp"
-    android:layout_height="500dp"
+    android:layout_height="300dp"
     android:gravity="center"
     android:layout_gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/popupbg_shape">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="60dp"
         android:fontFamily="@font/convergence"
         android:gravity="center"
         android:text="C'est ici que sera le titre"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="34sp">
 
     </TextView>
@@ -29,27 +30,30 @@
 
 
         <ImageView
+
+            android:layout_marginHorizontal="10dp"
             android:id="@+id/drink0"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/drink_0" />
 
         <ImageView
             android:id="@+id/drink1"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/drink_1" />
 
         <ImageView
             android:id="@+id/drink2"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/drink_2" />
 
         <ImageView
             android:id="@+id/drink3"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/drink_3" />
 
     </LinearLayout>

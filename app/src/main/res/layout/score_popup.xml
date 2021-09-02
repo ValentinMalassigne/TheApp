@@ -1,38 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
-    android:layout_height="500dp"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="400dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/score_main_layout"
-    android:background="@drawable/gradient_list"
-    android:gravity = "center"
-    android:orientation="vertical"
+    android:background="@drawable/popupbg_shape"
+    android:layout_gravity="center"
+    android:orientation="vertical">
 
-    >
+    <ImageButton
+        android:id="@+id/x_popup_button"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/x_icon"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/score"
-        android:gravity="center"
-        android:textSize="30dp"
         android:fontFamily="@font/convergence"
-        android:textColor="@color/black"
-        android:layout_marginBottom="60dp"
-        />
+        android:gravity="center"
+        android:text="@string/score"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="321dp">
+        android:layout_height="321dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
 
         <TableLayout
+            android:id="@+id/idTable"
             android:layout_width="fill_parent"
-            android:stretchColumns="0"
             android:layout_height="wrap_content"
-            android:id="@+id/idTable">
-        </TableLayout>
+            android:stretchColumns="0" />
 
     </ScrollView>
 
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

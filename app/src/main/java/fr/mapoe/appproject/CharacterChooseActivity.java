@@ -1,5 +1,6 @@
 package fr.mapoe.appproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
@@ -10,6 +11,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.Gravity;
@@ -20,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
@@ -102,7 +105,13 @@ public class CharacterChooseActivity extends AppCompatActivity {
             imageButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    createPopup(editText,editText.getId());
+                    String editContents = editText.getText().toString();
+                    if(editContents.equals("")){ // si le champ est vide
+                        Toast.makeText(getApplicationContext(),"erreur",Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        showAlcoholPopup(R.layout.activity_popup_drink_selection,editContents,editText.getId());
+                    }
                 }
             });
             characterChooseActivity.containerLayout =(LinearLayout) findViewById(idLayouts);
@@ -116,14 +125,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
             @Override
             public void onFocusChange(View view, boolean hasFocus) {
                 if(!hasFocus && !editText.getText().toString().equals("") && !onLoseFocusHistory ){
-                    InfoPopup infoPopup = new InfoPopup(activity);
-                    infoPopup.getOkButton().setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            infoPopup.dismiss();
-                        }
-                    });
-                    infoPopup.build();
+                    showInfoDialog(R.layout.info_popup);
                     onLoseFocusHistory = true;
                 }
             }
@@ -135,7 +137,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                if (nbJoueurs <= 10) {
+                if (nbJoueurs < 10) {
 
                     EditText previousEditText=findViewById(nbJoueurs);
                     int one = 1;
@@ -187,7 +189,14 @@ public class CharacterChooseActivity extends AppCompatActivity {
                         imageButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                createPopup(editText,editText.getId());
+                                //createPopup(editText,editText.getId());
+                                String editContents = editText.getText().toString();
+                                if(editContents.equals("")){ // si le champ est vide
+                                    Toast.makeText(getApplicationContext(),"erreur",Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    showAlcoholPopup(R.layout.activity_popup_drink_selection,editContents,editText.getId());
+                                }
                             }
                         });
                         characterChooseActivity.containerLayout =(LinearLayout) findViewById(idLayouts);
@@ -207,14 +216,15 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
 
 
-        // go to menu
+        // go to game selection
         this.goToMenu= (Button) findViewById(R.id.menu_button);
 
         goToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class);
-                startActivity(mainActivity);
+                Intent gameSelectionActivity = new Intent(getApplicationContext(),GameSelectionActivity.class);
+                startActivity(gameSelectionActivity);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();
             }
         });
@@ -252,6 +262,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                     gameActivity.putExtra("playerTab", playerTab);
                     gameActivity.putExtra("alcoholTab", alcoholTab);
                     startActivity(gameActivity);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();
 
 
@@ -263,7 +274,82 @@ public class CharacterChooseActivity extends AppCompatActivity {
         });
     }
 
+    private void showInfoDialog(int layout){// créer la popup info
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(CharacterChooseActivity.this);
+        View layoutView = getLayoutInflater().inflate(layout,null);
+        Button okButton = layoutView.findViewById(R.id.ok_button);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+    }
+    private void showAlcoholPopup(int layout, String name, int currentEditTextID){
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(CharacterChooseActivity.this);
+        View layoutView = getLayoutInflater().inflate(layout,null);
+        // déclaration des éléments
+        TextView currentPlayerNameDisplay = layoutView.findViewById(R.id.title);
+        ImageView drink0 = (ImageView) layoutView.findViewById(R.id.drink0);
+        ImageView drink1 = layoutView.findViewById(R.id.drink1);
+        ImageView drink2 = layoutView.findViewById(R.id.drink2);
+        ImageView drink3 = layoutView.findViewById(R.id.drink3);
+        currentPlayerNameDisplay.setText(name);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        drink0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),name+" "+getString(R.string.drink_0_message),Toast.LENGTH_SHORT).show();
+                addTemporaryTab(currentEditTextID,"drink0");
+                ImageButton imageButton = (ImageButton) findViewById(currentEditTextID+200);
+                imageButton.setImageResource(R.drawable.drink_0);
+                alertDialog.dismiss();
 
+            }
+        });
+        drink1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),name+" "+getString(R.string.drink_1_message),Toast.LENGTH_SHORT).show();
+                addTemporaryTab(currentEditTextID,"drink1");
+                ImageButton imageButton = (ImageButton) findViewById(currentEditTextID+200);
+                imageButton.setImageResource(R.drawable.drink_1);
+                alertDialog.dismiss();
+
+            }
+        });
+        drink2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),name+" "+getString(R.string.drink_2_message),Toast.LENGTH_SHORT).show();
+                addTemporaryTab(currentEditTextID,"drink2");
+                ImageButton imageButton = (ImageButton) findViewById(currentEditTextID+200);
+                imageButton.setImageResource(R.drawable.drink_2);
+                alertDialog.dismiss();
+
+            }
+        });
+        drink3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),name+" "+getString(R.string.drink_3_message),Toast.LENGTH_SHORT).show();
+                addTemporaryTab(currentEditTextID,"drink3");
+                ImageButton imageButton = (ImageButton) findViewById(currentEditTextID+200);
+                imageButton.setImageResource(R.drawable.drink_3);
+                alertDialog.dismiss();
+
+            }
+        });
+        alertDialog.show();
+    }
     private void deletePlayer(int id){
         if(nbJoueurs>2) {
             id = id - 300;
@@ -299,61 +385,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
         }
     }
 
-    // créer la popup de selection d'alcool
-    public void createPopup(EditText editText, int currentEditTextID){
-
-        PopupDrinkSelection popupDrinkSelection = new PopupDrinkSelection(activity);
-        popupDrinkSelection.setPlayerName(editText.getText().toString());
-
-        // quand on click sur l'image0
-        popupDrinkSelection.getDrinkImage0().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), editText.getText() +getString(R.string.drink_0_message), Toast.LENGTH_SHORT).show();
-                addTemporaryTab(currentEditTextID,"drink0");
-                popupDrinkSelection.dismiss();
-                ImageButton imageButton = (ImageButton) findViewById(currentEditTextID+200);
-                imageButton.setImageResource(R.drawable.drink_0);
-
-            }
-        });
-        // quand on click sur l'image1
-        popupDrinkSelection.getDrinkImage1().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), editText.getText() +getString(R.string.drink_1_message), Toast.LENGTH_SHORT).show();
-                popupDrinkSelection.dismiss();
-                addTemporaryTab(currentEditTextID,"drink1");
-                ImageButton imageButton = (ImageButton) findViewById(currentEditTextID+200);
-                imageButton.setImageResource(R.drawable.drink_1);
-            }
-        });
-        //quand on click sur l'image2
-        popupDrinkSelection.getDrinkImage2().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), editText.getText() +getString(R.string.drink_2_message), Toast.LENGTH_SHORT).show();
-                popupDrinkSelection.dismiss();
-                addTemporaryTab(currentEditTextID,"drink2");
-                ImageButton imageButton = (ImageButton) findViewById(currentEditTextID+200);
-                imageButton.setImageResource(R.drawable.drink_2);
-            }
-        });
-        // quand on click sur l'image3
-        popupDrinkSelection.getDrinkImage3().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), editText.getText() +getString(R.string.drink_3_message), Toast.LENGTH_SHORT).show();
-                popupDrinkSelection.dismiss();
-                addTemporaryTab(currentEditTextID,"drink3");
-                ImageButton imageButton = (ImageButton) findViewById(currentEditTextID+200);
-                imageButton.setImageResource(R.drawable.drink_3);
-            }
-        });
-
-        popupDrinkSelection.build();
-    }
-
     public void addTemporaryTab(int position, String drink){ tempTab[position-1] = drink ; } // ajout à la liste temporaire
     // methode pour verifier si on peut lancer la game
 
@@ -361,6 +392,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
         startActivity(gameSelectionActivity);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
         finish();
     }
 }
