@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/character_main_layout"
     android:background="@drawable/gradient_list"
     android:layout="@id/main_layout"
     tools:context=".CharacterChooseActivity">
