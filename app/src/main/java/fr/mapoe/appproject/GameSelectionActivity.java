@@ -1,16 +1,20 @@
 package fr.mapoe.appproject;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Bundle;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 public class GameSelectionActivity extends AppCompatActivity {
 
-    private AnimationDrawable animationDrawable;
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -18,7 +22,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_selection);
 
         // go to menu
-        Button backButton = (Button) findViewById(R.id.menu_button);
+        ImageButton backButton = (ImageButton) findViewById(R.id.menu_button);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -30,7 +34,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         });
 
         // go to character choose
-        Button goToCharacter = (Button) findViewById(R.id.character_choose_button);
+        LinearLayout goToCharacter = (LinearLayout) findViewById(R.id.character_choose_image);
         goToCharacter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,7 +46,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         });
 
         // go to Simple Wheel
-        Button goToSimpleWheel = (Button) findViewById(R.id.wheel_button);
+        LinearLayout goToSimpleWheel = (LinearLayout) findViewById(R.id.wheel_image);
         goToSimpleWheel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,10 +58,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         });
 
         // go to card game
-        Button goToCardGame = (Button) findViewById(R.id.card_button);
-        animationDrawable = (AnimationDrawable) goToCardGame.getBackground();
-        animationDrawable.setEnterFadeDuration(1500);
-        animationDrawable.setExitFadeDuration(1500);
+        LinearLayout goToCardGame = (LinearLayout) findViewById(R.id.card_image);
         goToCardGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,27 +68,13 @@ public class GameSelectionActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
+
     @Override
     public void onBackPressed() {
         Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(mainActivity);
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         finish();
-    }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(animationDrawable!=null && !animationDrawable.isRunning()){
-            animationDrawable.start();
-        }
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if(animationDrawable!=null && animationDrawable.isRunning()){
-            animationDrawable.stop();
-        }
     }
 }

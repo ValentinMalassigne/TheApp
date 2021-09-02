@@ -11,9 +11,9 @@
         android:theme="@style/Theme.AppProject">
         <activity
             android:name=".CardGameActivity"
+            android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppProject.NoActionBar"
-            android:exported="true" />
+            android:theme="@style/Theme.AppProject.NoActionBar" />
         <activity
             android:name=".GameSelectionActivity"
             android:exported="true"
@@ -29,13 +29,13 @@
         <activity
             android:name=".GameEndActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppProject.NoActionBar"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppProject.NoActionBar" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppProject.NoActionBar"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppProject.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,24 +45,23 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppProject.NoActionBar"/>
+            android:theme="@style/Theme.AppProject.NoActionBar" />
         <activity
             android:name=".OptionActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppProject.NoActionBar"/>
+            android:theme="@style/Theme.AppProject.NoActionBar" />
         <activity
             android:name=".AboutActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppProject.NoActionBar"
-            />
+            android:theme="@style/Theme.AppProject.NoActionBar" />
         <activity
             android:name=".CharacterChooseActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppProject.NoActionBar"/>
+            android:theme="@style/Theme.AppProject.NoActionBar" />
         <activity
             android:name=".GameActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppProject.NoActionBar"/>
+            android:theme="@style/Theme.AppProject.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"

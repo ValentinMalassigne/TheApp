@@ -66,5 +66,6 @@
     <string name="red">Rouge</string>
     <string name="end_of_black_or_red">Fin du fun</string>
     <string name="games_election_button">Choix du Jeu</string>
+    <string name="title_activity_game_selection2">GameSelectionActivity2</string>
 
 </resources>
