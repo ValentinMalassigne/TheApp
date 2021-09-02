@@ -2,10 +2,12 @@ package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.text.HtmlCompat;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -73,7 +75,9 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
         AnimationBg.startBackgroundAnimation(findViewById(R.id.game_layout));
+
         this.activity = this;
         ConstraintLayout gameLayout = (ConstraintLayout) findViewById(R.id.game_layout);
 
@@ -120,18 +124,20 @@ public class GameActivity extends AppCompatActivity {
                 // envoie situationnel
 
                 if (currentChallenge[3].equals("Gage")){
-                    currentText =currentPlayer +" "+getString(R.string.gage_success_question);
+                    currentText ="<b>"+currentPlayer +"</b> "+getString(R.string.gage_success_question);
                 }
                 if (currentChallenge[3].equals("Mini-Jeu")){
-                    currentText = currentPlayer+" "+ getString(R.string.miniGame_success_question);
+                    currentText = "<b>"+currentPlayer+"</b> "+ getString(R.string.miniGame_success_question);
                 }
                 if (currentChallenge[3].equals("Question/Action")) {
-                    currentText = currentPlayer +" "+ getString(R.string.answer_action_success);
+                    currentText = "<b>"+currentPlayer +"</b> "+ getString(R.string.answer_action_success);
                     customAnswer = true;
                     answer = currentChallenge[1];
+                    if(answer.equals("null"))
+                        customAnswer=false;
                 }
                 if (currentChallenge[3].equals("Anecdote")){
-                    currentText = getString(R.string.the_annecdote)+currentPlayer +" "+getString(R.string.satisfying_question);
+                    currentText = getString(R.string.the_annecdote)+" <b>"+currentPlayer +"</b> "+getString(R.string.satisfying_question);
                 }
 
                 // envoie
@@ -210,7 +216,7 @@ public class GameActivity extends AppCompatActivity {
             TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
 
             currentTitleDisplay.setText(type);
-            currentTextDisplay.setText(phrase);
+            currentTextDisplay.setText(HtmlCompat.fromHtml(phrase,HtmlCompat.FROM_HTML_MODE_LEGACY));
         }
     }
 
@@ -311,9 +317,9 @@ public class GameActivity extends AppCompatActivity {
             if(sentence.substring(i,i+1).equals("§")){
                 if(Nom.equals("")) {
                     Nom=currentPlayer;
-                    res.append(Nom);
+                    res.append("<b>").append(Nom).append("</b>");
                 }else{
-                    res.append(getRandomPlayer(Nom));
+                    res.append("<b>").append(getRandomPlayer(Nom)).append("</b>");
                 }
             }else if(sentence.substring(i,i+1).equals("¤")) {
                 res.append(getPunition());
@@ -499,7 +505,7 @@ public class GameActivity extends AppCompatActivity {
         LinearLayout wheel_layout=findViewById(R.id.wheel_layout);
         wheel_layout.setVisibility(View.VISIBLE);
         TextView wheel_player_call = findViewById(R.id.wheel_player_call);
-        wheel_player_call.setText(currentPlayer+getString(R.string.wheel_player_call));
+        wheel_player_call.setText(HtmlCompat.fromHtml("<b>"+currentPlayer+"</b>"+getString(R.string.wheel_player_call),HtmlCompat.FROM_HTML_MODE_LEGACY));
         getWheelGame();
     }
 
@@ -548,8 +554,8 @@ public class GameActivity extends AppCompatActivity {
                 TextView wheel_result_display;
                 wheel_result_display= findViewById(R.id.wheel_result_display);
                 wheel_result_display.setVisibility(View.VISIBLE);
-                String result =currentPlayer+getString(R.string.you_drink)+sectors[sectors.length-(finalDegree +1)]+getString(R.string.sips);
-                wheel_result_display.setText(result);
+                String result ="<b>"+currentPlayer+"</b>"+getString(R.string.you_drink)+sectors[sectors.length-(finalDegree +1)]+getString(R.string.sips);
+                wheel_result_display.setText(HtmlCompat.fromHtml(result,HtmlCompat.FROM_HTML_MODE_LEGACY));
 
                 // ajout au score
                 for (int i=0;i<scoreTab.length;i++){
@@ -640,7 +646,7 @@ public class GameActivity extends AppCompatActivity {
         mainLayout.setVisibility(View.GONE);
         footerCardLayout.setVisibility(View.VISIBLE);
         cardBodyLayout.setVisibility(View.VISIBLE);
-        playerCardTurn.setText(currentPlayer + " à toi de jouer mon grand !");
+        playerCardTurn.setText(HtmlCompat.fromHtml("<b>"+ currentPlayer + "</b> à toi de jouer mon grand !",HtmlCompat.FROM_HTML_MODE_LEGACY));
 
         // pour card Game
         Button blackButton = (Button) findViewById(R.id.black_button);

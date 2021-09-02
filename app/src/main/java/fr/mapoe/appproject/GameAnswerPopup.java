@@ -2,16 +2,20 @@ package fr.mapoe.appproject;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.core.text.HtmlCompat;
+
 public class GameAnswerPopup extends Dialog {
     private LinearLayout displayLayout;
     private Boolean customAnswer;
     private String answer;
-    private String text;
+    private Spanned text;
     private Button yesButton;
     private Button noButton;
 
@@ -41,11 +45,9 @@ public class GameAnswerPopup extends Dialog {
         this.customAnswer = customAnswer;
     }
 
-    public void setText(String text){this.text = text;}
+    public void setText(String text){this.text = HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY);}
 
     public void build(){
-
-
 
         //setText
         textDisplay.setText(text);
