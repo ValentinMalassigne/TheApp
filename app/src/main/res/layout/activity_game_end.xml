@@ -7,31 +7,17 @@
     android:id="@+id/score_main_layout"
     android:background="@drawable/gradient_list">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/convergence"
-        android:gravity="center"
-        android:text="@string/game_end_title"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/medal1"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/medal1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/winner"
@@ -39,8 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Gagnant"
+        android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="20sp"
         android:fontFamily="@font/convergence"
         app:layout_constraintEnd_toEndOf="@+id/medal1"
         app:layout_constraintHorizontal_bias="0.529"
@@ -49,11 +36,11 @@
 
     <ImageView
         android:id="@+id/medal2"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginStart="40dp"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
+
         android:src="@drawable/medal2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/winner" />
@@ -63,19 +50,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         android:fontFamily="@font/convergence"
         android:text="deuxième"
         android:textColor="@color/white"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/medal2"
         app:layout_constraintStart_toStartOf="@+id/medal2"
         app:layout_constraintTop_toBottomOf="@+id/medal2" />
 
     <ImageView
         android:id="@+id/medal3"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+
         android:layout_marginRight="40dp"
         android:src="@drawable/medal3"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,63 +75,38 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/convergence"
         android:text="Troisième"
+        android:gravity="center"
         android:textColor="@color/white"
         android:layout_marginTop="20dp"
-        android:textSize="25sp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/medal3"
         app:layout_constraintStart_toStartOf="@+id/medal3"
         app:layout_constraintTop_toBottomOf="@+id/medal3" />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/winner">
+        app:layout_constraintTop_toBottomOf="@+id/third">
 
 
         <ScrollView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-
-            <TableLayout
-                android:id="@+id/idTable"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="0,1">
-
-
-            </TableLayout>
-
+               <TableLayout
+                    android:id="@+id/idTable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="0,1" />
 
         </ScrollView>
+            </LinearLayout>
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/menu_button"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:background="@drawable/button_shape"
-            android:text="@string/menu_button"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:layout_marginBottom="10dp"
-            app:backgroundTint="@null" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
