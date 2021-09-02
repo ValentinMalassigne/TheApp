@@ -1,51 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
-    android:layout_height="500dp"
+    android:layout_height="300dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/score_main_layout"
-    android:background="@drawable/gradient_list"
-    android:gravity="center"
+    android:background="@drawable/popupbg_shape"
+    android:layout_gravity="center"
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/display_Layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/display_Layout"
-        android:orientation="vertical">
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/answer_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/convergence"
             android:gravity="center"
             android:text="Réponse à la question"
-            android:textColor="@color/black"
-            android:fontFamily="@font/convergence"
-            android:textSize="18dp"
-            android:visibility="invisible"
-            android:id="@+id/answer_display" />
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_marginBottom="50dp"/>
 
         <TextView
-            android:layout_marginTop="80dp"
+            android:id="@+id/text_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="A-til bien répondu ?"
-            android:textColor="@color/black"
+            android:layout_gravity="center"
             android:fontFamily="@font/convergence"
-            android:textSize="18dp"
-            android:id="@+id/text_display" />
+            android:gravity="center"
+            android:layout_marginBottom="60dp"
+            android:text="A-til bien répondu ?"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:layout_marginTop="50dp"
-        >
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="10dp">
 
 
         <Button
@@ -70,4 +80,4 @@
             app:backgroundTint="@null" />
     </LinearLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

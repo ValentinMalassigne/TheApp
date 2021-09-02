@@ -1,11 +1,17 @@
 package fr.mapoe.appproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -14,6 +20,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,9 +109,7 @@ public class GameActivity extends AppCompatActivity {
         scoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ScorePopup scorePopup = new ScorePopup(activity);
-                scorePopup.setScore(playerTab,scoreTab);
-                scorePopup.build();
+                showScorePopup(R.layout.score_popup);
             }
         });
 
@@ -113,7 +119,7 @@ public class GameActivity extends AppCompatActivity {
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GameAnswerPopup gameAnswerPopup = new GameAnswerPopup(activity);
+                //GameAnswerPopup gameAnswerPopup = new GameAnswerPopup(activity);
                 String answer = "";
                 Boolean customAnswer = false;
                 String currentText= "";
@@ -133,49 +139,7 @@ public class GameActivity extends AppCompatActivity {
                 if (currentChallenge[3].equals("Anecdote")){
                     currentText = getString(R.string.the_annecdote)+currentPlayer +" "+getString(R.string.satisfying_question);
                 }
-
-                // envoie
-                gameAnswerPopup.setText(currentText);
-                gameAnswerPopup.setAnswer(answer,customAnswer);
-
-                // si on répond oui
-                gameAnswerPopup.getYesButton().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
-                        // ajout au score
-                        for (int i=0;i<scoreTab.length;i++){
-                            if (playerTab[i].equals(currentPlayer)){
-
-                                int scoreInt = Integer.parseInt(currentChallenge[0]);
-                                int currentPlayerScore = Integer.parseInt(scoreTab[i]);
-                                int newScore = scoreInt+currentPlayerScore;
-                                scoreTab[i] = Integer.toString(newScore);
-                            }
-                        }
-                        Toast.makeText(getApplicationContext(), currentPlayer+" "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points)   , Toast.LENGTH_SHORT).show();
-                        gameAnswerPopup.dismiss();
-                        try {
-                            newDisplay(view);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                // on répond non
-                gameAnswerPopup.getNoButton().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(getApplicationContext(), currentPlayer + " "+ getPunition(), Toast.LENGTH_SHORT).show();
-                        gameAnswerPopup.dismiss();
-                        try {
-                            newDisplay(view);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                gameAnswerPopup.build();
+                showAnswerPopup(R.layout.game_answer_popup,currentText,answer,customAnswer);
             }
         });
 
@@ -191,10 +155,134 @@ public class GameActivity extends AppCompatActivity {
                 startActivity(gameEndActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
-
             }
         });
+    }
+    private void showAnswerPopup(int layout,String text, String answer, boolean customAnswer){
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
+        View layoutView = getLayoutInflater().inflate(layout,null);
+        // déclarer les éléments de la popup
+        TextView textDisplay = (TextView) layoutView.findViewById(R.id.text_display);
+        TextView answerDisplay = (TextView) layoutView.findViewById(R.id.answer_display);
+        Button yesButton = (Button) layoutView.findViewById(R.id.yes_button);
+        Button noButton = (Button) layoutView.findViewById(R.id.no_button);
 
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        textDisplay.setText(text);
+        if(customAnswer){
+            answerDisplay.setVisibility(View.VISIBLE);
+            answerDisplay.setText(answer);
+        }
+        else {
+            answerDisplay.setVisibility(View.INVISIBLE);
+        }
+        yesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // ajout au score
+                for (int i=0;i<scoreTab.length;i++){
+                    if (playerTab[i].equals(currentPlayer)){
+
+                        int scoreInt = Integer.parseInt(currentChallenge[0]);
+                        int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                        int newScore = scoreInt+currentPlayerScore;
+                        scoreTab[i] = Integer.toString(newScore);
+                    }
+                }
+                Toast.makeText(getApplicationContext(), currentPlayer+" "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points)   , Toast.LENGTH_SHORT).show();
+                alertDialog.dismiss();
+                try {
+                    newDisplay(view);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        noButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), currentPlayer + " "+ getPunition(), Toast.LENGTH_SHORT).show();
+                alertDialog.dismiss();
+                try {
+                    newDisplay(view);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        alertDialog.show();
+    }
+    private void showScorePopup(int layout){
+        Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.convergence);
+        TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams();
+        rowParams.setMargins(0,10,0,0);
+
+        int id = 1;
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
+        View layoutView = getLayoutInflater().inflate(layout,null);
+        // déclarer les élements de la popup
+        TableLayout tableLayout = (TableLayout) layoutView.findViewById(R.id.idTable);
+        ImageButton xButton = (ImageButton) layoutView.findViewById(R.id.x_popup_button);
+
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        // ajout de la 1er ligne
+        TableRow topRow = new TableRow(getApplicationContext());
+        topRow.setId(id);
+        topRow.setLayoutParams(rowParams);
+        tableLayout.addView(topRow);
+
+        TextView name = new TextView(getApplicationContext());
+        name.setText(R.string.name);
+        name.setTypeface(typeface,Typeface.BOLD);
+        name.setTextSize(25);
+        name.setTextColor(Color.WHITE);
+        topRow.addView(name);
+
+        TextView score = new TextView(getApplicationContext());
+        score.setText(R.string.score);
+        score.setTypeface(typeface, Typeface.BOLD);
+        score.setTextSize(25);
+        score.setTextColor(Color.WHITE);
+        score.setGravity(Gravity.CENTER);
+        topRow.addView(score);
+        id++;
+        // ajout des lignes 1 par 1
+        for(int i=0;i<scoreTab.length;i++){
+            TableRow row = new TableRow(getApplicationContext());
+            row.setId(id);
+            row.setLayoutParams(rowParams);
+            tableLayout.addView(row);
+
+            TextView playerName = new TextView(getApplicationContext());
+            playerName.setText(playerTab[i]);
+            playerName.setTypeface(typeface);
+            playerName.setTextSize(25);
+            playerName.setTextColor(Color.WHITE);
+            row.addView(playerName);
+
+            TextView scorePlayer = new TextView(getApplicationContext());
+            scorePlayer.setText(scoreTab[i]);
+            scorePlayer.setTypeface(typeface);
+            scorePlayer.setTextSize(25);
+            scorePlayer.setTextColor(Color.WHITE);
+            scorePlayer.setGravity(Gravity.CENTER);
+            row.addView(scorePlayer);
+        }
+        xButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
     }
     @Override
     public void onBackPressed() {}
