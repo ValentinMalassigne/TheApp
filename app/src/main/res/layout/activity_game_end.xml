@@ -7,12 +7,23 @@
     android:id="@+id/score_main_layout"
     android:background="@drawable/gradient_list">
 
+    <ImageButton
+        android:id="@+id/menu_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:scaleType="fitStart"
+        android:src="@drawable/x_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/medal1"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="64dp"
         android:src="@drawable/medal1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -50,8 +61,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:gravity="center"
         android:fontFamily="@font/convergence"
+        android:gravity="center"
         android:text="deuxième"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -83,30 +94,29 @@
         app:layout_constraintStart_toStartOf="@+id/medal3"
         app:layout_constraintTop_toBottomOf="@+id/medal3" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:gravity="center"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/third">
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="450dp">
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            <TableLayout
+                android:id="@+id/idTable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:stretchColumns="0,1">
 
-               <TableLayout
-                    android:id="@+id/idTable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:stretchColumns="0,1" />
 
-        </ScrollView>
-            </LinearLayout>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

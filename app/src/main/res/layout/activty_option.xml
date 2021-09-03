@@ -45,6 +45,28 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
+        <Button
+            android:id="@+id/english_button"
+            app:backgroundTint="@null"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:background="@drawable/button_shape"
+            android:layout_marginTop="@android:dimen/app_icon_size"
+            android:text="english"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/francais_button"
+            app:backgroundTint="@null"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:background="@drawable/button_shape"
+            android:layout_marginTop="@android:dimen/app_icon_size"
+            android:text="français"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
     </LinearLayout>
 
 

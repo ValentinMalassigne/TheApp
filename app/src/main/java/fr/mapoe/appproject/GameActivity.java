@@ -32,6 +32,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
@@ -125,9 +126,9 @@ public class GameActivity extends AppCompatActivity {
                 String currentText= "";
                 // envoie situationnel
 
-                if (currentChallenge[3].equals("Gage")){
+                if (currentChallenge[3].equals("Gage") || currentChallenge[3].equals("Pledge")){
                     currentText ="<b>"+currentPlayer +"</b> "+getString(R.string.gage_success_question);                }
-                if (currentChallenge[3].equals("Mini-Jeu")){
+                if (currentChallenge[3].equals("Mini-Jeu") || currentChallenge[3].equals("Mini-Game")){
                     currentText = "<b>"+currentPlayer+"</b> "+ getString(R.string.miniGame_success_question);
                 }
                 if (currentChallenge[3].equals("Question/Action")) {
@@ -306,10 +307,13 @@ public class GameActivity extends AppCompatActivity {
 
     public void setUpList() throws IOException {
 
-        String language = "fr";
+        String language = Locale.getDefault().getLanguage();
         InputStream inputStream = null;
-        if(language.equals("fr"))
-            inputStream = this.getResources().openRawResource(R.raw.frsentences);
+        if(language.equals("fr")) {
+            inputStream = this.getResources().openRawResource(R.raw.fr_sentences);
+        }else{
+            inputStream = this.getResources().openRawResource(R.raw.en_sentences);
+        }
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         reader.readLine();
         String tempLine = reader.readLine();
@@ -417,19 +421,19 @@ public class GameActivity extends AppCompatActivity {
         String[] res=new String[2];
 
         if(type.equals("gage")){
-            res[0]="Gage";
+            res[0]=getString(R.string.type_gage);
             res[1]=GetRandomGage();
         }
         if(type.equals("miniGame")){
-            res[0]="Mini-Jeu";
+            res[0]=getString(R.string.type_mini_game);
             res[1]=GetRandomMiniGame();
         }
         if (type.equals("sentence")){
-            res[0]="Question/Action";
+            res[0]=getString(R.string.type_sentence);
             res[1]=GetRandomSentence();
         }
         if (type.equals("anecdote")){
-            res[0]="Anecdote";
+            res[0]=getString(R.string.type_anecdote);
             res[1]=GetRandomAnecdote();
         }
         return res;

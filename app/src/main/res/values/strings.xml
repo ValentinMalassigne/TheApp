@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">La petite Appli</string>
+    <string name="app_name">ApeTime</string>
     <string name="start_button">Jouer</string>
     <string name="option_button">Options</string>
     <string name="language_button">Langues</string>
@@ -39,14 +39,14 @@
     <string name="points"> points !</string>
     <string name="drink0_punition">fais 5 pompes !</string>
     <string name="drink1_punition">bois 1 gorgée !</string>
-    <string name="drink2_punition">bois 2 gorgée !</string>
-    <string name="drink3_punition">bois 3 gorgée !</string>
+    <string name="drink2_punition">bois 2 gorgées !</string>
+    <string name="drink3_punition">bois 3 gorgées !</string>
     <string name="title_activity_simple_wheel">SimpleWheelActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Suivant</string>
-    <string name="previous">Previous</string>
+    <string name="previous">Précédent</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_game_selection">GameSelectionActivity</string>
@@ -67,4 +67,15 @@
     <string name="end_of_black_or_red">Fin du fun</string>
     <string name="games_election_button">Choix du Jeu</string>
     <string name="title_activity_game_selection2">GameSelectionActivity2</string>
+    <string name="type_gage">Gage</string>
+    <string name="type_mini_game">Mini-Jeu</string>
+    <string name="type_sentence">Question/Action</string>
+    <string name="type_anecdote">Anecdote</string>
+    <string name="games">Jeux</string>
+    <string name="description_ape_chill">C\'est un jeu super cool qui est vraiement bien et au quel tout le monde veut jouer!</string>
+    <string name="apechill_title">ApeChill</string>
+    <string name="roulette_title">Roulette</string>
+    <string name="black_or_red_title">Rouge ou Noir</string>
+    <string name="you_lost">Tu as perdu</string>
+    <string name="you_win">tu as gagné</string>
 </resources>

@@ -26,13 +26,25 @@ public class GameEndActivity extends AppCompatActivity {
     private String[][] tabClass;
     private String[] playerTab,scoreTab;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_end);
+
         AnimationBg.startBackgroundAnimation(findViewById(R.id.score_main_layout));
+
+        // go to menu
+        ImageButton backButton = (ImageButton) findViewById(R.id.menu_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
+                startActivity(mainActivity);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+                finish();
+            }
+        });
+
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -43,14 +55,9 @@ public class GameEndActivity extends AppCompatActivity {
         // init les tableaux
         classTab();
         printWinner();
-        
-
-        
-
-
-
-
     }
+
+
     @Override
     public void onBackPressed() {
 
@@ -124,11 +131,9 @@ public class GameEndActivity extends AppCompatActivity {
 
         for(int i=3;i<tabClass.length;i++) {
 
-            //ViewGroup.MarginLayoutParams textParams;
-            //textParams.leftMargin = 50;
+
             TableRow row = new TableRow(getApplicationContext());
             row.setLayoutParams(rowParams);
-            row.setId(id);
             tableLayout.addView(row);
             TextView name = new TextView(getApplicationContext());
 
@@ -137,7 +142,6 @@ public class GameEndActivity extends AppCompatActivity {
             name.setTextSize(25);
             name.setTextColor(Color.WHITE);
             name.setPadding(20,20,20,20);
-            //name.setLayoutParams(textParams);
             row.addView(name);
 
 

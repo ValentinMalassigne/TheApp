@@ -91,10 +91,10 @@ public class CardGameActivity extends AppCompatActivity {
                 nbCard.setText(nb);
                 int randomNumber = generate.nextInt(2);
                 if(randomCard(randomNumber).equals("red")){
-                    cardColor.setText(R.string.win);
+                    cardColor.setText(R.string.you_win);
                 }
                 else
-                    cardColor.setText(R.string.loose);
+                    cardColor.setText(R.string.you_lost);
             }
         });
     }

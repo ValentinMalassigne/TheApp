@@ -56,14 +56,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
+        <!--  <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/convergence"
+            android:text="@string/playerCreationTitle"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+        -->
+
+        <TextView
             android:id="@+id/card_color_display"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
+            android:fontFamily="@font/convergence"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:textSize="35sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:layout_width="180dp"
@@ -96,15 +109,17 @@
             android:shadowRadius="7"
             />
 
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/or"
-            android:textSize="20sp"
-            android:fontFamily="@font/convergence"
-            android:textColor="@color/black"
+            android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
-            android:layout_marginLeft="30dp" />
+            android:fontFamily="@font/convergence"
+            android:text="@string/or"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
         <Button
             android:textColor="#FFFFFF"
             android:textSize="23sp"
