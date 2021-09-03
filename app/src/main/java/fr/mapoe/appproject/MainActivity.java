@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         AnimationBg.startBackgroundAnimation(findViewById(R.id.menu_layout));
 
         //go to option
-        Button goToOption = (Button) findViewById(R.id.option_button);
+        ImageView goToOption = (ImageView) findViewById(R.id.setting_button);
         goToOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,48 +1,74 @@
 package fr.mapoe.appproject;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class OptionActivity extends AppCompatActivity {
-
-    private Button backButton;
-    private Button goToAbout;
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activty_option);
+        AnimationBg.startBackgroundAnimation(findViewById(R.id.option_layout));
 
-        // go to menu
-        this.backButton = (Button) findViewById(R.id.menu_button);
-        backButton.setOnClickListener(new View.OnClickListener() {
+        LinearLayout languageLayout = (LinearLayout) findViewById(R.id.language_layout);
+        languageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
+                showLanguagePopup(R.layout.langue_popup);
+            }
+        });
+
+        // go to menu
+        ImageView goTomMenu = (ImageView) findViewById(R.id.menu_button);
+        goTomMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(mainActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
+    }
 
-        // go to about
-        this.goToAbout = (Button) findViewById(R.id.about_button);
-        goToAbout.setOnClickListener(new View.OnClickListener() {
+    private void showLanguagePopup(int layout) {
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OptionActivity.this);
+        View layoutView = getLayoutInflater().inflate(layout,null);
+        // déclaration des élements de la popup
+        ImageView englishButton = (ImageView) layoutView.findViewById(R.id.english_button);
+        ImageView frenchButton = (ImageView) layoutView.findViewById(R.id.french_button);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        englishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent aboutActivity = new Intent(getApplicationContext(), AboutActivity.class);
-                startActivity(aboutActivity);
-                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-                finish();
+                Toast.makeText(getApplicationContext(),"english",Toast.LENGTH_SHORT).show();
+                alertDialog.dismiss();
+            }
+        });
+        frenchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(),"fançais",Toast.LENGTH_SHORT).show();
+                alertDialog.dismiss();
             }
         });
 
-
-
+        alertDialog.show();
     }
 
     @Override
