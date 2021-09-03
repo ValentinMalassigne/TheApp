@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Jeux"
+                android:text="@string/game"
                 android:textSize="40sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -73,7 +73,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="ApeChill"
+                            android:text="@string/apechill_title"
                             android:textSize="40sp"
                             android:textStyle="bold" />
 
@@ -81,7 +81,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
 
-                            android:text="C'est un jeu super cool qui est vraiement bien et au quel tout le monde veut jouer!" />
+                            android:text="@string/description_ape_chill" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -109,14 +109,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Roulette"
+                            android:text="@string/roulette_title"
                             android:textSize="40sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="C'est un jeu super cool qui est vraiement bien et au quel tout le monde veut jouer !" />
+                            android:text="@string/description_ape_chill" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -145,14 +145,14 @@
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="black or red"
+                            android:text="@string/black_or_red_title"
                             android:textSize="40sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="C'est un jeu super cool qui est vraiement bien et au quel tout le monde veut jouer!" />
+                            android:text="@string/description_ape_chill"  />
                     </LinearLayout>
 
                 </LinearLayout>

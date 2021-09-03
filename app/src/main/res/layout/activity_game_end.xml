@@ -6,6 +6,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/score_main_layout"
     android:background="@drawable/gradient_list">
+    <ImageButton
+        android:id="@+id/menu_button"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:background="@android:color/transparent"
+        android:scaleType="fitStart"
+        android:src="@drawable/x_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
     <ImageView

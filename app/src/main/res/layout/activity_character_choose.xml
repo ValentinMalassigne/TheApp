@@ -29,7 +29,7 @@
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/convergence"
             android:text="@string/playerCreationTitle"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="24sp" />
 
         <Button
@@ -38,6 +38,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:background="@drawable/button"
+            android:layout_marginTop="15sp"
             android:text="@string/addPlayer_button"
             android:textColor="#FFFFFF"
             android:textSize="12sp"

@@ -43,9 +43,19 @@ public class GameEndActivity extends AppCompatActivity {
         // init les tableaux
         classTab();
         printWinner();
-        
 
-        
+
+        // go to menu
+        ImageButton backButton = (ImageButton) findViewById(R.id.menu_button);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
+                startActivity(mainActivity);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+                finish();
+            }
+        });
 
 
 
