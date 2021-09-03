@@ -50,8 +50,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:gravity="center"
         android:fontFamily="@font/convergence"
+        android:gravity="center"
         android:text="deuxième"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -83,30 +83,42 @@
         app:layout_constraintStart_toStartOf="@+id/medal3"
         app:layout_constraintTop_toBottomOf="@+id/medal3" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_marginTop="50dp"
+    <View
+        android:id="@+id/line_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-        android:gravity="center"
+        android:layout_height="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginRight="10dp"
+        android:background="#8B000E60"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/third" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/third">
+        app:layout_constraintTop_toBottomOf="@+id/line_view">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="450dp">
+
+            <TableLayout
+                android:id="@+id/idTable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:stretchColumns="0,1">
 
 
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 
-               <TableLayout
-                    android:id="@+id/idTable"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:stretchColumns="0,1" />
-
-        </ScrollView>
-            </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

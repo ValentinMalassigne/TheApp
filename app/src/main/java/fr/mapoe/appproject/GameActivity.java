@@ -175,7 +175,7 @@ public class GameActivity extends AppCompatActivity {
         textDisplay.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
         if(customAnswer){
             answerDisplay.setVisibility(View.VISIBLE);
-            answerDisplay.setText(answer);
+            answerDisplay.setText(HtmlCompat.fromHtml(answer,HtmlCompat.FROM_HTML_MODE_LEGACY));
         }
         else {
             answerDisplay.setVisibility(View.INVISIBLE);
@@ -357,7 +357,7 @@ public class GameActivity extends AppCompatActivity {
             boolean temp = false;
             int i=0;
             while (!temp){
-                if(ligne.substring(i,i+1).equals("ç")){
+                if(ligne.substring(i,i+1).equals("|")){
                     temp=true;
                 }else {
                     i++;

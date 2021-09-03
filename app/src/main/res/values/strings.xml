@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">La petite Appli</string>
+    <string name="app_name">ApeTime</string>
     <string name="start_button">Jouer</string>
     <string name="option_button">Options</string>
     <string name="language_button">Langues</string>
@@ -67,4 +67,5 @@
     <string name="end_of_black_or_red">Fin du fun</string>
     <string name="games_election_button">Choix du Jeu</string>
     <string name="title_activity_game_selection2">GameSelectionActivity2</string>
+    <string name="error_image">Veuillez d\'abord remplir le champ</string>
 </resources>

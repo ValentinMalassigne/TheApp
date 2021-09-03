@@ -1,18 +1,11 @@
 package fr.mapoe.appproject;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 public class GameSelectionActivity extends AppCompatActivity {
 
 
@@ -20,7 +13,7 @@ public class GameSelectionActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_selection);
-
+        AnimationBg.startBackgroundAnimation(findViewById(R.id.main_layout));
         // go to menu
         ImageButton backButton = (ImageButton) findViewById(R.id.menu_button);
         backButton.setOnClickListener(new View.OnClickListener() {

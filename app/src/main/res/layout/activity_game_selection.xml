@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_list"
     android:layout="@id/main_layout"
+    android:id="@+id/main_layout"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -53,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
+                    android:background="@android:drawable/list_selector_background"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -89,6 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
+                    android:background="@android:drawable/list_selector_background"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -123,6 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
+                    android:background="@android:drawable/list_selector_background"
                     android:orientation="horizontal">
 
                     <ImageView

@@ -20,7 +20,7 @@
             app:backgroundTint="@null"
             android:layout_width="200dp"
             android:layout_height="60dp"
-            android:background="@drawable/button_shape"
+            android:background="@drawable/button"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:text="@string/start_button"/>
@@ -33,7 +33,7 @@
             android:textSize="20sp"
             android:layout_width="200dp"
             android:layout_height="60dp"
-            android:background="@drawable/button_shape"
+            android:background="@drawable/button"
             android:layout_marginTop="20dp"
             />
 
