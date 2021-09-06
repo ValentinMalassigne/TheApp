@@ -43,9 +43,11 @@ public class CharacterChooseActivity extends AppCompatActivity {
         this.scrollViewLayout = findViewById(R.id.myDynamicLayout);
 
         Bundle extras = getIntent().getExtras();
+        Boolean restart = false;
         if (extras != null) {
             String[] savePlayerTab = extras.getStringArray("playerTab");
             String[] saveAlcoholTab = extras.getStringArray("alcoholTab");
+            restart = extras.getBoolean("restart");
             init(savePlayerTab,saveAlcoholTab);
             for(int i=0; i<saveAlcoholTab.length;i++){
                 tempTab[i]=saveAlcoholTab[i];
@@ -125,6 +127,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
             }
         });
+        if(!restart)
         showInfoDialog(R.layout.info_popup);
     }
 

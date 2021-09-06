@@ -54,7 +54,8 @@
             android:text="@string/yes_button"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            app:backgroundTint="@null" />
+            app:backgroundTint="@null"
+            android:visibility="visible"/>
 
         <Button
             android:id="@+id/no_button"
@@ -63,8 +64,20 @@
             android:background="@drawable/button_shape"
             android:text="@string/no_button"
             android:textColor="#FFFFFF"
+            android:visibility="visible"
             android:textSize="20sp"
             app:backgroundTint="@null" />
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_shape"
+            android:text="@string/next"
+            android:textColor="#FFFFFF"
+            android:visibility="gone"
+            android:textSize="20sp"
+            app:backgroundTint="@null" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
