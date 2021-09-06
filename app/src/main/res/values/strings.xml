@@ -80,4 +80,5 @@
     <string name="game">Jeux</string>
     <string name="win">"Gagné "</string>
     <string name="loose">Perdu</string>
+    <string name="empty_add_player_error">Rentrez un nom de joueur valide.</string>
 </resources>

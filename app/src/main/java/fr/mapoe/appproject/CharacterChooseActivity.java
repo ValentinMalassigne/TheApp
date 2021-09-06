@@ -57,76 +57,77 @@ public class CharacterChooseActivity extends AppCompatActivity {
         addPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText addPlayerEditText = findViewById(R.id.add_player_edit_text);
-                if (nbJoueurs < 10 & !addPlayerEditText.getText().toString().equals("")) {
-                    nbJoueurs++;
-                    idLayouts++;
-                    idImageButtons++;
-                    idDeletePlayerButton++;
-                    //ajout du text, du bouton deletePlayer et du bouton selection alcool au horizontal layout
-                    ImageButton deletePlayerButton = new ImageButton(getApplicationContext());
-                    deletePlayerButton.setId(idDeletePlayerButton);//id du premier deletePlayerBouton : 301
-                    deletePlayerButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    deletePlayerButton.setBackgroundColor(Color.TRANSPARENT);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(80,80,2);
-                    params.gravity = Gravity.CENTER;
-                    deletePlayerButton.setLayoutParams(params);
-                    deletePlayerButton.setImageResource(R.drawable.x_icon);
-                    deletePlayerButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            deletePlayer(deletePlayerButton.getId());
-                        }
-                    });
-                    LinearLayout linearLayout = new LinearLayout(getApplicationContext());
-                    linearLayout.setId(idLayouts);//id du premier layout : 101
-                    linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                    scrollViewLayout.addView(linearLayout);
-
-                    //ajout du text et du bouton au horizontal layout
-                    TextView playerName = new TextView(getApplicationContext());
-                    playerName.setText(addPlayerEditText.getText().toString());
-                    addPlayerEditText.setText("");
-                    playerName.setLayoutParams(new LinearLayout.LayoutParams(150, 150,8));
-                    playerName.setId(nbJoueurs); //id du premier TextView : 1
-                    playerName.setGravity(Gravity.CENTER);
-                    playerName.setTextSize(25);
-                    playerName.setTextColor(Color.WHITE);
-                    playerName.setFilters(new InputFilter[] {new InputFilter.LengthFilter(12) {
-                    }});
-                    playerName.setTypeface(typeface);
-
-                    ImageButton imageButton = new ImageButton(getApplicationContext());
-                    imageButton.setId(idImageButtons);//id du premier bouton : 201
-                    imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    imageButton.setBackgroundColor(Color.TRANSPARENT);
-                    imageButton.setLayoutParams(new LinearLayout.LayoutParams(150, 150,2));
-                    imageButton.setImageResource(R.drawable.drink_2);
-                    // image qui onvre une popup
-                    imageButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            String editContents = playerName.getText().toString();
-                            if(editContents.equals("")){ // si le champ est vide
-                                Toast.makeText(getApplicationContext(),getString(R.string.error_image),Toast.LENGTH_SHORT).show();
+                if (nbJoueurs < 10) {
+                    EditText addPlayerEditText = findViewById(R.id.add_player_edit_text);
+                    if (!addPlayerEditText.getText().toString().equals("")) {
+                        nbJoueurs++;
+                        idLayouts++;
+                        idImageButtons++;
+                        idDeletePlayerButton++;
+                        //ajout du text, du bouton deletePlayer et du bouton selection alcool au horizontal layout
+                        ImageButton deletePlayerButton = new ImageButton(getApplicationContext());
+                        deletePlayerButton.setId(idDeletePlayerButton);//id du premier deletePlayerBouton : 301
+                        deletePlayerButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        deletePlayerButton.setBackgroundColor(Color.TRANSPARENT);
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(80, 80, 2);
+                        params.gravity = Gravity.CENTER;
+                        deletePlayerButton.setLayoutParams(params);
+                        deletePlayerButton.setImageResource(R.drawable.x_icon);
+                        deletePlayerButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                deletePlayer(deletePlayerButton.getId());
                             }
-                            else{
-                                showAlcoholPopup(R.layout.activity_popup_drink_selection,editContents,playerName.getId());
+                        });
+                        LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+                        linearLayout.setId(idLayouts);//id du premier layout : 101
+                        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                        scrollViewLayout.addView(linearLayout);
+
+                        //ajout du text et du bouton au horizontal layout
+                        TextView playerName = new TextView(getApplicationContext());
+                        playerName.setText(addPlayerEditText.getText().toString());
+                        addPlayerEditText.setText("");
+                        playerName.setLayoutParams(new LinearLayout.LayoutParams(150, 150, 8));
+                        playerName.setId(nbJoueurs); //id du premier TextView : 1
+                        playerName.setGravity(Gravity.CENTER);
+                        playerName.setTextSize(25);
+                        playerName.setTextColor(Color.WHITE);
+                        playerName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(12) {
+                        }});
+                        playerName.setTypeface(typeface);
+
+                        ImageButton imageButton = new ImageButton(getApplicationContext());
+                        imageButton.setId(idImageButtons);//id du premier bouton : 201
+                        imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        imageButton.setBackgroundColor(Color.TRANSPARENT);
+                        imageButton.setLayoutParams(new LinearLayout.LayoutParams(150, 150, 2));
+                        imageButton.setImageResource(R.drawable.drink_2);
+                        // image qui onvre une popup
+                        imageButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                String editContents = playerName.getText().toString();
+                                if (editContents.equals("")) { // si le champ est vide
+                                    Toast.makeText(getApplicationContext(), getString(R.string.error_image), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    showAlcoholPopup(R.layout.activity_popup_drink_selection, editContents, playerName.getId());
+                                }
                             }
-                        }
-                    });
-                    characterChooseActivity.containerLayout =(LinearLayout) findViewById(idLayouts);
-                    containerLayout.addView(deletePlayerButton);
-                    containerLayout.addView(playerName);
-                    containerLayout.addView(imageButton);
-                }
-                else{
+                        });
+                        characterChooseActivity.containerLayout = (LinearLayout) findViewById(idLayouts);
+                        containerLayout.addView(deletePlayerButton);
+                        containerLayout.addView(playerName);
+                        containerLayout.addView(imageButton);
+                    }else{
+                        Toast.makeText(getApplicationContext(), getString(R.string.empty_add_player_error), Toast.LENGTH_SHORT).show();
+                    }
+                }else{
                     Toast.makeText(getApplicationContext(), getString(R.string.maximum_player_error), Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
-
 
 
         // go to game selection
