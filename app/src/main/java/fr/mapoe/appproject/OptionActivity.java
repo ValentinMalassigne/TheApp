@@ -77,7 +77,7 @@ public class OptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setLocale("fr");
-                Toast.makeText(getApplicationContext(),"fançais",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"français",Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
             }
         });

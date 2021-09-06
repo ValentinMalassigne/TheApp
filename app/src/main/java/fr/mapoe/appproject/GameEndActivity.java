@@ -66,6 +66,7 @@ public class GameEndActivity extends AppCompatActivity {
                 Intent characterChosse = new Intent(getApplicationContext(), fr.mapoe.appproject.CharacterChooseActivity.class);
                 characterChosse.putExtra("playerTab", playerTab);
                 characterChosse.putExtra("alcoholTab", alcoholTab);
+                characterChosse.putExtra("restart",true);
                 startActivity(characterChosse);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();

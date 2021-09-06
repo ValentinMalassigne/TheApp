@@ -43,9 +43,11 @@ public class CharacterChooseActivity extends AppCompatActivity {
         this.scrollViewLayout = findViewById(R.id.myDynamicLayout);
 
         Bundle extras = getIntent().getExtras();
+        boolean restart= false;
         if (extras != null) {
             String[] savePlayerTab = extras.getStringArray("playerTab");
             String[] saveAlcoholTab = extras.getStringArray("alcoholTab");
+            restart = extras.getBoolean("restart");
             init(savePlayerTab,saveAlcoholTab);
             for(int i=0; i<saveAlcoholTab.length;i++){
                 tempTab[i]=saveAlcoholTab[i];
@@ -73,11 +75,12 @@ public class CharacterChooseActivity extends AppCompatActivity {
         goToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent gameSelectionActivity = new Intent(getApplicationContext(),GameSelectionActivity.class);
-                startActivity(gameSelectionActivity);
-                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-                finish();
-            }
+                    Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
+                    startActivity(gameSelectionActivity);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                    finish();
+                }
+
         });
 
         // go to game
@@ -87,43 +90,35 @@ public class CharacterChooseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                int errors=0;
-                TextView verifPlayerNames;
-                for (int i=1;i<=nbJoueurs;i++){
-                    verifPlayerNames=findViewById(i);
-                    if(verifPlayerNames.getText().toString().equals("")){
-                        errors+=1;
-                    }
+                if(nbJoueurs<2){
+                    Toast.makeText(getApplicationContext(),getString(R.string.minimum_player_error),Toast.LENGTH_SHORT).show();
+                }else {
+                String[] playerTab = new String[nbJoueurs];
+                String[] alcoholTab = new String[nbJoueurs];
+
+                tabJoueurs = new String[nbJoueurs][2];
+                for (int i = 0; i < nbJoueurs; i++) {
+                    int temp = i + 1;
+                    TextView playerNameTextView = findViewById(temp);
+                    String playerName = playerNameTextView.getText().toString();
+                    playerTab[i] = playerName;
+                    alcoholTab[i] = tempTab[i];
+                    tabJoueurs[i][0] = playerName;
+                    tabJoueurs[i][1] = tempTab[i];
                 }
-                String[] playerTab = new String[nbJoueurs], alcoholTab = new String[nbJoueurs];
 
-                if (errors==0) {
-                    tabJoueurs = new String[nbJoueurs][2];
-                    for (int i = 0; i < nbJoueurs; i++) {
-                        int temp = i + 1;
-                        TextView playerNameTextView = findViewById(temp);
-                        String playerName = playerNameTextView.getText().toString();
-                        playerTab[i] = playerName;
-                        alcoholTab[i] = tempTab[i];
-                        tabJoueurs[i][0] = playerName;
-                        tabJoueurs[i][1] = tempTab[i];
-                    }
-
-                    Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
-                    gameActivity.putExtra("playerTab", playerTab);
-                    gameActivity.putExtra("alcoholTab", alcoholTab);
-                    startActivity(gameActivity);
-                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                    finish();
-
+                Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
+                gameActivity.putExtra("playerTab", playerTab);
+                gameActivity.putExtra("alcoholTab", alcoholTab);
+                startActivity(gameActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
 
                 }
-                else
-                    Toast.makeText(getApplicationContext(), getString(R.string.missing_names_error), Toast.LENGTH_SHORT).show();
-
             }
         });
-        showInfoDialog(R.layout.info_popup);
+        if(!restart)
+            showInfoDialog(R.layout.info_popup);
     }
 
     private void addPlayers(String[] savePlayerTab, String[] saveAlcoholTab, boolean initialisation,int i){

@@ -150,6 +150,7 @@ public class GameActivity extends AppCompatActivity {
         TextView textDisplay = (TextView) layoutView.findViewById(R.id.text_display);
         Button yesButton = (Button) layoutView.findViewById(R.id.yes_button);
         Button noButton = (Button) layoutView.findViewById(R.id.no_button);
+        Button nextButton = (Button) layoutView.findViewById(R.id.next_button);
 
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
@@ -158,7 +159,10 @@ public class GameActivity extends AppCompatActivity {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                textDisplay.setText(currentPlayer+" "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points));
+                noButton.setVisibility(View.GONE);
+                yesButton.setVisibility(View.GONE);
+                nextButton.setVisibility(View.VISIBLE);
                 // ajout au score
                 for (int i=0;i<scoreTab.length;i++){
                     if (playerTab[i].equals(currentPlayer)){
@@ -169,25 +173,26 @@ public class GameActivity extends AppCompatActivity {
                         scoreTab[i] = Integer.toString(newScore);
                     }
                 }
-                Toast.makeText(getApplicationContext(), currentPlayer+" "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points)   , Toast.LENGTH_SHORT).show();
-                alertDialog.dismiss();
-                try {
-                    newDisplay(view);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         });
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), currentPlayer + " "+ getPunition(), Toast.LENGTH_SHORT).show();
-                alertDialog.dismiss();
+                textDisplay.setText(currentPlayer+" "+getPunition());
+                yesButton.setVisibility(View.GONE);
+                noButton.setVisibility(View.GONE);
+                nextButton.setVisibility(View.VISIBLE);
+            }
+        });
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 try {
                     newDisplay(view);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                alertDialog.dismiss();
             }
         });
         alertDialog.show();
@@ -263,22 +268,6 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {}
 
-    public void newDisplay(View view) throws IOException{
-        displayCounter++;
-        getPlayerTurn();
-
-        if(GetNextInformations()) {//on vérifie si on continue a construire la page avec lex textView
-            String phrase = currentChallenge[2];
-            String type = currentChallenge[3];
-
-            TextView currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
-            TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
-
-            currentTitleDisplay.setText(type);
-            currentTextDisplay.setText(HtmlCompat.fromHtml(phrase,HtmlCompat.FROM_HTML_MODE_LEGACY));
-        }
-    }
-
     public void setUpList() throws IOException {
 
         //on récup la langue acctuelement utilisé par l'appli
@@ -315,6 +304,22 @@ public class GameActivity extends AppCompatActivity {
 
         inputStream.close();
 
+    }
+
+    public void newDisplay(View view) throws IOException{
+        displayCounter++;
+        getPlayerTurn();
+
+        if(GetNextInformations()) {//on vérifie si on continue a construire la page avec lex textView
+            String phrase = currentChallenge[2];
+            String type = currentChallenge[3];
+
+            TextView currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
+            TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
+
+            currentTitleDisplay.setText(type);
+            currentTextDisplay.setText(HtmlCompat.fromHtml(phrase,HtmlCompat.FROM_HTML_MODE_LEGACY));
+        }
     }
 
     public boolean GetNextInformations() throws  IOException
@@ -388,9 +393,6 @@ public class GameActivity extends AppCompatActivity {
                     //nom des joueurs qui participent aussi
                     res.append("<b>").append(getRandomPlayer(Nom)).append("</b>");
                 }
-            }else if(sentence.substring(i,i+1).equals("¤")) {
-                //remplace le symbole ¤ par la punition lié au currentPlaer
-                res.append(getPunition());
             }else{
                 //si on lit un caractère "normal" de la phrase on le copie cole sans modification
                 res.append(sentence.charAt(i));
