@@ -21,20 +21,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/answer_display"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/convergence"
-            android:gravity="center"
-            android:text="Réponse à la question"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:layout_marginBottom="50dp"/>
-
-        <TextView
             android:id="@+id/text_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -89,7 +89,7 @@ public class OptionActivity extends AppCompatActivity {
         //ici on enregistre dans les SharedPreferences la langue choisie par l'utilisateur
         SharedPreferences.Editor editor = language.edit();
         editor.putString("language",choseLanguage);
-        editor.commit();
+        editor.apply();
         //instructinos pour changer la langue actuelement utilisé par l'appli
         Locale myLocale = new Locale(choseLanguage);
         Resources res = getResources();

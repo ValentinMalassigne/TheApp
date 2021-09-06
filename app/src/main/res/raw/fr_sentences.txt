@@ -1,29 +1,29 @@
 anecdotes
-2 nullç§ raconte ta première cuite ou ¤
-2 nullç§ dis quel est le pire truc que tu as déjà mangé ou ¤
-2 nullç§ as-tu déjà bu en travaillant, si oui ¤
-2 nullç§ raconte tes pires vacances ou ¤
-2 nullç§ raconte ta plus grosse connerie pendant tes études ou au lycée ou ¤
-2 nullç§ raconte un truc drôle qui t'es arrivé récement si tu n'as rien tête ¤
+2 Si c'était pas interessant ¤ç§ raconte ta première cuite
+2 Si c'était pas interessant ¤ç§ dis quel est le pire truc que tu as déjà mangé
+2 Si oui ¤ç§ as-tu déjà bu en travaillant
+2 Si c'était pas interessant ¤ç§ raconte tes pires vacances
+2 Si c'était pas interessant ¤§ raconte ta plus grosse connerie pendant tes études ou au lycée
+2 Si c'était pas drôle ¤ç§ raconte un truc drôle qui t'es arrivé récement
 gages
-4 nullç§ fait un tour de magie dans les 10 prochaines secondes ou ¤
-4 nullç§ parle comme un expert d'un sujet que § choisit ou ¤
-4 nullç§ interview § sur un sujet que § à choisit ou ¤
-4 nullç§ traduit une phrase choisit par § du vieux français vers le français actuel ¤
-4 nullç§ tu débarasse la table ou les verres ou ¤
-4 nullç§ tu ressert les autres ou ¤
-4 nullç§ bois un mélange fait par § ou ¤
-4 nullç§ bloque 3 personnes sur messenger/whatsapp/instagram ou ¤
-4 nullç§ ouvre instagram et like les 3 premières publications ou ¤
-4 nullç§ fais un snap des pieds de ton voicin et envoie à 3 contacts ou ¤
+4 Si c'était pas féérique ¤ç§ fait un tour de magie dans les 10 prochaines secondes
+4 Alors § est un expert si non ¤ç§ parle comme un expert d'un sujet que § choisit
+4 Si ce reportage n'était pas convaincant ¤§ interview § sur un sujet que § à choisit
+4 § est-il/elle capable de vivre au moyen-age si non¤ç§ traduit une phrase choisit par § du vieux français vers le français actuel ¤
+4 Si c'est mal fait¤ç§ tu débarasse la table ou les verres
+4 § un bon barman ? si non¤ç§ tu ressert les autres
+4 Est que § a bu ce mélange divin ? ç§ bois un mélange fait par §
+4 § l'a fait ? si non ¤ç§ bloque 3 personnes sur messenger/whatsapp/instagram
+4 § l'a fait ? si non ¤ç§ ouvre instagram et like les 3 premières publications ou ¤
+4 § l'a fait ? si non ¤ç§ fais un snap des pieds de ton voicin et envoie à 3 contacts ou ¤
 minigames
-4 nullç§ fais devenir un mot choisit par § à § en utilisant 3-4 mots
-4 nullç§, si tu bouches les chiottes chez § tu serais plutôt du genre à lui dire ou faire comme si de rien n'était
-4 nullç§ fait deviner une chanson anglaise en la chantant en français à §
-4 nullç§ fait deviner une chanson française en la chantant en anglais à §
-4 nullç§ va chercher un objet que § choisit, si § ramène l'objet avant toi tu bois ¤ gorgées
-4 nullç§ et § décrivez la vie de § en disant un mot chacun votre tour
-4 nullç§ raconte une anecdote (vrai ou fausse), les autres doivent devinée si elle est vrai ou fausse.
+4 Si § n'as pas réussi à deviner ¤ç§ fais devenir un mot choisit par § à § en utilisant 3-4 mots
+4 si oui ¤ç§, si tu bouches les chiottes chez § tu serais plutôt du genre à lui dire ou faire comme si de rien n'était
+4 § As réussi à deviner ? Si non ¤ç§ fait deviner une chanson anglaise en la chantant en français à §
+4 § As réussi à deviner ? Si non ¤ç§ fait deviner une chanson française en la chantant en anglais à §
+4 § A gagné ? ç§ va chercher un objet que § choisit, si § ramène l'objet avant toi ¤
+4 Flemmeç§ et § décrivez la vie de § en disant un mot chacun votre tour
+4 Si plus de la moitié ont trouvé ¤ç§ raconte une anecdote (vrai ou fausse), les autres doivent devinée si elle est vrai ou fausse.
 Spinning Wheel
 Red or Black
 questions
@@ -36,11 +36,11 @@ questions
 1 si § a refusé de répondre alors ¤ç§ dis si ça te dérange quand c'est pas rasé
 1 si non ¤ç§ est-ce que tu t'es déjà fait surprendre pendant l'acte ?
 1 si non ¤ç§ est-ce que tu as déjà embrassé quelqu'un du même sexe?
-1 nullç§ quel est le fétichisme qui te dégoute le plus ?
+1 si les autres sont d'acord ¤ç§ quel est le fétichisme qui te dégoute le plus ?
 1 si c'est supérieur a 3jours ¤ç§ quel est la plus longue durée pendant la quelle tu ne t'es pas lavé ?
 1 si non ¤ç§ as-tu déjà été exité au lycée ?
 1 si oui ¤ç§ as-tu déjà subit une inujustice au lycée ?
 1 si c'est pas interessant ¤ç§ dis un truc aléatoire sur toi
-1 nullç§ Avec qui tu pourrais te battre dans le groupe ?
+1 ¤ car la violence c'est malç§ Avec qui tu pourrais te battre dans le groupe ?
 1 si non ¤ç§ est-ce que tu t'es déjà battu avec quelqu'un de ta famille ?
 1 si oui ¤ç§ as tu déjà reçu ou envoyer des nudes

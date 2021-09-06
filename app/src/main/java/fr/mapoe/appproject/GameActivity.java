@@ -8,6 +8,7 @@ import androidx.core.text.HtmlCompat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -44,7 +45,7 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String> anecdotesList = new ArrayList<String>();
     private ArrayList<String> playerTurn = new ArrayList<String>();
     private ArrayList<String> gagesList = new ArrayList<String>();
-    private String[] currentChallenge = new String[4];
+    private String[] currentChallenge = new String[4]; //0: point    1: réponse    2: phrase    3:type
     private String currentPlayer ="";
     private ConstraintLayout gameLayout;
     private Activity activity;
@@ -121,27 +122,7 @@ public class GameActivity extends AppCompatActivity {
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String answer = "";
-                Boolean customAnswer = false;
-                String currentText= "";
-                // envoie situationnel
-
-                if (currentChallenge[3].equals("Gage") || currentChallenge[3].equals("Pledge")){
-                    currentText ="<b>"+currentPlayer +"</b> "+getString(R.string.gage_success_question);                }
-                if (currentChallenge[3].equals("Mini-Jeu") || currentChallenge[3].equals("Mini-Game")){
-                    currentText = "<b>"+currentPlayer+"</b> "+ getString(R.string.miniGame_success_question);
-                }
-                if (currentChallenge[3].equals("Question/Action")) {
-                    currentText = "<b>"+currentPlayer +"</b> "+ getString(R.string.answer_action_success);
-                    customAnswer = true;
-                    answer = currentChallenge[1];
-                    if(answer.equals("null"))
-                        customAnswer=false;
-                }
-                if (currentChallenge[3].equals("Anecdote")){
-                    currentText = getString(R.string.the_annecdote)+" <b>"+currentPlayer +"</b> "+getString(R.string.satisfying_question);
-                }
-                showAnswerPopup(R.layout.game_answer_popup,currentText,answer,customAnswer);
+                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1]);
             }
         });
 
@@ -160,13 +141,12 @@ public class GameActivity extends AppCompatActivity {
             }
         });
     }
-    private void showAnswerPopup(int layout,String text, String answer, boolean customAnswer){
+    private void showAnswerPopup(int layout, String text){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
         // déclarer les éléments de la popup
         TextView textDisplay = (TextView) layoutView.findViewById(R.id.text_display);
-        TextView answerDisplay = (TextView) layoutView.findViewById(R.id.answer_display);
         Button yesButton = (Button) layoutView.findViewById(R.id.yes_button);
         Button noButton = (Button) layoutView.findViewById(R.id.no_button);
 
@@ -174,13 +154,6 @@ public class GameActivity extends AppCompatActivity {
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         textDisplay.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
-        if(customAnswer){
-            answerDisplay.setVisibility(View.VISIBLE);
-            answerDisplay.setText(HtmlCompat.fromHtml(answer,HtmlCompat.FROM_HTML_MODE_LEGACY));
-        }
-        else {
-            answerDisplay.setVisibility(View.INVISIBLE);
-        }
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -307,7 +280,9 @@ public class GameActivity extends AppCompatActivity {
 
     public void setUpList() throws IOException {
 
-        String language = Locale.getDefault().getLanguage();;
+        //on récup la langue acctuelement utilisé par l'appli
+        String language = getResources().getConfiguration().locale.getLanguage();
+
         InputStream inputStream = null;
         if(language.equals("fr")) {
             inputStream = this.getResources().openRawResource(R.raw.fr_sentences);
@@ -400,17 +375,23 @@ public class GameActivity extends AppCompatActivity {
         StringBuilder res= new StringBuilder();
         String Nom="";
         boolean temp = false;
+        //on lit la phrase caractères par caractères
         for(int i=0;i<sentence.length();i++){
             if(sentence.substring(i,i+1).equals("§")){
+                //obtention des noms a mettre dans la phrase
                 if(Nom.equals("")) {
+                    //nom du joueur principal
                     Nom=currentPlayer;
                     res.append("<b>").append(Nom).append("</b>");
                 }else{
+                    //nom des joueurs qui participent aussi
                     res.append("<b>").append(getRandomPlayer(Nom)).append("</b>");
                 }
             }else if(sentence.substring(i,i+1).equals("¤")) {
+                //remplace le symbole ¤ par la punition lié au currentPlaer
                 res.append(getPunition());
             }else{
+                //si on lit un caractère "normal" de la phrase on le copie cole sans modification
                 res.append(sentence.charAt(i));
             }
         }
