@@ -1,9 +1,14 @@
 package fr.mapoe.appproject;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,8 +18,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class OptionActivity extends AppCompatActivity {
+import java.util.Locale;
 
+public class OptionActivity extends AppCompatActivity {
+    SharedPreferences language;
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -22,6 +29,7 @@ public class OptionActivity extends AppCompatActivity {
         AnimationBg.startBackgroundAnimation(findViewById(R.id.option_layout));
 
         LinearLayout languageLayout = (LinearLayout) findViewById(R.id.language_layout);
+        language = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         languageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +64,7 @@ public class OptionActivity extends AppCompatActivity {
         englishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setLocale("en");
                 Toast.makeText(getApplicationContext(),"english",Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
             }
@@ -63,6 +72,7 @@ public class OptionActivity extends AppCompatActivity {
         frenchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                setLocale("fr");
                 Toast.makeText(getApplicationContext(),"fançais",Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
             }
@@ -70,7 +80,23 @@ public class OptionActivity extends AppCompatActivity {
 
         alertDialog.show();
     }
-
+    private void setLocale(String choseLanguage) {
+        //ici on enregistre dans les SharedPreferences la langue choisie par l'utilisateur
+        SharedPreferences.Editor editor = language.edit();
+        editor.putString("language",choseLanguage);
+        editor.commit();
+        //instructinos pour changer la langue actuelement utilisé par l'appli
+        Locale myLocale = new Locale(choseLanguage);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        //on refresh la page pour y appliquer le changement de langue
+        Intent refresh = new Intent(this, OptionActivity.class);
+        finish();
+        startActivity(refresh);
+    }
     @Override
     public void onBackPressed() {
         Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);

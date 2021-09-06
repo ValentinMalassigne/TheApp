@@ -67,13 +67,19 @@
             android:textColor="@color/white"
             android:textSize="35sp"
             android:textStyle="bold" />
-
-        <ImageView
+        <androidx.cardview.widget.CardView
+            app:cardCornerRadius="10dp"
             android:layout_width="180dp"
             android:layout_height="250dp"
+            >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/corner_shape"
+            android:scaleType="centerCrop"
             android:id="@+id/card_image"
-            android:src="@drawable/cardback" />
+            android:src="@drawable/test" />
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
     <LinearLayout

@@ -24,7 +24,7 @@ public class GameEndActivity extends AppCompatActivity {
 
     private int id = 1;
     private String[][] tabClass;
-    private String[] playerTab,scoreTab;
+    private String[] playerTab,scoreTab,alcoholTab;
 
 
 
@@ -37,6 +37,7 @@ public class GameEndActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             playerTab = extras.getStringArray("playerTab");
+            alcoholTab = extras.getStringArray("alcoholTab");
             scoreTab = extras.getStringArray("scoreTab");
 
         }
@@ -57,7 +58,19 @@ public class GameEndActivity extends AppCompatActivity {
             }
         });
 
-
+        // rejouer
+        Button restart = (Button) findViewById(R.id.restart_button);
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent characterChosse = new Intent(getApplicationContext(), fr.mapoe.appproject.CharacterChooseActivity.class);
+                characterChosse.putExtra("playerTab", playerTab);
+                characterChosse.putExtra("alcoholTab", alcoholTab);
+                startActivity(characterChosse);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+                finish();
+            }
+        });
 
 
     }
