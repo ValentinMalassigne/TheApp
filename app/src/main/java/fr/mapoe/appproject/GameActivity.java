@@ -44,7 +44,7 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String> anecdotesList = new ArrayList<String>();
     private ArrayList<String> playerTurn = new ArrayList<String>();
     private ArrayList<String> gagesList = new ArrayList<String>();
-    private String[] currentChallenge = new String[4];
+    private String[] currentChallenge = new String[5]; //0: point    1: réponse    2: phrase    3:type
     private String currentPlayer ="";
     private ConstraintLayout gameLayout;
     private Activity activity;
@@ -121,27 +121,7 @@ public class GameActivity extends AppCompatActivity {
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String answer = "";
-                Boolean customAnswer = false;
-                String currentText= "";
-                // envoie situationnel
-
-                if (currentChallenge[3].equals("Gage") || currentChallenge[3].equals("Pledge")){
-                    currentText ="<b>"+currentPlayer +"</b> "+getString(R.string.gage_success_question);                }
-                if (currentChallenge[3].equals("Mini-Jeu") || currentChallenge[3].equals("Mini-Game")){
-                    currentText = "<b>"+currentPlayer+"</b> "+ getString(R.string.miniGame_success_question);
-                }
-                if (currentChallenge[3].equals("Question/Action")) {
-                    currentText = "<b>"+currentPlayer +"</b> "+ getString(R.string.answer_action_success);
-                    customAnswer = true;
-                    answer = currentChallenge[1];
-                    if(answer.equals("null"))
-                        customAnswer=false;
-                }
-                if (currentChallenge[3].equals("Anecdote")){
-                    currentText = getString(R.string.the_annecdote)+" <b>"+currentPlayer +"</b> "+getString(R.string.satisfying_question);
-                }
-                showAnswerPopup(R.layout.game_answer_popup,currentText,answer,customAnswer);
+                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1]);
             }
         });
 
@@ -160,13 +140,12 @@ public class GameActivity extends AppCompatActivity {
             }
         });
     }
-    private void showAnswerPopup(int layout,String text, String answer, boolean customAnswer){
+    private void showAnswerPopup(int layout, String text){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
         // déclarer les éléments de la popup
         TextView textDisplay = (TextView) layoutView.findViewById(R.id.text_display);
-        TextView answerDisplay = (TextView) layoutView.findViewById(R.id.answer_display);
         Button yesButton = (Button) layoutView.findViewById(R.id.yes_button);
         Button noButton = (Button) layoutView.findViewById(R.id.no_button);
 
@@ -174,13 +153,7 @@ public class GameActivity extends AppCompatActivity {
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         textDisplay.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
-        if(customAnswer){
-            answerDisplay.setVisibility(View.VISIBLE);
-            answerDisplay.setText(HtmlCompat.fromHtml(answer,HtmlCompat.FROM_HTML_MODE_LEGACY));
-        }
-        else {
-            answerDisplay.setVisibility(View.INVISIBLE);
-        }
+
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -346,12 +319,15 @@ public class GameActivity extends AppCompatActivity {
         String type = getChallengeTurn();
         String[] tempTab =GetNextChallenge(type);
         String ligne = tempTab[1];
+
         boolean result=false;
         if(ligne.equals("Spinning Wheel")){
             setUpWheel();
-        }else if(ligne.equals("Red or Black")) {
+        }
+        else if(ligne.equals("Red or Black")) {
             startCardGame();
-        }else{
+        }
+        else{
             currentChallenge[3]= tempTab[0];
             String points;
             String answers;
@@ -360,15 +336,17 @@ public class GameActivity extends AppCompatActivity {
 
             boolean temp = false;
             int i=0;
+
             while (!temp){
                 if(ligne.substring(i,i+1).equals("ç")){
                     temp=true;
-                }else {
+                }
+                else {
                     i++;
                 }
             }
-            answers=ligne.substring(2,i);
             sentence=ligne.substring(i+1);
+            answers=ligne.substring(2,i);
 
             currentChallenge[0]=points;
             currentChallenge[1]=SetNamesInSentence(answers);
@@ -401,6 +379,7 @@ public class GameActivity extends AppCompatActivity {
         String Nom="";
         boolean temp = false;
         for(int i=0;i<sentence.length();i++){
+            // obtenir le premier nom
             if(sentence.substring(i,i+1).equals("§")){
                 if(Nom.equals("")) {
                     Nom=currentPlayer;
@@ -408,14 +387,18 @@ public class GameActivity extends AppCompatActivity {
                 }else{
                     res.append("<b>").append(getRandomPlayer(Nom)).append("</b>");
                 }
-            }else if(sentence.substring(i,i+1).equals("¤")) {
+            }
+            // avoir la punition du joueur
+            else if(sentence.substring(i,i+1).equals("¤")) {
                 res.append(getPunition());
-            }else{
+            }
+            else{
                 res.append(sentence.charAt(i));
             }
         }
         return res.toString();
     }
+
 
     private String[] GetNextChallenge(String type) {
         String[] res=new String[2];
