@@ -134,6 +134,7 @@ public class GameActivity extends AppCompatActivity {
                 // ouvre l'activity End game
                 Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
                 gameEndActivity.putExtra("playerTab", playerTab);
+                gameEndActivity.putExtra("alcoholTab", alcoholTab);
                 gameEndActivity.putExtra("scoreTab", scoreTab);
                 startActivity(gameEndActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
