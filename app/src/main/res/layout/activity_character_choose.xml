@@ -30,7 +30,8 @@
             android:fontFamily="@font/convergence"
             android:text="@string/playerCreationTitle"
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_marginBottom="20dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,6 +45,8 @@
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:inputType="text"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:layout_height="wrap_content"
                 android:hint="@string/playe_name_hint"                />
 

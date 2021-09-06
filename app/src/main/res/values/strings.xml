@@ -71,7 +71,7 @@
     <string name="type_sentence">Question/Action</string>
     <string name="type_anecdote">Anecdote</string>
     <string name="games">Jeux</string>
-    <string name="description_ape_chill">C\'est un jeu super cool qui est vraiment bien et au quel tout le monde veut jouer!</string>
+    <string name="description_ape_chill">Rentre le nom des joueurs et laisse doit guider pour un apéro endiablé ! </string>
     <string name="apechill_title">ApeChill</string>
     <string name="roulette_title">Roulette</string>
     <string name="black_or_red_title">Rouge ou Noir</string>
@@ -82,4 +82,6 @@
     <string name="loose">Perdu</string>
     <string name="empty_add_player_error">Rentrez un nom de joueur valide.</string>
     <string name="restart_button">Rejouer</string>
+    <string name="roulete_description">parce qu\'il n\'y a pas besoin d\'une raison pour boire !</string>
+    <string name="description_red_or_black">Tu connais le principe ! 1 chance sur 2</string>
 </resources>
