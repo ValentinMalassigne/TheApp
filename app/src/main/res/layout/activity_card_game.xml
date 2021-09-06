@@ -28,7 +28,7 @@
         android:layout_marginRight="10dp"
         android:fontFamily="@font/convergence"
         android:text="52"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="25sp"
         app:layout_constraintEnd_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent"
@@ -56,16 +56,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--  <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:fontFamily="@font/convergence"
-            android:text="@string/playerCreationTitle"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
-        -->
 
         <TextView
             android:id="@+id/card_color_display"
@@ -74,7 +64,7 @@
             android:layout_marginBottom="20dp"
             android:fontFamily="@font/convergence"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="35sp"
             android:textStyle="bold" />
 
@@ -92,6 +82,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <Button
@@ -117,7 +108,7 @@
             android:layout_marginRight="30dp"
             android:fontFamily="@font/convergence"
             android:text="@string/or"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
         <Button

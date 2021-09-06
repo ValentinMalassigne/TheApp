@@ -2,71 +2,59 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/menu_layout"
+    android:id="@+id/option_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_list"
-    android:gravity="center"
+
     tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/x_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/menu_button"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center_horizontal">
-        <Button
-            android:id="@+id/menu_button"
-            app:backgroundTint="@null"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="@android:dimen/app_icon_size"
-            android:background="@drawable/button_shape"
-            android:text="@string/menu_button"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-        <Button
-            android:id="@+id/language_button"
-            app:backgroundTint="@null"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:background="@drawable/button_shape"
-            android:layout_marginTop="@android:dimen/app_icon_size"
-            android:text="@string/language_button"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-        <Button
-            android:id="@+id/about_button"
-            app:backgroundTint="@null"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:background="@drawable/button_shape"
-            android:layout_marginTop="@android:dimen/app_icon_size"
-            android:text="@string/about_button"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/english_button"
-            app:backgroundTint="@null"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:background="@drawable/button_shape"
-            android:layout_marginTop="@android:dimen/app_icon_size"
-            android:text="english"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:id="@+id/language_layout"
+            android:background="@android:drawable/list_selector_background">
 
-        <Button
-            android:id="@+id/francais_button"
-            app:backgroundTint="@null"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:background="@drawable/button_shape"
-            android:layout_marginTop="@android:dimen/app_icon_size"
-            android:text="français"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:fontFamily="@font/convergence"
+                android:text="@string/language_button"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:textStyle="bold|italic"
+                android:layout_marginStart="50dp" />
 
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/language"
+                android:layout_marginLeft="50dp"
+                android:layout_marginStart="50dp" />
+
+
+
+        </LinearLayout>
     </LinearLayout>
 
 

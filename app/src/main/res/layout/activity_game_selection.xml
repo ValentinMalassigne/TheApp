@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_list"
     android:layout="@id/main_layout"
+    android:id="@+id/main_layout"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -34,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/games"
+                android:text="@string/game"
                 android:textSize="40sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -53,6 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
+                    android:background="@android:drawable/list_selector_background"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -89,6 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
+                    android:background="@android:drawable/list_selector_background"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -123,6 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
+                    android:background="@android:drawable/list_selector_background"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -148,7 +152,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/description_ape_chill" />
+                            android:text="@string/description_ape_chill"  />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -181,7 +185,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/description_ape_chill" />
+                            android:text="C'est un jeu super cool qui est vraiement bien et au quel tout le monde veut jouer!" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -215,7 +219,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
 
-                            android:text="@string/description_ape_chill" />
+                            android:text="C'est un jeu super cool qui est vraiement bien et au quel tout le monde veut jouer!" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -249,7 +253,7 @@
                             android:id="@+id/gam1_description"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/description_ape_chill" />
+                            android:text="C'est un jeu super cool qui est vraiement bien et au quel tout le monde veut jouer!" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -282,7 +286,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/description_ape_chill" />
+                            android:text="C'est un jeu super cool qui est vraiement bien et au quel tout le monde veut jouer!" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -316,7 +320,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/description_ape_chill" />
+                            android:text="C'est un jeu super cool qui est vraiement bien et au quel tout le monde veut jouer!" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -353,7 +357,8 @@
                             android:id="@+id/textView2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/description_ape_chill" />
+                            android:layout_weight="1"
+                            android:text="C'est un jeu super cool qui est vraiement bien et au quel tout le monde veut jouer!" />
                     </LinearLayout>
 
                 </LinearLayout>

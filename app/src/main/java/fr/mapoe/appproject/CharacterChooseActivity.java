@@ -2,17 +2,15 @@ package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
@@ -30,19 +28,14 @@ import java.util.Arrays;
 
 public class CharacterChooseActivity extends AppCompatActivity {
 
-    private Button addPlayer;
     private int nbJoueurs = 0; // stock egalement l'id de chaque joueur
     private LinearLayout scrollViewLayout;
     private LinearLayout containerLayout;
-    private Button goToMenu;
-    private Button goToGame;
-    private Activity activity;
     public String[] tempTab = new String[10]; // liste temporaire pour stocker si le joueur bois ou pas
     public static String[][] tabJoueurs;
     private int idLayouts=100;
     private int idImageButtons=200;
     private int idDeletePlayerButton=300;
-    private boolean onLoseFocusHistory = false;
     private CharacterChooseActivity characterChooseActivity = this;
 
 
@@ -57,9 +50,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         Arrays.fill(tempTab, "drink2");
         this.scrollViewLayout =(LinearLayout) findViewById(R.id.myDynamicLayout);
 
-        this.addPlayer= (Button) findViewById(R.id.add_player_button);
-
-        this.activity = this;
+        Button addPlayer = (Button) findViewById(R.id.add_player_button);
 
         while(nbJoueurs<2){
             nbJoueurs++;//commence a 1
@@ -93,6 +84,8 @@ public class CharacterChooseActivity extends AppCompatActivity {
             editText.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT,8));
             editText.setId(nbJoueurs); //id du premier editText : 1
             editText.setInputType(InputType.TYPE_CLASS_TEXT);
+            editText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(12) {
+            }});
             editText.setTypeface(typeface);
 
             ImageButton imageButton = new ImageButton(getApplicationContext());
@@ -107,8 +100,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     String editContents = editText.getText().toString();
                     if(editContents.equals("")){ // si le champ est vide
-                        Toast.makeText(getApplicationContext(),"erreur",Toast.LENGTH_SHORT).show();
-                    }
+                        Toast.makeText(getApplicationContext(),getString(R.string.error_image),Toast.LENGTH_SHORT).show();                    }
                     else{
                         showAlcoholPopup(R.layout.activity_popup_drink_selection,editContents,editText.getId());
                     }
@@ -119,17 +111,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
             containerLayout.addView(editText);
             containerLayout.addView(imageButton);
         }
-        int firstEditTextID=1;
-        EditText editText = (EditText) findViewById(firstEditTextID);
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if(!hasFocus && !editText.getText().toString().equals("") && !onLoseFocusHistory ){
-                    showInfoDialog(R.layout.info_popup);
-                    onLoseFocusHistory = true;
-                }
-            }
-        });
 
         // ajout des EditText à chaque clique
         addPlayer.setOnClickListener(new View.OnClickListener() {
@@ -177,6 +158,8 @@ public class CharacterChooseActivity extends AppCompatActivity {
                         editText.setInputType(InputType.TYPE_CLASS_TEXT);
                         editText.setLayoutParams(new LinearLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT,8));
                         editText.setId(nbJoueurs); //id du premier editText : 1
+                        editText.setFilters(new InputFilter[] {new InputFilter.LengthFilter(12) {
+                        }});
                         editText.setTypeface(typeface);
 
                         ImageButton imageButton = new ImageButton(getApplicationContext());
@@ -192,7 +175,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                                 //createPopup(editText,editText.getId());
                                 String editContents = editText.getText().toString();
                                 if(editContents.equals("")){ // si le champ est vide
-                                    Toast.makeText(getApplicationContext(),"erreur",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(),getString(R.string.error_image),Toast.LENGTH_SHORT).show();
                                 }
                                 else{
                                     showAlcoholPopup(R.layout.activity_popup_drink_selection,editContents,editText.getId());
@@ -217,7 +200,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
 
         // go to game selection
-        this.goToMenu= (Button) findViewById(R.id.menu_button);
+        Button goToMenu = (Button) findViewById(R.id.menu_button);
 
         goToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -231,7 +214,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
         // go to game
 
-        this.goToGame = (Button) findViewById(R.id.game_button);
+        Button goToGame = (Button) findViewById(R.id.game_button);
         goToGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -272,6 +255,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
             }
         });
+        showInfoDialog(R.layout.info_popup);
     }
 
     private void showInfoDialog(int layout){// créer la popup info
@@ -364,7 +348,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
             //mettre a jour l'id des élements des lignes après la suppression
             while(id<nbJoueurs){
                 EditText editText= findViewById(id+1);
-                editText.setHint("Nom joueur "+id);
+                editText.setHint(getString(R.string.playe_name_hint)+id);
                 editText.setId(id);
                 containerLayout =(LinearLayout) findViewById(100+id+1);
                 containerLayout.setId(100+id);

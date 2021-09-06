@@ -33,28 +33,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-<!--
-    <Button
-        android:id="@+id/roulette_button"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:background="@drawable/button_shape"
-        android:text="roulette"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:backgroundTint="@null"
-        tools:ignore="MissingConstraints" />
--->
-    <!--<Button
-        android:id="@+id/change_button"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="70dp"
-        android:background="@drawable/button_shape"
-        android:text="Change"
-        android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        app:backgroundTint="@null" />-->
 
     <LinearLayout
         android:id="@+id/main_layout"
@@ -72,7 +50,7 @@
             android:fontFamily="@font/convergence"
             android:gravity="center"
             android:text="@string/first_ttitle_display"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="40sp" />
 
         <TextView
@@ -82,7 +60,7 @@
             android:fontFamily="@font/convergence"
             android:gravity="center"
             android:text="@string/first_display_text"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="24sp" />
 
         <Button

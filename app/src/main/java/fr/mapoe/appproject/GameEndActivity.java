@@ -26,12 +26,24 @@ public class GameEndActivity extends AppCompatActivity {
     private String[][] tabClass;
     private String[] playerTab,scoreTab;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_end);
-
         AnimationBg.startBackgroundAnimation(findViewById(R.id.score_main_layout));
+        // recuperer les données
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            playerTab = extras.getStringArray("playerTab");
+            scoreTab = extras.getStringArray("scoreTab");
+
+        }
+        // init les tableaux
+        classTab();
+        printWinner();
+
 
         // go to menu
         ImageButton backButton = (ImageButton) findViewById(R.id.menu_button);
@@ -45,19 +57,10 @@ public class GameEndActivity extends AppCompatActivity {
             }
         });
 
-        // recuperer les données
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            playerTab = extras.getStringArray("playerTab");
-            scoreTab = extras.getStringArray("scoreTab");
 
-        }
-        // init les tableaux
-        classTab();
-        printWinner();
+
+
     }
-
-
     @Override
     public void onBackPressed() {
 
@@ -100,22 +103,24 @@ public class GameEndActivity extends AppCompatActivity {
         TextView secondText = (TextView) findViewById(R.id.second);
         TextView thirdText = (TextView) findViewById(R.id.third);
         ImageView medal3 = (ImageView) findViewById(R.id.medal3);
+        View lineView = (View) findViewById(R.id.line_view);
         if(playerTab.length == 2){
-            winnerText.setText(tabClass[0][0].toString() +"\n"+tabClass[0][1]+" points");
-            secondText.setText(tabClass[1][0].toString() +"\n"+tabClass[1][1]+" points");
+            winnerText.setText(tabClass[0][0].toString() +"\n"+tabClass[0][1]+" "+getString(R.string.points));
+            secondText.setText(tabClass[1][0].toString() +"\n"+tabClass[1][1]+" "+getString(R.string.points));
             thirdText.setVisibility(View.INVISIBLE);
             medal3.setVisibility(View.INVISIBLE);
-
+            lineView.setVisibility(View.GONE);
         }
         else if(playerTab.length==3){
-            winnerText.setText(tabClass[0][0].toString() +"\n"+tabClass[0][1]+" point(s)");
-            secondText.setText(tabClass[1][0].toString() +"\n"+tabClass[1][1]+" point(s)");
-            thirdText.setText(tabClass[2][0].toString() +"\n"+tabClass[2][1]+" point(s)");
+            winnerText.setText(tabClass[0][0].toString() +"\n"+tabClass[0][1]+" "+getString(R.string.points));
+            secondText.setText(tabClass[1][0].toString() +"\n"+tabClass[1][1]+" "+getString(R.string.points));
+            thirdText.setText(tabClass[2][0].toString() +"\n"+tabClass[2][1]+" "+getString(R.string.points));
+            lineView.setVisibility(View.GONE);
         }
         else{
-            winnerText.setText(tabClass[0][0].toString() +"\n"+tabClass[0][1]+" point(s)");
-            secondText.setText(tabClass[1][0].toString() +"\n"+tabClass[1][1]+" point(s)");
-            thirdText.setText(tabClass[2][0].toString() +"\n"+tabClass[2][1]+" point(s)");
+            winnerText.setText(tabClass[0][0].toString() +"\n"+tabClass[0][1]+" "+getString(R.string.points));
+            secondText.setText(tabClass[1][0].toString() +"\n"+tabClass[1][1]+" "+getString(R.string.points));
+            thirdText.setText(tabClass[2][0].toString() +"\n"+tabClass[2][1]+" "+getString(R.string.points));
             setUpTab();
         }
 
@@ -131,9 +136,10 @@ public class GameEndActivity extends AppCompatActivity {
 
         for(int i=3;i<tabClass.length;i++) {
 
-
+            //textParams.leftMargin = 50;
             TableRow row = new TableRow(getApplicationContext());
             row.setLayoutParams(rowParams);
+            row.setId(id);
             tableLayout.addView(row);
             TextView name = new TextView(getApplicationContext());
 
@@ -142,6 +148,7 @@ public class GameEndActivity extends AppCompatActivity {
             name.setTextSize(25);
             name.setTextColor(Color.WHITE);
             name.setPadding(20,20,20,20);
+            //name.setLayoutParams(textParams);
             row.addView(name);
 
 

@@ -35,7 +35,7 @@
         android:textSize="20sp"
         android:layout_width="200dp"
         android:layout_height="60dp"
-        android:background="@drawable/button_shape"
+        android:background="@drawable/button"
         android:layout_gravity="center"/>
 
 

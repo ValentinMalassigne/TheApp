@@ -9,6 +9,16 @@
     android:background="@drawable/gradient_list"
     android:gravity="center"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/setting_button"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,23 +30,10 @@
             app:backgroundTint="@null"
             android:layout_width="200dp"
             android:layout_height="60dp"
-            android:background="@drawable/button_shape"
+            android:background="@drawable/button"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             android:text="@string/start_button"/>
-
-        <Button
-            app:backgroundTint="@null"
-            android:id="@+id/option_button"
-            android:text="@string/option_button"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp"
-            android:layout_width="200dp"
-            android:layout_height="60dp"
-            android:background="@drawable/button_shape"
-            android:layout_marginTop="20dp"
-            />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

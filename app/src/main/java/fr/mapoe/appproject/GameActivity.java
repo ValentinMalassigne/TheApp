@@ -176,7 +176,7 @@ public class GameActivity extends AppCompatActivity {
         textDisplay.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
         if(customAnswer){
             answerDisplay.setVisibility(View.VISIBLE);
-            answerDisplay.setText(answer);
+            answerDisplay.setText(HtmlCompat.fromHtml(answer,HtmlCompat.FROM_HTML_MODE_LEGACY));
         }
         else {
             answerDisplay.setVisibility(View.INVISIBLE);
@@ -307,7 +307,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void setUpList() throws IOException {
 
-        String language = Locale.getDefault().getLanguage();
+        String language = Locale.getDefault().getLanguage();;
         InputStream inputStream = null;
         if(language.equals("fr")) {
             inputStream = this.getResources().openRawResource(R.raw.fr_sentences);
