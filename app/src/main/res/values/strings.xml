@@ -86,4 +86,5 @@
     <string name="description_red_or_black">Tu connais le principe ! 1 chance sur 2</string>
     <string name="ApePiment">ApePiment</string>
     <string name="ape_pimnet_description">Pour un apéro pimenté découvre les secrets coquin des tes ami(e)s</string>
+    <string name="duplicater_player_name_error">Vous ne pouvez pas utiliser plusieurs fois le même nom</string>
 </resources>
