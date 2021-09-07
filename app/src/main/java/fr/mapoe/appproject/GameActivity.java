@@ -12,6 +12,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -103,7 +104,7 @@ public class GameActivity extends AppCompatActivity {
 
         //setUp des list
         try {
-            setUpList(typeOfGame);
+            setUpList();
             newDisplay(gameLayout);
         } catch (IOException e) {
             e.printStackTrace();
@@ -119,8 +120,12 @@ public class GameActivity extends AppCompatActivity {
         });
 
         // Generer la popup réponse
-
         Button answerButton = (Button) findViewById(R.id.answer_button);
+        if(typeOfGame ==2){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                answerButton.setBackground(getDrawable(R.drawable.button2));
+            }
+        }
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,6 +160,14 @@ public class GameActivity extends AppCompatActivity {
         Button noButton = (Button) layoutView.findViewById(R.id.no_button);
         Button nextButton = (Button) layoutView.findViewById(R.id.next_button);
 
+        // change bg suivant le jeu
+        if(typeOfGame ==2){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                yesButton.setBackground(getDrawable(R.drawable.button2));
+                noButton.setBackground(getDrawable(R.drawable.button2));
+                nextButton.setBackground(getDrawable(R.drawable.button2));
+            }
+        }
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -271,7 +284,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {}
 
-    public void setUpList(int typeOfGame) throws IOException {
+    public void setUpList() throws IOException {
 
         //on récup la langue acctuelement utilisé par l'appli
         String language = getResources().getConfiguration().locale.getLanguage();

@@ -35,6 +35,7 @@
             android:background="@android:drawable/list_selector_background">
 
             <TextView
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
@@ -46,11 +47,14 @@
                 android:layout_marginStart="50dp" />
 
             <ImageView
+                android:layout_weight="1"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/language"
-                android:layout_marginLeft="50dp"
-                android:layout_marginStart="50dp" />
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="40dp" />
 
 
 

@@ -6,6 +6,7 @@ import androidx.core.content.res.ResourcesCompat;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -25,6 +26,7 @@ public class GameEndActivity extends AppCompatActivity {
     private int id = 1;
     private String[][] tabClass;
     private String[] playerTab,scoreTab,alcoholTab;
+    private int typeOfGame = 0;
 
 
 
@@ -35,7 +37,6 @@ public class GameEndActivity extends AppCompatActivity {
         AnimationBg.startBackgroundAnimation(findViewById(R.id.score_main_layout));
         // recuperer les données
         Bundle extras = getIntent().getExtras();
-        int typeOfGame = 0;
         if (extras != null) {
             playerTab = extras.getStringArray("playerTab");
             alcoholTab = extras.getStringArray("alcoholTab");
@@ -53,7 +54,7 @@ public class GameEndActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
+                Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(mainActivity);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();
@@ -62,15 +63,19 @@ public class GameEndActivity extends AppCompatActivity {
 
         // rejouer
         Button restart = (Button) findViewById(R.id.restart_button);
-        int finalTypeOfGame = typeOfGame;
+        if(typeOfGame==2){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                restart.setBackground(getDrawable(R.drawable.button2));
+            }
+        }
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent characterChosse = new Intent(getApplicationContext(), fr.mapoe.appproject.CharacterChooseActivity.class);
+                Intent characterChosse = new Intent(getApplicationContext(), CharacterChooseActivity.class);
                 characterChosse.putExtra("playerTab", playerTab);
                 characterChosse.putExtra("alcoholTab", alcoholTab);
                 characterChosse.putExtra("restart",true);
-                characterChosse.putExtra("TypeOfGame", finalTypeOfGame);
+                characterChosse.putExtra("TypeOfGame", typeOfGame);
                 startActivity(characterChosse);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();

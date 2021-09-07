@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.view.Gravity;
@@ -33,6 +34,10 @@ public class CharacterChooseActivity extends AppCompatActivity {
     private int idLayouts=100;
     private int idImageButtons=200;
     private int idDeletePlayerButton=300;
+    private Button goToMenu;
+    private Button addPlayer;
+    private Button goToGame;
+    private int typeOfGame = 0;
 
 
     @Override
@@ -41,11 +46,13 @@ public class CharacterChooseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_character_choose);
 
         this.scrollViewLayout = findViewById(R.id.myDynamicLayout);
+        this.addPlayer = (Button) findViewById(R.id.add_player_button);
+        this.goToGame = (Button) findViewById(R.id.game_button);
+        this.goToMenu = (Button) findViewById(R.id.menu_button);
         // recupération des valeurs passé en param
         Bundle extras = getIntent().getExtras();
         boolean restart= false;
         String[] savePlayerTab=new String[0],saveAlcoholTab = new String[0];
-        int typeOfGame = 0;
 
         if (extras != null) {
             typeOfGame = extras.getInt("typeOfGame");
@@ -59,13 +66,17 @@ public class CharacterChooseActivity extends AppCompatActivity {
                 tempTab[i]=saveAlcoholTab[i];
             }
         }
-
         else{
             Arrays.fill(tempTab, "drink2");
         }
-
-        Button addPlayer = findViewById(R.id.add_player_button);
-
+        // changer le bg des buttons si on ApePiment
+        if (typeOfGame==2) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                addPlayer.setBackground(getDrawable(R.drawable.button2));
+                goToGame.setBackground(getDrawable(R.drawable.button2));
+                goToMenu.setBackground(getDrawable(R.drawable.button2));
+            }
+        }
 
         // ajout des TextView à chaque clique
         addPlayer.setOnClickListener(new View.OnClickListener() {
@@ -77,7 +88,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
 
         // go to game selection
-        Button goToMenu = (Button) findViewById(R.id.menu_button);
         goToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,9 +100,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
         });
 
         // go to game
-
-        Button goToGame = (Button) findViewById(R.id.game_button);
-        int finalTypeOfGame = typeOfGame;
         goToGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +124,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                     Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
                     gameActivity.putExtra("playerTab", playerTab);
                     gameActivity.putExtra("alcoholTab", alcoholTab);
-                    gameActivity.putExtra("typeOfGame", finalTypeOfGame);
+                    gameActivity.putExtra("typeOfGame", typeOfGame);
                     startActivity(gameActivity);
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();
@@ -206,7 +213,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                     } else {
                         imageButton.setImageResource(R.drawable.drink_2);
                     }
-                    // image qui onvre une popup
+                    // image qui ouvre une popup
                     imageButton.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -248,6 +255,12 @@ public class CharacterChooseActivity extends AppCompatActivity {
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
+        // chnagement du bg button on fonction du mode de jeu
+        if(typeOfGame == 2) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                okButton.setBackground(getDrawable(R.drawable.button2));
+            }
+        }
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

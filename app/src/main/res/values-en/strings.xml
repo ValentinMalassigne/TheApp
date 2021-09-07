@@ -64,7 +64,7 @@
     <string name="type_sentence">Question/Action</string>
     <string name="type_anecdote">Anecdote</string>
     <string name="games">Games</string>
-    <string name="description_ape_chill">It\'s a very great game that everyone love and everyone want to play it !</string>
+    <string name="description_ape_chill">Enter the name of your friends and have a crazy party beginning</string>
     <string name="apechill_title">ApeChill</string>
     <string name="roulette_title">Roulette</string>
     <string name="black_or_red_title">Red or Black</string>
@@ -75,9 +75,9 @@
     <string name="loose">Loose</string>
     <string name="empty_add_player_error">Use a valid player name.</string>
     <string name="restart_button">Restart</string>
-    <string name="roulete_description">because you don\'t need a reason to drink</string>
+    <string name="roulete_description">Because you don\'t need a reason to drink</string>
     <string name="description_red_or_black">Drink even faster than with the roulette</string>
     <string name="ApePiment">ApePiment</string>
-    <string name="ape_pimnet_description">Pour un apéro pimenté découvre les secrets coquin des tes ami(e)s</string>
+    <string name="ape_pimnet_description">For a hotter aperitif and to discover the naughty secrets of your friends</string>
     <string name="duplicater_player_name_error">You can\'t use the same username several times</string>
 </resources>
