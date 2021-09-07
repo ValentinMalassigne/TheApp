@@ -44,6 +44,7 @@ questions
 1 Est-ce que c'était interessant ?ç§ Avec qui tu pourrais te battre dans le groupe ?
 1 Quelle est la réponse de § ?ç§ est-ce que tu t'es déjà battu avec quelqu'un de ta famille ?
 1 Quelle est la réponse de § ?ç§ as tu déjà reçu ou envoyer des nudes
+End
 cringe
 anecdotes
 1 Anecdote génante 1ç§ dis un truc génant hahahahaha
@@ -79,3 +80,4 @@ questions
 1 question génante 10ç§ répond à cette question génante hahahahaha
 1 question génante 11ç§ répond à cette question génante hahahahaha
 1 question génante 12ç§ répond à cette question génante hahahahaha
+End

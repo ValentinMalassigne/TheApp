@@ -77,7 +77,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/apechill_title"
-                            android:textSize="40sp"
+                            android:textSize="35sp"
                             android:textColor="@color/white"
                             android:fontFamily="@font/convergence"
                             android:textStyle="bold"
@@ -94,6 +94,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/ape_piment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
@@ -103,7 +104,7 @@
                         android:layout_width="250dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:src="@drawable/coming_soon" />
+                        android:src="@drawable/lips" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -114,14 +115,17 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="HotApe"
-                            android:textSize="40sp"
+                            android:text="@string/ApePiment"
+                            android:textColor="@color/white"
+                            android:textSize="35sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="C'est un jeu super cool qui est vraiement bien et au quel tout le monde veut jouer!" />
+                            android:text="@string/ape_pimnet_description"
+                            android:textColor="@color/white"/>
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -152,7 +156,7 @@
                             android:text="@string/roulette_title"
                             android:fontFamily="@font/convergence"
                             android:textColor="@color/white"
-                            android:textSize="40sp"
+                            android:textSize="35sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -190,7 +194,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/black_or_red_title"
-                            android:textSize="40sp"
+                            android:textSize="35sp"
                             android:fontFamily="@font/convergence"
                             android:textColor="@color/white"
                             android:textStyle="bold" />

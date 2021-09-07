@@ -35,10 +35,12 @@ public class GameEndActivity extends AppCompatActivity {
         AnimationBg.startBackgroundAnimation(findViewById(R.id.score_main_layout));
         // recuperer les données
         Bundle extras = getIntent().getExtras();
+        int typeOfGame = 0;
         if (extras != null) {
             playerTab = extras.getStringArray("playerTab");
             alcoholTab = extras.getStringArray("alcoholTab");
             scoreTab = extras.getStringArray("scoreTab");
+            typeOfGame = extras.getInt("TypeOfGame");
 
         }
         // init les tableaux
@@ -60,6 +62,7 @@ public class GameEndActivity extends AppCompatActivity {
 
         // rejouer
         Button restart = (Button) findViewById(R.id.restart_button);
+        int finalTypeOfGame = typeOfGame;
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,6 +70,7 @@ public class GameEndActivity extends AppCompatActivity {
                 characterChosse.putExtra("playerTab", playerTab);
                 characterChosse.putExtra("alcoholTab", alcoholTab);
                 characterChosse.putExtra("restart",true);
+                characterChosse.putExtra("TypeOfGame", finalTypeOfGame);
                 startActivity(characterChosse);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();

@@ -56,6 +56,7 @@ public class GameActivity extends AppCompatActivity {
     private ImageView cardImage;
     private final ArrayList<Integer> idRedCardList,idBlackCardList;
     private TextView playerCardTurn;
+    private int typeOfGame =0;
 
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
@@ -87,13 +88,13 @@ public class GameActivity extends AppCompatActivity {
         AnimationBg.startBackgroundAnimation(findViewById(R.id.game_layout));
         this.activity = this;
         ConstraintLayout gameLayout = (ConstraintLayout) findViewById(R.id.game_layout);
-        int cringe =0;
 
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             playerTab = extras.getStringArray("playerTab");
             alcoholTab = extras.getStringArray("alcoholTab");
+            typeOfGame = extras.getInt("typeOfGame");
         }
 
         // initialisation du tableau scoreTab et le remplir
@@ -102,7 +103,7 @@ public class GameActivity extends AppCompatActivity {
 
         //setUp des list
         try {
-            setUpList(cringe);
+            setUpList(typeOfGame);
             newDisplay(gameLayout);
         } catch (IOException e) {
             e.printStackTrace();
@@ -136,6 +137,7 @@ public class GameActivity extends AppCompatActivity {
                 Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
                 gameEndActivity.putExtra("playerTab", playerTab);
                 gameEndActivity.putExtra("alcoholTab", alcoholTab);
+                gameEndActivity.putExtra("typeOfGame", typeOfGame);
                 gameEndActivity.putExtra("scoreTab", scoreTab);
                 startActivity(gameEndActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
@@ -269,7 +271,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {}
 
-    public void setUpList(int cringe) throws IOException {
+    public void setUpList(int typeOfGame) throws IOException {
 
         //on récup la langue acctuelement utilisé par l'appli
         String language = getResources().getConfiguration().locale.getLanguage();
@@ -282,7 +284,7 @@ public class GameActivity extends AppCompatActivity {
         }
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         //on passe toute les lignes tant que l'on est pas aux lignes du mode génant
-        if(cringe==2){
+        if(typeOfGame==2){
             while(!reader.readLine().equals("cringe")){}
         }
         reader.readLine();//on passe la ligne "anecdotes"
@@ -302,7 +304,7 @@ public class GameActivity extends AppCompatActivity {
             tempLine = reader.readLine();
         }
         tempLine = reader.readLine();
-        while (tempLine!=null) {
+        while (!tempLine.equals("End")) {
             sentenceList.add(tempLine);
             tempLine = reader.readLine();
         }
@@ -499,6 +501,8 @@ public class GameActivity extends AppCompatActivity {
             Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
             gameEndActivity.putExtra("playerTab", playerTab);
             gameEndActivity.putExtra("scoreTab", scoreTab);
+            gameEndActivity.putExtra("alcoholTab", alcoholTab);
+            gameEndActivity.putExtra("typeOfGame", typeOfGame);
             startActivity(gameEndActivity);
             overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             finish();

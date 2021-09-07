@@ -3,7 +3,7 @@
     <string name="app_name">ApeTime</string>
     <string name="start_button">Play</string>
     <string name="option_button">Options</string>
-    <string name="language_button">Language</string>
+    <string name="language_button">Languages</string>
     <string name="about_button">About</string>
     <string name="first_ttitle_display">The title will be here</string>
     <string name="first_display_text">The text will be here</string>
@@ -77,4 +77,6 @@
     <string name="restart_button">Restart</string>
     <string name="roulete_description">because you don\'t need a reason to drink</string>
     <string name="description_red_or_black">Drink even faster than with the roulette</string>
+    <string name="ApePiment">ApePiment</string>
+    <string name="ape_pimnet_description">Pour un apéro pimenté découvre les secrets coquin des tes ami(e)s</string>
 </resources>
