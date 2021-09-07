@@ -12,6 +12,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -56,6 +57,7 @@ public class GameActivity extends AppCompatActivity {
     private ImageView cardImage;
     private final ArrayList<Integer> idRedCardList,idBlackCardList;
     private TextView playerCardTurn;
+    private int typeOfGame = 0;
 
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
@@ -90,7 +92,6 @@ public class GameActivity extends AppCompatActivity {
 
         // recuperer les données
         Bundle extras = getIntent().getExtras();
-        int typeOfGame = 0;
         if (extras != null) {
             playerTab = extras.getStringArray("playerTab");
             alcoholTab = extras.getStringArray("alcoholTab");
@@ -103,7 +104,7 @@ public class GameActivity extends AppCompatActivity {
 
         //setUp des list
         try {
-            setUpList(typeOfGame);
+            setUpList();
             newDisplay(gameLayout);
         } catch (IOException e) {
             e.printStackTrace();
@@ -121,6 +122,11 @@ public class GameActivity extends AppCompatActivity {
         // Generer la popup réponse
 
         Button answerButton = (Button) findViewById(R.id.answer_button);
+        if(typeOfGame ==2){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                answerButton.setBackground(getDrawable(R.drawable.button2));
+            }
+        }
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,7 +136,6 @@ public class GameActivity extends AppCompatActivity {
 
 
         ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
-        int finalTypeOfGame = typeOfGame;
         xButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,7 +144,7 @@ public class GameActivity extends AppCompatActivity {
                 gameEndActivity.putExtra("playerTab", playerTab);
                 gameEndActivity.putExtra("alcoholTab", alcoholTab);
                 gameEndActivity.putExtra("scoreTab", scoreTab);
-                gameEndActivity.putExtra("typeOfGame", finalTypeOfGame);
+                gameEndActivity.putExtra("typeOfGame", typeOfGame);
                 startActivity(gameEndActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
@@ -155,7 +160,14 @@ public class GameActivity extends AppCompatActivity {
         Button yesButton = (Button) layoutView.findViewById(R.id.yes_button);
         Button noButton = (Button) layoutView.findViewById(R.id.no_button);
         Button nextButton = (Button) layoutView.findViewById(R.id.next_button);
-
+        // change bg suivant le jeu
+        if(typeOfGame ==2){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                yesButton.setBackground(getDrawable(R.drawable.button2));
+                noButton.setBackground(getDrawable(R.drawable.button2));
+                nextButton.setBackground(getDrawable(R.drawable.button2));
+            }
+        }
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -272,7 +284,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {}
 
-    public void setUpList(int gameMode) throws IOException {
+    public void setUpList() throws IOException {
 
         //on récup la langue acctuelement utilisé par l'appli
         String language = getResources().getConfiguration().locale.getLanguage();
@@ -284,8 +296,9 @@ public class GameActivity extends AppCompatActivity {
             inputStream = this.getResources().openRawResource(R.raw.en_sentences);
         }
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
         //on passe toute les lignes tant que l'on est pas aux lignes du mode génant
-        if(gameMode==2){
+        if(typeOfGame==2){
             while(!reader.readLine().equals("cringe")){}
         }
         reader.readLine();//on passe la ligne "anecdotes"
@@ -305,7 +318,7 @@ public class GameActivity extends AppCompatActivity {
             tempLine = reader.readLine();
         }
         tempLine = reader.readLine();
-        while (tempLine!=null) {
+        while (!tempLine.equals("End")) {
             sentenceList.add(tempLine);
             tempLine = reader.readLine();
         }
@@ -384,6 +397,8 @@ public class GameActivity extends AppCompatActivity {
         }
         return res;
     }
+
+
 
     private String SetNamesInSentence(String sentence){
         StringBuilder res= new StringBuilder();
@@ -502,6 +517,8 @@ public class GameActivity extends AppCompatActivity {
             Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
             gameEndActivity.putExtra("playerTab", playerTab);
             gameEndActivity.putExtra("scoreTab", scoreTab);
+            gameEndActivity.putExtra("typeOfGale", typeOfGame);
+            gameEndActivity.putExtra("alcoholTab",alcoholTab);
             startActivity(gameEndActivity);
             overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             finish();

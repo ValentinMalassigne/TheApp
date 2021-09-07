@@ -73,4 +73,5 @@
     <string name="game">Games</string>
     <string name="win">Win</string>
     <string name="loose">Loose</string>
+    <string name="duplicater_player_name_error">Vous ne pouvez pas utiliser plusieurs fois le même nom</string>
 </resources>

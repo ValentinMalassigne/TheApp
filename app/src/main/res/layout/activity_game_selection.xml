@@ -77,7 +77,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/apechill_title"
-                            android:textSize="40sp"
+                            android:textSize="35sp"
                             android:textColor="@color/white"
                             android:fontFamily="@font/convergence"
                             android:textStyle="bold"
@@ -116,7 +116,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ApePiment"
-                            android:textSize="40sp"
+                            android:textSize="35sp"
                             android:textStyle="bold"
                             android:textColor="@color/white"/>
 
@@ -155,7 +155,7 @@
                             android:text="@string/roulette_title"
                             android:fontFamily="@font/convergence"
                             android:textColor="@color/white"
-                            android:textSize="40sp"
+                            android:textSize="35sp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -193,7 +193,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/black_or_red_title"
-                            android:textSize="40sp"
+                            android:textSize="35sp"
                             android:fontFamily="@font/convergence"
                             android:textColor="@color/white"
                             android:textStyle="bold" />
