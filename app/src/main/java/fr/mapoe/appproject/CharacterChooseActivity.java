@@ -43,7 +43,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         this.scrollViewLayout = findViewById(R.id.myDynamicLayout);
 
         Bundle extras = getIntent().getExtras();
-        Boolean restart = false;
+        boolean restart= false;
         if (extras != null) {
             String[] savePlayerTab = extras.getStringArray("playerTab");
             String[] saveAlcoholTab = extras.getStringArray("alcoholTab");
@@ -75,11 +75,12 @@ public class CharacterChooseActivity extends AppCompatActivity {
         goToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent gameSelectionActivity = new Intent(getApplicationContext(),GameSelectionActivity.class);
-                startActivity(gameSelectionActivity);
-                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-                finish();
-            }
+                    Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
+                    startActivity(gameSelectionActivity);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                    finish();
+                }
+
         });
 
         // go to game
@@ -88,47 +89,36 @@ public class CharacterChooseActivity extends AppCompatActivity {
         goToGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(nbJoueurs <2){
-                    Toast.makeText(getApplicationContext(), getString(R.string.minimum_player_error), Toast.LENGTH_SHORT).show();
 
-                }
-                else{
-                int errors=0;
-                TextView verifPlayerNames;
-                for (int i=1;i<=nbJoueurs;i++){
-                    verifPlayerNames=findViewById(i);
-                    if(verifPlayerNames.getText().toString().equals("")){
-                        errors+=1;
-                    }
-                }
-                String[] playerTab = new String[nbJoueurs], alcoholTab = new String[nbJoueurs];
+                if(nbJoueurs<2){
+                    Toast.makeText(getApplicationContext(),getString(R.string.minimum_player_error),Toast.LENGTH_SHORT).show();
+                }else {
+                String[] playerTab = new String[nbJoueurs];
+                String[] alcoholTab = new String[nbJoueurs];
 
-                if (errors==0) {
-                    tabJoueurs = new String[nbJoueurs][2];
-                    for (int i = 0; i < nbJoueurs; i++) {
-                        int temp = i + 1;
-                        TextView playerNameTextView = findViewById(temp);
-                        String playerName = playerNameTextView.getText().toString();
-                        playerTab[i] = playerName;
-                        alcoholTab[i] = tempTab[i];
-                        tabJoueurs[i][0] = playerName;
-                        tabJoueurs[i][1] = tempTab[i];
-                    }
-
-                    Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
-                    gameActivity.putExtra("playerTab", playerTab);
-                    gameActivity.putExtra("alcoholTab", alcoholTab);
-                    startActivity(gameActivity);
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    finish();
-
-                    }
+                tabJoueurs = new String[nbJoueurs][2];
+                for (int i = 0; i < nbJoueurs; i++) {
+                    int temp = i + 1;
+                    TextView playerNameTextView = findViewById(temp);
+                    String playerName = playerNameTextView.getText().toString();
+                    playerTab[i] = playerName;
+                    alcoholTab[i] = tempTab[i];
+                    tabJoueurs[i][0] = playerName;
+                    tabJoueurs[i][1] = tempTab[i];
                 }
 
+                Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
+                gameActivity.putExtra("playerTab", playerTab);
+                gameActivity.putExtra("alcoholTab", alcoholTab);
+                startActivity(gameActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+
+                }
             }
         });
         if(!restart)
-        showInfoDialog(R.layout.info_popup);
+            showInfoDialog(R.layout.info_popup);
     }
 
     private void addPlayers(String[] savePlayerTab, String[] saveAlcoholTab, boolean initialisation,int i){
@@ -222,7 +212,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
 
     private void init(String[] savePlayerTab, String[] saveAlcoholTab){
         for(int i=0;i<savePlayerTab.length;i++){
-            addPlayers(savePlayerTab,saveAlcoholTab,true,i);
+                addPlayers(savePlayerTab,saveAlcoholTab,true,i);
         }
     }
 
@@ -303,33 +293,33 @@ public class CharacterChooseActivity extends AppCompatActivity {
         alertDialog.show();
     }
     private void deletePlayer(int id){
-        id = id - 300;
-        //on supprime la ligne du joueur supprimé
-        containerLayout =(LinearLayout) findViewById(100+id);
-        containerLayout.removeView(findViewById(300+id));
-        containerLayout.removeView(findViewById(200+id));
-        containerLayout.removeView(findViewById(id));
-        scrollViewLayout =(LinearLayout) findViewById(R.id.myDynamicLayout);
-        scrollViewLayout.removeView(findViewById(100+id));
+            id = id - 300;
+            //on supprime la ligne du joueur supprimé
+            containerLayout =(LinearLayout) findViewById(100+id);
+            containerLayout.removeView(findViewById(300+id));
+            containerLayout.removeView(findViewById(200+id));
+            containerLayout.removeView(findViewById(id));
+            scrollViewLayout =(LinearLayout) findViewById(R.id.myDynamicLayout);
+            scrollViewLayout.removeView(findViewById(100+id));
 
-        //mettre a jour l'id des élements des lignes après la suppression
-        while(id<nbJoueurs){
-            TextView playerName= findViewById(id+1);
-            playerName.setHint(getString(R.string.playe_name_hint)+id);
-            playerName.setId(id);
-            containerLayout =(LinearLayout) findViewById(100+id+1);
-            containerLayout.setId(100+id);
-            ImageButton selectAlcoholButton=findViewById(200+id+1);
-            selectAlcoholButton.setId(200+id);
-            ImageButton deletePlayerButton=findViewById(300+id+1);
-            deletePlayerButton.setId(300+id);
-            id++;
-        }
+            //mettre a jour l'id des élements des lignes après la suppression
+            while(id<nbJoueurs){
+                TextView playerName= findViewById(id+1);
+                playerName.setHint(getString(R.string.playe_name_hint)+id);
+                playerName.setId(id);
+                containerLayout =(LinearLayout) findViewById(100+id+1);
+                containerLayout.setId(100+id);
+                ImageButton selectAlcoholButton=findViewById(200+id+1);
+                selectAlcoholButton.setId(200+id);
+                ImageButton deletePlayerButton=findViewById(300+id+1);
+                deletePlayerButton.setId(300+id);
+                id++;
+            }
 
-        nbJoueurs--;
-        idLayouts--;
-        idImageButtons--;
-        idDeletePlayerButton--;
+            nbJoueurs--;
+            idLayouts--;
+            idImageButtons--;
+            idDeletePlayerButton--;
     }
 
     public void addTemporaryTab(int position, String drink){ tempTab[position-1] = drink ; } // ajout à la liste temporaire

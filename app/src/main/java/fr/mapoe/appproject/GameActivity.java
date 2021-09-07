@@ -8,6 +8,7 @@ import androidx.core.text.HtmlCompat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -44,7 +45,7 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String> anecdotesList = new ArrayList<String>();
     private ArrayList<String> playerTurn = new ArrayList<String>();
     private ArrayList<String> gagesList = new ArrayList<String>();
-    private String[] currentChallenge = new String[5]; //0: point    1: réponse    2: phrase    3:type
+    private String[] currentChallenge = new String[4]; //0: point    1: réponse    2: phrase    3:type
     private String currentPlayer ="";
     private ConstraintLayout gameLayout;
     private Activity activity;
@@ -155,7 +156,6 @@ public class GameActivity extends AppCompatActivity {
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         textDisplay.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
-
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -173,7 +173,6 @@ public class GameActivity extends AppCompatActivity {
                         scoreTab[i] = Integer.toString(newScore);
                     }
                 }
-
             }
         });
         noButton.setOnClickListener(new View.OnClickListener() {
@@ -188,7 +187,6 @@ public class GameActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 try {
                     newDisplay(view);
                 } catch (IOException e) {
@@ -270,25 +268,11 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {}
 
-    public void newDisplay(View view) throws IOException{
-        displayCounter++;
-        getPlayerTurn();
-
-        if(GetNextInformations()) {//on vérifie si on continue a construire la page avec lex textView
-            String phrase = currentChallenge[2];
-            String type = currentChallenge[3];
-
-            TextView currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
-            TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
-
-            currentTitleDisplay.setText(type);
-            currentTextDisplay.setText(HtmlCompat.fromHtml(phrase,HtmlCompat.FROM_HTML_MODE_LEGACY));
-        }
-    }
-
     public void setUpList() throws IOException {
 
-        String language = Locale.getDefault().getLanguage();;
+        //on récup la langue acctuelement utilisé par l'appli
+        String language = getResources().getConfiguration().locale.getLanguage();
+
         InputStream inputStream = null;
         if(language.equals("fr")) {
             inputStream = this.getResources().openRawResource(R.raw.fr_sentences);
@@ -322,20 +306,33 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    public void newDisplay(View view) throws IOException{
+        displayCounter++;
+        getPlayerTurn();
+
+        if(GetNextInformations()) {//on vérifie si on continue a construire la page avec lex textView
+            String phrase = currentChallenge[2];
+            String type = currentChallenge[3];
+
+            TextView currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
+            TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
+
+            currentTitleDisplay.setText(type);
+            currentTextDisplay.setText(HtmlCompat.fromHtml(phrase,HtmlCompat.FROM_HTML_MODE_LEGACY));
+        }
+    }
+
     public boolean GetNextInformations() throws  IOException
     {
         String type = getChallengeTurn();
         String[] tempTab =GetNextChallenge(type);
         String ligne = tempTab[1];
-
         boolean result=false;
         if(ligne.equals("Spinning Wheel")){
             setUpWheel();
-        }
-        else if(ligne.equals("Red or Black")) {
+        }else if(ligne.equals("Red or Black")) {
             startCardGame();
-        }
-        else{
+        }else{
             currentChallenge[3]= tempTab[0];
             String points;
             String answers;
@@ -344,17 +341,15 @@ public class GameActivity extends AppCompatActivity {
 
             boolean temp = false;
             int i=0;
-
             while (!temp){
                 if(ligne.substring(i,i+1).equals("ç")){
                     temp=true;
-                }
-                else {
+                }else {
                     i++;
                 }
             }
-            sentence=ligne.substring(i+1);
             answers=ligne.substring(2,i);
+            sentence=ligne.substring(i+1);
 
             currentChallenge[0]=points;
             currentChallenge[1]=SetNamesInSentence(answers);
@@ -386,27 +381,25 @@ public class GameActivity extends AppCompatActivity {
         StringBuilder res= new StringBuilder();
         String Nom="";
         boolean temp = false;
+        //on lit la phrase caractères par caractères
         for(int i=0;i<sentence.length();i++){
-            // obtenir le premier nom
             if(sentence.substring(i,i+1).equals("§")){
+                //obtention des noms a mettre dans la phrase
                 if(Nom.equals("")) {
+                    //nom du joueur principal
                     Nom=currentPlayer;
                     res.append("<b>").append(Nom).append("</b>");
                 }else{
+                    //nom des joueurs qui participent aussi
                     res.append("<b>").append(getRandomPlayer(Nom)).append("</b>");
                 }
-            }
-            // avoir la punition du joueur
-            else if(sentence.substring(i,i+1).equals("¤")) {
-                res.append(getPunition());
-            }
-            else{
+            }else{
+                //si on lit un caractère "normal" de la phrase on le copie cole sans modification
                 res.append(sentence.charAt(i));
             }
         }
         return res.toString();
     }
-
 
     private String[] GetNextChallenge(String type) {
         String[] res=new String[2];

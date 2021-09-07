@@ -22,6 +22,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        //changement de la langue
+        getLanguage();
+
         //animation du bg
         AnimationBg.startBackgroundAnimation(findViewById(R.id.menu_layout));
 
@@ -53,6 +57,34 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    private void getLanguage(){
+        //on charge le langage enregistrer dans les shared preferences
+        SharedPreferences language = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        String choseLanguage = language.getString("language","");
+        //on récup la langue acctuelement utilisé par l'appli
+        Configuration conf = getResources().getConfiguration();
+        String localLanguage = conf.locale.getLanguage();
+        //on vérifie si la langue actuelle et la langue enregistré par l'utilisateur sont la même (pour éviter de changer en boucle la langue)
+        if(choseLanguage!=null & !localLanguage.equals(choseLanguage)){
+            setLocale(choseLanguage);
+        }
+    }
+
+    //on met a jour la langue de l'appli
+    private void setLocale(String choseLanguage) {
+        Locale myLocale = new Locale(choseLanguage);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+        //on refresh la page pour y appliquer le changement de langue
+        Intent refresh = new Intent(this, MainActivity.class);
+        finish();
+        startActivity(refresh);
+    }
+
+
     private void getLanguage(){
         //on charge le langage enregistrer dans les shared preferences
         SharedPreferences language = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);

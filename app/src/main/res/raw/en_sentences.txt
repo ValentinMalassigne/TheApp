@@ -1,46 +1,46 @@
 anecdotes
-2 nullç§ tell us the first time you were drunk or ¤
-2 nullç§ tell the worst thing you ever ate or ¤
-2 nullç§ have you ever drink while working, if yes ¤
-2 nullç§ tell your worst holidays or ¤
-2 nullç§ tell us the worst thing you have done during your studies or ¤
-2 nullç§ say something funny that happened to you recently, if you can't think about any ¤
+2 Was it interesting ?ç§ tell us the first time you were drunk
+2 Was it interesting ?ç§ tell the worst thing you ever ate
+2 Have § ever done it before ?ç§ have you ever drink while working ?
+2 Was it interesting ?ç§ tell your worst holidays
+2 Was it interesting ?ç§ tell us the worst thing you have done during your studies
+2 Was it funny ?ç§ say something funny that happened to you recently
 gages
-4 nullç§ do a magick trick in the next 10 seconds or ¤
-4 nullç§ talk like an expert about a subject that § choosed or ¤
-4 nullç§ interview § on a subject choose by § or ¤
-4 nullç§ translate a sentence choosed by § from french to english or ¤
-4 nullç§ clear the table or ¤
-4 nullç§ refill others glass or ¤
-4 nullç§ drink a cocktail made by § or ¤
-4 nullç§ block 3 people on messenger/whatsapp/instagram or ¤
-4 nullç§ open instagram and like the 3 first publications or ¤
-4 nullç§ do a snap of the foot of the person on your rigth and send it to 3 people or ¤
+4 Is § a magician ?ç§ do a magick trick in the next 10 seconds
+4 Is § looking like an expert ?ç§ talk like an expert about a subject that § chose
+4 Was the interview boring ?ç§ interview § on a subject chose by §
+4 If you failed ç§ translate a sentence chose by § from french to english
+4 Did § clear the table ?ç§ clear the table
+4 Is § a good waiter ?ç§ refill others glass
+4 Did § drunk the tasty juice ?ç§ drink a cocktail made by §
+4 Did § blocked at least 3 people ?ç§ block 3 people on messenger/whatsapp/instagram
+4 Did § liked at least 3 publications ?ç§ open instagram and like the 3 first publications
+4 Did § sent the snap ?ç§ do a snap of the foot of the person on your right and send it to 3 people
 minigames
-4 nullç§ make § guess a word choosed by § by using 3 words
-4 nullç§ if you were to block the toilets of § would you tell him or stay quiet
-4 nullç§ make § guess a french song by singing it in english
-4 nullç§ make § guess a english song by singing it in french
-4 nullç§ find an object selected by §, if § finds it before you ¤
-4 nullç§ and § describe the life of § by saying 2 words each other
-4 nullç§ tell us an anecdote (real or fake), others have to guess if they are fake or not.
+4 Did § failed the game ?ç§ make § guess a word chose by § by using 3 words
+4 Was § honest ? ç§ if you were to block the toilets of § would you tell him or stay quiet
+4 Did § failed the game ?ç§ make § guess a french song by singing it in english
+4 Did § failed the game ?ç§ make § guess a english song by singing it in french
+4 Was § the first one to find the object ?ç§ find an object selected by §, if § finds it before you
+4 Was the description interesting ?ç§ and § describe the life of § by saying 2 words each other
+4 Did most of other people found the truth or not ?ç§ tell us an anecdote (real or fake), others have to guess if they are fake or not.
 Spinning Wheel
 Red or Black
 questions
-1 if yes ¤ç§ have you ever been drunk with your family ?
-1 if others disagree with you ¤ç§ who resists the best to alcohol in the group ?
-1 if the recipe is incorrect then ¤ç§ tell us the recipe of a plate
-1 if the recipe is incorrect then ¤ç§ tell us the recipe of a cocktail
-1 if others disagree with you ¤ç§ invent a possible fusion of 2 sports
-1 if § didn't answer then ¤ç§ tell with who would you hate to spend your holidays
-1 if § didn't answer then ¤ç§ does it bother when it's not shaved
-1 if not ¤ç§ have you ever been surprised during the act ?
-1 if not ¤ç§ have you ever kissed someone of the same gender?
-1 nullç§ what fetishism disgust you the most ?
-1 if your answer is greater than 3 days then ¤ç§ what is the longest time you haven't washed yourself?
-1 if not ¤ç§ have you ever been exited at high school ?
-1 if yes ¤ç§ have you ever suffered from an injustice at high school ?
-1 if it is not interesting ¤ç§ tell something random about you
-1 nullç§ with who could you fight in the group
-1 if not ¤ç§ have you ever fight with someone of your family ?
-1 if yes ¤ç§ have you ever sent or received nudes
+1 What is §'s answer ?ç§ have you ever been drunk with your family ?
+1 Do everyone agree with § ?ç§ who resists the best to alcohol in the group ?
+1 Is the recipe correct ?ç§ tell us the recipe of a plate
+1 Is the recipe correct ?ç§ tell us the recipe of a cocktail
+1 Do others think this fusion is possible ?ç§ invent a possible fusion of 2 sports
+1 Did § answered ?ç§ tell with who would you hate to spend your holidays
+1 Did § answered ?ç§ does it bother you when it's not shaved
+1 What is §'s answer ?ç§ have you ever been surprised during the act ?
+1 What is §'s answer ?ç§ have you ever kissed someone of the same gender?
+1 Do others agree with § ?ç§ what fetishism disgust you the most ?
+1 Is §'s answer is greater than 3 days ?ç§ what is the longest time you haven't washed yourself?
+1 What is §'s answer ?ç§ have you ever been exited at high school ?
+1 What is §'s answer ?ç§ have you ever suffered from an injustice at high school ?
+1 Was it interesting ?ç§ tell something random about you
+1 Was it interesting ?ç§ with who could you fight in the group
+1 What is §'s answer ?ç§ have you ever fight with someone of your family ?
+1 What is §'s answer ?ç§ have you ever sent or received nudes

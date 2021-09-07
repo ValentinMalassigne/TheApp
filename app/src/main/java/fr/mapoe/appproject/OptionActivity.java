@@ -21,15 +21,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Locale;
 
 public class OptionActivity extends AppCompatActivity {
+
     SharedPreferences language;
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activty_option);
         AnimationBg.startBackgroundAnimation(findViewById(R.id.option_layout));
 
+        //initialisation du SharedPreferences
+        language= getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+
         LinearLayout languageLayout = (LinearLayout) findViewById(R.id.language_layout);
-        language = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         languageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,18 +77,19 @@ public class OptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setLocale("fr");
-                Toast.makeText(getApplicationContext(),"fançais",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"français",Toast.LENGTH_SHORT).show();
                 alertDialog.dismiss();
             }
         });
 
         alertDialog.show();
     }
+
     private void setLocale(String choseLanguage) {
         //ici on enregistre dans les SharedPreferences la langue choisie par l'utilisateur
         SharedPreferences.Editor editor = language.edit();
         editor.putString("language",choseLanguage);
-        editor.commit();
+        editor.apply();
         //instructinos pour changer la langue actuelement utilisé par l'appli
         Locale myLocale = new Locale(choseLanguage);
         Resources res = getResources();
@@ -97,6 +102,7 @@ public class OptionActivity extends AppCompatActivity {
         finish();
         startActivity(refresh);
     }
+
     @Override
     public void onBackPressed() {
         Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
