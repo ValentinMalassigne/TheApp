@@ -39,7 +39,7 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity {
 
     private String[] playerTab, alcoholTab, scoreTab;
-    private ArrayList<String> challengeList=new ArrayList<String>();
+    private ArrayList<String> challengeList =new ArrayList<String>();
     private ArrayList<String> miniGamesList = new ArrayList<String>();
     private ArrayList<String> sentenceList = new ArrayList<String>();
     private ArrayList<String> anecdotesList = new ArrayList<String>();
@@ -87,6 +87,7 @@ public class GameActivity extends AppCompatActivity {
         AnimationBg.startBackgroundAnimation(findViewById(R.id.game_layout));
         this.activity = this;
         ConstraintLayout gameLayout = (ConstraintLayout) findViewById(R.id.game_layout);
+        int cringe =0;
 
         // recuperer les données
         Bundle extras = getIntent().getExtras();
@@ -101,7 +102,7 @@ public class GameActivity extends AppCompatActivity {
 
         //setUp des list
         try {
-            setUpList();
+            setUpList(cringe);
             newDisplay(gameLayout);
         } catch (IOException e) {
             e.printStackTrace();
@@ -268,7 +269,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {}
 
-    public void setUpList() throws IOException {
+    public void setUpList(int cringe) throws IOException {
 
         //on récup la langue acctuelement utilisé par l'appli
         String language = getResources().getConfiguration().locale.getLanguage();
@@ -280,8 +281,12 @@ public class GameActivity extends AppCompatActivity {
             inputStream = this.getResources().openRawResource(R.raw.en_sentences);
         }
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        reader.readLine();
-        String tempLine = reader.readLine();
+        //on passe toute les lignes tant que l'on est pas aux lignes du mode génant
+        if(cringe==2){
+            while(!reader.readLine().equals("cringe")){}
+        }
+        reader.readLine();//on passe la ligne "anecdotes"
+        String tempLine = reader.readLine();//on lit la première anecdote
         while (!tempLine.equals("gages")) {
             anecdotesList.add(tempLine);
             tempLine = reader.readLine();

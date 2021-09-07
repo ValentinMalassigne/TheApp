@@ -82,4 +82,6 @@
     <string name="loose">Perdu</string>
     <string name="empty_add_player_error">Rentrez un nom de joueur valide.</string>
     <string name="restart_button">rejouer</string>
+    <string name="roulete_description">parce qu\'il n\'y a pas besoin d\'une raison pour boire !</string>
+    <string name="description_red_or_black">Tu connais le principe ! 1 chance sur 2</string>
 </resources>

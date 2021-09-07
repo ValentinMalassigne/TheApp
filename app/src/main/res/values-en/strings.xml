@@ -73,4 +73,8 @@
     <string name="game">Games</string>
     <string name="win">Win</string>
     <string name="loose">Loose</string>
+    <string name="empty_add_player_error">Use a valid player name.</string>
+    <string name="restart_button">Restart</string>
+    <string name="roulete_description">because you don\'t need a reason to drink</string>
+    <string name="description_red_or_black">Drink even faster than with the roulette</string>
 </resources>

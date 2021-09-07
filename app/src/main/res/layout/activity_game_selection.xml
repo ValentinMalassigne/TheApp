@@ -18,7 +18,8 @@
             android:id="@+id/layout_info_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
 
             <ImageButton
                 android:id="@+id/menu_button"
@@ -37,7 +38,9 @@
                 android:layout_weight="1"
                 android:text="@string/game"
                 android:textSize="40sp"
-                android:textStyle="bold" />
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:fontFamily="@font/convergence"/>
         </LinearLayout>
 
         <ScrollView
@@ -75,13 +78,50 @@
                             android:layout_height="wrap_content"
                             android:text="@string/apechill_title"
                             android:textSize="40sp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/convergence"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/convergence"
+                            android:text="@string/description_ape_chill" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="250dp"
+                        android:layout_height="100dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/coming_soon" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="HotApe"
+                            android:textSize="40sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
-                            android:text="@string/description_ape_chill" />
+                            android:text="C'est un jeu super cool qui est vraiement bien et au quel tout le monde veut jouer!" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -95,7 +135,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="250dp"
+                        android:layout_width="200dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
                         android:src="@drawable/wheel_logo" />
@@ -110,13 +150,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/roulette_title"
+                            android:fontFamily="@font/convergence"
+                            android:textColor="@color/white"
                             android:textSize="40sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/description_ape_chill" />
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/convergence"
+                            android:text="@string/roulete_description" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -130,7 +174,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="250dp"
+                        android:layout_width="115dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
                         android:src="@drawable/card_game_logo" />
@@ -147,12 +191,16 @@
                             android:layout_height="wrap_content"
                             android:text="@string/black_or_red_title"
                             android:textSize="40sp"
+                            android:fontFamily="@font/convergence"
+                            android:textColor="@color/white"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/description_ape_chill"  />
+                            android:fontFamily="@font/convergence"
+                            android:textColor="@color/white"
+                            android:text="@string/description_red_or_black"  />
                     </LinearLayout>
 
                 </LinearLayout>
