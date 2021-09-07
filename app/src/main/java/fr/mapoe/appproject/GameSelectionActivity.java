@@ -26,18 +26,31 @@ public class GameSelectionActivity extends AppCompatActivity {
             }
         });
 
-        // go to character choose
+        // go to character choose by ApeChill
         LinearLayout goToCharacter = (LinearLayout) findViewById(R.id.character_choose_image);
         goToCharacter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent characterChooseActivity = new Intent(getApplicationContext(), CharacterChooseActivity.class);
+                characterChooseActivity.putExtra("typeOfGame",1);
                 startActivity(characterChooseActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
 
+        // go to character choose by ApePiment
+        LinearLayout goToApePiment = (LinearLayout) findViewById(R.id.ape_piment) ;
+        goToApePiment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent characterChooseActivity = new Intent(getApplicationContext(), CharacterChooseActivity.class);
+                characterChooseActivity.putExtra("typeOfGame",2);
+                startActivity(characterChooseActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
+        });
         // go to Simple Wheel
         LinearLayout goToSimpleWheel = (LinearLayout) findViewById(R.id.wheel_image);
         goToSimpleWheel.setOnClickListener(new View.OnClickListener() {

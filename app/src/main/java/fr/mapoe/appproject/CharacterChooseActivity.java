@@ -41,19 +41,25 @@ public class CharacterChooseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_character_choose);
 
         this.scrollViewLayout = findViewById(R.id.myDynamicLayout);
-
+        // recupération des valeurs passé en param
         Bundle extras = getIntent().getExtras();
         boolean restart= false;
+        String[] savePlayerTab=new String[0],saveAlcoholTab = new String[0];
+        int typeOfGame = 0;
+
         if (extras != null) {
-            String[] savePlayerTab = extras.getStringArray("playerTab");
-            String[] saveAlcoholTab = extras.getStringArray("alcoholTab");
+            typeOfGame = extras.getInt("typeOfGame");
+            savePlayerTab = extras.getStringArray("playerTab");
+            saveAlcoholTab = extras.getStringArray("alcoholTab");
             restart = extras.getBoolean("restart");
+        }
+        if(restart){
             init(savePlayerTab,saveAlcoholTab);
             for(int i=0; i<saveAlcoholTab.length;i++){
                 tempTab[i]=saveAlcoholTab[i];
             }
-
         }
+
         else{
             Arrays.fill(tempTab, "drink2");
         }
@@ -86,6 +92,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         // go to game
 
         Button goToGame = (Button) findViewById(R.id.game_button);
+        int finalTypeOfGame = typeOfGame;
         goToGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +117,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                 Intent gameActivity = new Intent(getApplicationContext(), GameActivity.class);
                 gameActivity.putExtra("playerTab", playerTab);
                 gameActivity.putExtra("alcoholTab", alcoholTab);
+                gameActivity.putExtra("typeOfGame", finalTypeOfGame);
                 startActivity(gameActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
@@ -118,7 +126,9 @@ public class CharacterChooseActivity extends AppCompatActivity {
             }
         });
         if(!restart)
+        {
             showInfoDialog(R.layout.info_popup);
+        }
     }
 
     private void addPlayers(String[] savePlayerTab, String[] saveAlcoholTab, boolean initialisation,int i){

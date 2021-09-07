@@ -90,9 +90,11 @@ public class GameActivity extends AppCompatActivity {
 
         // recuperer les données
         Bundle extras = getIntent().getExtras();
+        int typeOfGame = 0;
         if (extras != null) {
             playerTab = extras.getStringArray("playerTab");
             alcoholTab = extras.getStringArray("alcoholTab");
+            typeOfGame = extras.getInt("typeOfGame");
         }
 
         // initialisation du tableau scoreTab et le remplir
@@ -101,7 +103,7 @@ public class GameActivity extends AppCompatActivity {
 
         //setUp des list
         try {
-            setUpList();
+            setUpList(typeOfGame);
             newDisplay(gameLayout);
         } catch (IOException e) {
             e.printStackTrace();
@@ -128,6 +130,7 @@ public class GameActivity extends AppCompatActivity {
 
 
         ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
+        int finalTypeOfGame = typeOfGame;
         xButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,6 +139,7 @@ public class GameActivity extends AppCompatActivity {
                 gameEndActivity.putExtra("playerTab", playerTab);
                 gameEndActivity.putExtra("alcoholTab", alcoholTab);
                 gameEndActivity.putExtra("scoreTab", scoreTab);
+                gameEndActivity.putExtra("typeOfGame", finalTypeOfGame);
                 startActivity(gameEndActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
@@ -268,7 +272,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {}
 
-    public void setUpList() throws IOException {
+    public void setUpList(int gameMode) throws IOException {
 
         //on récup la langue acctuelement utilisé par l'appli
         String language = getResources().getConfiguration().locale.getLanguage();
@@ -280,8 +284,12 @@ public class GameActivity extends AppCompatActivity {
             inputStream = this.getResources().openRawResource(R.raw.en_sentences);
         }
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        reader.readLine();
-        String tempLine = reader.readLine();
+        //on passe toute les lignes tant que l'on est pas aux lignes du mode génant
+        if(gameMode==2){
+            while(!reader.readLine().equals("cringe")){}
+        }
+        reader.readLine();//on passe la ligne "anecdotes"
+        String tempLine = reader.readLine();//on lit la première anecdote
         while (!tempLine.equals("gages")) {
             anecdotesList.add(tempLine);
             tempLine = reader.readLine();
