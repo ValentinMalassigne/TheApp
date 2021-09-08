@@ -50,5 +50,23 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/wheel_result_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:fontFamily="@font/convergence"
+        android:layout_marginStart="176dp"
+        android:layout_marginLeft="176dp"
+        android:layout_marginTop="108dp"
+        android:layout_marginEnd="177dp"
+        android:textSize="24sp"
+        android:layout_marginRight="177dp"
+        android:layout_marginBottom="59dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
