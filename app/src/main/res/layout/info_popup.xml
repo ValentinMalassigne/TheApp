@@ -15,7 +15,7 @@
         android:fontFamily="@font/convergence"
         android:gravity="center"
         android:includeFontPadding="true"
-
+        android:id="@+id/text_info"
         android:text="@string/info_text"
         android:textColor="@color/white"
         android:textSize="20dp" />
@@ -25,7 +25,8 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        android:src="@drawable/drink_2" />
+        android:src="@drawable/drink_2"
+        android:id="@+id/image_info"/>
     <Button
         android:layout_marginTop="50dp"
         app:backgroundTint="@null"

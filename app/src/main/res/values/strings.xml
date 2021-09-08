@@ -85,4 +85,5 @@
     <string name="duplicater_player_name_error">Vous ne pouvez pas utiliser plusieurs fois le même nom</string>
     <string name="drink">bois</string>
     <string name="your_turn">c\'est à toi de jouer</string>
+    <string name="game_description">Tu peux choisir de répondre à la question et de marquer des points ou de passer et de boire</string>
 </resources>

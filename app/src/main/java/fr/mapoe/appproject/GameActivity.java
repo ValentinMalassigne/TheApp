@@ -149,7 +149,35 @@ public class GameActivity extends AppCompatActivity {
                 finish();
             }
         });
+        showInfoDialog(R.layout.info_popup);
     }
+    private void showInfoDialog(int layout) {// créer la popup info
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
+        View layoutView = getLayoutInflater().inflate(layout, null);
+        Button okButton = layoutView.findViewById(R.id.ok_button);
+        TextView textInfo = layoutView.findViewById(R.id.text_info);
+        ImageView imageInfo = layoutView.findViewById(R.id.image_info);
+        textInfo.setText(getString(R.string.game_description));
+        imageInfo.setVisibility(View.GONE);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+        // chnagement du bg button on fonction du mode de jeu
+        if (typeOfGame == 2) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                okButton.setBackground(getDrawable(R.drawable.button2));
+            }
+        }
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+    }
+
     private void showAnswerPopup(int layout, String text){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
@@ -286,7 +314,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {}
 
-    public void setUpList() throws IOException {
+    private void setUpList() throws IOException {
 
         //on récup la langue acctuelement utilisé par l'appli
         String language = getResources().getConfiguration().locale.getLanguage();
@@ -328,7 +356,7 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public void newDisplay(View view) throws IOException{
+    private void newDisplay(View view) throws IOException{
         displayCounter++;
         getPlayerTurn();
 
@@ -344,7 +372,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public boolean GetNextInformations()
+    private boolean GetNextInformations()
     {
         String type = getChallengeTurn();
         String[] tempTab =GetNextChallenge(type);

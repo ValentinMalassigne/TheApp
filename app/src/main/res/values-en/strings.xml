@@ -85,4 +85,5 @@
     <string name="title_activity_game_selection2">GameSelectionActivity2</string>
     <string name="drink">Drink</string>
     <string name="your_turn">it is your turn to play</string>
+    <string name="game_description">If you answer the question you earn points else … you drink ! </string>
 </resources>
