@@ -11,6 +11,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -76,7 +77,8 @@ public class SimpleWheelActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                Toast.makeText(SimpleWheelActivity.this,getString(R.string.you_drink)+sectors[sectors.length-(degree+1)]+getString(R.string.sips),Toast.LENGTH_SHORT).show();
+                TextView wheelResult = findViewById(R.id.wheel_result_display);
+                wheelResult.setText(getString(R.string.drink)+" "+sectors[sectors.length-(degree+1)]+getString(R.string.sips));
                 isSpinning=false;
             }
 

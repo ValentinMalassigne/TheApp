@@ -175,7 +175,8 @@ public class GameActivity extends AppCompatActivity {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textDisplay.setText(currentPlayer+" "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points));
+                String temp = "<b>"+currentPlayer+"</b> "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points);
+                textDisplay.setText(HtmlCompat.fromHtml(temp,HtmlCompat.FROM_HTML_MODE_LEGACY));
                 noButton.setVisibility(View.GONE);
                 yesButton.setVisibility(View.GONE);
                 nextButton.setVisibility(View.VISIBLE);
@@ -194,7 +195,8 @@ public class GameActivity extends AppCompatActivity {
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textDisplay.setText(currentPlayer+" "+getPunition());
+                String temp = "<b>"+currentPlayer+"</b> "+getPunition();
+                textDisplay.setText(HtmlCompat.fromHtml(temp,HtmlCompat.FROM_HTML_MODE_LEGACY));
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
                 nextButton.setVisibility(View.VISIBLE);
@@ -342,7 +344,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public boolean GetNextInformations() throws  IOException
+    public boolean GetNextInformations()
     {
         String type = getChallengeTurn();
         String[] tempTab =GetNextChallenge(type);
@@ -739,7 +741,7 @@ public class GameActivity extends AppCompatActivity {
         mainLayout.setVisibility(View.GONE);
         footerCardLayout.setVisibility(View.VISIBLE);
         cardBodyLayout.setVisibility(View.VISIBLE);
-        playerCardTurn.setText(HtmlCompat.fromHtml("<b>"+ currentPlayer + "</b> à toi de jouer mon grand !",HtmlCompat.FROM_HTML_MODE_LEGACY));
+        playerCardTurn.setText(HtmlCompat.fromHtml("<b>"+ currentPlayer + "</b> "+getString(R.string.your_turn),HtmlCompat.FROM_HTML_MODE_LEGACY));
 
         // pour card Game
         Button blackButton = (Button) findViewById(R.id.black_button);

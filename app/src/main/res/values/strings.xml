@@ -18,7 +18,7 @@
     <string name="no_button">Non</string>
     <string name="show_answer">Réponse</string>
     <string name="game_end_title">Score de fin de partie</string>
-    <string name="info_text">N\'oublie pas de selectionner la quantitée d\'alcool du joueur en clickant sur</string>
+    <string name="info_text">N\'oublie pas de selectionner la quantitée d\'alcool des joueurs après les avoirs ajouter en clickant sur</string>
     <string name="player1">Joueur 1</string>
     <string name="ok_button">Ok</string>
     <string name="playe_name_hint">Nom du Joueur</string>
@@ -43,18 +43,14 @@
     <string name="drink3_punition">bois 3 gorgées !</string>
     <string name="title_activity_simple_wheel">SimpleWheelActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Suivant</string>
     <string name="previous">Précédent</string>
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_game_selection">GameSelectionActivity</string>
     <string name="game2">Roulette</string>
     <string name="game1">Apéro Chill</string>
     <string name="game3">Rouge ou Noir</string>
     <string name="you_drink">\ bois\ </string>
-    <string name="sips">\ gorgées.</string>
+    <string name="sips">\ gorgées !</string>
     <string name="remain">"Il reste "</string>
     <string name="cardPack">cartes dans le paquet</string>
     <string name="next_button">suivant</string>
@@ -87,4 +83,6 @@
     <string name="ApePiment">ApePiment</string>
     <string name="ape_pimnet_description">Pour un apéro pimenté découvre les secrets coquin des tes ami(e)s</string>
     <string name="duplicater_player_name_error">Vous ne pouvez pas utiliser plusieurs fois le même nom</string>
+    <string name="drink">bois</string>
+    <string name="your_turn">c\'est à toi de jouer</string>
 </resources>
