@@ -7,7 +7,9 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.text.HtmlCompat;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -20,6 +22,7 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -149,7 +152,17 @@ public class GameActivity extends AppCompatActivity {
                 finish();
             }
         });
-        showInfoDialog(R.layout.info_popup);
+        {
+            //on vérifie si l'utilisateur à bloqué la popup
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+            String alcohol_reminder_popup_blocked = "";
+            if(sharedPreferences.contains("block_apechill_tutorial_popup")){
+                alcohol_reminder_popup_blocked = sharedPreferences.getString("block_apechill_tutorial_popup","");
+            }
+            if(!alcohol_reminder_popup_blocked.equals("blocked"))
+                showInfoDialog(R.layout.info_popup);
+
+        }
     }
     private void showInfoDialog(int layout) {// créer la popup info
         AlertDialog alertDialog;
@@ -174,6 +187,24 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 alertDialog.dismiss();
+            }
+        });
+
+        CheckBox blockPopupCheckBox = layoutView.findViewById(R.id.block_popup_checkBox);
+        blockPopupCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean checked =  ((CheckBox) view).isChecked();
+                //ici on enregistre dans les SharedPreferences si l'utilisateur bloque la popup
+                SharedPreferences blockPopup;
+                blockPopup = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = blockPopup.edit();
+                if(checked){
+                    editor.putString("block_apechill_tutorial_popup","blocked");
+                }else{
+                    editor.putString("block_apechill_tutorial_popup","activated");
+                }
+                editor.apply();
             }
         });
     }

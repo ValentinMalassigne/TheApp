@@ -86,4 +86,7 @@
     <string name="drink">bois</string>
     <string name="your_turn">c\'est à toi de jouer</string>
     <string name="game_description">Tu peux choisir de répondre à la question et de marquer des points ou de passer et de boire</string>
+    <string name="block_popup">Ne plus afficher cette pop-up</string>
+    <string name="popup_reset_button">réactiver les popups</string>
+    <string name="popups_enabled">les popups sont à nouveau activées</string>
 </resources>

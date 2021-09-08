@@ -86,4 +86,7 @@
     <string name="drink">Drink</string>
     <string name="your_turn">it is your turn to play</string>
     <string name="game_description">If you answer the question you earn points else … you drink ! </string>
+    <string name="block_popup">Do not show this pop up again</string>
+    <string name="popup_reset_button">turn on popups</string>
+    <string name="popups_enabled">popups are enabled again</string>
 </resources>
