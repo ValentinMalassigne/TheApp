@@ -168,11 +168,13 @@ public class GameActivity extends AppCompatActivity {
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
+
         Button okButton = layoutView.findViewById(R.id.ok_button);
         TextView textInfo = layoutView.findViewById(R.id.text_info);
         ImageView imageInfo = layoutView.findViewById(R.id.image_info);
         textInfo.setText(getString(R.string.game_description));
         imageInfo.setVisibility(View.GONE);
+
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
