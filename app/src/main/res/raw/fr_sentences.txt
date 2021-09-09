@@ -8,7 +8,7 @@ anecdotes
 gages
 3 Est-ce que c'était féérique ?ç§ fait un tour de magie dans les 10 prochaines secondes
 2 Est-ce que § est un expert ?ç§ parle comme un expert d'un sujet que § choisit
-2 Est-ce que ce reportage était convaincantç§ interview § sur un sujet que § à choisit
+2 Est-ce que ce reportage était convaincant ?ç§ interview § sur un sujet que § à choisit
 2 § est-il/elle capable de vivre au moyen-age ?ç§ traduit une phrase choisit par § du vieux français vers le français actuel
 2 Est-ce que votre serveur à bien débarassé ?ç§ tu débarasse la table ou les verres
 2 § un bon barman ?ç§ tu ressert les autres

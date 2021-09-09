@@ -35,6 +35,7 @@
             android:background="@android:drawable/list_selector_background">
 
             <TextView
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="50dp"
@@ -42,19 +43,67 @@
                 android:text="@string/language_button"
                 android:textColor="@color/white"
                 android:textSize="35sp"
-                android:textStyle="bold|italic"
+                android:textStyle="bold"
                 android:layout_marginStart="50dp" />
 
             <ImageView
+                android:layout_weight="1"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/language"
-                android:layout_marginLeft="50dp"
-                android:layout_marginStart="50dp" />
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="40dp" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/popup_layout"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/convergence"
+                android:text="@string/popup_reset_button"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/add_sentence"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/convergence"
+                android:text="Ajouter mes phrases"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppProject">
         <activity
+            android:name=".AddSentenceActivity"
+            android:exported="true" />
+        <activity
             android:name=".CardGameActivity"
             android:exported="true"
             android:screenOrientation="portrait"

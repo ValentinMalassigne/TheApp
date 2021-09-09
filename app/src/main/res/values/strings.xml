@@ -85,5 +85,23 @@
     <string name="duplicater_player_name_error">Vous ne pouvez pas utiliser plusieurs fois le même nom</string>
     <string name="drink">bois</string>
     <string name="your_turn">c\'est à toi de jouer</string>
-   <string name="game_description">"Tu peux choisir de répondre à la question et de marquer des points ou de passer et de boire "</string>
+    <string name="game_description">Tu peux choisir de répondre à la question et de marquer des points ou de passer et de boire</string>
+    <string name="block_popup">Ne plus afficher </string>
+    <string name="popup_reset_button">réactiver les popups</string>
+    <string name="popups_enabled">les popups sont à nouveau activées</string>
+    <string-array name="gameModeList">
+    <item>ApeChill</item>
+    <item>ApePiment</item>
+    </string-array>
+    <string-array name="typeList">
+    <item>Annecdote</item>
+    <item>Gages</item>
+    <item>Mini-jeu</item>
+    <item>Question</item>
+    </string-array>
+    <string-array name="pointList">
+    <item> 1 </item>
+    <item> 2 </item>
+    <item> 3 </item>
+    </string-array>
 </resources>

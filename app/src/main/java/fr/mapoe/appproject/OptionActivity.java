@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -52,6 +53,32 @@ public class OptionActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        LinearLayout popup_layout = findViewById(R.id.popup_layout);
+        popup_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //ici on enregistre dans les SharedPreferences si l'utilisateur bloque la popup
+                SharedPreferences blockPopup;
+                blockPopup = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = blockPopup.edit();
+                editor.putString("block_apechill_tutorial_popup","activated");
+                editor.putString("block_alcohol_reminder_popup","activated");
+                editor.apply();
+                Toast.makeText(getApplicationContext(),getString(R.string.popups_enabled),Toast.LENGTH_SHORT).show();
+            }
+        });
+        LinearLayout addSenteceLayout = (LinearLayout) findViewById(R.id.add_sentence);
+        addSenteceLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addSentenceActivity = new Intent(getApplicationContext(),AddSentenceActivity.class);
+                startActivity(addSentenceActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
+        });
+
     }
 
     private void showLanguagePopup(int layout) {

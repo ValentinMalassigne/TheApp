@@ -7,7 +7,9 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.text.HtmlCompat;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -20,6 +22,7 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,7 +43,7 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity {
 
     private String[] playerTab, alcoholTab, scoreTab;
-    private ArrayList<String> challengeList=new ArrayList<String>();
+    private ArrayList<String> challengeList =new ArrayList<String>();
     private ArrayList<String> miniGamesList = new ArrayList<String>();
     private ArrayList<String> sentenceList = new ArrayList<String>();
     private ArrayList<String> anecdotesList = new ArrayList<String>();
@@ -57,7 +60,7 @@ public class GameActivity extends AppCompatActivity {
     private ImageView cardImage;
     private final ArrayList<Integer> idRedCardList,idBlackCardList;
     private TextView playerCardTurn;
-    private int typeOfGame = 0;
+    private int typeOfGame =0;
 
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
@@ -120,7 +123,6 @@ public class GameActivity extends AppCompatActivity {
         });
 
         // Generer la popup réponse
-
         Button answerButton = (Button) findViewById(R.id.answer_button);
         if(typeOfGame ==2){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -143,19 +145,29 @@ public class GameActivity extends AppCompatActivity {
                 Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
                 gameEndActivity.putExtra("playerTab", playerTab);
                 gameEndActivity.putExtra("alcoholTab", alcoholTab);
-                gameEndActivity.putExtra("scoreTab", scoreTab);
                 gameEndActivity.putExtra("typeOfGame", typeOfGame);
+                gameEndActivity.putExtra("scoreTab", scoreTab);
                 startActivity(gameEndActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
-        showInfoDialog(R.layout.info_popup);
+        {
+            //on vérifie si l'utilisateur à bloqué la popup
+            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+            String alcohol_reminder_popup_blocked = "";
+            if(sharedPreferences.contains("block_apechill_tutorial_popup")){
+                alcohol_reminder_popup_blocked = sharedPreferences.getString("block_apechill_tutorial_popup","");
+            }
+            if(!alcohol_reminder_popup_blocked.equals("blocked"))
+                showInfoDialog(R.layout.info_popup);
+
+        }
     }
-    private void showInfoDialog(int layout){// créer la popup info
+    private void showInfoDialog(int layout) {// créer la popup info
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
-        View layoutView = getLayoutInflater().inflate(layout,null);
+        View layoutView = getLayoutInflater().inflate(layout, null);
         Button okButton = layoutView.findViewById(R.id.ok_button);
         TextView textInfo = layoutView.findViewById(R.id.text_info);
         ImageView imageInfo = layoutView.findViewById(R.id.image_info);
@@ -166,7 +178,7 @@ public class GameActivity extends AppCompatActivity {
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
         // chnagement du bg button on fonction du mode de jeu
-        if(typeOfGame == 2) {
+        if (typeOfGame == 2) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 okButton.setBackground(getDrawable(R.drawable.button2));
             }
@@ -177,7 +189,26 @@ public class GameActivity extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
+
+        CheckBox blockPopupCheckBox = layoutView.findViewById(R.id.block_popup_checkBox);
+        blockPopupCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean checked =  ((CheckBox) view).isChecked();
+                //ici on enregistre dans les SharedPreferences si l'utilisateur bloque la popup
+                SharedPreferences blockPopup;
+                blockPopup = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = blockPopup.edit();
+                if(checked){
+                    editor.putString("block_apechill_tutorial_popup","blocked");
+                }else{
+                    editor.putString("block_apechill_tutorial_popup","activated");
+                }
+                editor.apply();
+            }
+        });
     }
+
     private void showAnswerPopup(int layout, String text){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
@@ -187,6 +218,7 @@ public class GameActivity extends AppCompatActivity {
         Button yesButton = (Button) layoutView.findViewById(R.id.yes_button);
         Button noButton = (Button) layoutView.findViewById(R.id.no_button);
         Button nextButton = (Button) layoutView.findViewById(R.id.next_button);
+
         // change bg suivant le jeu
         if(typeOfGame ==2){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -325,7 +357,6 @@ public class GameActivity extends AppCompatActivity {
             inputStream = this.getResources().openRawResource(R.raw.en_sentences);
         }
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
         //on passe toute les lignes tant que l'on est pas aux lignes du mode génant
         if(typeOfGame==2){
             while(!reader.readLine().equals("cringe")){}
@@ -426,7 +457,6 @@ public class GameActivity extends AppCompatActivity {
         }
         return res;
     }
-
 
     private String SetNamesInSentence(String sentence){
         StringBuilder res= new StringBuilder();
@@ -545,8 +575,8 @@ public class GameActivity extends AppCompatActivity {
             Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
             gameEndActivity.putExtra("playerTab", playerTab);
             gameEndActivity.putExtra("scoreTab", scoreTab);
-            gameEndActivity.putExtra("typeOfGale", typeOfGame);
-            gameEndActivity.putExtra("alcoholTab",alcoholTab);
+            gameEndActivity.putExtra("alcoholTab", alcoholTab);
+            gameEndActivity.putExtra("typeOfGame", typeOfGame);
             startActivity(gameEndActivity);
             overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             finish();
@@ -771,6 +801,7 @@ public class GameActivity extends AppCompatActivity {
         footerCardLayout.setVisibility(View.VISIBLE);
         cardBodyLayout.setVisibility(View.VISIBLE);
         playerCardTurn.setText(HtmlCompat.fromHtml("<b>"+ currentPlayer + "</b> "+getString(R.string.your_turn),HtmlCompat.FROM_HTML_MODE_LEGACY));
+
         // pour card Game
         Button blackButton = (Button) findViewById(R.id.black_button);
         Button redButton = (Button) findViewById(R.id.red_button);
