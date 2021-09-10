@@ -69,6 +69,16 @@ public class OptionActivity extends AppCompatActivity {
             }
         });
 
+        LinearLayout addSenteceLayout = (LinearLayout) findViewById(R.id.add_sentence);
+        addSenteceLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addSentenceActivity = new Intent(getApplicationContext(),AddSentenceActivity.class);
+                startActivity(addSentenceActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
+        });
     }
 
     private void showLanguagePopup(int layout) {
