@@ -68,7 +68,6 @@ public class OptionActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),getString(R.string.popups_enabled),Toast.LENGTH_SHORT).show();
             }
         });
-
         LinearLayout addSenteceLayout = (LinearLayout) findViewById(R.id.add_sentence);
         addSenteceLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +78,7 @@ public class OptionActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
     private void showLanguagePopup(int layout) {

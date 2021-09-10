@@ -51,8 +51,6 @@ public class GameSelectionActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
         // go to Simple Wheel
         LinearLayout goToSimpleWheel = (LinearLayout) findViewById(R.id.wheel_image);
         goToSimpleWheel.setOnClickListener(new View.OnClickListener() {

@@ -46,6 +46,8 @@
             android:id="@+id/current_title_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:layout_marginBottom="@android:dimen/notification_large_icon_height"
             android:fontFamily="@font/convergence"
             android:gravity="center"
@@ -57,8 +59,6 @@
             android:id="@+id/current_text_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
             android:fontFamily="@font/convergence"
             android:gravity="center"
             android:text="@string/first_display_text"
@@ -87,13 +87,13 @@
         android:visibility="gone">
 
         <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="15dp"
             android:id="@+id/wheel_player_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/convergence"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
             android:gravity="center"
             android:text="@string/first_display_text"
             android:textColor="@color/white"
@@ -120,8 +120,8 @@
             android:src="@drawable/spin"/>
 
         <TextView
-            android:layout_marginTop="20dp"
             android:id="@+id/wheel_result_display"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/convergence"
@@ -132,8 +132,8 @@
             android:visibility="gone" />
 
         <Button
-            android:layout_marginTop="15dp"
             android:id="@+id/next_button"
+            android:layout_marginTop="15dp"
             android:layout_width="200dp"
             android:layout_height="50dp"
             android:background="@drawable/button_shape"
@@ -187,7 +187,6 @@
                 android:id="@+id/card_image"
                 android:src="@drawable/cardback" />
         </androidx.cardview.widget.CardView>
-
     </LinearLayout>
 
     <LinearLayout
@@ -197,8 +196,8 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:visibility="gone"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="20dp">
         <Button
             android:id="@+id/next_button_red_or_black_game"
             android:layout_width="150dp"
@@ -209,12 +208,11 @@
             android:textSize="18sp"
             android:visibility="gone"
             app:backgroundTint="@null" />
-
         <Button
             android:id="@+id/red_button"
-            android:text="@string/red"
             android:textColor="#FFFFFF"
             android:textSize="23sp"
+            android:text="@string/red"
             app:backgroundTint="@null"
             android:layout_width="137dp"
             android:layout_height="52dp"
@@ -225,20 +223,19 @@
             android:shadowRadius="7"
             />
 
+
         <TextView
-            android:id="@+id/or_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:fontFamily="@font/convergence"
             android:text="@string/or"
+            android:id="@+id/or_text"
+            android:textSize="20sp"
+            android:fontFamily="@font/convergence"
             android:textColor="@color/white"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:visibility="visible"/>
         <Button
-            android:text="@string/black"
             android:textColor="#FFFFFF"
             android:textSize="23sp"
             android:layout_width="137dp"
@@ -248,6 +245,7 @@
             android:shadowDx="3"
             android:shadowDy="-1"
             android:shadowRadius="7"
+            android:text="@string/black"
             android:id="@+id/black_button"
             app:backgroundTint="@null" />
 

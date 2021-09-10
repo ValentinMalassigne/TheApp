@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         //animation du bg
         AnimationBg.startBackgroundAnimation(findViewById(R.id.menu_layout));
 
+
         //go to option
         ImageView goToOption = (ImageView) findViewById(R.id.setting_button);
         goToOption.setOnClickListener(new View.OnClickListener() {
@@ -54,8 +55,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
     private void getLanguage(){
         //on charge le langage enregistrer dans les shared preferences
         SharedPreferences language = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
@@ -82,6 +81,10 @@ public class MainActivity extends AppCompatActivity {
         finish();
         startActivity(refresh);
     }
+
+
+
+
 
     @Override
     public void onBackPressed() {}

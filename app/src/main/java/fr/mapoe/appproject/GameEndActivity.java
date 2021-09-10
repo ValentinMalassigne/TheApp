@@ -29,7 +29,6 @@ public class GameEndActivity extends AppCompatActivity {
     private int typeOfGame = 0;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +40,7 @@ public class GameEndActivity extends AppCompatActivity {
             playerTab = extras.getStringArray("playerTab");
             alcoholTab = extras.getStringArray("alcoholTab");
             scoreTab = extras.getStringArray("scoreTab");
-            typeOfGame = extras.getInt("TypeOfGame");
+            typeOfGame = extras.getInt("typeOfGame");
 
         }
         // init les tableaux

@@ -3,7 +3,7 @@
     <string name="app_name">ApeTime</string>
     <string name="start_button">Play</string>
     <string name="option_button">Options</string>
-    <string name="language_button">Languages</string>
+    <string name="language_button">Language</string>
     <string name="about_button">About</string>
     <string name="first_ttitle_display">The title will be here</string>
     <string name="first_display_text">The text will be here</string>
@@ -19,7 +19,7 @@
     <string name="no_button">No</string>
     <string name="show_answer">Answer</string>
     <string name="game_end_title">End Game Score</string>
-    <string name="info_text">Do not forget to edit the alcohol quantity of each player after adding them by clicking on</string>
+    <string name="info_text">Do not forget to edit the alcohol quantity of each player by clicking on</string>
     <string name="player1">Player 1</string>
     <string name="ok_button">OK</string>
     <string name="playe_name_hint">Player name</string>
@@ -49,7 +49,7 @@
     <string name="game1">ApeChill</string>
     <string name="game3">Red or Black</string>
     <string name="you_drink">\ drinks\ </string>
-    <string name="sips">\ sips !</string>
+    <string name="sips">\ sips</string>
     <string name="remain">remains</string>
     <string name="cardPack">cards in the pack</string>
     <string name="next_button">next</string>
@@ -64,8 +64,7 @@
     <string name="type_sentence">Question/Action</string>
     <string name="type_anecdote">Anecdote</string>
     <string name="games">Games</string>
-    <string name="error_image">Please fill the field first</string>
-    <string name="description_ape_chill">Enter the name of your friends and have a crazy party beginning</string>
+    <string name="description_ape_chill">It\'s a very great game that everyone love and everyone want to play it !</string>
     <string name="apechill_title">ApeChill</string>
     <string name="roulette_title">Roulette</string>
     <string name="black_or_red_title">Red or Black</string>
@@ -74,19 +73,5 @@
     <string name="game">Games</string>
     <string name="win">Win</string>
     <string name="loose">Loose</string>
-    <string name="empty_add_player_error">Use a valid player name.</string>
-    <string name="restart_button">Restart</string>
-    <string name="roulete_description">Because you don\'t need a reason to drink</string>
-    <string name="description_red_or_black">Drink even faster than with the roulette</string>
-    <string name="ApePiment">ApePiment</string>
-    <string name="ape_pimnet_description">For a hotter aperitif and to discover the naughty secrets of your friends</string>
-    <string name="duplicater_player_name_error">You can\'t use the same username several times</string>
-    <string name="title_activity_game_selection">GameSelectionActivity</string>
-    <string name="title_activity_game_selection2">GameSelectionActivity2</string>
-    <string name="drink">Drink</string>
-    <string name="your_turn">it is your turn to play</string>
-    <string name="game_description">If you answer the question you earn points else … you drink ! </string>
-    <string name="block_popup">Do not show this pop up again</string>
-    <string name="popup_reset_button">turn on popups</string>
-    <string name="popups_enabled">popups are enabled again</string>
+    <string name="duplicater_player_name_error">Vous ne pouvez pas utiliser plusieurs fois le même nom</string>
 </resources>

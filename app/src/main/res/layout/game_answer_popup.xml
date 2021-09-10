@@ -54,7 +54,7 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             app:backgroundTint="@null"
-            android:visibility="visible"/> />
+            android:visibility="visible"/>
 
         <Button
             android:id="@+id/no_button"

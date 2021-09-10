@@ -74,8 +74,9 @@ public class CardGameActivity extends AppCompatActivity {
         blackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nb = Integer.toString(idBlackCardList.size()+idRedCardList.size()-1);
-                nbCard.setText(nb);
+                int nb = idBlackCardList.size()+idRedCardList.size()-1;
+                if(nb==-1){}
+                else{nbCard.setText(Integer.toString(nb));}
                 int randomNumber = generate.nextInt(2);
                 if (randomCard(randomNumber).equals("black"))
                     cardColor.setText(R.string.you_win);

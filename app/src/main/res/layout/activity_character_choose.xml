@@ -47,7 +47,8 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:layout_height="wrap_content"
-                android:hint="@string/playe_name_hint"                />
+                android:hint="@string/playe_name_hint"
+                />
 
             <Button
                 android:id="@+id/add_player_button"
