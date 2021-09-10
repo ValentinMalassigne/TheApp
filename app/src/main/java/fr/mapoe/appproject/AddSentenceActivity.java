@@ -1,5 +1,7 @@
 package fr.mapoe.appproject;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
@@ -8,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,10 +22,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+
 public class AddSentenceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private int maxAddPlayerText=0,maxAddAnswerText=0;
     private int typeOfGame = 1;
     private Spinner gameModeSpinner;
+    private static final String FILE_NAME = "custom_sentences.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,11 +131,40 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
                 String answer = answerEdit.getText().toString();
                 String newAnswer = answer.replace("--joueur--","§");
                 String point = pointSpinner.getSelectedItem().toString();
-                validateText.setText(encoding(point,newText,newAnswer));
+                String encodedSentence =encoding(point,newText,newAnswer);
+                validateText.setText(encodedSentence);
+                //ajout de test pour les fichiers
+                String temptypeOfGame = gameModeSpinner.getSelectedItem().toString();
+                if(temptypeOfGame.equals("ApePiment"))
+                    typeOfGame=2;
+                String type = typeModeSpinner.getSelectedItem().toString();
+                addSentence(encodedSentence,type,typeOfGame);
+
+                //test pour voir dans la consol ce que l'on ajoute
+                /*FileInputStream fis= null;
+                String textTest="";
+                StringBuilder sb = new StringBuilder();
+                try {
+                    fis = openFileInput(FILE_NAME);
+                    InputStreamReader isr = new InputStreamReader(fis);
+                    BufferedReader br = new BufferedReader(isr);
 
 
+
+                    while ((textTest = br.readLine())!=null){
+                        sb.append(textTest).append("\n");
+                    }
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Log.d(TAG, sb.toString());*/
             }
         });
+
+        //on consctruit le fichier si le joueur n'en a jamais créé
+        fileBuilder();
+
     }
     private void showInfoPopup(int layout){
         AlertDialog alertDialog;
@@ -263,6 +306,77 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
             res = res.replaceFirst("<b><i>Joueur 3</b></i>","<b><i>Joueur 2</i></b>");
         }
         return res;
+    }
+
+    private void fileBuilder(){
+        //construction du fichier
+        String fileText ="anecdotes\ngages\nminigames\nquestions\nEnd\nanecdotes\ngages\nminigames\nquestions\nEnd";
+
+        File file = new File(getFilesDir()+"/"+FILE_NAME);
+        if (!file.exists()){
+            FileOutputStream fos = null;
+
+            try {
+                fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
+                fos.write(fileText.getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(fos!=null){
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void addSentence(String ligne, String sentenceType, int typeOfGame){
+        //on adaptes le sentenceType
+        if(sentenceType.equals("Annecdote"))
+            sentenceType="anecdotes";
+        if(sentenceType.equals("Gages"))
+            sentenceType="gages";
+        if(sentenceType.equals("Mini-jeu"))
+            sentenceType="minigames";
+        if(sentenceType.equals("Question"))
+            sentenceType="questions";
+
+        //on copie ce qu'il y a dans le fichier
+        try {
+            FileInputStream fis = openFileInput(FILE_NAME);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            String text;
+            ArrayList<String> phrase = new ArrayList<String>();
+            int typeOfGameCounter=1;
+            while ((text = br.readLine())!=null){
+                phrase.add(text+"\n");
+                if(text.equals(sentenceType) && typeOfGame==typeOfGameCounter){ //on trouve l'endroit où on doit insérer la ligne du joueur
+                    phrase.add(ligne+"\n");
+                }
+                if(text.equals("End"))
+                    typeOfGameCounter++;
+            }
+            fis.close();
+
+            //on prépare le remplissage du fichier retour
+            String remplissage = "";
+            while (!phrase.isEmpty()){
+                remplissage=remplissage+(phrase.remove(0));
+            }
+
+            //on réouvre le fichier mais cette fois ci pour y écrire
+            FileOutputStream fos = null;
+            fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
+            fos.write(remplissage.getBytes());
+            if(fos!=null){
+                fos.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -32,6 +32,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -61,6 +63,7 @@ public class GameActivity extends AppCompatActivity {
     private final ArrayList<Integer> idRedCardList,idBlackCardList;
     private TextView playerCardTurn;
     private int typeOfGame =0;
+    private static final String FILE_NAME = "custom_sentences.txt";
 
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
@@ -348,6 +351,12 @@ public class GameActivity extends AppCompatActivity {
     public void onBackPressed() {}
 
     private void setUpList() throws IOException {
+        int nbFiles=1;
+        //on vérifie si l'utilisateur à des phrases custom
+        File file = new File(getFilesDir()+"/"+FILE_NAME);
+        if (file.exists()){
+            nbFiles=2;
+        }
 
         //on récup la langue acctuelement utilisé par l'appli
         String language = getResources().getConfiguration().locale.getLanguage();
@@ -359,34 +368,44 @@ public class GameActivity extends AppCompatActivity {
             inputStream = this.getResources().openRawResource(R.raw.en_sentences);
         }
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        //on passe toute les lignes tant que l'on est pas aux lignes du mode génant
-        if(typeOfGame==2){
-            while(!reader.readLine().equals("cringe")){}
-        }
-        reader.readLine();//on passe la ligne "anecdotes"
-        String tempLine = reader.readLine();//on lit la première anecdote
-        while (!tempLine.equals("gages")) {
-            anecdotesList.add(tempLine);
-            tempLine = reader.readLine();
-        }
-        tempLine = reader.readLine();
-        while (!tempLine.equals("minigames")) {
-            gagesList.add(tempLine);
-            tempLine = reader.readLine();
-        }
-        tempLine = reader.readLine();
-        while (!tempLine.equals("questions")) {
-            miniGamesList.add(tempLine);
-            tempLine = reader.readLine();
-        }
-        tempLine = reader.readLine();
-        while (!tempLine.equals("End")) {
-            sentenceList.add(tempLine);
-            tempLine = reader.readLine();
-        }
 
-        inputStream.close();
+        //une fois la boucle lit le fichier raw et une fois elle lit le fichier custom (s'il existe)
+        for(int i=1;i<=nbFiles;i++) {
+            if(i==2){
+                FileInputStream fis=openFileInput(FILE_NAME);
+                InputStreamReader isr = new InputStreamReader(fis);
+                reader = new BufferedReader(isr);
+            }
 
+            //on passe toute les lignes tant que l'on est pas aux lignes du mode génant
+            if (typeOfGame == 2) {
+                while (!reader.readLine().equals("End")) {
+                }
+            }
+            reader.readLine();//on passe la ligne "anecdotes"
+            String tempLine = reader.readLine();//on lit la première anecdote
+            while (!tempLine.equals("gages")) {
+                anecdotesList.add(tempLine);
+                tempLine = reader.readLine();
+            }
+            tempLine = reader.readLine();
+            while (!tempLine.equals("minigames")) {
+                gagesList.add(tempLine);
+                tempLine = reader.readLine();
+            }
+            tempLine = reader.readLine();
+            while (!tempLine.equals("questions")) {
+                miniGamesList.add(tempLine);
+                tempLine = reader.readLine();
+            }
+            tempLine = reader.readLine();
+            while (!tempLine.equals("End")) {
+                sentenceList.add(tempLine);
+                tempLine = reader.readLine();
+            }
+
+            inputStream.close();
+        }
     }
 
     private void newDisplay(View view) throws IOException{
