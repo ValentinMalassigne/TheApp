@@ -211,10 +211,13 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
                 pointLayout.setVisibility(View.GONE);
             }
         });
+        TextView test = findViewById(R.id.test);
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 currentPoint = pointSpinner.getSelectedItem().toString();
+                // pour voir l'encodage
+                test.setText(encoding());
             }
         });
 
@@ -250,9 +253,11 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
         });
     }
 
-    private String encoding(String point, String text, String answer){
+    private String encoding(){
+        String text = currentText.replace("--joueur--","§");
+        String answer = currentAnswer.replace("--joueur--","§");
         String encodageSentence = "";
-        encodageSentence+=point+ " ";
+        encodageSentence+=currentPoint+ " ";
         encodageSentence+=answer+" "+"ç";
         encodageSentence+=text;
         return encodageSentence;
