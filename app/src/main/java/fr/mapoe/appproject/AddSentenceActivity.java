@@ -42,10 +42,10 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sentence);
-
+        AnimationBg.startBackgroundAnimation(findViewById(R.id.add_sentence_layout));
         this.gameModeSpinner = findViewById(R.id.game_mode);
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
-                R.array.gameModeList, android.R.layout.simple_spinner_item);
+                R.array.gameModeList, R.layout.spinner_item);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         gameModeSpinner.setAdapter(adapter1);
         gameModeSpinner.setOnItemSelectedListener(this);
@@ -53,20 +53,21 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
 
         Spinner typeModeSpinner = findViewById(R.id.type);
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.typeList
-                , android.R.layout.simple_spinner_item);
+                , R.layout.spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeModeSpinner.setAdapter(adapter2);
 
         Spinner pointSpinner = findViewById(R.id.pointList);
         ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,R.array.pointList,
-                android.R.layout.simple_spinner_item);
+                R.layout.spinner_item);
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pointSpinner.setAdapter(adapter3);
+
         EditText textEdit = (EditText) findViewById(R.id.text_edit);
         EditText answerEdit = (EditText) findViewById(R.id.answer_edit);
         TextView validateText = (TextView) findViewById(R.id.text);
         Button validateButton = (Button) findViewById(R.id.validate);
-        Button validate2 = (Button) findViewById(R.id.submit);
+        Button visualizeButton = (Button) findViewById(R.id.visualisation_button);
         ImageView infoButton =(ImageView) findViewById(R.id.info_image);
         ImageView addPlayerText = (ImageView) findViewById(R.id.add_player_text);
         ImageView addPlayerAnswer = (ImageView) findViewById(R.id.add_player_answer);
@@ -101,7 +102,7 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
             }
         });
 
-        validate2.setOnClickListener(new View.OnClickListener() {
+        visualizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String text = textEdit.getText().toString();
@@ -133,12 +134,13 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
                 String point = pointSpinner.getSelectedItem().toString();
                 String encodedSentence =encoding(point,newText,newAnswer);
                 validateText.setText(encodedSentence);
+                Log.d(TAG, encodedSentence);
                 //ajout de test pour les fichiers
                 String temptypeOfGame = gameModeSpinner.getSelectedItem().toString();
                 if(temptypeOfGame.equals("ApePiment"))
                     typeOfGame=2;
                 String type = typeModeSpinner.getSelectedItem().toString();
-                addSentence(encodedSentence,type,typeOfGame);
+                //addSentence(encodedSentence,type,typeOfGame);
 
                 //test pour voir dans la consol ce que l'on ajoute
                 /*FileInputStream fis= null;
@@ -298,7 +300,7 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
 
         } else if (numberOfOccurrences(text) == 2) {
             res = text.replaceFirst("--joueur--", "<b><i>Joueur 1</i></b>");
-            res=text.replace("--joueur--","<b><i>Joueur 2</i></b>");
+            res=res.replace("--joueur--","<b><i>Joueur 2</i></b>");
         }
         else{
             res = text.replaceFirst("--joueur--", "<b><i>Joueur 1</i></b>");

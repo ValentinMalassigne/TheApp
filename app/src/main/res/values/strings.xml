@@ -36,7 +36,7 @@
     <string name="the_annecdote">L\'anecdote de </string>
     <string name="satisfying_question"> est-elle satifaisante ?</string>
     <string name="scoring"> marque </string>
-    <string name="points"> points !</string>
+    <string name="points"> points </string>
     <string name="drink0_punition">fais 5 pompes !</string>
     <string name="drink1_punition">bois 1 gorgée !</string>
     <string name="drink2_punition">bois 2 gorgées !</string>
@@ -89,6 +89,12 @@
     <string name="block_popup">Ne plus afficher </string>
     <string name="popup_reset_button">réactiver les popups</string>
     <string name="popups_enabled">les popups sont à nouveau activées</string>
+    <string name="text">text</string>
+    <string name="add_answer">Ajoutez votre réponse</string>
+    <string name="add_text">Ajouter votre text</string>
+    <string name="visualize">visualiser</string>
+    <string name="game_mode">Mode de jeu</string>
+    <string name="type_spinner">type de phrases</string>
     <string-array name="gameModeList">
     <item>ApeChill</item>
     <item>ApePiment</item>

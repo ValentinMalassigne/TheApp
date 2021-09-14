@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/gradient_list">
+    android:background="@drawable/gradient_list"
+    android:id="@+id/add_sentence_layout">
 
     <ImageView
         android:id="@+id/info_image"
@@ -17,105 +18,179 @@
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_layout"
-        android:gravity="center"
-        android:visibility="visible"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/text"
+        app:layout_constraintBottom_toTopOf="@+id/visualisation_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
+            android:id="@+id/edit_layout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:layout_marginTop="60dp"
-            android:orientation="vertical">
-
-            <Spinner
-                android:id="@+id/game_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp" />
-
-            <Spinner
-                android:id="@+id/type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp" />
-
-            <Spinner
-                android:id="@+id/pointList"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ajouter votre text" />
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:layout_gravity="center">
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/text_edit"
-                    android:layout_width="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="text"
-                    />
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="right">
 
-                <ImageView
-                    android:id="@+id/add_player_text"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/add_player" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/game_mode"
+                        android:textColor="@color/white"
+                        android:textStyle="italic"
+                        android:layout_marginRight="15dp"/>
+                    <Spinner
+                        android:id="@+id/game_mode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                         />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="right"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/type_spinner"
+                        android:textColor="@color/white"
+                        android:textStyle="italic"
+                        android:layout_marginRight="15dp"/>
+                    <Spinner
+                        android:id="@+id/type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                         />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/points"
+                        android:textColor="@color/white"
+                        android:textStyle="italic"
+                        android:layout_marginRight="15dp"/>
+                    <Spinner
+                        android:id="@+id/pointList"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                         />
+                </LinearLayout>
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="ajouter votre réponse" />
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/answer_edit"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="réponse" />
+                    android:layout_marginVertical="20dp"
+                    android:fontFamily="@font/convergence"
+                    android:text="@string/add_text"
+                    android:textColor="@color/white"
 
-                <ImageView
-                    android:id="@+id/add_player_answer"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/add_player" />
+                    android:textSize="25sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_edit"
+                        android:layout_width="245dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:background="@drawable/edit_shape"
+                        android:fontFamily="@font/convergence"
+                        android:hint="@string/text"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:lines="5"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        />
+
+
+                    <ImageView
+                        android:id="@+id/add_player_text"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/add_player" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginVertical="20dp"
+                    android:fontFamily="@font/convergence"
+                    android:text="@string/add_answer"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/answer_edit"
+                        android:layout_width="245dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:background="@drawable/edit_shape"
+                        android:fontFamily="@font/convergence"
+                        android:hint="@string/show_answer"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:lines="5"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/grey"
+                        />
+
+                    <ImageView
+                        android:id="@+id/add_player_answer"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/add_player" />
+                </LinearLayout>
             </LinearLayout>
+
+
         </LinearLayout>
-
-
-    </LinearLayout>
+    </ScrollView>>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -125,7 +200,8 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/validate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone">
 
     </TextView>
 
@@ -136,15 +212,22 @@
         android:text="Valider"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"/>
 
     <Button
-        android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Valider2"
+        android:id="@+id/visualisation_button"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button"
+        android:text="@string/visualize"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/validate" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
