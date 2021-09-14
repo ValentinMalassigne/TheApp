@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,73 +36,32 @@ import java.util.ArrayList;
 public class AddSentenceActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
     private int maxAddPlayerText=0,maxAddAnswerText=0;
     private int typeOfGame = 1;
-    private Spinner gameModeSpinner;
+
     private static final String FILE_NAME = "custom_sentences.txt";
+    private Spinner gameModeSpinner;
+    private String currentText,currentAnswer,currentPoint;
+
+    private Button answerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sentence);
+        AnimationBg.startBackgroundAnimation(findViewById(R.id.add_sentence_layout));
 
-        this.gameModeSpinner = findViewById(R.id.game_mode);
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
-                R.array.gameModeList, android.R.layout.simple_spinner_item);
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        gameModeSpinner.setAdapter(adapter1);
-        gameModeSpinner.setOnItemSelectedListener(this);
-
-
-        Spinner typeModeSpinner = findViewById(R.id.type);
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.typeList
-                , android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeModeSpinner.setAdapter(adapter2);
-
-        Spinner pointSpinner = findViewById(R.id.pointList);
-        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,R.array.pointList,
-                android.R.layout.simple_spinner_item);
-        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        pointSpinner.setAdapter(adapter3);
-        EditText textEdit = (EditText) findViewById(R.id.text_edit);
-        EditText answerEdit = (EditText) findViewById(R.id.answer_edit);
-        TextView validateText = (TextView) findViewById(R.id.text);
-        Button validateButton = (Button) findViewById(R.id.validate);
-        Button validate2 = (Button) findViewById(R.id.submit);
+        showText();
         ImageView infoButton =(ImageView) findViewById(R.id.info_image);
-        ImageView addPlayerText = (ImageView) findViewById(R.id.add_player_text);
-        ImageView addPlayerAnswer = (ImageView) findViewById(R.id.add_player_answer);
-
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showInfoPopup(R.layout.info_popup);
             }
         });
-        addPlayerText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String text = textEdit.getText().toString();
-                if(numberOfOccurrences(text)<3) {
-                    text += "--joueur--";
-                    textEdit.setText(text);
-                    maxAddPlayerText ++;
-                }
-            }
-        });
 
-        addPlayerAnswer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String text = answerEdit.getText().toString();
-                if(numberOfOccurrences(text) ==0) {
-                    text += " --joueur-- ";
-                    answerEdit.setText(text);
-                    maxAddAnswerText++;
-                }
-            }
-        });
 
-        validate2.setOnClickListener(new View.OnClickListener() {
+
+
+        /*visualizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String text = textEdit.getText().toString();
@@ -121,49 +81,145 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
                     Toast.makeText(getApplicationContext(),"Veuillez remplir tout les champs", Toast.LENGTH_SHORT).show();
                 }
             }
-        });
-        //button temp pour voir l'encodage
-        validateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String text = textEdit.getText().toString();
-                String newText = text.replace("--joueur--","§");
-                String answer = answerEdit.getText().toString();
-                String newAnswer = answer.replace("--joueur--","§");
-                String point = pointSpinner.getSelectedItem().toString();
-                String encodedSentence =encoding(point,newText,newAnswer);
-                validateText.setText(encodedSentence);
-                //ajout de test pour les fichiers
-                String temptypeOfGame = gameModeSpinner.getSelectedItem().toString();
-                if(temptypeOfGame.equals("ApePiment"))
-                    typeOfGame=2;
-                String type = typeModeSpinner.getSelectedItem().toString();
-                addSentence(encodedSentence,type,typeOfGame);
+        });*/
 
-                //test pour voir dans la consol ce que l'on ajoute
-                /*FileInputStream fis= null;
-                String textTest="";
-                StringBuilder sb = new StringBuilder();
-                try {
-                    fis = openFileInput(FILE_NAME);
-                    InputStreamReader isr = new InputStreamReader(fis);
-                    BufferedReader br = new BufferedReader(isr);
-
-
-
-                    while ((textTest = br.readLine())!=null){
-                        sb.append(textTest).append("\n");
-                    }
-                    fis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Log.d(TAG, sb.toString());*/
-            }
-        });
 
         //on consctruit le fichier si le joueur n'en a jamais créé
         fileBuilder();
+
+    }
+    private void showText(){
+        LinearLayout textLayout = (LinearLayout) findViewById(R.id.addText_layout);
+        textLayout.setVisibility(View.VISIBLE);
+
+        gameModeSpinner = (Spinner) findViewById(R.id.game_mode);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this,
+                R.array.gameModeList, R.layout.spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        gameModeSpinner.setAdapter(adapter1);
+        gameModeSpinner.setOnItemSelectedListener(this);
+
+        Spinner typeModeSpinner = findViewById(R.id.type);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,R.array.typeList
+                , R.layout.spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeModeSpinner.setAdapter(adapter2);
+
+        EditText textEdit = (EditText) findViewById(R.id.text_edit);
+        ImageView addPlayerText = (ImageView) findViewById(R.id.add_player_text);
+        addPlayerText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = textEdit.getText().toString();
+                if(numberOfOccurrences(text)<3) {
+                    text += "--joueur--";
+                    textEdit.setText(text);
+                    maxAddPlayerText ++;
+                }
+            }
+        });
+        answerButton = (Button) findViewById(R.id.answer_button);
+
+        answerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = textEdit.getText().toString();
+
+                if(!text.equals("")) {
+                    if (numberOfOccurrences(text) == 0) {
+                        text = "--joueur--" + " " + text;
+                    }
+                    currentText = text;
+                    showAnswer();
+                    textLayout.setVisibility(View.GONE);
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"Veuillez remplir le champ",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+    private void showAnswer(){
+        LinearLayout answerLayout = (LinearLayout) findViewById(R.id.answer_layout);
+        answerLayout.setVisibility(View.VISIBLE);
+        EditText answerEdit = (EditText) findViewById(R.id.answer_edit);
+        ImageView addPlayerAnswer = (ImageView) findViewById(R.id.add_player_answer);
+        ImageView nextArrow = (ImageView) findViewById(R.id.next_button);
+        ImageView previousArrow = (ImageView) findViewById(R.id.previous_arrow);
+        EditText leftButton = (EditText) findViewById(R.id.edit_button1);
+        EditText rightButton = (EditText) findViewById(R.id.edit_button2);
+
+        if (typeOfGame==2 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            leftButton.setBackground(getDrawable(R.drawable.button2));
+            rightButton.setBackground(getDrawable(R.drawable.button2));
+        }
+        addPlayerAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = answerEdit.getText().toString();
+                if(numberOfOccurrences(text) ==0) {
+                    text += " --joueur-- ";
+                    answerEdit.setText(text);
+                    maxAddAnswerText++;
+                }
+                else{
+                    Toast.makeText(getApplicationContext(),"seul 1 joueur peut aparaitre dans la réponse", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        //back to show text
+        previousArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showText();
+                answerLayout.setVisibility(View.GONE);
+            }
+        });
+        // go to point
+        nextArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String answer = answerEdit.getText().toString();
+                if(!answer.equals("")) {
+                    currentAnswer = answer;
+                    showPoint();
+                    answerLayout.setVisibility(View.GONE);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Veuillez remplir la réponse", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+    }
+    private void showPoint(){
+        LinearLayout pointLayout = (LinearLayout) findViewById(R.id.point_layout);
+        pointLayout.setVisibility(View.VISIBLE);
+        ImageView validate = (ImageView) findViewById(R.id.validate);
+        ImageView previousArrow = (ImageView) findViewById(R.id.previous1_arrow);
+        Spinner pointSpinner = findViewById(R.id.pointList);
+        ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(this,R.array.pointList,
+                R.layout.spinner_item);
+        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        pointSpinner.setAdapter(adapter3);
+
+        previousArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAnswer();
+                pointLayout.setVisibility(View.GONE);
+            }
+        });
+        TextView test = findViewById(R.id.test);
+        validate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentPoint = pointSpinner.getSelectedItem().toString();
+                // pour voir l'encodage
+                test.setText(encoding());
+            }
+        });
 
     }
     private void showInfoPopup(int layout){
@@ -196,85 +252,12 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
             }
         });
     }
-    private void showValidatePopup(int layout,String title, String text,String answer,String point){
-        AlertDialog alertDialog;
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
-        View layoutView = getLayoutInflater().inflate(layout, null);
-        // déclarer les élements de la popup
-        TextView titleDisplay = layoutView.findViewById(R.id.current_title_display);
-        TextView textDisplay = layoutView.findViewById(R.id.current_text_display);
-        Button answerButton = layoutView.findViewById(R.id.answer_button);
-        dialogBuilder.setView(layoutView);
-        alertDialog = dialogBuilder.create();
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        alertDialog.show();
-        if(typeOfGame ==2){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                answerButton.setBackground(getDrawable(R.drawable.button2));
-            }
-        }
-        titleDisplay.setText(title);
-        textDisplay.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
-        answerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-                showAnswerPopup(R.layout.game_answer_popup,answer,point);
-            }
-        });
-    }
-    private void showAnswerPopup(int layout, String answer,String point){
-        AlertDialog alertDialog;
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
-        View layoutView = getLayoutInflater().inflate(layout, null);
-        //recuperer les éléments de la popup
-        Button yesButton = layoutView.findViewById(R.id.yes_button);
-        Button noButton = layoutView.findViewById(R.id.no_button);
-        Button nextButton = layoutView.findViewById(R.id.next_button);
-        TextView answerText = layoutView.findViewById(R.id.text_display);
-        dialogBuilder.setView(layoutView);
-        alertDialog = dialogBuilder.create();
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        alertDialog.show();
-        answerText.setText(HtmlCompat.fromHtml(answer,HtmlCompat.FROM_HTML_MODE_LEGACY));
-        if(typeOfGame ==2){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                yesButton.setBackground(getDrawable(R.drawable.button2));
-                noButton.setBackground(getDrawable(R.drawable.button2));
-                nextButton.setBackground(getDrawable(R.drawable.button2));
-            }
-        }
-        yesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String text="<b><i>Joueur 1</i><b> marque "+point+" point(s)";
-                yesButton.setVisibility(View.GONE);
-                noButton.setVisibility(View.GONE);
-                nextButton.setVisibility(View.VISIBLE);
-                answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
-            }
-        });
-        noButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String text="<b><i>Joueur 1</i><b> bois";
-                yesButton.setVisibility(View.GONE);
-                noButton.setVisibility(View.GONE);
-                nextButton.setVisibility(View.VISIBLE);
-                answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
-            }
-        });
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-            }
-        });
 
-    }
-    private String encoding(String point, String text, String answer){
+    private String encoding(){
+        String text = currentText.replace("--joueur--","§");
+        String answer = currentAnswer.replace("--joueur--","§");
         String encodageSentence = "";
-        encodageSentence+=point+ " ";
+        encodageSentence+=currentPoint+ " ";
         encodageSentence+=answer+" "+"ç";
         encodageSentence+=text;
         return encodageSentence;
@@ -298,7 +281,7 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
 
         } else if (numberOfOccurrences(text) == 2) {
             res = text.replaceFirst("--joueur--", "<b><i>Joueur 1</i></b>");
-            res=text.replace("--joueur--","<b><i>Joueur 2</i></b>");
+            res=res.replace("--joueur--","<b><i>Joueur 2</i></b>");
         }
         else{
             res = text.replaceFirst("--joueur--", "<b><i>Joueur 1</i></b>");
@@ -383,9 +366,17 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         if(gameModeSpinner.getSelectedItem().toString().equals("ApeChill")){
             typeOfGame=1;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    answerButton.setBackground(getDrawable(R.drawable.button));
+                }
+
         }
         else{
             typeOfGame=2;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                answerButton.setBackground(getDrawable(R.drawable.button2));
+            }
         }
 
     }
