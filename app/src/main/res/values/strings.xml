@@ -95,6 +95,7 @@
     <string name="visualize">visualiser</string>
     <string name="game_mode">Mode de jeu</string>
     <string name="type_spinner">type de phrases</string>
+    <string name="mark">Joueur 1 marque</string>
     <string-array name="gameModeList">
     <item>ApeChill</item>
     <item>ApePiment</item>
