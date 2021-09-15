@@ -1,5 +1,7 @@
 package fr.mapoe.appproject;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -9,6 +11,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -63,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
         Configuration conf = getResources().getConfiguration();
         String localLanguage = conf.locale.getLanguage();
         //on vérifie si la langue actuelle et la langue enregistré par l'utilisateur sont la même (pour éviter de changer en boucle la langue)
-        if(choseLanguage!=null & !localLanguage.equals(choseLanguage)){
-            setLocale(choseLanguage);
+        if(choseLanguage!="" & !localLanguage.equals(choseLanguage)){
+            setLocale(choseLanguage);//si la langue de sharedpréférencies existe et qu'elle est différente de celle du tel alors on l'utilise
         }
     }
 
