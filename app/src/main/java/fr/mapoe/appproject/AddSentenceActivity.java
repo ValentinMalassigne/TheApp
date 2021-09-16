@@ -4,8 +4,10 @@ import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.text.HtmlCompat;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -47,6 +49,7 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sentence);
+
         AnimationBg.startBackgroundAnimation(findViewById(R.id.add_sentence_layout));
 
         showText();
@@ -230,27 +233,58 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
         Button okButton = layoutView.findViewById(R.id.ok_button);
         TextView textInfo = layoutView.findViewById(R.id.text_info);
         ImageView imageInfo = layoutView.findViewById(R.id.image_info);
+        ImageView nextArrow = layoutView.findViewById(R.id.right_popup_arrow);
+        ImageView previousArrow = layoutView.findViewById(R.id.left_popup_arrow);
+        final int[] pageCpt = {1};
         CheckBox checkBox = layoutView.findViewById(R.id.block_popup_checkBox);
-        textInfo.setText(getString(R.string.game_description));
+        textInfo.setText("Page 1 ");
+        okButton.setVisibility(View.INVISIBLE);
         imageInfo.setVisibility(View.GONE);
 
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
-        checkBox.setVisibility(View.GONE);
+        checkBox.setVisibility(View.INVISIBLE);
         imageInfo.setVisibility(View.GONE);
-        if (typeOfGame == 2) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                okButton.setBackground(getDrawable(R.drawable.button2));
-            }
-        }
-        okButton.setOnClickListener(new View.OnClickListener() {
+        previousArrow.setVisibility(View.INVISIBLE);
+        nextArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alertDialog.dismiss();
+                if(pageCpt[0] ==1){// passage à la page 2
+                    textInfo.setText("Page 2 ");
+                    previousArrow.setVisibility(View.VISIBLE);
+                    pageCpt[0]++;
+                }
+                else if(pageCpt[0] ==2){ // passage la page 3
+                    textInfo.setText("Page 3");
+                    nextArrow.setImageResource(R.drawable.check);
+                    pageCpt[0]++;
+                }
+                else{
+                    alertDialog.dismiss();
+                }
             }
         });
+        previousArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(pageCpt[0]==1){
+
+                }
+                else if(pageCpt[0]==2){// retour à la page 1
+                    textInfo.setText("Page 1");
+                    previousArrow.setVisibility(View.INVISIBLE);
+                    pageCpt[0]--;
+                }
+                else{ //retour page 2
+                    textInfo.setText("Page 2");
+                    nextArrow.setImageResource(R.drawable.right_arrow);
+                    pageCpt[0]--;
+                }
+            }
+        });
+
     }
 
     private String encoding(){
@@ -384,5 +418,13 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+    @Override
+    public void onBackPressed() {
+
+        Intent optionActivity = new Intent(getApplicationContext(), OptionActivity.class);
+        startActivity(optionActivity);
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+        finish();
     }
 }

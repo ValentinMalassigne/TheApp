@@ -36,8 +36,8 @@ public class SimpleWheelActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // ouvre l'activity GameSelection
-                Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
-                startActivity(gameSelectionActivity);
+                Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(mainActivity);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();
 
@@ -100,8 +100,8 @@ public class SimpleWheelActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-        Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
-        startActivity(gameSelectionActivity);
+        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(mainActivity);
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         finish();
     }

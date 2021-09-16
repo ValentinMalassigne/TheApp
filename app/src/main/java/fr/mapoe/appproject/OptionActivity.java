@@ -78,6 +78,17 @@ public class OptionActivity extends AppCompatActivity {
                 finish();
             }
         });
+        LinearLayout addSenteceLayout2 = (LinearLayout) findViewById(R.id.add_sentence2);
+        addSenteceLayout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addSentenceActivity2 = new Intent(getApplicationContext(),AddSentenceActivity2.class);
+                startActivity(addSentenceActivity2);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
+        });
+
 
     }
 

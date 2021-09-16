@@ -97,18 +97,27 @@
     <string name="type_spinner">type de phrases</string>
     <string name="mark">Joueur 1 marque</string>
     <string-array name="gameModeList">
-    <item>ApeChill</item>
-    <item>ApePiment</item>
+        <item>ApeChill</item>
+        <item>ApePiment</item>
     </string-array>
     <string-array name="typeList">
-    <item>Annecdote</item>
-    <item>Gages</item>
-    <item>Mini-jeu</item>
-    <item>Question</item>
+        <item>Annecdote</item>
+        <item>Gages</item>
+        <item>Mini-jeu</item>
+        <item>Question</item>
     </string-array>
     <string-array name="pointList">
-    <item> 1 </item>
-    <item> 2 </item>
-    <item> 3 </item>
+        <item> 1 </item>
+        <item> 2 </item>
+        <item> 3 </item>
     </string-array>
+    <string name="title_activity_add_sentence2">AddSentenceActivity2</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="what_sentence_type">What type of sentence do you want to add ?</string>
+    <string name="sentence">Sentence</string>
 </resources>
