@@ -10,8 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppProject">
         <activity
+            android:name=".AddSentenceActivity2"
+            android:exported="true"
+            android:label="@string/title_activity_add_sentence2"
+            android:theme="@style/Theme.AppProject.NoActionBar" />
+        <activity
             android:name=".AddSentenceActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppProject.NoActionBar" />
         <activity
             android:name=".CardGameActivity"
             android:exported="true"

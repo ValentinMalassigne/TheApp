@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.text.HtmlCompat;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -59,8 +60,6 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
         });
 
 
-
-
         /*visualizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +87,7 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
         fileBuilder();
 
     }
+
     private void showText(){
         LinearLayout textLayout = (LinearLayout) findViewById(R.id.addText_layout);
         textLayout.setVisibility(View.VISIBLE);
@@ -139,6 +139,7 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
             }
         });
     }
+
     private void showAnswer(){
         LinearLayout answerLayout = (LinearLayout) findViewById(R.id.answer_layout);
         answerLayout.setVisibility(View.VISIBLE);
@@ -193,6 +194,7 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
         });
 
     }
+
     private void showPoint(){
         LinearLayout pointLayout = (LinearLayout) findViewById(R.id.point_layout);
         pointLayout.setVisibility(View.VISIBLE);
@@ -222,6 +224,7 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
         });
 
     }
+
     private void showInfoPopup(int layout){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
@@ -384,5 +387,12 @@ public class AddSentenceActivity extends AppCompatActivity implements AdapterVie
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+    @Override
+    public void onBackPressed() {
+        Intent optionActivity = new Intent(getApplicationContext(), OptionActivity.class);
+        startActivity(optionActivity);
+        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+        finish();
     }
 }
