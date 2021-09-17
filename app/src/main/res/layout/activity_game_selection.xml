@@ -57,9 +57,9 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="250dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"                        android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_weight="1"
                         android:src="@drawable/app_icon" />
 
                     <LinearLayout
@@ -97,9 +97,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="250dp"
+                        android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:src="@drawable/lips" />
 
                     <LinearLayout
@@ -134,9 +135,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="200dp"
+                        android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_weight="1"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:src="@drawable/wheel_logo" />
 
                     <LinearLayout
@@ -173,9 +175,9 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="115dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"                        android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_weight="1"
                         android:src="@drawable/card_game_logo" />
 
                     <LinearLayout
@@ -213,9 +215,9 @@
                     android:background="@android:drawable/list_selector_background">
 
                     <ImageView
-                        android:layout_width="250dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"                        android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_weight="1"
                         android:src="@drawable/coming_soon" />
 
                     <LinearLayout
@@ -247,9 +249,9 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="250dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"                        android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_weight="1"
                         android:src="@drawable/coming_soon" />
 
                     <LinearLayout

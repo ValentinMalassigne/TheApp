@@ -101,7 +101,7 @@
         <item>ApePiment</item>
     </string-array>
     <string-array name="typeList">
-        <item>Annecdote</item>
+        <item>Anecdote</item>
         <item>Gages</item>
         <item>Mini-jeu</item>
         <item>Question</item>
@@ -111,4 +111,7 @@
         <item> 2 </item>
         <item> 3 </item>
     </string-array>
+    <string name="title_activity_add_sentence2">AddSentenceActivity2</string>
+    <string name="what_sentence_type">Quelle type de phrase voulez-vous ajouter</string>
+    <string name="sentence">Phrase</string>
 </resources>

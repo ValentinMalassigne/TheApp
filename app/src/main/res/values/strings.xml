@@ -76,32 +76,32 @@
     <string name="duplicater_player_name_error">You can not use several the same name</string>
     <string name="title_activity_game_selection">GameSelectionActivity</string>
     <string name="title_activity_game_selection2">GameSelectionActivity2</string>
-    <string name="error_image">Veuillez d\'abord remplir le champ</string>
-    <string name="empty_add_player_error">Rentrez un nom de joueur valide.</string>
-    <string name="restart_button">Rejouer</string>
-    <string name="roulete_description">parce qu\'il n\'y a pas besoin d\'une raison pour boire !</string>
-    <string name="description_red_or_black">Tu connais le principe ! 1 chance sur 2</string>
+    <string name="error_image">Please fill the field</string>
+    <string name="empty_add_player_error">Write a valid player name</string>
+    <string name="restart_button">Play again</string>
+    <string name="roulete_description">Because you don\'t need a reason to drink !</string>
+    <string name="description_red_or_black">One chance out of two, easy right ?</string>
     <string name="ApePiment">ApePiment</string>
-    <string name="ape_pimnet_description">Pour un apéro pimenté découvre les secrets coquin des tes ami(e)s</string>
-    <string name="drink">bois</string>
-    <string name="your_turn">c\'est à toi de jouer</string>
-    <string name="game_description">Tu peux choisir de répondre à la question et de marquer des points ou de passer et de boire</string>
-    <string name="block_popup">Ne plus afficher </string>
-    <string name="popup_reset_button">réactiver les popups</string>
-    <string name="popups_enabled">les popups sont à nouveau activées</string>
+    <string name="ape_pimnet_description">For a spicy apéro, discover the naughty secrets of your friends</string>
+    <string name="drink">drink</string>
+    <string name="your_turn">it\'s your turn</string>
+    <string name="game_description">You can answer the question and earn points or skip and drink</string>
+    <string name="block_popup">Do not show again !</string>
+    <string name="popup_reset_button">turn back on popups</string>
+    <string name="popups_enabled">popups are turned back on</string>
     <string name="text">text</string>
-    <string name="add_answer">Ajoutez votre réponse</string>
-    <string name="add_text">Ajouter votre text</string>
-    <string name="visualize">visualiser</string>
-    <string name="game_mode">Mode de jeu</string>
-    <string name="type_spinner">type de phrases</string>
-    <string name="mark">Joueur 1 marque</string>
+    <string name="add_answer">Add your answer</string>
+    <string name="add_text">Add your sentence</string>
+    <string name="visualize">visualise</string>
+    <string name="game_mode">Game Mode</string>
+    <string name="type_spinner">Sentence type</string>
+    <string name="mark">Player 1 scores</string>
     <string-array name="gameModeList">
         <item>ApeChill</item>
         <item>ApePiment</item>
     </string-array>
     <string-array name="typeList">
-        <item>Annecdote</item>
+        <item>Anecdote</item>
         <item>Gages</item>
         <item>Mini-jeu</item>
         <item>Question</item>
