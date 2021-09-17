@@ -89,6 +89,7 @@ public class OptionActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     private void showLanguagePopup(int layout) {

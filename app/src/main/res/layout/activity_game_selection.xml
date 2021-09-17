@@ -21,16 +21,6 @@
             android:orientation="horizontal"
             android:layout_marginBottom="20dp">
 
-            <ImageButton
-                android:id="@+id/menu_button"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:scaleType="fitStart"
-                android:src="@drawable/x_icon"
-                tools:ignore="SpeakableTextPresentCheck" />
-
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
@@ -41,6 +31,12 @@
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:fontFamily="@font/convergence"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/settings"
+
+                android:id="@+id/setting_button"/>
         </LinearLayout>
 
         <ScrollView

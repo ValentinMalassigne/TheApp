@@ -11,9 +11,7 @@
         android:theme="@style/Theme.AppProject">
         <activity
             android:name=".AddSentenceActivity2"
-            android:exported="true"
-            android:label="@string/title_activity_add_sentence2"
-            android:theme="@style/Theme.AppProject.NoActionBar" />
+            android:exported="true" />
         <activity
             android:name=".AddSentenceActivity"
             android:exported="true"
@@ -22,12 +20,6 @@
         <activity
             android:name=".CardGameActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppProject.NoActionBar" />
-        <activity
-            android:name=".GameSelectionActivity"
-            android:exported="true"
-            android:label="@string/title_activity_game_selection"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppProject.NoActionBar" />
         <activity

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.util.Locale;
 
@@ -24,14 +25,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_game_selection);
 
         //changement de la langue
         getLanguage();
 
-        //animation du bg
-        AnimationBg.startBackgroundAnimation(findViewById(R.id.menu_layout));
-
+        AnimationBg.startBackgroundAnimation(findViewById(R.id.main_layout));
 
         //go to option
         ImageView goToOption = (ImageView) findViewById(R.id.setting_button);
@@ -45,18 +44,54 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // go to GameSelection
-        Button gotToGameSelection = (Button) findViewById(R.id.game_selection_button);
-        gotToGameSelection.setOnClickListener(new View.OnClickListener() {
+        // go to character choose by ApeChill
+        LinearLayout goToCharacter = (LinearLayout) findViewById(R.id.character_choose_image);
+        goToCharacter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent gameSelectionActivity = new Intent(getApplicationContext(), GameSelectionActivity.class);
-                startActivity(gameSelectionActivity);
+                Intent characterChooseActivity = new Intent(getApplicationContext(), CharacterChooseActivity.class);
+                characterChooseActivity.putExtra("typeOfGame",1);
+                startActivity(characterChooseActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
 
+        // go to character choose by ApePiment
+        LinearLayout goToApePiment = (LinearLayout) findViewById(R.id.ape_piment) ;
+        goToApePiment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent characterChooseActivity = new Intent(getApplicationContext(), CharacterChooseActivity.class);
+                characterChooseActivity.putExtra("typeOfGame",2);
+                startActivity(characterChooseActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
+        });
+        // go to Simple Wheel
+        LinearLayout goToSimpleWheel = (LinearLayout) findViewById(R.id.wheel_image);
+        goToSimpleWheel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent simpleWheelActivity = new Intent(getApplicationContext(), SimpleWheelActivity.class);
+                startActivity(simpleWheelActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
+        });
+
+        // go to card game
+        LinearLayout goToCardGame = (LinearLayout) findViewById(R.id.card_image);
+        goToCardGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent cardGameActivity = new Intent(getApplicationContext(), CardGameActivity.class);
+                startActivity(cardGameActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
+        });
     }
     private void getLanguage(){
         //on charge le langage enregistrer dans les shared preferences
@@ -70,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
             setLocale(choseLanguage);//si la langue de sharedpréférencies existe et qu'elle est différente de celle du tel alors on l'utilise
         }
     }
-
     //on met a jour la langue de l'appli
     private void setLocale(String choseLanguage) {
         Locale myLocale = new Locale(choseLanguage);
@@ -85,11 +119,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(refresh);
     }
 
-
-
-
-
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+
+    }
 
 }
