@@ -33,6 +33,7 @@
     <LinearLayout
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
         android:id="@+id/dynamicLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,6 +44,7 @@
             android:id="@+id/question_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="In which gamemode do you want to add the sentence ?"
             android:textColor="@color/white"/>
@@ -57,17 +59,21 @@
 
             <Button
                 android:id="@+id/button_ape_chill"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@drawable/button"
+                app:backgroundTint="@null"
                 android:layout_weight="1"
                 android:text="ApeChill"
                 android:layout_marginRight="10dp"/>
 
             <Button
                 android:id="@+id/button_ape_piment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
+                android:background="@drawable/button2"
+                app:backgroundTint="@null"
                 android:text="ApePiment"
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
@@ -83,20 +89,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
 
                 <Button
                     android:id="@+id/button_anecdote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    app:backgroundTint = "@null"
+                    android:layout_width="80dp"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
                     android:text="Anecdote"
                     android:layout_marginRight="10dp"/>
 
                 <Button
                     android:id="@+id/button_gages"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    app:backgroundTint = "@null"
+                    android:layout_width="80dp"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
                     android:text="Gages"
                     android:layout_marginLeft="10dp"/>
@@ -109,15 +120,19 @@
 
                 <Button
                     android:id="@+id/button_mini_game"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    app:backgroundTint = "@null"
+                    android:layout_width="80dp"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
                     android:text="MiniGame"
                     android:layout_marginRight="10dp"/>
                 <Button
                     android:id="@+id/button_question"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    app:backgroundTint = "@null"
+                    android:layout_width="80dp"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
                     android:text="Question"
                     android:layout_marginLeft="10dp"/>
@@ -162,8 +177,11 @@
             </LinearLayout>
             <Button
                 android:id="@+id/sentence_edit_next_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button"
+                app:backgroundTint = "@null"
                 android:text="Next"
                 android:layout_gravity="center"
                 />
@@ -208,8 +226,11 @@
             </LinearLayout>
             <Button
                 android:id="@+id/answer_edit_next_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button"
+                app:backgroundTint = "@null"
                 android:text="Next"
                 android:layout_gravity="center"
                 />
@@ -235,11 +256,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:textColor="@color/white"
                         android:text="gives points to the player"/>
 
@@ -268,6 +291,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:textColor="@color/white"
                         android:text="gives sips to the player"/>
 
@@ -291,8 +315,11 @@
             </LinearLayout>
             <Button
                 android:id="@+id/buttons_edit_next_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button"
+                app:backgroundTint = "@null"
                 android:text="Next"
                 android:layout_gravity="center"
                 />

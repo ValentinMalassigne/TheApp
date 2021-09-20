@@ -3,6 +3,7 @@ package fr.mapoe.appproject;
 import static android.content.ContentValues.TAG;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,9 +29,17 @@ import androidx.navigation.ui.NavigationUI;
 
 import fr.mapoe.appproject.databinding.ActivityAddSentence2Binding;
 
-public class AddSentenceActivity2 extends AppCompatActivity {
+public class AddSentenceActivity2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    private int maxAddPlayerText=0,maxAddAnswerText=0;
+    private int maxAddPlayerText=0,maxAddAnswerText=0,typeOfGame = 1;;
+    private Spinner gameModeSpinner;
+    private Button buttonAnecdote;
+    private Button buttonGages;
+    private Button buttonMiniGames;
+    private Button buttonQuestion;
+    private Button sentenceEditNextButton;
+    private Button answerEditNextButton;
+    private Button buttonsEditNextButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +47,17 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         setContentView(R.layout.activity_add_sentence2);
         AnimationBg.startBackgroundAnimation(findViewById(R.id.add_sentence_layout));
 
-        setOnClickListeners();
+        init();
     }
 
-    void setOnClickListeners(){
-
+    private void init(){
+        this.buttonAnecdote = findViewById(R.id.button_anecdote);
+        this.buttonGages = findViewById(R.id.button_gages);
+        this.buttonMiniGames = findViewById(R.id.button_mini_game);
+        this.buttonQuestion = findViewById(R.id.button_question);
+        this.sentenceEditNextButton = findViewById(R.id.sentence_edit_next_button);
+        this.answerEditNextButton = findViewById(R.id.answer_edit_next_button);
+        this.buttonsEditNextButton = findViewById(R.id.buttons_edit_next_button);
         //bouton ApeChill
         Button buttonApeChill = findViewById(R.id.button_ape_chill);
         buttonApeChill.setOnClickListener(new View.OnClickListener() {
@@ -53,7 +69,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                 sentenceTypeLayout.setVisibility(View.VISIBLE);
                 LinearLayout scrollableGameModeLayout = findViewById(R.id.scrollable_game_mode_layout);
                 scrollableGameModeLayout.setVisibility(View.VISIBLE);
-                Spinner gameModeSpinner = findViewById(R.id.game_mode_spinner);
+                gameModeSpinner = findViewById(R.id.game_mode_spinner);
                 ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getApplicationContext(),
                         R.array.gameModeList, R.layout.spinner_item);
                 adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -63,6 +79,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                 questionTextView.setText(R.string.what_sentence_type);
                 TextView textViewResume = findViewById(R.id.textViewResume);
                 textViewResume.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -89,11 +106,16 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                 questionTextView.setText(R.string.what_sentence_type);
                 TextView textViewResume = findViewById(R.id.textViewResume);
                 textViewResume.setVisibility(View.VISIBLE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    buttonAnecdote.setBackground(getDrawable(R.drawable.button2));
+                }
+
+
             }
         });
 
         //bouton Anecdote
-        Button buttonAnecdote = findViewById(R.id.button_anecdote);
+
         buttonAnecdote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,7 +124,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         });
 
         //bouton Gages
-        Button buttonGages = findViewById(R.id.button_gages);
+
         buttonGages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,7 +133,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         });
 
         //bouton MiniGame
-        Button buttonMiniGames = findViewById(R.id.button_mini_game);
+
         buttonMiniGames.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +142,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         });
 
         //bouton Question
-        Button buttonQuestion = findViewById(R.id.button_question);
+
         buttonQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +151,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         });
 
         //bouton Next après avoir tappé la phrase
-        Button sentenceEditNextButton = findViewById(R.id.sentence_edit_next_button);
+
         sentenceEditNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,7 +174,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         });
 
         //bouton Next après avoir tappé la réponse
-        Button answerEditNextButton = findViewById(R.id.answer_edit_next_button);
+
         answerEditNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,7 +197,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         });
 
         //bouton Next après avoir modifier les boutons
-        Button buttonsEditNextButton = findViewById(R.id.buttons_edit_next_button);
+
         buttonsEditNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -242,6 +264,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
             }
         });
 
+
     }
 
     //permet d'éviter d'écrire 4 fois le même code pour la selection du type de phrase
@@ -297,5 +320,15 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         startActivity(optionActivity);
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         finish();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
