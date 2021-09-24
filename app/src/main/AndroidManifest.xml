@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppProject">
         <activity
+            android:name=".EditSentenceActivity"
+            android:exported="true" />
+        <activity
             android:name=".AddSentenceActivity2"
             android:exported="true" />
         <activity
