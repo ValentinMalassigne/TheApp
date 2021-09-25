@@ -46,7 +46,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
     private Button sentenceEditNextButton;
     private Button answerEditNextButton;
     private Button buttonsEditNextButton;
-    private Button addButton;
+
     private Button pointNextButton;
     private EditText editButton1;
     private EditText editButton2;
@@ -72,6 +72,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
     private Spinner pointListSpinner;
     private LinearLayout scrollablePointLayout;
     private Spinner scrollablePointList;
+    private Button visualizeButton;
 
 
     @Override
@@ -102,8 +103,8 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         this.editButton2 = findViewById(R.id.edit_button2);
         this.scrollableEditButton1 = findViewById(R.id.scrollable_edit_button1);
         this.scrollableEditButton2 = findViewById(R.id.scrollable_edit_button2);
-        this.addButton = findViewById(R.id.add_button);
-        this.pointNextButton = findViewById(R.id.visualize_button);
+        this.pointNextButton = findViewById(R.id.next_point_button);
+        this.visualizeButton = findViewById(R.id.visualize_button);
         // affichage du haut
         this.questionTextView = findViewById(R.id.question_textView);
         this.gameTypeLayout = findViewById(R.id.game_type_layout);
@@ -161,7 +162,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                                 editButton2.setBackground(getDrawable(R.drawable.button));
                                 scrollableEditButton1.setBackground(getDrawable(R.drawable.button));
                                 scrollableEditButton2.setBackground(getDrawable(R.drawable.button));
-                                addButton.setBackground(getDrawable(R.drawable.button));
+                                visualizeButton.setBackground(getDrawable(R.drawable.button));
                                 pointNextButton.setBackground(getDrawable(R.drawable.button));
                                 typeOfGame=1;
                             }
@@ -179,7 +180,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                                 editButton2.setBackground(getDrawable(R.drawable.button2));
                                 scrollableEditButton1.setBackground(getDrawable(R.drawable.button2));
                                 scrollableEditButton2.setBackground(getDrawable(R.drawable.button2));
-                                addButton.setBackground(getDrawable(R.drawable.button2));
+                                visualizeButton.setBackground(getDrawable(R.drawable.button2));
                                 pointNextButton.setBackground(getDrawable(R.drawable.button2));
                                 typeOfGame=2;
                             }
@@ -230,7 +231,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                                 editButton2.setBackground(getDrawable(R.drawable.button2));
                                 scrollableEditButton1.setBackground(getDrawable(R.drawable.button2));
                                 scrollableEditButton2.setBackground(getDrawable(R.drawable.button2));
-                                addButton.setBackground(getDrawable(R.drawable.button2));
+                                visualizeButton.setBackground(getDrawable(R.drawable.button2));
                                 pointNextButton.setBackground(getDrawable(R.drawable.button2));
                                 typeOfGame=2;
 
@@ -249,7 +250,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                                 editButton2.setBackground(getDrawable(R.drawable.button));
                                 scrollableEditButton1.setBackground(getDrawable(R.drawable.button));
                                 scrollableEditButton2.setBackground(getDrawable(R.drawable.button));
-                                addButton.setBackground(getDrawable(R.drawable.button));
+                                visualizeButton.setBackground(getDrawable(R.drawable.button));
                                 pointNextButton.setBackground(getDrawable(R.drawable.button));
                                 typeOfGame=1;
                             }
@@ -379,7 +380,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
             public void onClick(View view) {
                 pointLayout.setVisibility(View.GONE);
                 scrollablePointLayout.setVisibility(View.VISIBLE);
-                addButton.setVisibility(View.VISIBLE);
+                visualizeButton.setVisibility(View.VISIBLE);
                 questionTextView.setText("Check every information and press next !");
                 ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getApplicationContext(),
                         R.array.pointList, R.layout.spinner_item);
@@ -388,29 +389,23 @@ public class AddSentenceActivity2 extends AppCompatActivity {
 
             }
         });
-
         //button pour visualiser la phrase
-        /*pointNextButton.setOnClickListener(new View.OnClickListener() {
+        visualizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String text = scrollableEditText.getText().toString();
                 String answer = scrollableAnswerEditText.getText().toString();
-                if(!text.equals("") && !answer.equals("")) {
-                    if (numberOfOccurrences(text) == 0) {
-                        text = "--joueur--" + " "+text;
-                    }
-                    text = getCleanText(text);
+                if (numberOfOccurrences(text) == 0) {
+                    text = "--joueur--" + " " + text;
+                }
+                text = getCleanText(text);
+                answer = getCleanText(answer);
+                String title = sentenceTypeSpinner.getSelectedItem().toString();
+                String point = scrollablePointList.getSelectedItem().toString();
+                showValidatePopup(R.layout.visualisation_popup, title, text, answer, point);
 
-                    answer = getCleanText(answer);
-                    String title = gameModeSpinner.getSelectedItem().toString() + ": " + gameModeSpinner.getSelectedItem().toString();
-                    String point = scrollablePointList.getSelectedItem().toString();
-                    showValidatePopup(R.layout.visualisation_popup, title, text, answer, point);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Veuillez remplir tout les champs", Toast.LENGTH_SHORT).show();
-                }
             }
-        });*/
+        });
         //bouton ajouter un joueur a la phrase quand on te le demande
         ImageView addPlayerToSentence = findViewById(R.id.add_player_to_sentence);
         addPlayerToSentence.setOnClickListener(new View.OnClickListener() {
@@ -537,7 +532,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         }
     }
 
-    /*private void showValidatePopup(int layout,String title, String text,String answer,String point){
+    private void showValidatePopup(int layout,String title, String text,String answer,String point){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity2.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
@@ -571,7 +566,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         //recuperer les éléments de la popup
         Button yesButton = layoutView.findViewById(R.id.yes_button);
         Button noButton = layoutView.findViewById(R.id.no_button);
-        Button nextButton = layoutView.findViewById(R.id.next_button);
+        Button addButton = layoutView.findViewById(R.id.next_button);
         TextView answerText = layoutView.findViewById(R.id.text_display);
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
@@ -582,7 +577,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 yesButton.setBackground(getDrawable(R.drawable.button2));
                 noButton.setBackground(getDrawable(R.drawable.button2));
-                nextButton.setBackground(getDrawable(R.drawable.button2));
+                addButton.setBackground(getDrawable(R.drawable.button2));
             }
         }
         yesButton.setOnClickListener(new View.OnClickListener() {
@@ -591,7 +586,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                 String text="<b><i>Joueur 1</i><b> marque "+point+" point(s)";
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
-                nextButton.setVisibility(View.VISIBLE);
+                addButton.setVisibility(View.VISIBLE);
                 answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
         });
@@ -601,18 +596,17 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                 String text="<b><i>Joueur 1</i><b> bois";
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
-                nextButton.setVisibility(View.VISIBLE);
+                addButton.setVisibility(View.VISIBLE);
                 answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
         });
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog.dismiss();
             }
         });
-
-    }*/
+    }
     private int numberOfOccurrences(String source) {
         int occurrences = 0;
 

@@ -347,54 +347,53 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:gravity="center"
                 >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mark"
-                    android:textColor="@color/white"
-                    android:textSize="24sp" />
-                <Spinner
-                    android:id="@+id/point_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    />
-
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mark"
+                        android:textColor="@color/white"
+                        android:textSize="24sp" />
+                    <Spinner
+                        android:id="@+id/point_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        />
+            </LinearLayout>
+                <Button
+                    android:layout_marginVertical="10dp"
+                    android:id="@+id/next_point_button"
+                    android:layout_gravity="center"
+                    android:layout_width="140dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button"
+                    android:text="@string/next"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    app:backgroundTint="@null" />
 
             </LinearLayout>
-            <Button
-                android:layout_marginVertical="10dp"
-                android:id="@+id/visualize_button"
-                android:layout_gravity="center"
-                android:layout_width="140dp"
-                android:layout_height="50dp"
-                android:background="@drawable/button"
-                android:text="@string/visualize"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                app:backgroundTint="@null" />
 
         </LinearLayout>
         <Button
             android:visibility="gone"
             android:layout_marginVertical="10dp"
-            android:id="@+id/add_button"
+            android:id="@+id/visualize_button"
             android:layout_gravity="center"
             android:layout_width="140dp"
             android:layout_height="50dp"
             android:background="@drawable/button"
-            android:text="@string/add"
+            android:text="@string/visualize"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
-            app:backgroundTint="@null">
-
-        </Button>
-
-
+            app:backgroundTint="@null" />
     </LinearLayout>
 
     <View
