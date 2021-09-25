@@ -114,4 +114,6 @@
     <string name="title_activity_add_sentence2">AddSentenceActivity2</string>
     <string name="what_sentence_type">What type of sentence do you want to add ?</string>
     <string name="sentence">Sentence</string>
+    <string name="add">Add</string>
+    <string name="edit">Modifier</string>
 </resources>

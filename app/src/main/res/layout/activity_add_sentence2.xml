@@ -33,6 +33,7 @@
     <LinearLayout
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
         android:id="@+id/dynamicLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,6 +44,7 @@
             android:id="@+id/question_textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="In which gamemode do you want to add the sentence ?"
             android:textColor="@color/white"/>
@@ -57,17 +59,21 @@
 
             <Button
                 android:id="@+id/button_ape_chill"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@drawable/button"
+                app:backgroundTint="@null"
                 android:layout_weight="1"
                 android:text="ApeChill"
                 android:layout_marginRight="10dp"/>
 
             <Button
                 android:id="@+id/button_ape_piment"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
+                android:background="@drawable/button2"
+                app:backgroundTint="@null"
                 android:text="ApePiment"
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
@@ -83,20 +89,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
 
                 <Button
                     android:id="@+id/button_anecdote"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    app:backgroundTint = "@null"
+                    android:layout_width="80dp"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
                     android:text="Anecdote"
                     android:layout_marginRight="10dp"/>
 
                 <Button
                     android:id="@+id/button_gages"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    app:backgroundTint = "@null"
+                    android:layout_width="80dp"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
                     android:text="Gages"
                     android:layout_marginLeft="10dp"/>
@@ -109,15 +120,19 @@
 
                 <Button
                     android:id="@+id/button_mini_game"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    app:backgroundTint = "@null"
+                    android:layout_width="80dp"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
                     android:text="MiniGame"
                     android:layout_marginRight="10dp"/>
                 <Button
                     android:id="@+id/button_question"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:background="@drawable/button"
+                    app:backgroundTint = "@null"
+                    android:layout_width="80dp"
+                    android:layout_height="45dp"
                     android:layout_weight="1"
                     android:text="Question"
                     android:layout_marginLeft="10dp"/>
@@ -142,6 +157,7 @@
                     android:id="@+id/sentence_edit_text"
                     android:layout_width="245dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:padding="10dp"
                     android:background="@drawable/edit_shape"
                     android:fontFamily="@font/convergence"
@@ -157,13 +173,18 @@
                     android:id="@+id/add_player_to_sentence"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_gravity="center"
                     android:src="@drawable/add_player" />
             </LinearLayout>
             <Button
                 android:id="@+id/sentence_edit_next_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button"
+                app:backgroundTint = "@null"
                 android:text="Next"
                 android:layout_gravity="center"
                 />
@@ -189,6 +210,7 @@
                     android:layout_width="245dp"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/edit_shape"
                     android:fontFamily="@font/convergence"
                     android:hint="@string/show_answer"
@@ -204,12 +226,17 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
                     android:src="@drawable/add_player" />
             </LinearLayout>
             <Button
                 android:id="@+id/answer_edit_next_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button"
+                app:backgroundTint = "@null"
                 android:text="Next"
                 android:layout_gravity="center"
                 />
@@ -235,44 +262,51 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:layout_marginRight="30dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
                         android:textColor="@color/white"
                         android:text="gives points to the player"/>
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:layout_marginRight="50dp"
+                        android:layout_gravity="center"
                         android:id="@+id/edit_button1"
                         android:layout_width="100dp"
                         android:layout_height="50dp"
+                        android:gravity="center"
                         android:padding="10dp"
                         android:background="@drawable/button_shape"
                         android:fontFamily="@font/convergence"
                         android:hint="@string/show_answer"
-                        android:gravity="center"
                         android:inputType="textMultiLine|textCapSentences"
                         android:lines="5"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"
+                        android:maxLength="10"
                         />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center"
                     android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
                         android:textColor="@color/white"
                         android:text="gives sips to the player"/>
 
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:layout_gravity="center"
                         android:id="@+id/edit_button2"
                         android:layout_width="100dp"
                         android:layout_height="50dp"
@@ -285,14 +319,18 @@
                         android:lines="5"
                         android:textColor="@color/white"
                         android:textColorHint="@color/white"
+                        android:maxLength="10"
                         />
 
                 </LinearLayout>
             </LinearLayout>
             <Button
                 android:id="@+id/buttons_edit_next_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/button"
+                app:backgroundTint = "@null"
                 android:text="Next"
                 android:layout_gravity="center"
                 />
@@ -304,31 +342,58 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/points_layout">
+            android:id="@+id/point_layout">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:gravity="center"
                 >
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/mark"
+                        android:textColor="@color/white"
+                        android:textSize="24sp" />
+                    <Spinner
+                        android:id="@+id/point_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        />
+                </LinearLayout>
+                <Button
+                    android:layout_marginVertical="10dp"
+                    android:id="@+id/next_point_button"
+                    android:layout_gravity="center"
+                    android:layout_width="140dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/button"
+                    android:text="@string/next"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    app:backgroundTint="@null" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/mark"
-                    android:textColor="@color/white"
-                    android:textSize="24sp" />
-                <Spinner
-                    android:id="@+id/point_list"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    />
             </LinearLayout>
 
         </LinearLayout>
-
+        <Button
+            android:visibility="gone"
+            android:layout_marginVertical="10dp"
+            android:id="@+id/visualize_button"
+            android:layout_gravity="center"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button"
+            android:text="@string/visualize"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            app:backgroundTint="@null" />
     </LinearLayout>
 
     <View
@@ -380,6 +445,7 @@
                 android:visibility="gone">
 
                 <TextView
+                    android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Game Mode :"
@@ -387,6 +453,8 @@
                     android:textSize="24sp"/>
 
                 <Spinner
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
                     android:id="@+id/game_mode_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -406,9 +474,12 @@
                     android:layout_height="wrap_content"
                     android:text="Sentence type :"
                     android:textColor="@color/white"
+                    android:layout_marginLeft="10dp"
                     android:textSize="24sp"/>
 
                 <Spinner
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
                     android:id="@+id/sentence_type_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -418,49 +489,57 @@
             <LinearLayout
                 android:layout_marginTop="30dp"
                 android:id="@+id/scrollable_sentence_layout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
+                android:orientation="vertical"
+
                 android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sentence :"
+                    android:layout_marginLeft="10dp"
                     android:textColor="@color/white"
+
                     android:textSize="24sp"/>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/scrollable_sentence_edit_text"
-                    android:layout_width="245dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:background="@drawable/edit_shape"
-                    android:fontFamily="@font/convergence"
-                    android:hint="@string/sentence"
-                    android:inputType="textMultiLine|textCapSentences"
-                    android:lines="5"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/grey"
-                    />
-
-                <ImageView
-                    android:id="@+id/scrollable_add_player_to_sentence"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:orientation="horizontal"
                     android:layout_gravity="center"
-                    android:src="@drawable/add_player" />
+                    android:layout_marginTop="10dp">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/scrollable_sentence_edit_text"
+                        android:layout_width="245dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:background="@drawable/edit_shape"
+                        android:fontFamily="@font/convergence"
+                        android:hint="@string/sentence"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:lines="5"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/grey"
+                        />
+
+                    <ImageView
+                        android:id="@+id/scrollable_add_player_to_sentence"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/add_player" />
+                </LinearLayout>
 
             </LinearLayout>
             <!-- Le layout qui contient la réponse -->
             <LinearLayout
                 android:layout_marginTop="30dp"
                 android:id="@+id/scrollable_answer_layout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
+                android:orientation="vertical"
                 android:visibility="gone">
 
                 <TextView
@@ -468,28 +547,37 @@
                     android:layout_height="wrap_content"
                     android:text="Answer :"
                     android:textColor="@color/white"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
                     android:textSize="24sp"/>
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/scrollable_answer_edit_text"
-                    android:layout_width="245dp"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:background="@drawable/edit_shape"
-                    android:fontFamily="@font/convergence"
-                    android:hint="@string/show_answer"
-                    android:inputType="textMultiLine|textCapSentences"
-                    android:lines="5"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/grey"
-                    />
-
-                <ImageView
-                    android:id="@+id/scrollable_add_player_to_answer"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:orientation="horizontal"
                     android:layout_gravity="center"
-                    android:src="@drawable/add_player" />
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/scrollable_answer_edit_text"
+                        android:layout_width="245dp"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:background="@drawable/edit_shape"
+                        android:fontFamily="@font/convergence"
+                        android:hint="@string/show_answer"
+                        android:inputType="textMultiLine|textCapSentences"
+                        android:lines="5"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/grey"
+                        />
+
+                    <ImageView
+                        android:id="@+id/scrollable_add_player_to_answer"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/add_player"
+                        android:layout_marginLeft="10dp"/>
+                </LinearLayout>
 
             </LinearLayout>
             <!-- Le layout qui contient les boutons -->
@@ -506,12 +594,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    >
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        >
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -520,7 +609,8 @@
                             android:text="gives points to the player"/>
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:layout_marginRight="50dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
                             android:id="@+id/scrollable_edit_button1"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
@@ -551,6 +641,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/scrollable_edit_button2"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
                             android:layout_width="100dp"
                             android:layout_height="50dp"
                             android:gravity="center"
@@ -563,13 +655,34 @@
                             android:textColor="@color/white"
                             android:textColorHint="@color/white"
                             />
-
                     </LinearLayout>
                 </LinearLayout>
+            </LinearLayout>
+            <!-- Layout qui contient les points -->
+            <LinearLayout
+                android:layout_marginTop="30dp"
+                android:id="@+id/scrollable_point_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Joueur 1 Marque: "
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="24sp"/>
+
+                <Spinner
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:id="@+id/scrollable_point_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

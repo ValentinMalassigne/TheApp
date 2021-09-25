@@ -54,7 +54,7 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String> anecdotesList = new ArrayList<String>();
     private ArrayList<String> playerTurn = new ArrayList<String>();
     private ArrayList<String> gagesList = new ArrayList<String>();
-    private String[] currentChallenge = new String[5]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui)
+    private String[] currentChallenge = new String[7]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2
     private String currentPlayer ="";
     private ConstraintLayout gameLayout;
     private Activity activity;
@@ -227,6 +227,10 @@ public class GameActivity extends AppCompatActivity {
         Button yesButton = (Button) layoutView.findViewById(R.id.yes_button);
         Button noButton = (Button) layoutView.findViewById(R.id.no_button);
         Button nextButton = (Button) layoutView.findViewById(R.id.next_button);
+
+        //on change la réponse des boutons avec celles du fichier
+        yesButton.setText(currentChallenge[5]);//la première rep
+        noButton.setText(currentChallenge[6]);//la deuxième rep
 
         // change bg suivant le jeu
         if(typeOfGame ==2){
@@ -464,6 +468,9 @@ public class GameActivity extends AppCompatActivity {
         String[] tempTab =GetNextChallenge(type);
         String ligne = tempTab[1];
         boolean result=false;
+        boolean temp = false;
+        int i=0;
+        int j;
         if(ligne.equals("Spinning Wheel")){
             setUpWheel();
         }else if(ligne.equals("Red or Black")) {
@@ -474,26 +481,55 @@ public class GameActivity extends AppCompatActivity {
             String answers;
             String sentence;
             String rightAnswer;
+            String button1Text;
+            String button2Text;
 
-            rightAnswer = ligne.substring(0,1);
-            points= ligne.substring(1,2);
-
-            boolean temp = false;
-            int i=0;
+            //on lit tant que l'on est pas a / pour savoir quelle est le premier bouton
             while (!temp){
-                if(ligne.substring(i,i+1).equals("ç")){
+                if(ligne.substring(i,i+1).equals("/")){
                     temp=true;
                 }else {
                     i++;
                 }
             }
-            answers=ligne.substring(3,i);
-            sentence=ligne.substring(i+1);
+            button1Text=ligne.substring(0,i);
+            j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
+
+            //on lit tant que l'on est pas a + ou - pour savoir quelle est le deuxième bouton
+            temp=false;
+            while (!temp){
+                if(ligne.substring(i,i+1).equals("+") || ligne.substring(i,i+1).equals("-")){
+                    temp=true;
+                }else {
+                    i++;
+                }
+            }
+
+            button2Text=ligne.substring(j,i);
+
+            rightAnswer = ligne.substring(i,i+1);//on recup le + ou - qui se trouve juste après la deuxième rep
+            points= ligne.substring(i+1,i+2);//on recup le nb de points qui est juste après le + ou -
+
+            j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
+
+            //on lit tant que l'on a est pas a ç pour avoir la réponse
+            temp=false;
+            while (!temp){
+                if(ligne.substring(i,i+1).equals("¤")){
+                    temp=true;
+                }else {
+                    i++;
+                }
+            }
+            answers=ligne.substring(j,i);
+            sentence=ligne.substring(i+1);//on lit tout jusqu'à la fin pour avoir la phrase
 
             currentChallenge[0]=points;
             currentChallenge[1]=SetNamesInSentence(answers);
             currentChallenge[2]=SetNamesInSentence(sentence);
             currentChallenge[4]=rightAnswer;
+            currentChallenge[5]=button1Text;
+            currentChallenge[6]=button2Text;
             Log.d(TAG, "GetNextInformations: "+currentChallenge[4]);
             result =true;
         }

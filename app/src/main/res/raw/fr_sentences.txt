@@ -1,94 +1,94 @@
 anecdotes
-+2 Est-ce que c'était interessant ?ç§ raconte ta première cuite ou une mémorable
-+2 Est-ce que c'était interessant ?ç§ dis quel est le pire truc que tu as déjà mangé
--2 Est-ce que § l'a déjà fait ?ç§ as-tu déjà bu en travaillant ?
-+2 Est-ce que c'était interessant?ç§ raconte tes pires vacances
-+2 Est-ce que c'était interessant ?ç§ raconte ta plus grosse connerie pendant tes études ou au lycée
-+2 Est-ce que c'était drôle ?ç§ raconte un truc drôle qui t'es arrivé récement
+rep1/rep2+2 Est-ce que c'était interessant ?¤§ raconte ta première cuite ou une mémorable
+rep1/rep2+2 Est-ce que c'était interessant ?¤§ dis quel est le pire truc que tu as déjà mangé
+rep1/rep2-2 Est-ce que § l'a déjà fait ?¤§ as-tu déjà bu en travaillant ?
+rep1/rep2+2 Est-ce que c'était interessant?¤§ raconte tes pires vacances
+rep1/rep2+2 Est-ce que c'était interessant ?¤§ raconte ta plus grosse connerie pendant tes études ou au lycée
+rep1/rep2+2 Est-ce que c'était drôle ?¤§ raconte un truc drôle qui t'es arrivé récement
 gages
-+3 Est-ce que c'était féérique ?ç§ fait un tour de magie dans les 10 prochaines secondes
-+2 Est-ce que § est un expert ?ç§ parle comme un expert d'un sujet que § choisit
-+2 Est-ce que ce reportage était convaincant ?ç§ interview § sur un sujet que § à choisit
-+2 § est-il/elle capable de vivre au moyen-age ?ç§ traduit une phrase choisit par § du vieux français vers le français actuel
-+2 Est-ce que votre serveur à bien débarassé ?ç§ tu débarasse la table ou les verres
-+2 § un bon barman ?ç§ tu ressert les autres
-+3 Est-ce que § a bu ce mélange divin ? ç§ bois un mélange fait par §
-+2 Est-ce que § l'a fait ?ç§ bloque 3 personnes sur messenger/whatsapp/instagram
-+2 Est-ce que § l'a fait ?ç§ ouvre instagram et like les 3 premières publications
-+2 Est-ce que § l'a fait ?ç§ fais un snap des pieds de ton voisin et envoie à 3 contacts
-+2 Est-ce que § l'a fait ?ç§ Envoie "Bonjour" à la 15ème personnes sur ton messenger
-+2 § à l'âme d'un chanteur ?ç§ Chante une chanson Acapella pendant 10 secondes
-+2 Est ce que plus de la moitié à trouvé ?ç§ Fait deviner un Animal avec son cris
-+2 Est ce que plus de la moitié à trouvé ?ç§ Fait deviner un Animal sans aucun bruit
+rep1/rep2+3 Est-ce que c'était féérique ?¤§ fait un tour de magie dans les 10 prochaines secondes
+rep1/rep2+2 Est-ce que § est un expert ?¤§ parle comme un expert d'un sujet que § choisit
+rep1/rep2+2 Est-ce que ce reportage était convaincant ?¤§ interview § sur un sujet que § à choisit
+rep1/rep2+2 § est-il/elle capable de vivre au moyen-age ?¤§ traduit une phrase choisit par § du vieux fran¤ais vers le fran¤ais actuel
+rep1/rep2+2 Est-ce que votre serveur à bien débarassé ?¤§ tu débarasse la table ou les verres
+rep1/rep2+2 § un bon barman ?¤§ tu ressert les autres
+rep1/rep2+3 Est-ce que § a bu ce mélange divin ? ¤§ bois un mélange fait par §
+rep1/rep2+2 Est-ce que § l'a fait ?¤§ bloque 3 personnes sur messenger/whatsapp/instagram
+rep1/rep2+2 Est-ce que § l'a fait ?¤§ ouvre instagram et like les 3 premières publications
+rep1/rep2+2 Est-ce que § l'a fait ?¤§ fais un snap des pieds de ton voisin et envoie à 3 contacts
+rep1/rep2+2 Est-ce que § l'a fait ?¤§ Envoie "Bonjour" à la 15ème personnes sur ton messenger
+rep1/rep2+2 § à l'âme d'un chanteur ?¤§ Chante une chanson Acapella pendant 10 secondes
+rep1/rep2+2 Est ce que plus de la moitié à trouvé ?¤§ Fait deviner un Animal avec son cris
+rep1/rep2+2 Est ce que plus de la moitié à trouvé ?¤§ Fait deviner un Animal sans aucun bruit
 minigames
-+2 Est-ce que § a réussi à faire deviner le mot ?ç§ fais devenir un mot choisit par § à § en utilisant 3-4 mots
--2 Est-ce que § a décidé de garder le silence ?ç§, si tu bouches les chiottes chez § tu serais plutôt du genre à lui dire ou faire comme si de rien n'était
-+2 Est-ce que § a réussi à faire deviner ? ç§ fait deviner une chanson anglaise en la chantant en français à §
-+2 Est-ce que § a réussi à faire deviner ? ç§ fait deviner une chanson française en la chantant en anglais à §
-+2 Est-ce que § a ramené l'objet en premier ? ç§ va chercher un objet que § choisit, § cherche aussi l'objet.
-+2 Est-ce que la description était interessante ?ç§ et § décrivez la vie de § en disant un mot chacun votre tour
--2 Est-ce que plus de la moité des joueurs ont trouvé la vérité ?ç§ raconte une anecdote (vrai ou fausse), les autres doivent devinée si elle est vrai ou fausse.
+rep1/rep2+2 Est-ce que § a réussi à faire deviner le mot ?¤§ fais devenir un mot choisit par § à § en utilisant 3-4 mots
+rep1/rep2-2 Est-ce que § a décidé de garder le silence ?¤§, si tu bouches les chiottes chez § tu serais plutôt du genre à lui dire ou faire comme si de rien n'était
+rep1/rep2+2 Est-ce que § a réussi à faire deviner ? ¤§ fait deviner une chanson anglaise en la chantant en fran¤ais à §
+rep1/rep2+2 Est-ce que § a réussi à faire deviner ? ¤§ fait deviner une chanson fran¤aise en la chantant en anglais à §
+rep1/rep2+2 Est-ce que § a ramené l'objet en premier ? ¤§ va chercher un objet que § choisit, § cherche aussi l'objet.
+rep1/rep2+2 Est-ce que la description était interessante ?¤§ et § décrivez la vie de § en disant un mot chacun votre tour
+rep1/rep2-2 Est-ce que plus de la moité des joueurs ont trouvé la vérité ?¤§ raconte une anecdote (vrai ou fausse), les autres doivent devinée si elle est vrai ou fausse.
 Spinning Wheel
 Red or Black
 questions
--1 Quelle est la réponse de § ?ç§ as-tu déjà été bourré avec ta famille ?
-+1 Les autres sont-ils d'accord avec § ?ç§ qui tient le mieux l'alcool dans le groupe ?
-+1 La recette est-elle correcte ?ç§ donne la recette d'un plat
-+1 La recette est-elle correcte ?ç§ donne la recette d'un cocktail
-+1 Les autres sont-ils d'accord avec § ?ç§ donne une combinaison possible de 2 sports
--1 § a-t'il refusé de répondre ?ç§ dis avec qui tu détesterais partir en vacances
--1 § a-t'il refusé de répondre ?ç§ dis si ça te dérange quand c'est pas rasé
--1 Quelle est la réponse de § ?ç§ est-ce que tu t'es déjà fait surprendre pendant l'acte ?
-+1 Quelle est la réponse de § ?ç§ est-ce que tu as déjà embrassé quelqu'un du même sexe?
-+1 Les autres sont-ils d'accord avec § ?ç§ quel est le fétichisme qui te dégoute le plus ?
--1 Est-ce que c'est supérieur a 3 jours ?ç§ quel est la plus longue durée pendant la quelle tu ne t'es pas lavé ?
--1 Quelle est la réponse de § ?ç§ as-tu déjà été exité au lycée ?
-+1 Quelle est la réponse de § ?ç§ as-tu déjà subit une inujustice au lycée ?
-+1 Est-ce que c'était interessant ?ç§ dis un truc aléatoire sur toi
-+1 Est-ce que c'était interessant ?ç§ Avec qui tu pourrais te battre dans le groupe ?
--1 Quelle est la réponse de § ?ç§ est-ce que tu t'es déjà battu avec quelqu'un de ta famille ?
--1 Quelle est la réponse de § ?ç§ as tu déjà reçu ou envoyer des nudes ?
--1 Quelle est la réponse de § ?ç§ As tu déjà fantasmé sur un/une prof ?
-+1 Quelle est la réponse de § ?ç§ As tu déjà eu un plan cul en vancance ?
--1 Quelle est la réponse de § ?ç§ As tu déjà pris de la drogue avec ta famille ?
-+1 Quelle est la réponse de § ?ç§ Es tu déjà arrivé bourré en cours ou au travail ?
-+1 Quelle est la réponse de § ?ç§ Es tu déjà été en cours ou au travail juste après une soirée ?
-+1 Est ce que les autres sont d'accord ?ç§ qui serai d'après toi capable de prendre une décison importante bourré ?
-+1 Les autres sont d'accord pour dire que c'est pourris ?ç§ quel a été le pire cadeau que l'on t'est fait ?
-+1 Est ce que c'était involontaire ?ç§ t'es tu déjà fait dessus (enfant ça compte pas) ?
+rep1/rep2-1 Quelle est la réponse de § ?¤§ as-tu déjà été bourré avec ta famille ?
+rep1/rep2+1 Les autres sont-ils d'accord avec § ?¤§ qui tient le mieux l'alcool dans le groupe ?
+rep1/rep2+1 La recette est-elle correcte ?¤§ donne la recette d'un plat
+rep1/rep2+1 La recette est-elle correcte ?¤§ donne la recette d'un cocktail
+rep1/rep2+1 Les autres sont-ils d'accord avec § ?¤§ donne une combinaison possible de 2 sports
+rep1/rep2-1 § a-t'il refusé de répondre ?¤§ dis avec qui tu détesterais partir en vacances
+rep1/rep2-1 § a-t'il refusé de répondre ?¤§ dis si ¤a te dérange quand c'est pas rasé
+rep1/rep2-1 Quelle est la réponse de § ?¤§ est-ce que tu t'es déjà fait surprendre pendant l'acte ?
+rep1/rep2+1 Quelle est la réponse de § ?¤§ est-ce que tu as déjà embrassé quelqu'un du même sexe?
+rep1/rep2+1 Les autres sont-ils d'accord avec § ?¤§ quel est le fétichisme qui te dégoute le plus ?
+rep1/rep2-1 Est-ce que c'est supérieur a 3 jours ?¤§ quel est la plus longue durée pendant la quelle tu ne t'es pas lavé ?
+rep1/rep2-1 Quelle est la réponse de § ?¤§ as-tu déjà été exité au lycée ?
+rep1/rep2+1 Quelle est la réponse de § ?¤§ as-tu déjà subit une inujustice au lycée ?
+rep1/rep2+1 Est-ce que c'était interessant ?¤§ dis un truc aléatoire sur toi
+rep1/rep2+1 Est-ce que c'était interessant ?¤§ Avec qui tu pourrais te battre dans le groupe ?
+rep1/rep2-1 Quelle est la réponse de § ?¤§ est-ce que tu t'es déjà battu avec quelqu'un de ta famille ?
+rep1/rep2-1 Quelle est la réponse de § ?¤§ as tu déjà re¤u ou envoyer des nudes ?
+rep1/rep2-1 Quelle est la réponse de § ?¤§ As tu déjà fantasmé sur un/une prof ?
+rep1/rep2+1 Quelle est la réponse de § ?¤§ As tu déjà eu un plan cul en vancance ?
+rep1/rep2-1 Quelle est la réponse de § ?¤§ As tu déjà pris de la drogue avec ta famille ?
+rep1/rep2+1 Quelle est la réponse de § ?¤§ Es tu déjà arrivé bourré en cours ou au travail ?
+rep1/rep2+1 Quelle est la réponse de § ?¤§ Es tu déjà été en cours ou au travail juste après une soirée ?
+rep1/rep2+1 Est ce que les autres sont d'accord ?¤§ qui serai d'après toi capable de prendre une décison importante bourré ?
+rep1/rep2+1 Les autres sont d'accord pour dire que c'est pourris ?¤§ quel a été le pire cadeau que l'on t'est fait ?
+rep1/rep2+1 Est ce que c'était involontaire ?¤§ t'es tu déjà fait dessus (enfant ¤a compte pas) ?
 End
 anecdotes
-+1 Anecdote génante 1ç§ dis un truc génant hahahahaha
-+1 Anecdote génante 2ç§ dis un truc génant hahahahaha
-+1 Anecdote génante 3ç§ dis un truc génant hahahahaha
-+1 Anecdote génante 4ç§ dis un truc génant hahahahaha
-+1 Anecdote génante 5ç§ dis un truc génant hahahahaha
-+1 Anecdote génante 6ç§ dis un truc génant hahahahaha
+rep1/rep2+1 Anecdote génante 1¤§ dis un truc génant hahahahaha
+rep1/rep2+1 Anecdote génante 2¤§ dis un truc génant hahahahaha
+rep1/rep2+1 Anecdote génante 3¤§ dis un truc génant hahahahaha
+rep1/rep2+1 Anecdote génante 4¤§ dis un truc génant hahahahaha
+rep1/rep2+1 Anecdote génante 5¤§ dis un truc génant hahahahaha
+rep1/rep2+1 Anecdote génante 6¤§ dis un truc génant hahahahaha
 gages
-+1 gage génant 1ç§ fais un truc génant hahahahaha
-+1 gage génant 2ç§ fais un truc génant hahahahaha
-+1 gage génant 3ç§ fais un truc génant hahahahaha
-+1 gage génant 4ç§ fais un truc génant hahahahaha
-+1 gage génant 5ç§ fais un truc génant hahahahaha
-+1 gage génant 6ç§ fais un truc génant hahahahaha
+rep1/rep2+1 gage génant 1¤§ fais un truc génant hahahahaha
+rep1/rep2+1 gage génant 2¤§ fais un truc génant hahahahaha
+rep1/rep2+1 gage génant 3¤§ fais un truc génant hahahahaha
+rep1/rep2+1 gage génant 4¤§ fais un truc génant hahahahaha
+rep1/rep2+1 gage génant 5¤§ fais un truc génant hahahahaha
+rep1/rep2+1 gage génant 6¤§ fais un truc génant hahahahaha
 minigames
-+1 mini jeu génant 1ç§ attention c'est le mini jeu génant hahahahaha
-+1 mini jeu génant 2ç§ attention c'est le mini jeu génant hahahahaha
-+1 mini jeu génant 3ç§ attention c'est le mini jeu génant hahahahaha
-+1 mini jeu génant 4ç§ attention c'est le mini jeu génant hahahahaha
-+1 mini jeu génant 5ç§ attention c'est le mini jeu génant hahahahaha
-+1 mini jeu génant 6ç§ attention c'est le mini jeu génant hahahahaha
+rep1/rep2+1 mini jeu génant 1¤§ attention c'est le mini jeu génant hahahahaha
+rep1/rep2+1 mini jeu génant 2¤§ attention c'est le mini jeu génant hahahahaha
+rep1/rep2+1 mini jeu génant 3¤§ attention c'est le mini jeu génant hahahahaha
+rep1/rep2+1 mini jeu génant 4¤§ attention c'est le mini jeu génant hahahahaha
+rep1/rep2+1 mini jeu génant 5¤§ attention c'est le mini jeu génant hahahahaha
+rep1/rep2+1 mini jeu génant 6¤§ attention c'est le mini jeu génant hahahahaha
 questions
-+1 question génante 1ç§ répond à cette question génante hahahahaha
-+1 question génante 2ç§ répond à cette question génante hahahahaha
-+1 question génante 3ç§ répond à cette question génante hahahahaha
-+1 question génante 4ç§ répond à cette question génante hahahahaha
-+1 question génante 5ç§ répond à cette question génante hahahahaha
-+1 question génante 6ç§ répond à cette question génante hahahahaha
-+1 question génante 7ç§ répond à cette question génante hahahahaha
-+1 question génante 8ç§ répond à cette question génante hahahahaha
-+1 question génante 9ç§ répond à cette question génante hahahahaha
-+1 question génante 10ç§ répond à cette question génante hahahahaha
-+1 question génante 11ç§ répond à cette question génante hahahahaha
-+1 question génante 12ç§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 1¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 2¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 3¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 4¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 5¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 6¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 7¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 8¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 9¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 10¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 11¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 12¤§ répond à cette question génante hahahahaha
 End
