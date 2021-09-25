@@ -1,82 +1,82 @@
 anecdotes
-2 Was it interesting ?ç§ tell us the first time you were drunk
-2 Was it interesting ?ç§ tell the worst thing you ever ate
-2 Have § ever done it before ?ç§ have you ever drink while working ?
-2 Was it interesting ?ç§ tell your worst holidays
-2 Was it interesting ?ç§ tell us the worst thing you have done during your studies
-2 Was it funny ?ç§ say something funny that happened to you recently
+rep1/rep2+2 Was it interesting ?¤§ tell us the first time you were drunk
+rep1/rep2+2 Was it interesting ?¤§ tell the worst thing you ever ate
+rep1/rep2-2 Have § ever done it before ?¤§ have you ever drink while working ?
+rep1/rep2+2 Was it interesting ?¤§ tell your worst holidays
+rep1/rep2+2 Was it interesting ?¤§ tell us the worst thing you have done during your studies
+rep1/rep2+2 Was it funny ?¤§ say something funny that happened to you recently
 gages
-4 Is § a magician ?ç§ do a magick trick in the next 10 seconds
-4 Is § looking like an expert ?ç§ talk like an expert about a subject that § chose
-4 Was the interview boring ?ç§ interview § on a subject chose by §
-4 If you failed ç§ translate a sentence chose by § from french to english
-4 Did § clear the table ?ç§ clear the table
-4 Is § a good waiter ?ç§ refill others glass
-4 Did § drunk the tasty juice ?ç§ drink a cocktail made by §
-4 Did § blocked at least 3 people ?ç§ block 3 people on messenger/whatsapp/instagram
-4 Did § liked at least 3 publications ?ç§ open instagram and like the 3 first publications
-4 Did § sent the snap ?ç§ do a snap of the foot of the person on your right and send it to 3 people
+rep1/rep2+4 Is § a magician ?¤§ do a magick trick in the next 10 seconds
+rep1/rep2+4 Is § looking like an expert ?¤§ talk like an expert about a subject that § chose
+rep1/rep2-4 Was the interview boring ?¤§ interview § on a subject chose by §
+rep1/rep2-4 Did § failed ?¤§ translate a sentence chose by § from french to english
+rep1/rep2+4 Did § clear the table ?¤§ clear the table
+rep1/rep2+4 Is § a good waiter ?¤§ refill others glass
+rep1/rep2+4 Did § drunk the tasty juice ?¤§ drink a cocktail made by §
+rep1/rep2+4 Did § blocked at least 3 people ?¤§ block 3 people on messenger/whatsapp/instagram
+rep1/rep2+4 Did § liked at least 3 publications ?¤§ open instagram and like the 3 first publications
+rep1/rep2+4 Did § sent the snap ?¤§ do a snap of the foot of the person on your right and send it to 3 people
 minigames
-4 Did § failed the game ?ç§ make § guess a word chose by § by using 3 words
-4 Was § honest ? ç§ if you were to block the toilets of § would you tell him or stay quiet
-4 Did § failed the game ?ç§ make § guess a french song by singing it in english
-4 Did § failed the game ?ç§ make § guess a english song by singing it in french
-4 Was § the first one to find the object ?ç§ find an object selected by §, if § finds it before you
-4 Was the description interesting ?ç§ and § describe the life of § by saying 2 words each other
-4 Did most of other people found the truth or not ?ç§ tell us an anecdote (real or fake), others have to guess if they are fake or not.
+rep1/rep2-4 Did § failed the game ?¤§ make § guess a word chose by § by using 3 words
+rep1/rep2+4 Was § honest ? ¤§ if you were to block the toilets of § would you tell him or stay quiet
+rep1/rep2-4 Did § failed the game ?¤§ make § guess a french song by singing it in english
+rep1/rep2-4 Did § failed the game ?¤§ make § guess a english song by singing it in french
+rep1/rep2+4 Was § the first one to find the object ?¤§ find an object selected by §, if § finds it before you
+rep1/rep2+4 Was the description interesting ?¤§ and § describe the life of § by saying 2 words each other
+rep1/rep2+4 Did most of other people found the truth or not ?¤§ tell us an anecdote (real or fake), others have to guess if they are fake or not.
 Spinning Wheel
 Red or Black
 questions
-1 What is §'s answer ?ç§ have you ever been drunk with your family ?
-1 Do everyone agree with § ?ç§ who resists the best to alcohol in the group ?
-1 Is the recipe correct ?ç§ tell us the recipe of a plate
-1 Is the recipe correct ?ç§ tell us the recipe of a cocktail
-1 Do others think this fusion is possible ?ç§ invent a possible fusion of 2 sports
-1 Did § answered ?ç§ tell with who would you hate to spend your holidays
-1 Did § answered ?ç§ does it bother you when it's not shaved
-1 What is §'s answer ?ç§ have you ever been surprised during the act ?
-1 What is §'s answer ?ç§ have you ever kissed someone of the same gender?
-1 Do others agree with § ?ç§ what fetishism disgust you the most ?
-1 Is §'s answer is greater than 3 days ?ç§ what is the longest time you haven't washed yourself?
-1 What is §'s answer ?ç§ have you ever been exited at high school ?
-1 What is §'s answer ?ç§ have you ever suffered from an injustice at high school ?
-1 Was it interesting ?ç§ tell something random about you
-1 Was it interesting ?ç§ with who could you fight in the group
-1 What is §'s answer ?ç§ have you ever fight with someone of your family ?
-1 What is §'s answer ?ç§ have you ever sent or received nudes
+rep1/rep2-1 What is §'s answer ?¤§ have you ever been drunk with your family ?
+rep1/rep2+1 Do everyone agree with § ?¤§ who resists the best to alcohol in the group ?
+rep1/rep2+1 Is the recipe correct ?¤§ tell us the recipe of a plate
+rep1/rep2+1 Is the recipe correct ?¤§ tell us the recipe of a cocktail
+rep1/rep2+1 Do others think this fusion is possible ?¤§ invent a possible fusion of 2 sports
+rep1/rep2+1 Did § answered ?¤§ tell with who would you hate to spend your holidays
+rep1/rep2+1 Did § answered ?¤§ does it bother you when it's not shaved
+rep1/rep2+1 What is §'s answer ?¤§ have you ever been surprised during the act ?
+rep1/rep2+1 What is §'s answer ?¤§ have you ever kissed someone of the same gender?
+rep1/rep2+1 Do others agree with § ?¤§ what fetishism disgust you the most ?
+rep1/rep2-1 Is §'s answer is greater than 3 days ?¤§ what is the longest time you haven't washed yourself?
+rep1/rep2+1 What is §'s answer ?¤§ have you ever been exited at high school ?
+rep1/rep2+1 What is §'s answer ?¤§ have you ever suffered from an injustice at high school ?
+rep1/rep2+1 Was it interesting ?¤§ tell something random about you
+rep1/rep2+1 Was it interesting ?¤§ with who could you fight in the group
+rep1/rep2-1 What is §'s answer ?¤§ have you ever fight with someone of your family ?
+rep1/rep2-1 What is §'s answer ?¤§ have you ever sent or received nudes
 End
 anecdotes
-1 Anecdote génante 1ç§ dis un truc génant hahahahaha
-1 Anecdote génante 2ç§ dis un truc génant hahahahaha
-1 Anecdote génante 3ç§ dis un truc génant hahahahaha
-1 Anecdote génante 4ç§ dis un truc génant hahahahaha
-1 Anecdote génante 5ç§ dis un truc génant hahahahaha
-1 Anecdote génante 6ç§ dis un truc génant hahahahaha
+rep1/rep2+1 Anecdote génante 1¤§ dis un truc génant hahahahaha
+rep1/rep2+1 Anecdote génante 2¤§ dis un truc génant hahahahaha
+rep1/rep2+1 Anecdote génante 3¤§ dis un truc génant hahahahaha
+rep1/rep2+1 Anecdote génante 4¤§ dis un truc génant hahahahaha
+rep1/rep2+1 Anecdote génante 5¤§ dis un truc génant hahahahaha
+rep1/rep2+1 Anecdote génante 6¤§ dis un truc génant hahahahaha
 gages
-1 gage génant 1ç§ fais un truc génant hahahahaha
-1 gage génant 2ç§ fais un truc génant hahahahaha
-1 gage génant 3ç§ fais un truc génant hahahahaha
-1 gage génant 4ç§ fais un truc génant hahahahaha
-1 gage génant 5ç§ fais un truc génant hahahahaha
-1 gage génant 6ç§ fais un truc génant hahahahaha
+rep1/rep2+1 gage génant 1¤§ fais un truc génant hahahahaha
+rep1/rep2+1 gage génant 2¤§ fais un truc génant hahahahaha
+rep1/rep2+1 gage génant 3¤§ fais un truc génant hahahahaha
+rep1/rep2+1 gage génant 4¤§ fais un truc génant hahahahaha
+rep1/rep2+1 gage génant 5¤§ fais un truc génant hahahahaha
+rep1/rep2+1 gage génant 6¤§ fais un truc génant hahahahaha
 minigames
-1 mini jeu génant 1ç§ attention c'est le mini jeu génant hahahahaha
-1 mini jeu génant 2ç§ attention c'est le mini jeu génant hahahahaha
-1 mini jeu génant 3ç§ attention c'est le mini jeu génant hahahahaha
-1 mini jeu génant 4ç§ attention c'est le mini jeu génant hahahahaha
-1 mini jeu génant 5ç§ attention c'est le mini jeu génant hahahahaha
-1 mini jeu génant 6ç§ attention c'est le mini jeu génant hahahahaha
+rep1/rep2+1 mini jeu génant 1¤§ attention c'est le mini jeu génant hahahahaha
+rep1/rep2+1 mini jeu génant 2¤§ attention c'est le mini jeu génant hahahahaha
+rep1/rep2+1 mini jeu génant 3¤§ attention c'est le mini jeu génant hahahahaha
+rep1/rep2+1 mini jeu génant 4¤§ attention c'est le mini jeu génant hahahahaha
+rep1/rep2+1 mini jeu génant 5¤§ attention c'est le mini jeu génant hahahahaha
+rep1/rep2+1 mini jeu génant 6¤§ attention c'est le mini jeu génant hahahahaha
 questions
-1 question génante 1ç§ répond à cette question génante hahahahaha
-1 question génante 2ç§ répond à cette question génante hahahahaha
-1 question génante 3ç§ répond à cette question génante hahahahaha
-1 question génante 4ç§ répond à cette question génante hahahahaha
-1 question génante 5ç§ répond à cette question génante hahahahaha
-1 question génante 6ç§ répond à cette question génante hahahahaha
-1 question génante 7ç§ répond à cette question génante hahahahaha
-1 question génante 8ç§ répond à cette question génante hahahahaha
-1 question génante 9ç§ répond à cette question génante hahahahaha
-1 question génante 10ç§ répond à cette question génante hahahahaha
-1 question génante 11ç§ répond à cette question génante hahahahaha
-1 question génante 12ç§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 1¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 2¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 3¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 4¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 5¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 6¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 7¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 8¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 9¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 10¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 11¤§ répond à cette question génante hahahahaha
+rep1/rep2+1 question génante 12¤§ répond à cette question génante hahahahaha
 End

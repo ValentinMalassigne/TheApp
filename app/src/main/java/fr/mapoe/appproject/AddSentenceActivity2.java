@@ -643,13 +643,13 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         return res;
     }
     private String encoding(){
-            String text = scrollableEditText.getText().toString().replace("--joueur--","§");
-            String answer = scrollableAnswerEditText.getText().toString().replace("--joueur--","§");
-            String encodingSentence = "";
-            encodingSentence+=scrollablePointList.getSelectedItem().toString()+ " ";
-            encodingSentence+=answer+" "+"ç";
-            encodingSentence+=text;
-            return encodingSentence;
+        String text = scrollableEditText.getText().toString().replace("--joueur--","§");
+        String answer = scrollableAnswerEditText.getText().toString().replace("--joueur--","§");
+        String encodingSentence = "";
+        encodingSentence+=scrollablePointList.getSelectedItem().toString()+ " ";
+        encodingSentence+=answer+" "+"ç";
+        encodingSentence+=text;
+        return encodingSentence;
     }
     @Override
     public void onBackPressed() {

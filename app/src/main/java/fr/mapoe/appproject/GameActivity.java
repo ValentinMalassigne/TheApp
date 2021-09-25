@@ -1,5 +1,7 @@
 package fr.mapoe.appproject;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -16,6 +18,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -51,7 +54,7 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String> anecdotesList = new ArrayList<String>();
     private ArrayList<String> playerTurn = new ArrayList<String>();
     private ArrayList<String> gagesList = new ArrayList<String>();
-    private String[] currentChallenge = new String[4]; //0: point    1: réponse    2: phrase    3:type
+    private String[] currentChallenge = new String[7]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2
     private String currentPlayer ="";
     private ConstraintLayout gameLayout;
     private Activity activity;
@@ -167,6 +170,7 @@ public class GameActivity extends AppCompatActivity {
 
         }
     }
+
     private void showInfoDialog(int layout) {// créer la popup info
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
@@ -224,6 +228,10 @@ public class GameActivity extends AppCompatActivity {
         Button noButton = (Button) layoutView.findViewById(R.id.no_button);
         Button nextButton = (Button) layoutView.findViewById(R.id.next_button);
 
+        //on change la réponse des boutons avec celles du fichier
+        yesButton.setText(currentChallenge[5]);//la première rep
+        noButton.setText(currentChallenge[6]);//la deuxième rep
+
         // change bg suivant le jeu
         if(typeOfGame ==2){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -236,34 +244,62 @@ public class GameActivity extends AppCompatActivity {
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         textDisplay.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
+
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String temp = "<b>"+currentPlayer+"</b> "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points);
-                textDisplay.setText(HtmlCompat.fromHtml(temp,HtmlCompat.FROM_HTML_MODE_LEGACY));
-                noButton.setVisibility(View.GONE);
-                yesButton.setVisibility(View.GONE);
-                nextButton.setVisibility(View.VISIBLE);
-                // ajout au score
-                for (int i=0;i<scoreTab.length;i++){
-                    if (playerTab[i].equals(currentPlayer)){
+                if(currentChallenge[4].equals("+")){//si c'est + et que le joueur répond oui alors il a gagné
+                    String temp = "<b>"+currentPlayer+"</b> "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points);
+                    textDisplay.setText(HtmlCompat.fromHtml(temp,HtmlCompat.FROM_HTML_MODE_LEGACY));
+                    noButton.setVisibility(View.GONE);
+                    yesButton.setVisibility(View.GONE);
+                    nextButton.setVisibility(View.VISIBLE);
+                    // ajout au score
+                    for (int i=0;i<scoreTab.length;i++){
+                        if (playerTab[i].equals(currentPlayer)){
 
-                        int scoreInt = Integer.parseInt(currentChallenge[0]);
-                        int currentPlayerScore = Integer.parseInt(scoreTab[i]);
-                        int newScore = scoreInt+currentPlayerScore;
-                        scoreTab[i] = Integer.toString(newScore);
+                            int scoreInt = Integer.parseInt(currentChallenge[0]);
+                            int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                            int newScore = scoreInt+currentPlayerScore;
+                            scoreTab[i] = Integer.toString(newScore);
+                        }
                     }
+                }else{ //sinon il a perdu
+                    String temp = "<b>"+currentPlayer+"</b> "+getPunition();
+                    textDisplay.setText(HtmlCompat.fromHtml(temp,HtmlCompat.FROM_HTML_MODE_LEGACY));
+                    yesButton.setVisibility(View.GONE);
+                    noButton.setVisibility(View.GONE);
+                    nextButton.setVisibility(View.VISIBLE);
                 }
             }
         });
+
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String temp = "<b>"+currentPlayer+"</b> "+getPunition();
-                textDisplay.setText(HtmlCompat.fromHtml(temp,HtmlCompat.FROM_HTML_MODE_LEGACY));
-                yesButton.setVisibility(View.GONE);
-                noButton.setVisibility(View.GONE);
-                nextButton.setVisibility(View.VISIBLE);
+                if(currentChallenge[4].equals("-")){//si c'est - et que le joueur répond oui alors il a gagné
+                    String temp = "<b>"+currentPlayer+"</b> "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points);
+                    textDisplay.setText(HtmlCompat.fromHtml(temp,HtmlCompat.FROM_HTML_MODE_LEGACY));
+                    noButton.setVisibility(View.GONE);
+                    yesButton.setVisibility(View.GONE);
+                    nextButton.setVisibility(View.VISIBLE);
+                    // ajout au score
+                    for (int i=0;i<scoreTab.length;i++){
+                        if (playerTab[i].equals(currentPlayer)){
+
+                            int scoreInt = Integer.parseInt(currentChallenge[0]);
+                            int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                            int newScore = scoreInt+currentPlayerScore;
+                            scoreTab[i] = Integer.toString(newScore);
+                        }
+                    }
+                }else{ //sinon il a perdu
+                    String temp = "<b>"+currentPlayer+"</b> "+getPunition();
+                    textDisplay.setText(HtmlCompat.fromHtml(temp,HtmlCompat.FROM_HTML_MODE_LEGACY));
+                    yesButton.setVisibility(View.GONE);
+                    noButton.setVisibility(View.GONE);
+                    nextButton.setVisibility(View.VISIBLE);
+                }
             }
         });
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -279,6 +315,7 @@ public class GameActivity extends AppCompatActivity {
         });
         alertDialog.show();
     }
+
     private void showScorePopup(int layout){
         Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.convergence);
         TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams();
@@ -347,6 +384,7 @@ public class GameActivity extends AppCompatActivity {
         });
         alertDialog.show();
     }
+
     @Override
     public void onBackPressed() {}
 
@@ -430,6 +468,9 @@ public class GameActivity extends AppCompatActivity {
         String[] tempTab =GetNextChallenge(type);
         String ligne = tempTab[1];
         boolean result=false;
+        boolean temp = false;
+        int i=0;
+        int j;
         if(ligne.equals("Spinning Wheel")){
             setUpWheel();
         }else if(ligne.equals("Red or Black")) {
@@ -439,23 +480,57 @@ public class GameActivity extends AppCompatActivity {
             String points;
             String answers;
             String sentence;
-            points= ligne.substring(0,1);
+            String rightAnswer;
+            String button1Text;
+            String button2Text;
 
-            boolean temp = false;
-            int i=0;
+            //on lit tant que l'on est pas a / pour savoir quelle est le premier bouton
             while (!temp){
-                if(ligne.substring(i,i+1).equals("ç")){
+                if(ligne.substring(i,i+1).equals("/")){
                     temp=true;
                 }else {
                     i++;
                 }
             }
-            answers=ligne.substring(2,i);
-            sentence=ligne.substring(i+1);
+            button1Text=ligne.substring(0,i);
+            j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
+
+            //on lit tant que l'on est pas a + ou - pour savoir quelle est le deuxième bouton
+            temp=false;
+            while (!temp){
+                if(ligne.substring(i,i+1).equals("+") || ligne.substring(i,i+1).equals("-")){
+                    temp=true;
+                }else {
+                    i++;
+                }
+            }
+
+            button2Text=ligne.substring(j,i);
+
+            rightAnswer = ligne.substring(i,i+1);//on recup le + ou - qui se trouve juste après la deuxième rep
+            points= ligne.substring(i+1,i+2);//on recup le nb de points qui est juste après le + ou -
+
+            j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
+
+            //on lit tant que l'on a est pas a ç pour avoir la réponse
+            temp=false;
+            while (!temp){
+                if(ligne.substring(i,i+1).equals("¤")){
+                    temp=true;
+                }else {
+                    i++;
+                }
+            }
+            answers=ligne.substring(j,i);
+            sentence=ligne.substring(i+1);//on lit tout jusqu'à la fin pour avoir la phrase
 
             currentChallenge[0]=points;
             currentChallenge[1]=SetNamesInSentence(answers);
             currentChallenge[2]=SetNamesInSentence(sentence);
+            currentChallenge[4]=rightAnswer;
+            currentChallenge[5]=button1Text;
+            currentChallenge[6]=button2Text;
+            Log.d(TAG, "GetNextInformations: "+currentChallenge[4]);
             result =true;
         }
 
