@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.Layout;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -566,7 +567,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         //recuperer les éléments de la popup
         Button yesButton = layoutView.findViewById(R.id.yes_button);
         Button noButton = layoutView.findViewById(R.id.no_button);
-        Button addButton = layoutView.findViewById(R.id.next_button);
+        Button addButton = layoutView.findViewById(R.id.add_button);
         Button editButton = layoutView.findViewById(R.id.edit_button);
         TextView answerText = layoutView.findViewById(R.id.text_display);
         dialogBuilder.setView(layoutView);
@@ -579,8 +580,21 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                 yesButton.setBackground(getDrawable(R.drawable.button2));
                 noButton.setBackground(getDrawable(R.drawable.button2));
                 addButton.setBackground(getDrawable(R.drawable.button2));
+                editButton.setBackground(getDrawable(R.drawable.button2));
             }
         }
+        ViewGroup.LayoutParams params = yesButton.getLayoutParams();
+        params.width=ViewGroup.LayoutParams.WRAP_CONTENT;
+        String yesButtonText = editButton1.getText().toString();
+        if(yesButtonText.equals("")){
+            yesButtonText = getString(R.string.yes_button);
+        }
+        //passe le button en wrap_content
+        else{
+            yesButton.setLayoutParams(params);
+        }
+        yesButton.setTransformationMethod(null);
+        yesButton.setText(yesButtonText);
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -588,9 +602,19 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
                 addButton.setVisibility(View.VISIBLE);
+                editButton.setVisibility(View.VISIBLE);
                 answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
         });
+        String noButtonText = editButton2.getText().toString();
+        if(noButtonText.equals("")){
+            noButtonText = getString(R.string.no_button);
+        }
+        else{
+            noButton.setLayoutParams(params);
+        }
+        noButton.setTransformationMethod(null);
+        noButton.setText(noButtonText);
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -598,9 +622,11 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
                 addButton.setVisibility(View.VISIBLE);
+                editButton.setVisibility(View.VISIBLE);
                 answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
         });
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -643,11 +669,21 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         return res;
     }
     private String encoding(){
+        String button1 = editButton1.getText().toString();
+        String button2 = editButton2.getText().toString();
+        if(button1.equals("")){
+            button1= getString(R.string.yes_button);
+        }
+        if(button2.equals("")){
+            button2 = getString(R.string.no_button);
+        }
         String text = scrollableEditText.getText().toString().replace("--joueur--","§");
         String answer = scrollableAnswerEditText.getText().toString().replace("--joueur--","§");
         String encodingSentence = "";
+        encodingSentence+=button1+"/";
+        encodingSentence+=button2+"+";/**    CEST ICI QUIL FAUT RAJOUTER LE + OU -   **/
         encodingSentence+=scrollablePointList.getSelectedItem().toString()+ " ";
-        encodingSentence+=answer+" "+"ç";
+        encodingSentence+=answer+" "+"¤"+" ";
         encodingSentence+=text;
         return encodingSentence;
     }

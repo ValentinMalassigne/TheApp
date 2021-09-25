@@ -23,7 +23,7 @@ rep1/rep2+2 Est ce que plus de la moitié à trouvé ?¤§ Fait deviner un Anima
 minigames
 rep1/rep2+2 Est-ce que § a réussi à faire deviner le mot ?¤§ fais devenir un mot choisit par § à § en utilisant 3-4 mots
 rep1/rep2-2 Est-ce que § a décidé de garder le silence ?¤§, si tu bouches les chiottes chez § tu serais plutôt du genre à lui dire ou faire comme si de rien n'était
-rep1/rep2+2 Est-ce que § a réussi à faire deviner ? ¤§ fait deviner une chanson anglaise en la chantant en fran¤ais à §
+rep1/rep2+2 Est-ce que § a réussi à faire deviner ? ¤§ fait deviner une chanson anglaise en la chantant en français à §
 rep1/rep2+2 Est-ce que § a réussi à faire deviner ? ¤§ fait deviner une chanson fran¤aise en la chantant en anglais à §
 rep1/rep2+2 Est-ce que § a ramené l'objet en premier ? ¤§ va chercher un objet que § choisit, § cherche aussi l'objet.
 rep1/rep2+2 Est-ce que la description était interessante ?¤§ et § décrivez la vie de § en disant un mot chacun votre tour
