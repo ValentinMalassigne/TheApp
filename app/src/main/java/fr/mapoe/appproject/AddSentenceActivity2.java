@@ -567,6 +567,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         Button yesButton = layoutView.findViewById(R.id.yes_button);
         Button noButton = layoutView.findViewById(R.id.no_button);
         Button addButton = layoutView.findViewById(R.id.next_button);
+        Button editButton = layoutView.findViewById(R.id.edit_button);
         TextView answerText = layoutView.findViewById(R.id.text_display);
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
@@ -603,6 +604,13 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String encoding = encoding();
+                answerText.setText(encoding);
+            }
+        });
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 alertDialog.dismiss();
             }
         });
@@ -630,7 +638,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         else{
             res = text.replaceFirst("--joueur--", "<b><i>Joueur 1</i></b>");
             res=res.replace("--joueur--","<b><i>Joueur 3</i></b>");
-            res = res.replaceFirst("<b><i>Joueur 3</b></i>","<b><i>Joueur 2</i></b>");
+            res = res.replaceFirst("<b><i>Joueur 3</i></b>","<b><i>Joueur 2</i></b>");
         }
         return res;
     }
