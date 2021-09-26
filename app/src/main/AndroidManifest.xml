@@ -11,7 +11,9 @@
         android:theme="@style/Theme.AppProject">
         <activity
             android:name=".AddSentenceActivity2"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppProject.NoActionBar"/>
         <activity
             android:name=".AddSentenceActivity"
             android:exported="true"

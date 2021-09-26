@@ -266,12 +266,16 @@
                     android:orientation="vertical"
                     android:layout_marginRight="30dp">
 
-                    <TextView
+                    <CheckBox
+                        android:checked="true"
+                        android:id="@+id/right_answer_is_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_gravity="center"
+                        android:text="@string/right_answer"
                         android:textColor="@color/white"
-                        android:text="gives points to the player"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_gravity="center"
@@ -297,12 +301,15 @@
                     android:layout_gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <CheckBox
+                        android:id="@+id/right_answer_is_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_gravity="center"
+                        android:text="@string/right_answer"
                         android:textColor="@color/white"
-                        android:text="gives sips to the player"/>
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -602,12 +609,16 @@
                         android:orientation="vertical"
                         >
 
-                        <TextView
+                        <CheckBox
+                            android:checked="true"
+                            android:id="@+id/scrollable_right_answer_is_1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/right_answer"
                             android:textColor="@color/white"
-                            android:text="gives points to the player"/>
-
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_gravity="center"
                             android:layout_marginTop="10dp"
@@ -632,12 +643,15 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <TextView
+                        <CheckBox
+                            android:id="@+id/scrollable_right_answer_is_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/wrong_answer"
                             android:textColor="@color/white"
-                            android:text="gives sips to the player"/>
-
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/scrollable_edit_button2"
