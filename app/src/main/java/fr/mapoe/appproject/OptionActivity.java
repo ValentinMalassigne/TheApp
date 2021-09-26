@@ -144,6 +144,70 @@ public class OptionActivity extends AppCompatActivity {
         finish();
         startActivity(refresh);
     }
+    private void readFile(){
+
+    }
+    private String[] decoding(String gameMode, String type, String encoding){
+        String[] decodingTab = new String[7]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: mode de jeu
+        boolean temp = false;
+        String points;
+        String answers;
+        String sentence;
+        String rightAnswer;
+        String button1Text;
+        String button2Text;
+        int i=0;
+        int j;
+        //on lit tant que l'on est pas a / pour savoir quelle est le premier bouton
+        while (!temp){
+            if(encoding.substring(i,i+1).equals("/")){
+                temp=true;
+            }else {
+                i++;
+            }
+        }
+        button1Text=encoding.substring(0,i);
+        j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
+
+        //on lit tant que l'on est pas a + ou - pour savoir quelle est le deuxième bouton
+        temp=false;
+        while (!temp){
+            if(encoding.substring(i,i+1).equals("+") || encoding.substring(i,i+1).equals("-")){
+                temp=true;
+            }else {
+                i++;
+            }
+        }
+
+        button2Text=encoding.substring(j,i);
+
+        rightAnswer = encoding.substring(i,i+1);//on recup le + ou - qui se trouve juste après la deuxième rep
+        points= encoding.substring(i+1,i+2);//on recup le nb de points qui est juste après le + ou -
+
+        j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
+
+        //on lit tant que l'on a est pas a ç pour avoir la réponse
+        temp=false;
+        while (!temp){
+            if(encoding.substring(i,i+1).equals("¤")){
+                temp=true;
+            }else {
+                i++;
+            }
+        }
+        answers=encoding.substring(j,i);
+        sentence=encoding.substring(i+1);//on lit tout jusqu'à la fin pour avoir la phrase
+
+        decodingTab[0] = points;
+        decodingTab[1] = answers;
+        decodingTab[2] = sentence;
+        decodingTab[3] = type;
+        decodingTab[4] = rightAnswer;
+        decodingTab[5] = button1Text;
+        decodingTab[6] = button2Text;
+        decodingTab[7] = gameMode;
+        return decodingTab;
+    }
 
     @Override
     public void onBackPressed() {

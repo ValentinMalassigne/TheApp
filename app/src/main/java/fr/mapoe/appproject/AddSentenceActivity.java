@@ -758,6 +758,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         String answer = scrollableAnswerEditText.getText().toString().replace("--joueur--","§");
         String encodingSentence = "";
         encodingSentence+=button1+"/";
+        encodingSentence+=button2;
         if(rightAnswer==0){
             encodingSentence+="+";
         }
@@ -765,7 +766,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             encodingSentence+="-";
         }
         encodingSentence+=scrollablePointList.getSelectedItem().toString()+ " ";
-        encodingSentence+=answer+" "+"¤"+" ";
+        encodingSentence+=answer+"¤";
         encodingSentence+=text;
         return encodingSentence;
     }
