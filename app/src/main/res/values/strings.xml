@@ -116,4 +116,6 @@
     <string name="sentence">Sentence</string>
     <string name="add">Add</string>
     <string name="edit">Modifier</string>
+    <string name="right_answer">I\'m the right answer</string>
+    <string name="wrong_answer">I\'m the wrong answer</string>
 </resources>
