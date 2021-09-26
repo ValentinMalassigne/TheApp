@@ -118,4 +118,6 @@
     <string name="edit">Modifier</string>
     <string name="right_answer">I\'m the right answer</string>
     <string name="wrong_answer">I\'m the wrong answer</string>
+    <string name="add_sentence">Ajouter mes phrases</string>
+    <string name="my_sentence">Mes phrases</string>
 </resources>

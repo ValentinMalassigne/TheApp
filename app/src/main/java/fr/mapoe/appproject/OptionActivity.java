@@ -10,8 +10,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -68,27 +66,24 @@ public class OptionActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),getString(R.string.popups_enabled),Toast.LENGTH_SHORT).show();
             }
         });
-        LinearLayout addSenteceLayout = (LinearLayout) findViewById(R.id.add_sentence);
-        addSenteceLayout.setOnClickListener(new View.OnClickListener() {
+
+        LinearLayout addSentenceLayout = (LinearLayout) findViewById(R.id.add_sentence);
+        addSentenceLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent addSentenceActivity = new Intent(getApplicationContext(),AddSentenceActivity.class);
+                Intent addSentenceActivity = new Intent(getApplicationContext(), AddSentenceActivity.class);
                 startActivity(addSentenceActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
-        LinearLayout addSenteceLayout2 = (LinearLayout) findViewById(R.id.add_sentence2);
-        addSenteceLayout2.setOnClickListener(new View.OnClickListener() {
+        LinearLayout editSentenceLayout  = (LinearLayout) findViewById(R.id.edit_sentence);
+        editSentenceLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent addSentenceActivity2 = new Intent(getApplicationContext(),AddSentenceActivity2.class);
-                startActivity(addSentenceActivity2);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                finish();
+                showSentence(R.layout.sentences_popup);
             }
         });
-
 
     }
 
@@ -122,6 +117,15 @@ public class OptionActivity extends AppCompatActivity {
 
         alertDialog.show();
     }
+    private void showSentence(int layout){
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OptionActivity.this);
+        View layoutView = getLayoutInflater().inflate(layout,null);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+    }
 
     private void setLocale(String choseLanguage) {
         //ici on enregistre dans les SharedPreferences la langue choisie par l'utilisateur
@@ -139,6 +143,70 @@ public class OptionActivity extends AppCompatActivity {
         Intent refresh = new Intent(this, OptionActivity.class);
         finish();
         startActivity(refresh);
+    }
+    private void readFile(){
+
+    }
+    private String[] decoding(String gameMode, String type, String encoding){
+        String[] decodingTab = new String[7]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: mode de jeu
+        boolean temp = false;
+        String points;
+        String answers;
+        String sentence;
+        String rightAnswer;
+        String button1Text;
+        String button2Text;
+        int i=0;
+        int j;
+        //on lit tant que l'on est pas a / pour savoir quelle est le premier bouton
+        while (!temp){
+            if(encoding.substring(i,i+1).equals("/")){
+                temp=true;
+            }else {
+                i++;
+            }
+        }
+        button1Text=encoding.substring(0,i);
+        j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
+
+        //on lit tant que l'on est pas a + ou - pour savoir quelle est le deuxième bouton
+        temp=false;
+        while (!temp){
+            if(encoding.substring(i,i+1).equals("+") || encoding.substring(i,i+1).equals("-")){
+                temp=true;
+            }else {
+                i++;
+            }
+        }
+
+        button2Text=encoding.substring(j,i);
+
+        rightAnswer = encoding.substring(i,i+1);//on recup le + ou - qui se trouve juste après la deuxième rep
+        points= encoding.substring(i+1,i+2);//on recup le nb de points qui est juste après le + ou -
+
+        j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
+
+        //on lit tant que l'on a est pas a ç pour avoir la réponse
+        temp=false;
+        while (!temp){
+            if(encoding.substring(i,i+1).equals("¤")){
+                temp=true;
+            }else {
+                i++;
+            }
+        }
+        answers=encoding.substring(j,i);
+        sentence=encoding.substring(i+1);//on lit tout jusqu'à la fin pour avoir la phrase
+
+        decodingTab[0] = points;
+        decodingTab[1] = answers;
+        decodingTab[2] = sentence;
+        decodingTab[3] = type;
+        decodingTab[4] = rightAnswer;
+        decodingTab[5] = button1Text;
+        decodingTab[6] = button2Text;
+        decodingTab[7] = gameMode;
+        return decodingTab;
     }
 
     @Override
