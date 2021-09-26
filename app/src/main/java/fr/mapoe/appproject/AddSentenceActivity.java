@@ -32,6 +32,7 @@ import androidx.core.text.HtmlCompat;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -105,10 +106,10 @@ public class AddSentenceActivity extends AppCompatActivity {
                 showInfoPopup(R.layout.info_popup);
             }
         });
-        fileBuilder();
         init();
+        fileBuilder();
         //a supprimer une fois que l'on appel cette classe depuis la popup modification de phrase
-        decodedSentence= new String[8];
+        /*decodedSentence= new String[8];
         editSentence=true;
         decodedSentence[0]="2";
         decodedSentence[1]="reponse";
@@ -119,8 +120,9 @@ public class AddSentenceActivity extends AppCompatActivity {
         decodedSentence[6]="rep2";
         decodedSentence[7]="1";
         ////////////////
+
+        addSentence("rep1/rep2-2 Est-ce que plus de la moité des joueurs ont trouvé la vérité ?¤§ raconte une anecdote (vrai ou fausse), les autres doivent devinée si elle est vrai ou fausse.","Mini-jeu",1);*/
         start();
-        addSentence("rep1/rep2-2 Est-ce que plus de la moité des joueurs ont trouvé la vérité ?¤§ raconte une anecdote (vrai ou fausse), les autres doivent devinée si elle est vrai ou fausse.","Mini-jeu",1);
     }
     //déclaration
     private void init(){
@@ -169,6 +171,8 @@ public class AddSentenceActivity extends AppCompatActivity {
     }
 
     private void start(){
+        //ouverture du fichier
+
 
         //bouton ApeChill
         Button buttonApeChill = findViewById(R.id.button_ape_chill);
@@ -847,6 +851,17 @@ public class AddSentenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String encoding = encoding();
+                String type = sentenceTypeSpinner.getSelectedItem().toString();
+                int typeOfGame = 2;
+                if(gameModeSpinner.getSelectedItem().toString().equals("ApeChill")){
+                    typeOfGame=1;
+                }
+                addSentence(encoding,type,typeOfGame);
+                try {
+                    showFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 answerText.setText(encoding);
             }
         });
@@ -937,9 +952,9 @@ public class AddSentenceActivity extends AppCompatActivity {
 
     private void addSentence(String ligne, String sentenceType, int typeOfGame){
         //on adaptes le sentenceType
-        if(sentenceType.equals("Annecdote"))
+        if(sentenceType.equals("Anecdote"))
             sentenceType="anecdotes";
-        if(sentenceType.equals("Gages"))
+        if(sentenceType.equals("Gage"))
             sentenceType="gages";
         if(sentenceType.equals("Mini-jeu"))
             sentenceType="minigames";
@@ -955,7 +970,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             ArrayList<String> phrase = new ArrayList<String>();
             int typeOfGameCounter=1;
             while ((text = br.readLine())!=null){
-                Log.d(TAG, text);
+
                 phrase.add(text+"\n");
                 if(text.equals(sentenceType) && typeOfGame==typeOfGameCounter){ //on trouve l'endroit où on doit insérer la ligne du joueur
                     phrase.add(ligne+"\n");
@@ -982,7 +997,20 @@ public class AddSentenceActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+// pour voir le contenu du fichier
+    private void showFile() throws IOException {
+        //ouverture du fichier
+        FileInputStream fis=openFileInput(FILE_NAME);
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
 
+        //on compte le nombre de ligne pour créer un tableau de bonne taille
+        String text;
+        while ((text = br.readLine())!=null){
+            Log.d(TAG, text);
+        }
+        fis.close();
+    }
     @Override
     public void onBackPressed() {
         Intent optionActivity = new Intent(getApplicationContext(), OptionActivity.class);

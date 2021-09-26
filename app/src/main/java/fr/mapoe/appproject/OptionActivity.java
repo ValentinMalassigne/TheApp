@@ -9,17 +9,22 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -138,9 +143,52 @@ public class OptionActivity extends AppCompatActivity {
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OptionActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
+        // declaration des éléments de la popup
+        LinearLayout displayLayout = (LinearLayout) layoutView.findViewById(R.id.spinner_layout);
+        ImageView xButton = (ImageView) layoutView.findViewById(R.id.x_popup_button);
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        xButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.convergence);
+        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(230, ViewGroup.LayoutParams.WRAP_CONTENT,1);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.bottomMargin= 30;
+        for(int i =0;i<5;i++) {
+            LinearLayout linearLayout = new LinearLayout(getApplicationContext());
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            linearLayout.setLayoutParams(params);
+            displayLayout.addView(linearLayout);
+            TextView textDisplay = new TextView(getApplicationContext());
+            textDisplay.setLayoutParams(textParams);
+            textDisplay.setTypeface(typeface);
+            textDisplay.setTextColor(Color.WHITE);
+            textDisplay.setMaxLines(4);
+            textDisplay.setTextSize(18);
+            textDisplay.setText("phrases 1 blablablablaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaablaaaaaaaaaaa");
+
+            LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(80, 80);
+            imageParams.leftMargin = 50;
+            imageParams.gravity = Gravity.CENTER;
+            ImageView delete = new ImageView(getApplicationContext());
+            delete.setImageResource(R.drawable.poubelle);
+            delete.setLayoutParams(imageParams);
+
+            imageParams.rightMargin = 30;
+            ImageView edit = new ImageView(getApplicationContext());
+            edit.setImageResource(R.drawable.edit_logo);
+            edit.setLayoutParams(imageParams);
+
+            linearLayout.addView(textDisplay);
+            linearLayout.addView(delete);
+            linearLayout.addView(edit);
+        }
         alertDialog.show();
     }
 

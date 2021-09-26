@@ -102,7 +102,7 @@
     </string-array>
     <string-array name="typeList">
         <item>Anecdote</item>
-        <item>Gages</item>
+        <item>Gage</item>
         <item>Mini-jeu</item>
         <item>Question</item>
     </string-array>
