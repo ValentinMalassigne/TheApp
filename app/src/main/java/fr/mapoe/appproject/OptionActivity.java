@@ -1,5 +1,8 @@
 package fr.mapoe.appproject;
 
+import static android.content.ContentValues.TAG;
+import static java.lang.String.valueOf;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,11 +21,18 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class OptionActivity extends AppCompatActivity {
 
     SharedPreferences language;
+    String[][] sentencesTab;
+    private static final String FILE_NAME = "custom_sentences.txt";
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -82,6 +93,11 @@ public class OptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showSentence(R.layout.sentences_popup);
+                try {
+                    readFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -117,6 +133,7 @@ public class OptionActivity extends AppCompatActivity {
 
         alertDialog.show();
     }
+
     private void showSentence(int layout){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OptionActivity.this);
@@ -144,9 +161,74 @@ public class OptionActivity extends AppCompatActivity {
         finish();
         startActivity(refresh);
     }
-    private void readFile(){
+
+    private void readFile() throws IOException {
+        //def des variables
+        String text;
+        int compteur;
+        //initialisation
+        int i=0;
+        compteur=-10;//compte le nombre de phrases customs (il y a 10 lignes déjà utilisées dans le fichier donc on commence a -10)
+
+        //ouverture du fichier
+        FileInputStream fis=openFileInput(FILE_NAME);
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
+
+        //on compte le nombre de ligne pour créer un tableau de bonne taille
+        while ((text = br.readLine())!=null){
+            compteur++;
+        }
+        fis.close();
+
+        sentencesTab = new String[3][compteur];//0 phrase, 1 type de phrase, 2 type de jeu
+
+        //ouverture du fichier
+        fis=openFileInput(FILE_NAME);
+        isr = new InputStreamReader(fis);
+        br = new BufferedReader(isr);
+        //lecture du fichier et on sauvegarde les phrases
+        compteur=0;
+        for(i=1;i<=2;i++){//on fait deux tours, un pour les phrases normals, un pour les phrases génantes
+            br.readLine();//on passe la ligne "anecdotes"
+            String tempLine = br.readLine();//on lit la première anecdote
+            while (!tempLine.equals("gages")) {
+                sentencesTab[0][compteur]=tempLine;
+                sentencesTab[1][compteur]="anecdote";
+                sentencesTab[2][compteur]=valueOf(i);
+                compteur++;
+                tempLine = br.readLine();
+            }
+            tempLine = br.readLine();
+            while (!tempLine.equals("minigames")) {
+                sentencesTab[0][compteur]=tempLine;
+                sentencesTab[1][compteur]="gages";
+                sentencesTab[2][compteur]=valueOf(i);
+                compteur++;
+                tempLine = br.readLine();
+            }
+
+            tempLine = br.readLine();
+            while (!tempLine.equals("questions")) {
+                sentencesTab[0][compteur]=tempLine;
+                sentencesTab[1][compteur]="minigames";
+                sentencesTab[2][compteur]=valueOf(i);
+                compteur++;
+                tempLine = br.readLine();
+            }
+            tempLine = br.readLine();
+            while (!tempLine.equals("End")) {
+                sentencesTab[0][compteur]=tempLine;
+                sentencesTab[1][compteur]="questions";
+                sentencesTab[2][compteur]=valueOf(i);
+                compteur++;
+                tempLine = br.readLine();
+            }
+        }
+        fis.close();
 
     }
+
     private String[] decoding(String gameMode, String type, String encoding){
         String[] decodingTab = new String[7]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: mode de jeu
         boolean temp = false;
