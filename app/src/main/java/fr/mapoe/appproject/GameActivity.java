@@ -530,7 +530,6 @@ public class GameActivity extends AppCompatActivity {
             currentChallenge[4]=rightAnswer;
             currentChallenge[5]=button1Text;
             currentChallenge[6]=button2Text;
-            Log.d(TAG, "GetNextInformations: "+currentChallenge[4]);
             result =true;
         }
 

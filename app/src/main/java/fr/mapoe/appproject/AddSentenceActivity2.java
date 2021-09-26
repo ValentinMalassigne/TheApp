@@ -49,7 +49,6 @@ public class AddSentenceActivity2 extends AppCompatActivity {
     private Button sentenceEditNextButton;
     private Button answerEditNextButton;
     private Button buttonsEditNextButton;
-
     private Button pointNextButton;
     private EditText editButton1;
     private EditText editButton2;
@@ -66,7 +65,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
     private LinearLayout sentenceEditLayout;
     private LinearLayout answerEditLayout;
     private LinearLayout scrollableSentenceLayout;
-    private EditText scrollableEditText;
+    private EditText scrollableSentenceEditText;
     private LinearLayout answerButtonLayout;
     private LinearLayout scrollableAnswerLayout;
     private EditText scrollableAnswerEditText;
@@ -76,6 +75,12 @@ public class AddSentenceActivity2 extends AppCompatActivity {
     private LinearLayout scrollablePointLayout;
     private Spinner scrollablePointList;
     private Button visualizeButton;
+    private CheckBox rightAnswerIs1;
+    private CheckBox rightAnswerIs2;
+    private CheckBox scrollableRightAnswerIs2;
+    private CheckBox scrollableRightAnswerIs1;
+    private boolean editSentence;
+    private String[] decodedSentence;
 
 
     @Override
@@ -83,6 +88,16 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sentence2);
         AnimationBg.startBackgroundAnimation(findViewById(R.id.add_sentence_layout));
+
+        // recuperer les données
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            editSentence = true;
+            typeOfGame=extras.getInt("typeOfGame");
+            //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame
+            decodedSentence=extras.getStringArray("uncodedSentence");
+        }
+
         ImageView infoButton = findViewById(R.id.info_image);
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +106,16 @@ public class AddSentenceActivity2 extends AppCompatActivity {
             }
         });
         init();
+        decodedSentence= new String[8];
+        editSentence=true;
+        decodedSentence[0]="2";
+        decodedSentence[1]="reponse";
+        decodedSentence[2]="phrase";
+        decodedSentence[3]="Question";
+        decodedSentence[4]="-";
+        decodedSentence[5]="rep1";
+        decodedSentence[6]="rep2";
+        decodedSentence[7]="1";
         start();
     }
     //déclaration
@@ -117,6 +142,8 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         this.answerButtonLayout = findViewById(R.id.answer_button_layout);
         this.pointLayout = findViewById(R.id.point_layout);
         this.pointListSpinner = findViewById(R.id.point_list);
+        this.rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
+        this.rightAnswerIs2 = findViewById(R.id.right_answer_is_2);
 
         //affichage du scrollView
         this.scrollableGameModeLayout = findViewById(R.id.scrollable_game_mode_layout);
@@ -125,12 +152,16 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         this.sentenceTypeSpinner = findViewById(R.id.sentence_type_spinner);
         this.scrollableSentenceTypeLayout = findViewById(R.id.scrollable_sentence_type_layout);
         this.scrollableSentenceLayout = findViewById(R.id.scrollable_sentence_layout);
-        this.scrollableEditText = findViewById(R.id.scrollable_sentence_edit_text);
+        this.scrollableSentenceEditText = findViewById(R.id.scrollable_sentence_edit_text);
         this.scrollableAnswerLayout = findViewById(R.id.scrollable_answer_layout);
         this.scrollableAnswerEditText = findViewById(R.id.scrollable_answer_edit_text);
         this.scrollableButtonLayout = findViewById(R.id.scrollable_buttons_layout);
         this.scrollablePointLayout = findViewById(R.id.scrollable_point_layout);
         this.scrollablePointList = findViewById(R.id.scrollable_point_list);
+        this.scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
+        this.scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
+
+        editSentence=false;
     }
 
     private void start(){
@@ -320,7 +351,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
                     scrollableSentenceLayout.setVisibility(View.VISIBLE);
                     //on transfert ce qu'il a écrit dans la case answer dans la case qui est dans le scrollview
 
-                    scrollableEditText.setText(text);
+                    scrollableSentenceEditText.setText(text);
                     //on change le text qui guide
                     questionTextView.setText("Write what should be shown in the answer pop up");
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -400,7 +431,7 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         visualizeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text = scrollableEditText.getText().toString();
+                String text = scrollableSentenceEditText.getText().toString();
                 String answer = scrollableAnswerEditText.getText().toString();
                 if (numberOfOccurrences(text) == 0) {
                     text = "--joueur--" + " " + text;
@@ -486,6 +517,89 @@ public class AddSentenceActivity2 extends AppCompatActivity {
             }
         });
 
+        //situation ou l'on ouvre cette activity pour modifier une phrase
+        if(editSentence){
+            questionTextView.setText("Modify what you want and press next !");
+            buttonApeChill.setVisibility(View.GONE);
+            buttonApePiment.setVisibility(View.GONE);
+            visualizeButton.setVisibility(View.VISIBLE);
+            scrollableGameModeLayout.setVisibility(View.VISIBLE);
+            scrollableSentenceTypeLayout.setVisibility(View.VISIBLE);
+            scrollableSentenceLayout.setVisibility(View.VISIBLE);
+            scrollableAnswerLayout.setVisibility(View.VISIBLE);
+            scrollableButtonLayout.setVisibility(View.VISIBLE);
+            scrollablePointLayout.setVisibility(View.VISIBLE);
+            scrollableGameModeLayout.setVisibility(View.VISIBLE);
+
+            ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getApplicationContext(),
+                    R.array.gameModeList, R.layout.spinner_item);
+            adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            gameModeSpinner.setAdapter(adapter1);
+
+            ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getApplicationContext(),
+                    R.array.typeList, R.layout.spinner_item);
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            sentenceTypeSpinner.setAdapter(adapter2);
+
+            ArrayAdapter<CharSequence> adapter3 = ArrayAdapter.createFromResource(getApplicationContext(),
+                    R.array.pointList, R.layout.spinner_item);
+            adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            scrollablePointList.setAdapter(adapter3);
+
+            //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame
+            if(decodedSentence[7].equals("2")){
+                gameModeSpinner.setSelection(1);
+            }
+            if(decodedSentence[3].equals("Gages")){
+                sentenceTypeSpinner.setSelection(1);
+            }
+            if(decodedSentence[3].equals("Mini-jeu")){
+                sentenceTypeSpinner.setSelection(2);
+            }
+            if(decodedSentence[3].equals("Question")){
+                sentenceTypeSpinner.setSelection(3);
+            }
+            scrollableSentenceEditText.setText(decodedSentence[2]);
+            scrollableAnswerEditText.setText(decodedSentence[1]);
+
+            if(decodedSentence[4].equals("+")){
+                rightAnswer=0;//rightAnswer = 0 veut dire que la bonne rep est a gauche, =1 si c'est celle de droite
+
+                //on check ou décheck les box
+                rightAnswerIs2.setChecked(false);
+                scrollableRightAnswerIs2.setChecked(false);
+                scrollableRightAnswerIs1.setChecked(true);
+
+                //on change le text des checkbox
+                rightAnswerIs1.setText(R.string.right_answer);
+                rightAnswerIs2.setText(R.string.wrong_answer);
+                scrollableRightAnswerIs1.setText(R.string.right_answer);
+                scrollableRightAnswerIs2.setText(R.string.wrong_answer);
+            }else{
+                rightAnswer=1;
+
+                rightAnswerIs2.setChecked(true);
+                scrollableRightAnswerIs1.setChecked(false);
+                scrollableRightAnswerIs2.setChecked(true);
+
+                rightAnswerIs1.setText(R.string.wrong_answer);
+                rightAnswerIs2.setText(R.string.right_answer);
+                scrollableRightAnswerIs1.setText(R.string.wrong_answer);
+                scrollableRightAnswerIs2.setText(R.string.right_answer);
+            }
+
+            scrollableEditButton1.setText(decodedSentence[5]);
+            scrollableEditButton2.setText(decodedSentence[6]);
+
+            if(decodedSentence[0].equals("2")){
+                scrollablePointList.setSelection(1);
+            }
+            if(decodedSentence[0].equals("3")){
+                scrollablePointList.setSelection(2);
+            }
+
+        }
+
     }
 
     //gère les checks box pour éviter d'écrire 4 fois la même chose
@@ -494,44 +608,53 @@ public class AddSentenceActivity2 extends AppCompatActivity {
 
         if(situation==0){
             if(checked){
-                rightAnswer=0;
-                CheckBox rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
-                rightAnswerIs1.setText(R.string.right_answer);
-                CheckBox rightAnswerIs2 = findViewById(R.id.right_answer_is_2);
+                rightAnswer=0;//rightAnswer = 0 veut dire que la bonne rep est a gauche, =1 si c'est celle de droite
+
+                //on check ou décheck les box
                 rightAnswerIs2.setChecked(false);
-                rightAnswerIs2.setText(R.string.wrong_answer);
-                CheckBox scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
                 scrollableRightAnswerIs2.setChecked(false);
-                scrollableRightAnswerIs2.setText(R.string.wrong_answer);
-                CheckBox scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
                 scrollableRightAnswerIs1.setChecked(true);
+
+                //on change le text des checkbox
+                rightAnswerIs1.setText(R.string.right_answer);
+                rightAnswerIs2.setText(R.string.wrong_answer);
                 scrollableRightAnswerIs1.setText(R.string.right_answer);
+                scrollableRightAnswerIs2.setText(R.string.wrong_answer);
             }else{
                 rightAnswer=1;
-                CheckBox rightAnswerIs2 = findViewById(R.id.right_answer_is_2);
+
                 rightAnswerIs2.setChecked(true);
-                CheckBox scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
                 scrollableRightAnswerIs1.setChecked(false);
-                CheckBox scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
                 scrollableRightAnswerIs2.setChecked(true);
+
+                rightAnswerIs1.setText(R.string.wrong_answer);
+                rightAnswerIs2.setText(R.string.right_answer);
+                scrollableRightAnswerIs1.setText(R.string.wrong_answer);
+                scrollableRightAnswerIs2.setText(R.string.right_answer);
             }
         }else{
             if(checked){
                 rightAnswer=1;
-                CheckBox rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
+
                 rightAnswerIs1.setChecked(false);
-                CheckBox scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
                 scrollableRightAnswerIs1.setChecked(false);
-                CheckBox scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
                 scrollableRightAnswerIs2.setChecked(true);
+
+                rightAnswerIs1.setText(R.string.wrong_answer);
+                rightAnswerIs2.setText(R.string.right_answer);
+                scrollableRightAnswerIs1.setText(R.string.wrong_answer);
+                scrollableRightAnswerIs2.setText(R.string.right_answer);
             }else{
                 rightAnswer=0;
-                CheckBox rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
+
                 rightAnswerIs1.setChecked(true);
-                CheckBox scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
                 scrollableRightAnswerIs2.setChecked(false);
-                CheckBox scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
                 scrollableRightAnswerIs1.setChecked(true);
+
+                rightAnswerIs1.setText(R.string.right_answer);
+                rightAnswerIs2.setText(R.string.wrong_answer);
+                scrollableRightAnswerIs1.setText(R.string.right_answer);
+                scrollableRightAnswerIs2.setText(R.string.wrong_answer);
             }
         }
 
@@ -770,16 +893,23 @@ public class AddSentenceActivity2 extends AppCompatActivity {
         if(button2.equals("")){
             button2 = getString(R.string.no_button);
         }
-        String text = scrollableEditText.getText().toString().replace("--joueur--","§");
+        String text = scrollableSentenceEditText.getText().toString().replace("--joueur--","§");
         String answer = scrollableAnswerEditText.getText().toString().replace("--joueur--","§");
         String encodingSentence = "";
         encodingSentence+=button1+"/";
-        encodingSentence+=button2+"+";/**    CEST ICI QUIL FAUT RAJOUTER LE + OU -   **/
+        encodingSentence+=button2;
+        if(rightAnswer==0){
+            encodingSentence+="+";
+        }
+        else{
+            encodingSentence+="-";
+        }
         encodingSentence+=scrollablePointList.getSelectedItem().toString()+ " ";
-        encodingSentence+=answer+" "+"¤"+" ";
+        encodingSentence+=answer+"¤";
         encodingSentence+=text;
         return encodingSentence;
     }
+
     @Override
     public void onBackPressed() {
         Intent optionActivity = new Intent(getApplicationContext(), OptionActivity.class);
