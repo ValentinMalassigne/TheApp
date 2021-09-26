@@ -10,8 +10,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -68,27 +66,24 @@ public class OptionActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),getString(R.string.popups_enabled),Toast.LENGTH_SHORT).show();
             }
         });
-        LinearLayout addSenteceLayout = (LinearLayout) findViewById(R.id.add_sentence);
-        addSenteceLayout.setOnClickListener(new View.OnClickListener() {
+
+        LinearLayout addSentenceLayout = (LinearLayout) findViewById(R.id.add_sentence);
+        addSentenceLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent addSentenceActivity = new Intent(getApplicationContext(),AddSentenceActivity.class);
+                Intent addSentenceActivity = new Intent(getApplicationContext(), AddSentenceActivity.class);
                 startActivity(addSentenceActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
-        LinearLayout addSenteceLayout2 = (LinearLayout) findViewById(R.id.add_sentence2);
-        addSenteceLayout2.setOnClickListener(new View.OnClickListener() {
+        LinearLayout editSentenceLayout  = (LinearLayout) findViewById(R.id.edit_sentence);
+        editSentenceLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent addSentenceActivity2 = new Intent(getApplicationContext(),AddSentenceActivity2.class);
-                startActivity(addSentenceActivity2);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                finish();
+                showSentence(R.layout.sentences_popup);
             }
         });
-
 
     }
 
@@ -120,6 +115,15 @@ public class OptionActivity extends AppCompatActivity {
             }
         });
 
+        alertDialog.show();
+    }
+    private void showSentence(int layout){
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OptionActivity.this);
+        View layoutView = getLayoutInflater().inflate(layout,null);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
     }
 

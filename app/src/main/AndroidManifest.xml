@@ -10,18 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppProject">
         <activity
-            android:name=".EditSentenceActivity"
-            android:exported="true" />
-        <activity
-            android:name=".AddSentenceActivity2"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppProject.NoActionBar"/>
-        <activity
             android:name=".AddSentenceActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppProject.NoActionBar" />
+            android:theme="@style/Theme.AppProject.NoActionBar"/>
         <activity
             android:name=".CardGameActivity"
             android:exported="true"

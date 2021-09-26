@@ -97,30 +97,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:fontFamily="@font/convergence"
-                android:text="Ajouter mes phrases"
-                android:textColor="@color/white"
-                android:textSize="35sp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/add_sentence2"
-            android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:fontFamily="@font/convergence"
-                android:text="Ajouter mes phrases2"
+                android:text="@string/add_sentence"
                 android:textColor="@color/white"
                 android:textSize="35sp"
                 android:textStyle="bold" />
@@ -134,6 +111,18 @@
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
             android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/convergence"
+                android:text="Mes phrases"
+                android:textColor="@color/white"
+                android:textSize="35sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
