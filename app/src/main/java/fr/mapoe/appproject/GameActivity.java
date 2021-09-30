@@ -680,6 +680,7 @@ public class GameActivity extends AppCompatActivity {
 
     private String getChallengeTurn(){
         //remplir la list
+        String res=null;
         if (challengeList.size()==0){
             challengeList.add("gage");
             challengeList.add("gage");
@@ -692,12 +693,21 @@ public class GameActivity extends AppCompatActivity {
             challengeList.add("anecdote");
             challengeList.add("anecdote");
         }
-        int min=0;
-        int max = challengeList.size()-1;
-        Random r = new Random();
-        int number = r.nextInt((max - min) + 1) + min;
+        if(displayCounter==1){ //si on est au premier tour, on prend forcément entre une sentence et une anecdote
+            int min=4;
+            int max = challengeList.size()-1;
+            Random r = new Random();
+            int number = r.nextInt((max - min) + 1) + min;
+            res = challengeList.remove(number);
+        }else{
+            int min=0;
+            int max = challengeList.size()-1;
+            Random r = new Random();
+            int number = r.nextInt((max - min) + 1) + min;
+            res = challengeList.remove(number);
+        }
 
-        return challengeList.remove(number);
+        return res;
     }
 
     private String getRandomPlayer(String name){
