@@ -138,10 +138,16 @@ public class GameActivity extends AppCompatActivity {
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1]);
+                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],1);
             }
         });
-
+        Button skipButton = (Button) findViewById(R.id.skip_button);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d(TAG,currentChallenge[1]);
+            }
+        });
 
         ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
         xButton.setOnClickListener(new View.OnClickListener() {
@@ -218,7 +224,7 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    private void showAnswerPopup(int layout, String text){
+    private void showAnswerPopup(int layout, String text, int typeOfCall){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);

@@ -25,6 +25,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.text.HtmlCompat;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -36,9 +37,9 @@ import java.util.Locale;
 public class OptionActivity extends AppCompatActivity {
 
     SharedPreferences language;
-    String[][] sentencesTab;
+    private String[][] sentencesTab;
+    private String[][] decodingTab;
     private static final String FILE_NAME = "custom_sentences.txt";
-
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -97,15 +98,17 @@ public class OptionActivity extends AppCompatActivity {
         editSentenceLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showSentence(R.layout.sentences_popup);
                 try {
                     readFile();
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                fillDecodingTab();
+                showSentence(R.layout.sentences_popup);
+
             }
         });
-
     }
 
     private void showLanguagePopup(int layout) {
@@ -140,6 +143,8 @@ public class OptionActivity extends AppCompatActivity {
     }
 
     private void showSentence(int layout){
+        int editID= 1;
+        int deleteID=1001;
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OptionActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
@@ -159,8 +164,11 @@ public class OptionActivity extends AppCompatActivity {
         Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.convergence);
         LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(230, ViewGroup.LayoutParams.WRAP_CONTENT,1);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.bottomMargin= 30;
-        for(int i =0;i<5;i++) {
+        params.bottomMargin= 50;
+        LinearLayout.LayoutParams deleteImageParams = new LinearLayout.LayoutParams(60, 60);
+        deleteImageParams.leftMargin=10;
+
+        for(int i =0;i< decodingTab.length;i++) {
             LinearLayout linearLayout = new LinearLayout(getApplicationContext());
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
             linearLayout.setLayoutParams(params);
@@ -171,23 +179,39 @@ public class OptionActivity extends AppCompatActivity {
             textDisplay.setTextColor(Color.WHITE);
             textDisplay.setMaxLines(4);
             textDisplay.setTextSize(18);
-            textDisplay.setText("phrases 1 blablablablaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaablaaaaaaaaaaa");
+            textDisplay.setText(HtmlCompat.fromHtml(getCleanText(decodingTab[i][2]),HtmlCompat.FROM_HTML_MODE_LEGACY));
 
-            LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(80, 80);
-            imageParams.leftMargin = 50;
-            imageParams.gravity = Gravity.CENTER;
-            ImageView delete = new ImageView(getApplicationContext());
-            delete.setImageResource(R.drawable.poubelle);
-            delete.setLayoutParams(imageParams);
 
-            imageParams.rightMargin = 30;
             ImageView edit = new ImageView(getApplicationContext());
             edit.setImageResource(R.drawable.edit_logo);
-            edit.setLayoutParams(imageParams);
+            edit.setLayoutParams(deleteImageParams);
+            edit.setId(editID);
+            edit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // il faut envoyer la ligne correspondante
+
+                }
+            });
+
+            deleteImageParams.gravity = Gravity.CENTER;
+            ImageView delete = new ImageView(getApplicationContext());
+            delete.setImageResource(R.drawable.poubelle);
+            delete.setLayoutParams(deleteImageParams);
+            delete.setId(deleteID);
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
 
             linearLayout.addView(textDisplay);
-            linearLayout.addView(delete);
             linearLayout.addView(edit);
+            linearLayout.addView(delete);
+
+            deleteID++;
+            editID++;
         }
         alertDialog.show();
     }
@@ -228,8 +252,7 @@ public class OptionActivity extends AppCompatActivity {
             compteur++;
         }
         fis.close();
-
-        sentencesTab = new String[3][compteur];//0 phrase, 1 type de phrase, 2 type de jeu
+        sentencesTab = new String[compteur][3];//0 phrase, 1 type de phrase, 2 type de jeu
 
         //ouverture du fichier
         fis=openFileInput(FILE_NAME);
@@ -238,47 +261,59 @@ public class OptionActivity extends AppCompatActivity {
         //lecture du fichier et on sauvegarde les phrases
         compteur=0;
         for(i=1;i<=2;i++){//on fait deux tours, un pour les phrases normals, un pour les phrases génantes
+            String gameMode = "";
+            if(i==1){
+                gameMode ="Apechill";
+            }
+            else{
+                gameMode="ApePiment";
+            }
             br.readLine();//on passe la ligne "anecdotes"
             String tempLine = br.readLine();//on lit la première anecdote
             while (!tempLine.equals("gages")) {
-                sentencesTab[0][compteur]=tempLine;
-                sentencesTab[1][compteur]="anecdote";
-                sentencesTab[2][compteur]=valueOf(i);
+                sentencesTab[compteur][0]=tempLine;
+                sentencesTab[compteur][1]="anecdote";
+                sentencesTab[compteur][2]=gameMode;
                 compteur++;
                 tempLine = br.readLine();
             }
             tempLine = br.readLine();
             while (!tempLine.equals("minigames")) {
-                sentencesTab[0][compteur]=tempLine;
-                sentencesTab[1][compteur]="gages";
-                sentencesTab[2][compteur]=valueOf(i);
+                sentencesTab[compteur][0]=tempLine;
+                sentencesTab[compteur][1]="gages";
+                sentencesTab[compteur][2]=gameMode;
                 compteur++;
                 tempLine = br.readLine();
             }
 
             tempLine = br.readLine();
             while (!tempLine.equals("questions")) {
-                sentencesTab[0][compteur]=tempLine;
-                sentencesTab[1][compteur]="minigames";
-                sentencesTab[2][compteur]=valueOf(i);
+                sentencesTab[compteur][0]=tempLine;
+                sentencesTab[compteur][1]="minigames";
+                sentencesTab[compteur][2]=gameMode;
                 compteur++;
                 tempLine = br.readLine();
             }
             tempLine = br.readLine();
             while (!tempLine.equals("End")) {
-                sentencesTab[0][compteur]=tempLine;
-                sentencesTab[1][compteur]="questions";
-                sentencesTab[2][compteur]=valueOf(i);
+                sentencesTab[compteur][0]=tempLine;
+                sentencesTab[compteur][1]="questions";
+                sentencesTab[compteur][2]=gameMode;
                 compteur++;
                 tempLine = br.readLine();
             }
         }
         fis.close();
+        for(int j=0;j<sentencesTab.length;j++){
+            for(int k=0;k<compteur;k++){
+                Log.d(TAG,sentencesTab[j][k]+" ligne "+Integer.toString(j)+" colonne "+Integer.toString(k));
+            }
+        }
 
     }
 
-    private String[] decoding(String gameMode, String type, String encoding){
-        String[] decodingTab = new String[7]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: mode de jeu
+    private static String[] decoding(String gameMode, String type, String encoding){ // decoder sentence tab
+        String[] decoding = new String[8]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: mode de jeu
         boolean temp = false;
         String points;
         String answers;
@@ -325,18 +360,58 @@ public class OptionActivity extends AppCompatActivity {
                 i++;
             }
         }
-        answers=encoding.substring(j,i);
+        answers=encoding.substring(j+1,i);
         sentence=encoding.substring(i+1);//on lit tout jusqu'à la fin pour avoir la phrase
 
-        decodingTab[0] = points;
-        decodingTab[1] = answers;
-        decodingTab[2] = sentence;
-        decodingTab[3] = type;
-        decodingTab[4] = rightAnswer;
-        decodingTab[5] = button1Text;
-        decodingTab[6] = button2Text;
-        decodingTab[7] = gameMode;
-        return decodingTab;
+        decoding[0] = points;
+        decoding[1] = answers;
+        decoding[2] = sentence;
+        decoding[3] = type;
+        decoding[4] = rightAnswer;
+        decoding[5] = button1Text;
+        decoding[6] = button2Text;
+        decoding[7] = gameMode;
+        return decoding;
+    }
+
+    private void fillDecodingTab(){
+        decodingTab = new String[sentencesTab.length][8];
+        //Pour parcourir chaque ligne
+        for (int i = 0; i < decodingTab.length; i++) {
+            String[] currentTab = decoding(sentencesTab[i][2],sentencesTab[i][1],sentencesTab[i][0]);
+            //Pour parcourir chaque colonne
+            for (int j = 0; j < currentTab.length; j++) {
+                decodingTab[i][j] = currentTab[j];
+                Log.d(TAG,decodingTab[i][j]);
+            }
+        }
+    }
+    private String getCleanText(String text) {
+        String res = "";
+        if (numberOfOccurrences(text) == 1) {
+            res = text.replaceFirst("§", "<b><i>Joueur 1</i></b>");
+
+        } else if (numberOfOccurrences(text) == 2) {
+            res = text.replaceFirst("§", "<b><i>Joueur 1</i></b>");
+            res=res.replace("§","<b><i>Joueur 2</i></b>");
+        }
+        else{
+            res = text.replaceFirst("§", "<b><i>Joueur 1</i></b>");
+            res=res.replace("§","<b><i>Joueur 3</i></b>");
+            res = res.replaceFirst("<b><i>Joueur 3</i></b>","<b><i>Joueur 2</i></b>");
+        }
+        return res;
+    }
+    private int numberOfOccurrences(String source) {
+        int occurrences = 0;
+
+        if (source.contains("--joueur--")) {
+            int withSentenceLength    = source.length();
+            int withoutSentenceLength = source.replace("--joueur--", "").length();
+            occurrences = (withSentenceLength - withoutSentenceLength) / "--joueur--".length();
+        }
+
+        return occurrences;
     }
 
     @Override
