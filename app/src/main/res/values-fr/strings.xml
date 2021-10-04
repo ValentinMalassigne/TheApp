@@ -93,8 +93,8 @@
     <string name="add_answer">Ajoutez votre réponse</string>
     <string name="add_text">Ajouter votre text</string>
     <string name="visualize">visualiser</string>
-    <string name="game_mode">Mode de jeu</string>
-    <string name="type_spinner">type de phrases</string>
+    <string name="game_mode">Mode de jeu: </string>
+    <string name="type_spinner">Type de phrases: </string>
     <string name="mark">Joueur 1 marque</string>
     <string-array name="gameModeList">
         <item>ApeChill</item>
@@ -114,4 +114,20 @@
     <string name="title_activity_add_sentence2">AddSentenceActivity2</string>
     <string name="what_sentence_type">Quelle type de phrase voulez-vous ajouter</string>
     <string name="sentence">Phrase</string>
+    <string name="first_text_info_addSentence">Complete au fur et à mesure ta phrase et suit son évolution en scrollant en dessous de la ligne. Chaque éléments de la phrase est modifiable à tout moment</string>
+    <string name="second_text_info_addSentence1">En cliquant sur l\'image ci-dessous, un joueur sera mentionné à cette position</string>
+    <string name="third_text_info_addSentence">Une fois que tout est pret, appuie sur \"Visualiser\" afin de voir comment ta phrase apparaitra dans le jeu</string>
+    <string name="add">Ajouter</string>
+    <string name="edit">Edit</string>
+    <string name="right_answer">je suis la bonne réponse</string>
+    <string name="wrong_answer">je suis la mauvaise réponse</string>
+    <string name="add_sentence">Ajouter mes phrases</string>
+    <string name="my_sentence">Mes phrases</string>
+    <string name="my_sentences">Ma phrase</string>
+    <string name="skip">passer</string>
+    <string name="note_max_player">note: 3 joueurs maximun</string>
+    <string name="game_mode_edit_text">Dans quel mode de jeu voulez vous ajouter votre phrase ?</string>
+    <string name="sumury_text">"Recapitulatif de vos paramètres, vous pouvez toujours les editer ! N'oubliez pas de scroller pour voir les derniers "</string>
+    <string name="right_the">"Ecrit "</string>
+    <string name="complete">Complete ta phrase</string>
 </resources>

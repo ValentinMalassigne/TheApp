@@ -2,6 +2,7 @@ package fr.mapoe.appproject;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -32,6 +33,7 @@ import androidx.core.text.HtmlCompat;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -79,7 +81,7 @@ public class AddSentenceActivity extends AppCompatActivity {
     private CheckBox rightAnswerIs2;
     private CheckBox scrollableRightAnswerIs2;
     private CheckBox scrollableRightAnswerIs1;
-    private boolean editSentence;
+    private boolean editSentence = false;
     private String[] decodedSentence;
     private static final String FILE_NAME = "custom_sentences.txt";
 
@@ -89,12 +91,12 @@ public class AddSentenceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sentence);
         AnimationBg.startBackgroundAnimation(findViewById(R.id.add_sentence_layout));
-
+        fileBuilder();
+        init();
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            editSentence = true;
-            typeOfGame=extras.getInt("typeOfGame");
+            editSentence = extras.getBoolean("editSentence");
             decodedSentence=extras.getStringArray("decodedSentence");//0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame
         }
 
@@ -105,22 +107,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                 showInfoPopup(R.layout.info_popup);
             }
         });
-        fileBuilder();
-        init();
-        //a supprimer une fois que l'on appel cette classe depuis la popup modification de phrase
-        decodedSentence= new String[8];
-        editSentence=true;
-        decodedSentence[0]="2";
-        decodedSentence[1]="reponse";
-        decodedSentence[2]="phrase";
-        decodedSentence[3]="Question";
-        decodedSentence[4]="-";
-        decodedSentence[5]="rep1";
-        decodedSentence[6]="rep2";
-        decodedSentence[7]="1";
-        ////////////////
         start();
-        addSentence("rep1/rep2-2 Est-ce que plus de la moité des joueurs ont trouvé la vérité ?¤§ raconte une anecdote (vrai ou fausse), les autres doivent devinée si elle est vrai ou fausse.","Mini-jeu",1);
     }
     //déclaration
     private void init(){
@@ -164,11 +151,11 @@ public class AddSentenceActivity extends AppCompatActivity {
         this.scrollablePointList = findViewById(R.id.scrollable_point_list);
         this.scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
         this.scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
-
-        editSentence=false;
     }
 
     private void start(){
+        //ouverture du fichier
+        //situation ou l'on ouvre cette activity pour modifier une phrase
 
         //bouton ApeChill
         Button buttonApeChill = findViewById(R.id.button_ape_chill);
@@ -187,42 +174,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                 gameModeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        if(gameModeSpinner.getSelectedItem().toString().equals("ApeChill")) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                buttonAnecdote.setBackground(getDrawable(R.drawable.button));
-                                buttonGages.setBackground(getDrawable(R.drawable.button));
-                                buttonQuestion.setBackground(getDrawable(R.drawable.button));
-                                buttonMiniGames.setBackground(getDrawable(R.drawable.button));
-                                sentenceEditNextButton.setBackground(getDrawable(R.drawable.button));
-                                answerEditNextButton.setBackground(getDrawable(R.drawable.button));
-                                buttonsEditNextButton.setBackground(getDrawable(R.drawable.button));
-                                editButton1.setBackground(getDrawable(R.drawable.button));
-                                editButton2.setBackground(getDrawable(R.drawable.button));
-                                scrollableEditButton1.setBackground(getDrawable(R.drawable.button));
-                                scrollableEditButton2.setBackground(getDrawable(R.drawable.button));
-                                visualizeButton.setBackground(getDrawable(R.drawable.button));
-                                pointNextButton.setBackground(getDrawable(R.drawable.button));
-                                typeOfGame=1;
-                            }
-                        }
-                        else{
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                buttonAnecdote.setBackground(getDrawable(R.drawable.button2));
-                                buttonGages.setBackground(getDrawable(R.drawable.button2));
-                                buttonQuestion.setBackground(getDrawable(R.drawable.button2));
-                                buttonMiniGames.setBackground(getDrawable(R.drawable.button2));
-                                sentenceEditNextButton.setBackground(getDrawable(R.drawable.button2));
-                                answerEditNextButton.setBackground(getDrawable(R.drawable.button2));
-                                buttonsEditNextButton.setBackground(getDrawable(R.drawable.button2));
-                                editButton1.setBackground(getDrawable(R.drawable.button2));
-                                editButton2.setBackground(getDrawable(R.drawable.button2));
-                                scrollableEditButton1.setBackground(getDrawable(R.drawable.button2));
-                                scrollableEditButton2.setBackground(getDrawable(R.drawable.button2));
-                                visualizeButton.setBackground(getDrawable(R.drawable.button2));
-                                pointNextButton.setBackground(getDrawable(R.drawable.button2));
-                                typeOfGame=2;
-                            }
-                        }
+                        setButtonBg(gameModeSpinner.getSelectedItem().toString());
                     }
 
                     @Override
@@ -256,43 +208,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                 gameModeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        if(gameModeSpinner.getSelectedItem().toString().equals("ApePiment")) {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                buttonAnecdote.setBackground(getDrawable(R.drawable.button2));
-                                buttonGages.setBackground(getDrawable(R.drawable.button2));
-                                buttonQuestion.setBackground(getDrawable(R.drawable.button2));
-                                buttonMiniGames.setBackground(getDrawable(R.drawable.button2));
-                                sentenceEditNextButton.setBackground(getDrawable(R.drawable.button2));
-                                answerEditNextButton.setBackground(getDrawable(R.drawable.button2));
-                                buttonsEditNextButton.setBackground(getDrawable(R.drawable.button2));
-                                editButton1.setBackground(getDrawable(R.drawable.button2));
-                                editButton2.setBackground(getDrawable(R.drawable.button2));
-                                scrollableEditButton1.setBackground(getDrawable(R.drawable.button2));
-                                scrollableEditButton2.setBackground(getDrawable(R.drawable.button2));
-                                visualizeButton.setBackground(getDrawable(R.drawable.button2));
-                                pointNextButton.setBackground(getDrawable(R.drawable.button2));
-                                typeOfGame=2;
-
-                            }
-                        }
-                        else{
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                buttonAnecdote.setBackground(getDrawable(R.drawable.button));
-                                buttonGages.setBackground(getDrawable(R.drawable.button));
-                                buttonQuestion.setBackground(getDrawable(R.drawable.button));
-                                buttonMiniGames.setBackground(getDrawable(R.drawable.button));
-                                sentenceEditNextButton.setBackground(getDrawable(R.drawable.button));
-                                answerEditNextButton.setBackground(getDrawable(R.drawable.button));
-                                buttonsEditNextButton.setBackground(getDrawable(R.drawable.button));
-                                editButton1.setBackground(getDrawable(R.drawable.button));
-                                editButton2.setBackground(getDrawable(R.drawable.button));
-                                scrollableEditButton1.setBackground(getDrawable(R.drawable.button));
-                                scrollableEditButton2.setBackground(getDrawable(R.drawable.button));
-                                visualizeButton.setBackground(getDrawable(R.drawable.button));
-                                pointNextButton.setBackground(getDrawable(R.drawable.button));
-                                typeOfGame=1;
-                            }
-                        }
+                        setButtonBg(gameModeSpinner.getSelectedItem().toString());
                     }
 
                     @Override
@@ -302,222 +218,6 @@ public class AddSentenceActivity extends AppCompatActivity {
                 });
                 questionTextView.setText(R.string.what_sentence_type);
                 textViewResume.setVisibility(View.VISIBLE);
-            }
-        });
-
-        //bouton Anecdote
-
-        buttonAnecdote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageSentenceTypeSelection("Anecdote");
-            }
-        });
-
-        //bouton Gages
-
-        buttonGages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageSentenceTypeSelection("Gages");
-            }
-        });
-
-        //bouton MiniGame
-
-        buttonMiniGames.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageSentenceTypeSelection("MiniGame");
-            }
-        });
-
-        //bouton Question
-
-        buttonQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageSentenceTypeSelection("Question");
-            }
-        });
-
-        //bouton Next après avoir tappé la phrase
-
-        sentenceEditNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //on change la visibilité des éléments nécessaire
-                EditText sentenceEditText = findViewById(R.id.sentence_edit_text);
-                String text = sentenceEditText.getText().toString();
-                if(!text.equals("")) {
-                    sentenceEditLayout.setVisibility(View.GONE);
-                    answerEditLayout.setVisibility(View.VISIBLE);
-                    scrollableSentenceLayout.setVisibility(View.VISIBLE);
-                    //on transfert ce qu'il a écrit dans la case answer dans la case qui est dans le scrollview
-
-                    scrollableSentenceEditText.setText(text);
-                    //on change le text qui guide
-                    questionTextView.setText("Write what should be shown in the answer pop up");
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Veuillez remplir le champ",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        //bouton Next après avoir tappé la réponse
-
-        answerEditNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //on change la visibilité des éléments nécessaire
-                EditText answerEditText = findViewById(R.id.answer_edit_text);
-                String answer = answerEditText.getText().toString();
-                if(!answer.equals("")) {
-                    answerEditLayout.setVisibility(View.GONE);
-                    answerButtonLayout.setVisibility(View.VISIBLE);
-                    scrollableAnswerLayout.setVisibility(View.VISIBLE);
-                    //on transfert ce qu'il a écrit dans la case answer dans la case qui est dans le scrollview
-
-                    scrollableAnswerEditText.setText(answer);
-                    //on change le text qui guide
-                    questionTextView = findViewById(R.id.question_textView);
-                    questionTextView.setText("Edit the buttons to give them the text you want.\n And select which answer gives sips and which answer gives points");
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(),"Veuillez remplir le champ",Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        //bouton Next après avoir modifier les boutons
-        buttonsEditNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //on change la visibilité des éléments nécessaire
-                answerButtonLayout.setVisibility(View.GONE);
-                pointLayout.setVisibility(View.VISIBLE);
-                scrollableButtonLayout.setVisibility(View.VISIBLE);
-                //on transfert ce qu'il a écrit dans la case answer dans la case qui est dans le scrollview
-                scrollableEditButton1.setText(editButton1.getText().toString());
-                scrollableEditButton2.setText(editButton2.getText().toString());
-                //on change le text qui guide
-                questionTextView.setText("How many points in case of right answer ?");
-                //on active le spinner du nombre de points
-                ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getApplicationContext(),
-                        R.array.pointList, R.layout.spinner_item);
-                adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                pointListSpinner.setAdapter(adapter1);
-
-
-            }
-        });
-
-        // button Next après avoir choisis les points
-        pointNextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                pointLayout.setVisibility(View.GONE);
-                scrollablePointLayout.setVisibility(View.VISIBLE);
-                visualizeButton.setVisibility(View.VISIBLE);
-                questionTextView.setText("Check every information and press next !");
-                ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getApplicationContext(),
-                        R.array.pointList, R.layout.spinner_item);
-                adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                scrollablePointList.setAdapter(adapter1);
-
-            }
-        });
-        //button pour visualiser la phrase
-        visualizeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String text = scrollableSentenceEditText.getText().toString();
-                String answer = scrollableAnswerEditText.getText().toString();
-                if (numberOfOccurrences(text) == 0) {
-                    text = "--joueur--" + " " + text;
-                }
-                text = getCleanText(text);
-                answer = getCleanText(answer);
-                String title = sentenceTypeSpinner.getSelectedItem().toString();
-                String point = scrollablePointList.getSelectedItem().toString();
-                showValidatePopup(R.layout.visualisation_popup, title, text, answer, point);
-
-            }
-        });
-        //bouton ajouter un joueur a la phrase quand on te le demande
-        ImageView addPlayerToSentence = findViewById(R.id.add_player_to_sentence);
-        addPlayerToSentence.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addPlayerToSentence(findViewById(R.id.sentence_edit_text));
-            }
-        });
-
-        //bouton ajouter un joueur a la réponse quand on te le demande
-        ImageView addPlayerToAnswer = findViewById(R.id.add_player_to_answer);
-        addPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addPlayerToSentence(findViewById(R.id.answer_edit_text));
-            }
-        });
-
-        //bouton ajouter un joueur a la phrase dans le scrollview
-        ImageView scrollableAddPlayerToSentence = findViewById(R.id.scrollable_add_player_to_sentence);
-        scrollableAddPlayerToSentence.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addPlayerToSentence(findViewById(R.id.scrollable_sentence_edit_text));
-            }
-        });
-
-
-        //bouton ajouter un joueur a la réponse dans le scrollview
-        ImageView scrollableAddPlayerToAnswer = findViewById(R.id.scrollable_add_player_to_answer);
-        scrollableAddPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addPlayerToSentence(findViewById(R.id.scrollable_answer_edit_text));
-            }
-        });
-
-        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-        CheckBox rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
-        rightAnswerIs1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageCheckBoxSelection(view,0);
-            }
-        });
-
-        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-        CheckBox rightAnswerIs2 = findViewById(R.id.right_answer_is_2);
-        rightAnswerIs2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageCheckBoxSelection(view,1);
-            }
-        });
-
-        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-        CheckBox scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
-        scrollableRightAnswerIs1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageCheckBoxSelection(view,0);
-            }
-        });
-
-        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-        CheckBox scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
-        scrollableRightAnswerIs2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageCheckBoxSelection(view,1);
             }
         });
 
@@ -539,6 +239,17 @@ public class AddSentenceActivity extends AppCompatActivity {
                     R.array.gameModeList, R.layout.spinner_item);
             adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             gameModeSpinner.setAdapter(adapter1);
+            gameModeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    setButtonBg(gameModeSpinner.getSelectedItem().toString());
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
 
             ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getApplicationContext(),
                     R.array.typeList, R.layout.spinner_item);
@@ -551,7 +262,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             scrollablePointList.setAdapter(adapter3);
 
             //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame
-            if(decodedSentence[7].equals("2")){
+            if(decodedSentence[7].equals("ApePiment")){
                 gameModeSpinner.setSelection(1);
             }
             if(decodedSentence[3].equals("Gages")){
@@ -563,6 +274,8 @@ public class AddSentenceActivity extends AppCompatActivity {
             if(decodedSentence[3].equals("Question")){
                 sentenceTypeSpinner.setSelection(3);
             }
+            decodedSentence[2]= decodedSentence[2].replaceAll("§","--joueur--");
+            decodedSentence[1]=decodedSentence[1].replaceAll("§","--joueur--");
             scrollableSentenceEditText.setText(decodedSentence[2]);
             scrollableAnswerEditText.setText(decodedSentence[1]);
 
@@ -595,15 +308,279 @@ public class AddSentenceActivity extends AppCompatActivity {
             scrollableEditButton1.setText(decodedSentence[5]);
             scrollableEditButton2.setText(decodedSentence[6]);
 
-            if(decodedSentence[0].equals("2")){
-                scrollablePointList.setSelection(1);
-            }
-            if(decodedSentence[0].equals("3")){
-                scrollablePointList.setSelection(2);
-            }
+            scrollablePointList.setSelection(Integer.valueOf(decodedSentence[0]));
+            visualizeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String text = scrollableSentenceEditText.getText().toString();
+                    String answer = scrollableAnswerEditText.getText().toString();
+                    if (numberOfOccurrences(text) == 0) {
+                        text = "--joueur--" + " " + text;
+                    }
+                    text = getCleanText(text);
+                    answer = getCleanText(answer);
+                    String title = sentenceTypeSpinner.getSelectedItem().toString();
+                    String point = scrollablePointList.getSelectedItem().toString();
+                    showValidatePopup(R.layout.visualisation_popup, title, text, answer, point);
 
+                }
+            });
+        }
+        else {
+            //bouton Anecdote
+
+            buttonAnecdote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    manageSentenceTypeSelection("Anecdote");
+                }
+            });
+
+            //bouton Gages
+
+            buttonGages.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    manageSentenceTypeSelection("Gages");
+                }
+            });
+
+            //bouton MiniGame
+
+            buttonMiniGames.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    manageSentenceTypeSelection("MiniGame");
+                }
+            });
+
+            //bouton Question
+
+            buttonQuestion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    manageSentenceTypeSelection("Question");
+                }
+            });
+
+            //bouton Next après avoir tappé la phrase
+
+            sentenceEditNextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //on change la visibilité des éléments nécessaire
+                    EditText sentenceEditText = findViewById(R.id.sentence_edit_text);
+                    String text = sentenceEditText.getText().toString();
+                    if (!text.equals("")) {
+                        sentenceEditLayout.setVisibility(View.GONE);
+                        answerEditLayout.setVisibility(View.VISIBLE);
+                        scrollableSentenceLayout.setVisibility(View.VISIBLE);
+                        //on transfert ce qu'il a écrit dans la case answer dans la case qui est dans le scrollview
+
+                        scrollableSentenceEditText.setText(text);
+                        //on change le text qui guide
+                        questionTextView.setText("Write what should be shown in the answer pop up");
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Veuillez remplir le champ", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            //bouton Next après avoir tappé la réponse
+
+            answerEditNextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //on change la visibilité des éléments nécessaire
+                    EditText answerEditText = findViewById(R.id.answer_edit_text);
+                    String answer = answerEditText.getText().toString();
+                    if (!answer.equals("")) {
+                        answerEditLayout.setVisibility(View.GONE);
+                        answerButtonLayout.setVisibility(View.VISIBLE);
+                        scrollableAnswerLayout.setVisibility(View.VISIBLE);
+                        //on transfert ce qu'il a écrit dans la case answer dans la case qui est dans le scrollview
+
+                        scrollableAnswerEditText.setText(answer);
+                        //on change le text qui guide
+                        questionTextView = findViewById(R.id.question_textView);
+                        questionTextView.setText("Edit the buttons to give them the text you want.\n And select which answer gives sips and which answer gives points");
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Veuillez remplir le champ", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            //bouton Next après avoir modifier les boutons
+            buttonsEditNextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //on change la visibilité des éléments nécessaire
+                    answerButtonLayout.setVisibility(View.GONE);
+                    pointLayout.setVisibility(View.VISIBLE);
+                    scrollableButtonLayout.setVisibility(View.VISIBLE);
+                    //on transfert ce qu'il a écrit dans la case answer dans la case qui est dans le scrollview
+                    scrollableEditButton1.setText(editButton1.getText().toString());
+                    scrollableEditButton2.setText(editButton2.getText().toString());
+                    //on change le text qui guide
+                    questionTextView.setText("How many points in case of right answer ?");
+                    //on active le spinner du nombre de points
+                    ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getApplicationContext(),
+                            R.array.pointList, R.layout.spinner_item);
+                    adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    pointListSpinner.setAdapter(adapter1);
+
+
+                }
+            });
+
+            // button Next après avoir choisis les points
+            pointNextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    pointLayout.setVisibility(View.GONE);
+                    scrollablePointLayout.setVisibility(View.VISIBLE);
+                    visualizeButton.setVisibility(View.VISIBLE);
+                    questionTextView.setText("Check every information and press next !");
+                    ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getApplicationContext(),
+                            R.array.pointList, R.layout.spinner_item);
+                    adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    scrollablePointList.setAdapter(adapter1);
+
+                }
+            });
+            //button pour visualiser la phrase
+            visualizeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String text = scrollableSentenceEditText.getText().toString();
+                    String answer = scrollableAnswerEditText.getText().toString();
+                    if (numberOfOccurrences(text) == 0) {
+                        text = "--joueur--" + " " + text;
+                    }
+                    text = getCleanText(text);
+                    answer = getCleanText(answer);
+                    String title = sentenceTypeSpinner.getSelectedItem().toString();
+                    String point = scrollablePointList.getSelectedItem().toString();
+                    showValidatePopup(R.layout.visualisation_popup, title, text, answer, point);
+
+                }
+            });
+            //bouton ajouter un joueur a la phrase quand on te le demande
+            ImageView addPlayerToSentence = findViewById(R.id.add_player_to_sentence);
+            addPlayerToSentence.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addPlayerToSentence(findViewById(R.id.sentence_edit_text));
+                }
+            });
+
+            //bouton ajouter un joueur a la réponse quand on te le demande
+            ImageView addPlayerToAnswer = findViewById(R.id.add_player_to_answer);
+            addPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addPlayerToSentence(findViewById(R.id.answer_edit_text));
+                }
+            });
+
+            //bouton ajouter un joueur a la phrase dans le scrollview
+            ImageView scrollableAddPlayerToSentence = findViewById(R.id.scrollable_add_player_to_sentence);
+            scrollableAddPlayerToSentence.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addPlayerToSentence(findViewById(R.id.scrollable_sentence_edit_text));
+                }
+            });
+
+
+            //bouton ajouter un joueur a la réponse dans le scrollview
+            ImageView scrollableAddPlayerToAnswer = findViewById(R.id.scrollable_add_player_to_answer);
+            scrollableAddPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    addPlayerToSentence(findViewById(R.id.scrollable_answer_edit_text));
+                }
+            });
+
+            //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
+            CheckBox rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
+            rightAnswerIs1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    manageCheckBoxSelection(view, 0);
+                }
+            });
+
+            //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
+            CheckBox rightAnswerIs2 = findViewById(R.id.right_answer_is_2);
+            rightAnswerIs2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    manageCheckBoxSelection(view, 1);
+                }
+            });
+
+            //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
+            CheckBox scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
+            scrollableRightAnswerIs1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    manageCheckBoxSelection(view, 0);
+                }
+            });
+
+            //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
+            CheckBox scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
+            scrollableRightAnswerIs2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    manageCheckBoxSelection(view, 1);
+                }
+            });
         }
 
+
+    }
+    private void setButtonBg(String gameMode){
+        if(gameMode.equals("ApeChill")){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                buttonAnecdote.setBackground(getDrawable(R.drawable.button));
+                buttonGages.setBackground(getDrawable(R.drawable.button));
+                buttonQuestion.setBackground(getDrawable(R.drawable.button));
+                buttonMiniGames.setBackground(getDrawable(R.drawable.button));
+                sentenceEditNextButton.setBackground(getDrawable(R.drawable.button));
+                answerEditNextButton.setBackground(getDrawable(R.drawable.button));
+                buttonsEditNextButton.setBackground(getDrawable(R.drawable.button));
+                editButton1.setBackground(getDrawable(R.drawable.button));
+                editButton2.setBackground(getDrawable(R.drawable.button));
+                scrollableEditButton1.setBackground(getDrawable(R.drawable.button));
+                scrollableEditButton2.setBackground(getDrawable(R.drawable.button));
+                visualizeButton.setBackground(getDrawable(R.drawable.button));
+                pointNextButton.setBackground(getDrawable(R.drawable.button));
+            }
+        }
+        else{
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                buttonAnecdote.setBackground(getDrawable(R.drawable.button2));
+                buttonGages.setBackground(getDrawable(R.drawable.button2));
+                buttonQuestion.setBackground(getDrawable(R.drawable.button2));
+                buttonMiniGames.setBackground(getDrawable(R.drawable.button2));
+                sentenceEditNextButton.setBackground(getDrawable(R.drawable.button2));
+                answerEditNextButton.setBackground(getDrawable(R.drawable.button2));
+                buttonsEditNextButton.setBackground(getDrawable(R.drawable.button2));
+                editButton1.setBackground(getDrawable(R.drawable.button2));
+                editButton2.setBackground(getDrawable(R.drawable.button2));
+                scrollableEditButton1.setBackground(getDrawable(R.drawable.button2));
+                scrollableEditButton2.setBackground(getDrawable(R.drawable.button2));
+                visualizeButton.setBackground(getDrawable(R.drawable.button2));
+                pointNextButton.setBackground(getDrawable(R.drawable.button2));
+
+            }
+        }
     }
 
     //gère les checks box pour éviter d'écrire 4 fois la même chose
@@ -666,6 +643,7 @@ public class AddSentenceActivity extends AppCompatActivity {
     }
 
     //permet d'éviter d'écrire 4 fois le même code pour la selection du type de phrase
+
     private void manageSentenceTypeSelection(String usedButtonText){
         sentenceTypeLayout.setVisibility(View.GONE);
         sentenceEditLayout.setVisibility(View.VISIBLE);
@@ -681,7 +659,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         }else if (usedButtonText.equals("Question")){
             sentenceTypeSpinner.setSelection(3);
         }
-        questionTextView.setText("Write the "+usedButtonText+" in the box bellow.");
+        questionTextView.setText(getString(R.string.complete));
     }
     private void showInfoPopup(int layout){
         AlertDialog alertDialog;
@@ -690,15 +668,14 @@ public class AddSentenceActivity extends AppCompatActivity {
 
         Button okButton = layoutView.findViewById(R.id.ok_button);
         TextView textInfo = layoutView.findViewById(R.id.text_info);
+        TextView bonusText = layoutView.findViewById(R.id.bonus_text);
         ImageView imageInfo = layoutView.findViewById(R.id.image_info);
         ImageView nextArrow = layoutView.findViewById(R.id.right_popup_arrow);
         ImageView previousArrow = layoutView.findViewById(R.id.left_popup_arrow);
         final int[] pageCpt = {1};
         CheckBox checkBox = layoutView.findViewById(R.id.block_popup_checkBox);
-        textInfo.setText("Page 1 ");
         okButton.setVisibility(View.INVISIBLE);
         imageInfo.setVisibility(View.GONE);
-
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -706,17 +683,26 @@ public class AddSentenceActivity extends AppCompatActivity {
         checkBox.setVisibility(View.INVISIBLE);
         imageInfo.setVisibility(View.GONE);
         previousArrow.setVisibility(View.INVISIBLE);
+        String text1 = getString(R.string.first_text_info_addSentence);
+        String text2 = getString(R.string.second_text_info_addSentence1);
+        String text3 = getString(R.string.third_text_info_addSentence);
+        textInfo.setText(text1);
         nextArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(pageCpt[0] ==1){// passage à la page 2
-                    textInfo.setText("Page 2 ");
+                    textInfo.setText(text2);
+                    imageInfo.setVisibility(View.VISIBLE);
+                    imageInfo.setImageResource(R.drawable.add_player);
+                    bonusText.setVisibility(View.VISIBLE);
                     previousArrow.setVisibility(View.VISIBLE);
                     pageCpt[0]++;
                 }
                 else if(pageCpt[0] ==2){ // passage la page 3
-                    textInfo.setText("Page 3");
+                    textInfo.setText(text3);
+                    imageInfo.setVisibility(View.GONE);
                     nextArrow.setImageResource(R.drawable.check);
+                    bonusText.setVisibility(View.GONE);
                     pageCpt[0]++;
                 }
                 else{
@@ -731,13 +717,18 @@ public class AddSentenceActivity extends AppCompatActivity {
 
                 }
                 else if(pageCpt[0]==2){// retour à la page 1
-                    textInfo.setText("Page 1");
+                    textInfo.setText(text1);
                     previousArrow.setVisibility(View.INVISIBLE);
+                    imageInfo.setVisibility(View.GONE);
+                    bonusText.setVisibility(View.GONE);
                     pageCpt[0]--;
                 }
                 else{ //retour page 2
-                    textInfo.setText("Page 2");
+                    textInfo.setText(text2);
                     nextArrow.setImageResource(R.drawable.right_arrow);
+                    imageInfo.setVisibility(View.VISIBLE);
+                    imageInfo.setImageResource(R.drawable.add_player);
+                    bonusText.setVisibility(View.VISIBLE);
                     pageCpt[0]--;
                 }
             }
@@ -789,7 +780,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         Button yesButton = layoutView.findViewById(R.id.yes_button);
         Button noButton = layoutView.findViewById(R.id.no_button);
         Button addButton = layoutView.findViewById(R.id.add_button);
-        Button editButton = layoutView.findViewById(R.id.edit_button);
+        ImageView xButton = layoutView.findViewById(R.id.x_answer_button);
         TextView answerText = layoutView.findViewById(R.id.text_display);
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
@@ -801,7 +792,6 @@ public class AddSentenceActivity extends AppCompatActivity {
                 yesButton.setBackground(getDrawable(R.drawable.button2));
                 noButton.setBackground(getDrawable(R.drawable.button2));
                 addButton.setBackground(getDrawable(R.drawable.button2));
-                editButton.setBackground(getDrawable(R.drawable.button2));
             }
         }
         ViewGroup.LayoutParams params = yesButton.getLayoutParams();
@@ -821,7 +811,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
                 addButton.setVisibility(View.VISIBLE);
-                editButton.setVisibility(View.VISIBLE);
+                xButton.setVisibility(View.VISIBLE);
                 answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
         });
@@ -839,18 +829,31 @@ public class AddSentenceActivity extends AppCompatActivity {
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
                 addButton.setVisibility(View.VISIBLE);
-                editButton.setVisibility(View.VISIBLE);
+                xButton.setVisibility(View.VISIBLE);
                 answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
         });
+        if(editSentence)
+            addButton.setText(getString(R.string.edit));
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String encoding = encoding();
+                String type = sentenceTypeSpinner.getSelectedItem().toString();
+                int typeOfGame = 2;
+                if(gameModeSpinner.getSelectedItem().toString().equals("ApeChill")){
+                    typeOfGame=1;
+                }
+                addSentence(encoding,type,typeOfGame);
+                try {
+                    showFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 answerText.setText(encoding);
             }
         });
-        editButton.setOnClickListener(new View.OnClickListener() {
+        xButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog.dismiss();
@@ -937,9 +940,9 @@ public class AddSentenceActivity extends AppCompatActivity {
 
     private void addSentence(String ligne, String sentenceType, int typeOfGame){
         //on adaptes le sentenceType
-        if(sentenceType.equals("Annecdote"))
+        if(sentenceType.equals("Anecdote"))
             sentenceType="anecdotes";
-        if(sentenceType.equals("Gages"))
+        if(sentenceType.equals("Gage"))
             sentenceType="gages";
         if(sentenceType.equals("Mini-jeu"))
             sentenceType="minigames";
@@ -955,7 +958,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             ArrayList<String> phrase = new ArrayList<String>();
             int typeOfGameCounter=1;
             while ((text = br.readLine())!=null){
-                Log.d(TAG, text);
+
                 phrase.add(text+"\n");
                 if(text.equals(sentenceType) && typeOfGame==typeOfGameCounter){ //on trouve l'endroit où on doit insérer la ligne du joueur
                     phrase.add(ligne+"\n");
@@ -982,7 +985,20 @@ public class AddSentenceActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+// pour voir le contenu du fichier
+    private void showFile() throws IOException {
+        //ouverture du fichier
+        FileInputStream fis=openFileInput(FILE_NAME);
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
 
+        //on compte le nombre de ligne pour créer un tableau de bonne taille
+        String text;
+        while ((text = br.readLine())!=null){
+            Log.d(TAG, text);
+        }
+        fis.close();
+    }
     @Override
     public void onBackPressed() {
         Intent optionActivity = new Intent(getApplicationContext(), OptionActivity.class);

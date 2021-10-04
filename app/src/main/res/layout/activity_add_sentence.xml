@@ -12,7 +12,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Sentences"
+        android:text="@string/add_sentence"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="In which gamemode do you want to add the sentence ?"
+            android:text="@string/game_mode_edit_text"
             android:textColor="@color/white"/>
 
         <!-- Le layout pour savoir le mode de jeu-->
@@ -99,7 +99,7 @@
                     android:layout_width="80dp"
                     android:layout_height="45dp"
                     android:layout_weight="1"
-                    android:text="Anecdote"
+                    android:text="@string/type_anecdote"
                     android:layout_marginRight="10dp"/>
 
                 <Button
@@ -109,7 +109,7 @@
                     android:layout_width="80dp"
                     android:layout_height="45dp"
                     android:layout_weight="1"
-                    android:text="Gages"
+                    android:text="@string/type_gage"
                     android:layout_marginLeft="10dp"/>
             </LinearLayout>
             <LinearLayout
@@ -125,7 +125,7 @@
                     android:layout_width="80dp"
                     android:layout_height="45dp"
                     android:layout_weight="1"
-                    android:text="MiniGame"
+                    android:text="@string/type_mini_game"
                     android:layout_marginRight="10dp"/>
                 <Button
                     android:id="@+id/button_question"
@@ -134,7 +134,7 @@
                     android:layout_width="80dp"
                     android:layout_height="45dp"
                     android:layout_weight="1"
-                    android:text="Question"
+                    android:text="@string/type_sentence"
                     android:layout_marginLeft="10dp"/>
             </LinearLayout>
         </LinearLayout>
@@ -185,7 +185,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/button"
                 app:backgroundTint = "@null"
-                android:text="Next"
+                android:text="@string/next"
                 android:layout_gravity="center"
                 />
 
@@ -237,7 +237,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/button"
                 app:backgroundTint = "@null"
-                android:text="Next"
+                android:text="@string/next"
                 android:layout_gravity="center"
                 />
 
@@ -338,7 +338,7 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/button"
                 app:backgroundTint = "@null"
-                android:text="Next"
+                android:text="@string/next"
                 android:layout_gravity="center"
                 />
         </LinearLayout>
@@ -422,7 +422,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Summary of your settings, you can still edit them.\nYou may need to scroll to view all of them"
+        android:text="@string/sumury_text"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -455,7 +455,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Game Mode :"
+                    android:text="@string/game_mode"
                     android:textColor="@color/white"
                     android:textSize="24sp"/>
 
@@ -479,7 +479,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sentence type :"
+                    android:text="@string/type_spinner"
                     android:textColor="@color/white"
                     android:layout_marginLeft="10dp"
                     android:textSize="24sp"/>
@@ -505,7 +505,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sentence :"
+                    android:text="@string/my_sentence"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/white"
 

@@ -9,6 +9,15 @@
     android:layout_gravity="center"
     android:orientation="vertical">
 
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/x_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/x_answer_button"
+        android:visibility="gone"/>
+
     <LinearLayout
         android:id="@+id/display_Layout"
         android:layout_width="wrap_content"
@@ -70,17 +79,6 @@
             android:textSize="20sp"
             app:backgroundTint="@null" />
 
-        <Button
-            android:id="@+id/edit_button"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:background="@drawable/button_shape"
-            android:text="@string/edit"
-            android:textColor="#FFFFFF"
-            android:textAllCaps="false"
-            android:visibility="gone"
-            android:textSize="15sp"
-            app:backgroundTint="@null" />
         <Button
             android:layout_marginLeft="20dp"
             android:id="@+id/add_button"

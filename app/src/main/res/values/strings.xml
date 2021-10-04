@@ -61,7 +61,7 @@
     <string name="games_election_button">Game Selection</string>
     <string name="type_gage">Pledge</string>
     <string name="type_mini_game">Mini-Game</string>
-    <string name="type_sentence">Question/Action</string>
+    <string name="type_sentence">Question</string>
     <string name="type_anecdote">Anecdote</string>
     <string name="games">Games</string>
     <string name="description_ape_chill">It\'s a very great game that everyone love and everyone want to play it !</string>
@@ -82,7 +82,7 @@
     <string name="roulete_description">Because you don\'t need a reason to drink !</string>
     <string name="description_red_or_black">One chance out of two, easy right ?</string>
     <string name="ApePiment">ApePiment</string>
-    <string name="ape_pimnet_description">For a spicy apéro, discover the naughty secrets of your friends</string>
+    <string name="ape_pimnet_description">For a spicy apero, discover the naughty secrets of your friends</string>
     <string name="drink">drink</string>
     <string name="your_turn">it\'s your turn</string>
     <string name="game_description">You can answer the question and earn points or skip and drink</string>
@@ -93,8 +93,8 @@
     <string name="add_answer">Add your answer</string>
     <string name="add_text">Add your sentence</string>
     <string name="visualize">visualise</string>
-    <string name="game_mode">Game Mode</string>
-    <string name="type_spinner">Sentence type</string>
+    <string name="game_mode">Game Mode: </string>
+    <string name="type_spinner">Sentence type:</string>
     <string name="mark">Player 1 scores</string>
     <string-array name="gameModeList">
         <item>ApeChill</item>
@@ -102,7 +102,7 @@
     </string-array>
     <string-array name="typeList">
         <item>Anecdote</item>
-        <item>Gages</item>
+        <item>Gage</item>
         <item>Mini-jeu</item>
         <item>Question</item>
     </string-array>
@@ -118,6 +118,15 @@
     <string name="edit">Modifier</string>
     <string name="right_answer">I\'m the right answer</string>
     <string name="wrong_answer">I\'m the wrong answer</string>
-    <string name="add_sentence">Ajouter mes phrases</string>
-    <string name="my_sentence">Mes phrases</string>
+    <string name="add_sentence">Add my sentences</string>
+    <string name="my_sentence">My sentences</string>
+    <string name="my_sentences">My sentence</string>
+    <string name="skip">skip</string>
+    <string name="first_text_info_addSentence">Complete your sentence along the way and follow its evolution by scrolling the screen below. Each part of your sentence is editable at any moment</string>
+    <string name="second_text_info_addSentence1">By clicking on the picture bellow, a player will be mentioned</string>
+    <string name="third_text_info_addSentence">When everything is ready, press \"Visualize\" in order to see how your sentence will appear in the game</string>
+    <string name="note_max_player">note: 3 players max</string>
+    <string name="game_mode_edit_text">In which game mode do you want to add the sentence ?</string>
+    <string name="sumury_text">Summary of your settings, you can still edit them.\nYou may need to scroll to view all of them</string>
+    <string name="complete">Complete your sentence</string>
 </resources>

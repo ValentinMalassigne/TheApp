@@ -138,10 +138,16 @@ public class GameActivity extends AppCompatActivity {
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1]);
+                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],1);
             }
         });
-
+        Button skipButton = (Button) findViewById(R.id.skip_button);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],2);
+            }
+        });
 
         ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
         xButton.setOnClickListener(new View.OnClickListener() {
@@ -179,6 +185,10 @@ public class GameActivity extends AppCompatActivity {
         Button okButton = layoutView.findViewById(R.id.ok_button);
         TextView textInfo = layoutView.findViewById(R.id.text_info);
         ImageView imageInfo = layoutView.findViewById(R.id.image_info);
+        ImageView nextButton = layoutView.findViewById(R.id.right_popup_arrow);
+        nextButton.setVisibility(View.GONE);
+        ImageView leftButton = layoutView.findViewById(R.id.left_popup_arrow);
+        leftButton.setVisibility(View.GONE);
         textInfo.setText(getString(R.string.game_description));
         imageInfo.setVisibility(View.GONE);
 
@@ -218,7 +228,7 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    private void showAnswerPopup(int layout, String text){
+    private void showAnswerPopup(int layout, String text, int typeOfCall){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
@@ -243,65 +253,72 @@ public class GameActivity extends AppCompatActivity {
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        textDisplay.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
+        if(typeOfCall ==1) { // appel normal par réponse
+            textDisplay.setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY));
+            yesButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (currentChallenge[4].equals("+")) {//si c'est + et que le joueur répond oui alors il a gagné
+                        String temp = "<b>" + currentPlayer + "</b> " + getString(R.string.scoring) + " " + currentChallenge[0] + " " + getString(R.string.points);
+                        textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
+                        noButton.setVisibility(View.GONE);
+                        yesButton.setVisibility(View.GONE);
+                        nextButton.setVisibility(View.VISIBLE);
+                        // ajout au score
+                        for (int i = 0; i < scoreTab.length; i++) {
+                            if (playerTab[i].equals(currentPlayer)) {
 
-        yesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(currentChallenge[4].equals("+")){//si c'est + et que le joueur répond oui alors il a gagné
-                    String temp = "<b>"+currentPlayer+"</b> "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points);
-                    textDisplay.setText(HtmlCompat.fromHtml(temp,HtmlCompat.FROM_HTML_MODE_LEGACY));
-                    noButton.setVisibility(View.GONE);
-                    yesButton.setVisibility(View.GONE);
-                    nextButton.setVisibility(View.VISIBLE);
-                    // ajout au score
-                    for (int i=0;i<scoreTab.length;i++){
-                        if (playerTab[i].equals(currentPlayer)){
-
-                            int scoreInt = Integer.parseInt(currentChallenge[0]);
-                            int currentPlayerScore = Integer.parseInt(scoreTab[i]);
-                            int newScore = scoreInt+currentPlayerScore;
-                            scoreTab[i] = Integer.toString(newScore);
+                                int scoreInt = Integer.parseInt(currentChallenge[0]);
+                                int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                                int newScore = scoreInt + currentPlayerScore;
+                                scoreTab[i] = Integer.toString(newScore);
+                            }
                         }
+                    } else { //sinon il a perdu
+                        String temp = "<b>" + currentPlayer + "</b> " + getPunition();
+                        textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
+                        yesButton.setVisibility(View.GONE);
+                        noButton.setVisibility(View.GONE);
+                        nextButton.setVisibility(View.VISIBLE);
                     }
-                }else{ //sinon il a perdu
-                    String temp = "<b>"+currentPlayer+"</b> "+getPunition();
-                    textDisplay.setText(HtmlCompat.fromHtml(temp,HtmlCompat.FROM_HTML_MODE_LEGACY));
-                    yesButton.setVisibility(View.GONE);
-                    noButton.setVisibility(View.GONE);
-                    nextButton.setVisibility(View.VISIBLE);
                 }
-            }
-        });
+            });
+            noButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (currentChallenge[4].equals("-")) {//si c'est - et que le joueur répond oui alors il a gagné
+                        String temp = "<b>" + currentPlayer + "</b> " + getString(R.string.scoring) + " " + currentChallenge[0] + " " + getString(R.string.points);
+                        textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
+                        noButton.setVisibility(View.GONE);
+                        yesButton.setVisibility(View.GONE);
+                        nextButton.setVisibility(View.VISIBLE);
+                        // ajout au score
+                        for (int i = 0; i < scoreTab.length; i++) {
+                            if (playerTab[i].equals(currentPlayer)) {
 
-        noButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(currentChallenge[4].equals("-")){//si c'est - et que le joueur répond oui alors il a gagné
-                    String temp = "<b>"+currentPlayer+"</b> "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points);
-                    textDisplay.setText(HtmlCompat.fromHtml(temp,HtmlCompat.FROM_HTML_MODE_LEGACY));
-                    noButton.setVisibility(View.GONE);
-                    yesButton.setVisibility(View.GONE);
-                    nextButton.setVisibility(View.VISIBLE);
-                    // ajout au score
-                    for (int i=0;i<scoreTab.length;i++){
-                        if (playerTab[i].equals(currentPlayer)){
-
-                            int scoreInt = Integer.parseInt(currentChallenge[0]);
-                            int currentPlayerScore = Integer.parseInt(scoreTab[i]);
-                            int newScore = scoreInt+currentPlayerScore;
-                            scoreTab[i] = Integer.toString(newScore);
+                                int scoreInt = Integer.parseInt(currentChallenge[0]);
+                                int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                                int newScore = scoreInt + currentPlayerScore;
+                                scoreTab[i] = Integer.toString(newScore);
+                            }
                         }
+                    } else { //sinon il a perdu
+                        String temp = "<b>" + currentPlayer + "</b> " + getPunition();
+                        textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
+                        yesButton.setVisibility(View.GONE);
+                        noButton.setVisibility(View.GONE);
+                        nextButton.setVisibility(View.VISIBLE);
                     }
-                }else{ //sinon il a perdu
-                    String temp = "<b>"+currentPlayer+"</b> "+getPunition();
-                    textDisplay.setText(HtmlCompat.fromHtml(temp,HtmlCompat.FROM_HTML_MODE_LEGACY));
-                    yesButton.setVisibility(View.GONE);
-                    noButton.setVisibility(View.GONE);
-                    nextButton.setVisibility(View.VISIBLE);
                 }
-            }
-        });
+            });
+        }
+        else{ // appel par skip
+            String temp = "<b>" + currentPlayer + "</b> " + getPunition();
+            textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
+            yesButton.setVisibility(View.GONE);
+            noButton.setVisibility(View.GONE);
+            nextButton.setVisibility(View.VISIBLE);
+        }
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -521,7 +538,7 @@ public class GameActivity extends AppCompatActivity {
                     i++;
                 }
             }
-            answers=ligne.substring(j,i);
+            answers=ligne.substring(j+1,i);
             sentence=ligne.substring(i+1);//on lit tout jusqu'à la fin pour avoir la phrase
 
             currentChallenge[0]=points;
