@@ -263,6 +263,10 @@ public class CharacterChooseActivity extends AppCompatActivity {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(CharacterChooseActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
         Button okButton = layoutView.findViewById(R.id.ok_button);
+        ImageView nextButton = layoutView.findViewById(R.id.right_popup_arrow);
+        ImageView leftButton = layoutView.findViewById(R.id.left_popup_arrow);
+        leftButton.setVisibility(View.GONE);
+        nextButton.setVisibility(View.GONE);
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

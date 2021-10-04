@@ -114,4 +114,7 @@
     <string name="title_activity_add_sentence2">AddSentenceActivity2</string>
     <string name="what_sentence_type">Quelle type de phrase voulez-vous ajouter</string>
     <string name="sentence">Phrase</string>
+    <string name="first_text_info_addSentence">Complete au fur et à mesure ta phrase et suit son évolution en scrollant en dessous de la ligne. Chaque éléments de la phrase est modifiable à tout moment.</string>
+    <string name="second_text_info_addSentence1">En cliquant sur l\'image ci-dessous tu indiqueras qu\'a ce moment dans ta phrase le prénom d\'un joueur apparait</string>
+    <string name="third_text_info_addSentence">Une fois que tout est pret, appuie sur "Visualiser" afin de voir comment ta phrase apparaitera dans le jeu</string>
 </resources>

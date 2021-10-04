@@ -80,7 +80,7 @@ public class AddSentenceActivity extends AppCompatActivity {
     private CheckBox rightAnswerIs2;
     private CheckBox scrollableRightAnswerIs2;
     private CheckBox scrollableRightAnswerIs1;
-    private boolean editSentence;
+    private boolean editSentence = false;
     private String[] decodedSentence;
     private static final String FILE_NAME = "custom_sentences.txt";
 
@@ -95,7 +95,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            editSentence = true;
+            editSentence = extras.getBoolean("editSentence");
             decodedSentence=extras.getStringArray("decodedSentence");//0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame
         }
 
@@ -150,8 +150,6 @@ public class AddSentenceActivity extends AppCompatActivity {
         this.scrollablePointList = findViewById(R.id.scrollable_point_list);
         this.scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
         this.scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
-
-        editSentence=false;
     }
 
     private void start(){
@@ -263,7 +261,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             scrollablePointList.setAdapter(adapter3);
 
             //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame
-            if(decodedSentence[7].equals("2")){
+            if(decodedSentence[7].equals("ApePiment")){
                 gameModeSpinner.setSelection(1);
             }
             if(decodedSentence[3].equals("Gages")){
@@ -275,6 +273,8 @@ public class AddSentenceActivity extends AppCompatActivity {
             if(decodedSentence[3].equals("Question")){
                 sentenceTypeSpinner.setSelection(3);
             }
+            decodedSentence[2]= decodedSentence[2].replaceAll("§","--joueur--");
+            decodedSentence[1]=decodedSentence[1].replaceAll("§","--joueur--");
             scrollableSentenceEditText.setText(decodedSentence[2]);
             scrollableAnswerEditText.setText(decodedSentence[1]);
 
@@ -307,13 +307,23 @@ public class AddSentenceActivity extends AppCompatActivity {
             scrollableEditButton1.setText(decodedSentence[5]);
             scrollableEditButton2.setText(decodedSentence[6]);
 
-            if(decodedSentence[0].equals("2")){
-                scrollablePointList.setSelection(1);
-            }
-            if(decodedSentence[0].equals("3")){
-                scrollablePointList.setSelection(2);
-            }
+            scrollablePointList.setSelection(Integer.valueOf(decodedSentence[0]));
+            visualizeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String text = scrollableSentenceEditText.getText().toString();
+                    String answer = scrollableAnswerEditText.getText().toString();
+                    if (numberOfOccurrences(text) == 0) {
+                        text = "--joueur--" + " " + text;
+                    }
+                    text = getCleanText(text);
+                    answer = getCleanText(answer);
+                    String title = sentenceTypeSpinner.getSelectedItem().toString();
+                    String point = scrollablePointList.getSelectedItem().toString();
+                    showValidatePopup(R.layout.visualisation_popup, title, text, answer, point);
 
+                }
+            });
         }
         else {
             //bouton Anecdote
@@ -661,7 +671,6 @@ public class AddSentenceActivity extends AppCompatActivity {
         ImageView previousArrow = layoutView.findViewById(R.id.left_popup_arrow);
         final int[] pageCpt = {1};
         CheckBox checkBox = layoutView.findViewById(R.id.block_popup_checkBox);
-        textInfo.setText("Page 1 ");
         okButton.setVisibility(View.INVISIBLE);
         imageInfo.setVisibility(View.GONE);
 
@@ -672,16 +681,23 @@ public class AddSentenceActivity extends AppCompatActivity {
         checkBox.setVisibility(View.INVISIBLE);
         imageInfo.setVisibility(View.GONE);
         previousArrow.setVisibility(View.INVISIBLE);
+        String text1 = getString(R.string.first_text_info_addSentence);
+        String text2 = getString(R.string.second_text_info_addSentence1);
+        String text3 = getString(R.string.third_text_info_addSentence);
+        textInfo.setText(text1);
         nextArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(pageCpt[0] ==1){// passage à la page 2
-                    textInfo.setText("Page 2 ");
+                    textInfo.setText(text2);
+                    imageInfo.setVisibility(View.VISIBLE);
+                    imageInfo.setImageResource(R.drawable.add_player);
                     previousArrow.setVisibility(View.VISIBLE);
                     pageCpt[0]++;
                 }
                 else if(pageCpt[0] ==2){ // passage la page 3
-                    textInfo.setText("Page 3");
+                    textInfo.setText(text3);
+                    imageInfo.setVisibility(View.GONE);
                     nextArrow.setImageResource(R.drawable.check);
                     pageCpt[0]++;
                 }
@@ -697,13 +713,16 @@ public class AddSentenceActivity extends AppCompatActivity {
 
                 }
                 else if(pageCpt[0]==2){// retour à la page 1
-                    textInfo.setText("Page 1");
+                    textInfo.setText(text1);
                     previousArrow.setVisibility(View.INVISIBLE);
+                    imageInfo.setVisibility(View.GONE);
                     pageCpt[0]--;
                 }
                 else{ //retour page 2
-                    textInfo.setText("Page 2");
+                    textInfo.setText(text2);
                     nextArrow.setImageResource(R.drawable.right_arrow);
+                    imageInfo.setVisibility(View.VISIBLE);
+                    imageInfo.setImageResource(R.drawable.add_player);
                     pageCpt[0]--;
                 }
             }
@@ -809,6 +828,8 @@ public class AddSentenceActivity extends AppCompatActivity {
                 answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
         });
+        if(editSentence)
+            addButton.setText(getString(R.string.edit));
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

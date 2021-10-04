@@ -28,6 +28,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.text.HtmlCompat;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -95,6 +96,8 @@ public class OptionActivity extends AppCompatActivity {
             }
         });
         LinearLayout editSentenceLayout  = (LinearLayout) findViewById(R.id.edit_sentence);
+        if(!checkFileExist())
+            editSentenceLayout.setVisibility(View.GONE);
         editSentenceLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,11 +189,22 @@ public class OptionActivity extends AppCompatActivity {
             edit.setImageResource(R.drawable.edit_logo);
             edit.setLayoutParams(deleteImageParams);
             edit.setId(editID);
+            int finalI = i;
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     // il faut envoyer la ligne correspondante
+                    String[] line = new String[8];
+                    for(int j=0;j<line.length;j++){
+                        line[j] = decodingTab[finalI][j];
+                    }
 
+                    Intent addSentenceActivity = new Intent(getApplicationContext(), AddSentenceActivity.class);
+                    addSentenceActivity.putExtra("decodedSentence", line);
+                    addSentenceActivity.putExtra("editSentence",true);
+                    startActivity(addSentenceActivity);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    finish();
                 }
             });
 
@@ -412,6 +426,14 @@ public class OptionActivity extends AppCompatActivity {
         }
 
         return occurrences;
+    }
+    private Boolean checkFileExist(){
+        Boolean res = true;
+        File file = new File(getFilesDir()+"/"+FILE_NAME);
+        if (!file.exists()){
+            res = false;
+        }
+        return res;
     }
 
     @Override
