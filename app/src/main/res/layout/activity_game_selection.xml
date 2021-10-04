@@ -9,35 +9,36 @@
     android:id="@+id/main_layout"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/convergence"
+        android:text="@string/game"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/setting_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:layout_marginTop="50dp">
 
-        <LinearLayout
-            android:id="@+id/layout_info_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="20dp">
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/game"
-                android:textSize="40sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:fontFamily="@font/convergence"/>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/settings"
-
-                android:id="@+id/setting_button"/>
-        </LinearLayout>
 
         <ScrollView
             android:layout_width="wrap_content"
@@ -57,9 +58,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"                        android:layout_width="100dp"
+                        android:layout_width="100dp"
                         android:layout_height="100dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:src="@drawable/app_icon" />
 
                     <LinearLayout
@@ -72,28 +74,28 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/apechill_title"
-                            android:textSize="35sp"
-                            android:textColor="@color/white"
                             android:fontFamily="@font/convergence"
-                            android:textStyle="bold"
-                            />
+                            android:text="@string/apechill_title"
+                            android:textColor="@color/white"
+                            android:textSize="35sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white"
                             android:fontFamily="@font/convergence"
-                            android:text="@string/description_ape_chill" />
+                            android:text="@string/description_ape_chill"
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <LinearLayout
+                    android:id="@+id/ape_piment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/ape_piment"
-                    android:background="@android:drawable/list_selector_background"
                     android:layout_marginTop="15dp"
+                    android:background="@android:drawable/list_selector_background"
                     android:orientation="horizontal">
 
                     <ImageView
@@ -113,15 +115,15 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ApePiment"
+                            android:textColor="@color/white"
                             android:textSize="35sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/white"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/ape_pimnet_description"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -150,8 +152,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/roulette_title"
                             android:fontFamily="@font/convergence"
+                            android:text="@string/roulette_title"
                             android:textColor="@color/white"
                             android:textSize="35sp"
                             android:textStyle="bold" />
@@ -159,9 +161,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white"
                             android:fontFamily="@font/convergence"
-                            android:text="@string/roulete_description" />
+                            android:text="@string/roulete_description"
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -175,9 +177,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"                        android:layout_width="100dp"
+                        android:layout_width="100dp"
                         android:layout_height="100dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:src="@drawable/card_game_logo" />
 
                     <LinearLayout
@@ -190,18 +193,18 @@
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/black_or_red_title"
-                            android:textSize="35sp"
                             android:fontFamily="@font/convergence"
+                            android:text="@string/black_or_red_title"
                             android:textColor="@color/white"
+                            android:textSize="35sp"
                             android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/convergence"
-                            android:textColor="@color/white"
-                            android:text="@string/description_red_or_black"  />
+                            android:text="@string/description_red_or_black"
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -211,13 +214,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:background="@android:drawable/list_selector_background">
+                    android:background="@android:drawable/list_selector_background"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"                        android:layout_width="100dp"
+                        android:layout_width="100dp"
                         android:layout_height="100dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:src="@drawable/coming_soon" />
 
                     <LinearLayout
@@ -249,9 +253,10 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"                        android:layout_width="100dp"
+                        android:layout_width="100dp"
                         android:layout_height="100dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
                         android:src="@drawable/coming_soon" />
 
                     <LinearLayout

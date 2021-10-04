@@ -2,6 +2,7 @@ package fr.mapoe.appproject;
 
 import static android.content.ContentValues.TAG;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -642,6 +643,7 @@ public class AddSentenceActivity extends AppCompatActivity {
     }
 
     //permet d'éviter d'écrire 4 fois le même code pour la selection du type de phrase
+
     private void manageSentenceTypeSelection(String usedButtonText){
         sentenceTypeLayout.setVisibility(View.GONE);
         sentenceEditLayout.setVisibility(View.VISIBLE);
@@ -657,7 +659,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         }else if (usedButtonText.equals("Question")){
             sentenceTypeSpinner.setSelection(3);
         }
-        questionTextView.setText("Write the "+usedButtonText+" in the box bellow.");
+        questionTextView.setText(getString(R.string.complete));
     }
     private void showInfoPopup(int layout){
         AlertDialog alertDialog;
@@ -666,6 +668,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
         Button okButton = layoutView.findViewById(R.id.ok_button);
         TextView textInfo = layoutView.findViewById(R.id.text_info);
+        TextView bonusText = layoutView.findViewById(R.id.bonus_text);
         ImageView imageInfo = layoutView.findViewById(R.id.image_info);
         ImageView nextArrow = layoutView.findViewById(R.id.right_popup_arrow);
         ImageView previousArrow = layoutView.findViewById(R.id.left_popup_arrow);
@@ -673,7 +676,6 @@ public class AddSentenceActivity extends AppCompatActivity {
         CheckBox checkBox = layoutView.findViewById(R.id.block_popup_checkBox);
         okButton.setVisibility(View.INVISIBLE);
         imageInfo.setVisibility(View.GONE);
-
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -692,6 +694,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                     textInfo.setText(text2);
                     imageInfo.setVisibility(View.VISIBLE);
                     imageInfo.setImageResource(R.drawable.add_player);
+                    bonusText.setVisibility(View.VISIBLE);
                     previousArrow.setVisibility(View.VISIBLE);
                     pageCpt[0]++;
                 }
@@ -699,6 +702,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                     textInfo.setText(text3);
                     imageInfo.setVisibility(View.GONE);
                     nextArrow.setImageResource(R.drawable.check);
+                    bonusText.setVisibility(View.GONE);
                     pageCpt[0]++;
                 }
                 else{
@@ -716,6 +720,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                     textInfo.setText(text1);
                     previousArrow.setVisibility(View.INVISIBLE);
                     imageInfo.setVisibility(View.GONE);
+                    bonusText.setVisibility(View.GONE);
                     pageCpt[0]--;
                 }
                 else{ //retour page 2
@@ -723,6 +728,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                     nextArrow.setImageResource(R.drawable.right_arrow);
                     imageInfo.setVisibility(View.VISIBLE);
                     imageInfo.setImageResource(R.drawable.add_player);
+                    bonusText.setVisibility(View.VISIBLE);
                     pageCpt[0]--;
                 }
             }
@@ -774,7 +780,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         Button yesButton = layoutView.findViewById(R.id.yes_button);
         Button noButton = layoutView.findViewById(R.id.no_button);
         Button addButton = layoutView.findViewById(R.id.add_button);
-        Button editButton = layoutView.findViewById(R.id.edit_button);
+        ImageView xButton = layoutView.findViewById(R.id.x_answer_button);
         TextView answerText = layoutView.findViewById(R.id.text_display);
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
@@ -786,7 +792,6 @@ public class AddSentenceActivity extends AppCompatActivity {
                 yesButton.setBackground(getDrawable(R.drawable.button2));
                 noButton.setBackground(getDrawable(R.drawable.button2));
                 addButton.setBackground(getDrawable(R.drawable.button2));
-                editButton.setBackground(getDrawable(R.drawable.button2));
             }
         }
         ViewGroup.LayoutParams params = yesButton.getLayoutParams();
@@ -806,7 +811,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
                 addButton.setVisibility(View.VISIBLE);
-                editButton.setVisibility(View.VISIBLE);
+                xButton.setVisibility(View.VISIBLE);
                 answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
         });
@@ -824,7 +829,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
                 addButton.setVisibility(View.VISIBLE);
-                editButton.setVisibility(View.VISIBLE);
+                xButton.setVisibility(View.VISIBLE);
                 answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
         });
@@ -848,7 +853,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                 answerText.setText(encoding);
             }
         });
-        editButton.setOnClickListener(new View.OnClickListener() {
+        xButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog.dismiss();

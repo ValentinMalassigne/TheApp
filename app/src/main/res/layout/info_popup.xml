@@ -36,6 +36,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_info" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/convergence"
+        android:id="@+id/bonus_text"
+        android:visibility="gone"
+        android:text="@string/note_max_player"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="italic"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_info">
+
+    </TextView>
+
     <Button
         android:id="@+id/ok_button"
         android:layout_width="200dp"
