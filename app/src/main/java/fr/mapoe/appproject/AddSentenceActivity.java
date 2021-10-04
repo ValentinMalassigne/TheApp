@@ -911,6 +911,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         encodingSentence+=scrollablePointList.getSelectedItem().toString()+ " ";
         encodingSentence+=answer+"¤";
         encodingSentence+=text;
+        encodingSentence+="¤The Punition !";//il faudra donner une punition custom
         return encodingSentence;
     }
 
@@ -985,6 +986,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 // pour voir le contenu du fichier
     private void showFile() throws IOException {
         //ouverture du fichier
@@ -999,6 +1001,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         }
         fis.close();
     }
+
     @Override
     public void onBackPressed() {
         Intent optionActivity = new Intent(getApplicationContext(), OptionActivity.class);

@@ -27,9 +27,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.text.HtmlCompat;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -148,6 +151,7 @@ public class OptionActivity extends AppCompatActivity {
     private void showSentence(int layout){
         int editID= 1;
         int deleteID=1001;
+        int textID=101;
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OptionActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
@@ -183,6 +187,8 @@ public class OptionActivity extends AppCompatActivity {
             textDisplay.setMaxLines(4);
             textDisplay.setTextSize(18);
             textDisplay.setText(HtmlCompat.fromHtml(getCleanText(decodingTab[i][2]),HtmlCompat.FROM_HTML_MODE_LEGACY));
+            textDisplay.setId(textID);
+            textDisplay.setHint(sentencesTab[i][0]);//on lui donne la phrase (comme dans le fichier text en hint, utilise pour le delete sentence)
 
 
             ImageView edit = new ImageView(getApplicationContext());
@@ -213,10 +219,11 @@ public class OptionActivity extends AppCompatActivity {
             delete.setImageResource(R.drawable.poubelle);
             delete.setLayoutParams(deleteImageParams);
             delete.setId(deleteID);
+            int finalDeleteID = deleteID;
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    deleteSentence(finalDeleteID);
                 }
             });
 
@@ -226,6 +233,7 @@ public class OptionActivity extends AppCompatActivity {
 
             deleteID++;
             editID++;
+            textID++;
         }
         alertDialog.show();
     }
@@ -318,11 +326,13 @@ public class OptionActivity extends AppCompatActivity {
             }
         }
         fis.close();
-        for(int j=0;j<sentencesTab.length;j++){
+
+        //ça fait crash ce truc
+        /*for(int j=0;j<sentencesTab.length;j++){
             for(int k=0;k<compteur;k++){
                 Log.d(TAG,sentencesTab[j][k]+" ligne "+Integer.toString(j)+" colonne "+Integer.toString(k));
             }
-        }
+        }*/
 
     }
 
@@ -400,6 +410,7 @@ public class OptionActivity extends AppCompatActivity {
             }
         }
     }
+
     private String getCleanText(String text) {
         String res = "";
         if (numberOfOccurrences(text) == 1) {
@@ -416,6 +427,7 @@ public class OptionActivity extends AppCompatActivity {
         }
         return res;
     }
+
     private int numberOfOccurrences(String source) {
         int occurrences = 0;
 
@@ -427,6 +439,7 @@ public class OptionActivity extends AppCompatActivity {
 
         return occurrences;
     }
+
     private Boolean checkFileExist(){
         Boolean res = true;
         File file = new File(getFilesDir()+"/"+FILE_NAME);
@@ -434,6 +447,49 @@ public class OptionActivity extends AppCompatActivity {
             res = false;
         }
         return res;
+    }
+
+    //marche pas, raison : java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.CharSequence android.widget.TextView.getText()' on a null object reference
+    private void deleteSentence(int deleteID){
+        int id = deleteID-900;
+        Log.d(TAG, "deleteSentence: "+id);
+        TextView sentenceTextView = (TextView) findViewById(id); //ça renvoit null donc il ne trouve pas le textView qui a cette id
+        Log.d(TAG, "deleteSentence: "+sentenceTextView);
+        String sentence = sentenceTextView.getHint().toString();
+        Log.d(TAG, "deleteSentence: "+sentence);
+        //on copie ce qu'il y a dans le fichier
+        try {
+            FileInputStream fis = openFileInput(FILE_NAME);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            String text;
+            ArrayList<String> phrase = new ArrayList<String>();
+
+            while ((text = br.readLine())!=null){
+
+                if(!text.equals(sentence)){ //si la phrase n'est pas la même que celle a supprimer alors on continue
+                    phrase.add(text+"\n");
+                }
+
+            }
+            fis.close();
+
+            //on prépare le remplissage du fichier retour
+            String remplissage = "";
+            while (!phrase.isEmpty()){
+                remplissage=remplissage+(phrase.remove(0));
+            }
+
+            //on réouvre le fichier mais cette fois ci pour y écrire
+            FileOutputStream fos = null;
+            fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
+            fos.write(remplissage.getBytes());
+            if(fos!=null){
+                fos.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

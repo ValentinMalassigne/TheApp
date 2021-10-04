@@ -1,49 +1,49 @@
 anecdotes
-rep1/rep2+2 Was it interesting ?¤§ tell us the first time you were drunk
-rep1/rep2+2 Was it interesting ?¤§ tell the worst thing you ever ate
-rep1/rep2-2 Have § ever done it before ?¤§ have you ever drink while working ?
-rep1/rep2+2 Was it interesting ?¤§ tell your worst holidays
-rep1/rep2+2 Was it interesting ?¤§ tell us the worst thing you have done during your studies
-rep1/rep2+2 Was it funny ?¤§ say something funny that happened to you recently
+rep1/rep2+2 Was it interesting ?¤§ tell us the first time you were drunk¤The Punition !
+rep1/rep2+2 Was it interesting ?¤§ tell the worst thing you ever ate¤The Punition !
+rep1/rep2-2 Have § ever done it before ?¤§ have you ever drink while working ?¤The Punition !
+rep1/rep2+2 Was it interesting ?¤§ tell your worst holidays¤The Punition !
+rep1/rep2+2 Was it interesting ?¤§ tell us the worst thing you have done during your studies¤The Punition !
+rep1/rep2+2 Was it funny ?¤§ say something funny that happened to you recently¤The Punition !
 gages
-rep1/rep2+4 Is § a magician ?¤§ do a magick trick in the next 10 seconds
-rep1/rep2+4 Is § looking like an expert ?¤§ talk like an expert about a subject that § chose
-rep1/rep2-4 Was the interview boring ?¤§ interview § on a subject chose by §
-rep1/rep2-4 Did § failed ?¤§ translate a sentence chose by § from french to english
-rep1/rep2+4 Did § clear the table ?¤§ clear the table
-rep1/rep2+4 Is § a good waiter ?¤§ refill others glass
-rep1/rep2+4 Did § drunk the tasty juice ?¤§ drink a cocktail made by §
-rep1/rep2+4 Did § blocked at least 3 people ?¤§ block 3 people on messenger/whatsapp/instagram
-rep1/rep2+4 Did § liked at least 3 publications ?¤§ open instagram and like the 3 first publications
-rep1/rep2+4 Did § sent the snap ?¤§ do a snap of the foot of the person on your right and send it to 3 people
+rep1/rep2+4 Is § a magician ?¤§ do a magick trick in the next 10 seconds¤The Punition !
+rep1/rep2+4 Is § looking like an expert ?¤§ talk like an expert about a subject that § chose¤The Punition !
+rep1/rep2-4 Was the interview boring ?¤§ interview § on a subject chose by §¤The Punition !
+rep1/rep2-4 Did § failed ?¤§ translate a sentence chose by § from french to english¤The Punition !
+rep1/rep2+4 Did § clear the table ?¤§ clear the table¤The Punition !
+rep1/rep2+4 Is § a good waiter ?¤§ refill others glass¤The Punition !
+rep1/rep2+4 Did § drunk the tasty juice ?¤§ drink a cocktail made by §¤The Punition !
+rep1/rep2+4 Did § blocked at least 3 people ?¤§ block 3 people on messenger/whatsapp/instagram¤The Punition !
+rep1/rep2+4 Did § liked at least 3 publications ?¤§ open instagram and like the 3 first publications¤The Punition !
+rep1/rep2+4 Did § sent the snap ?¤§ do a snap of the foot of the person on your right and send it to 3 people¤The Punition !
 minigames
-rep1/rep2-4 Did § failed the game ?¤§ make § guess a word chose by § by using 3 words
-rep1/rep2+4 Was § honest ? ¤§ if you were to block the toilets of § would you tell him or stay quiet
-rep1/rep2-4 Did § failed the game ?¤§ make § guess a french song by singing it in english
-rep1/rep2-4 Did § failed the game ?¤§ make § guess a english song by singing it in french
-rep1/rep2+4 Was § the first one to find the object ?¤§ find an object selected by §, if § finds it before you
-rep1/rep2+4 Was the description interesting ?¤§ and § describe the life of § by saying 2 words each other
-rep1/rep2+4 Did most of other people found the truth or not ?¤§ tell us an anecdote (real or fake), others have to guess if they are fake or not.
+rep1/rep2-4 Did § failed the game ?¤§ make § guess a word chose by § by using 3 words¤The Punition !
+rep1/rep2+4 Was § honest ? ¤§ if you were to block the toilets of § would you tell him or stay quiet¤The Punition !
+rep1/rep2-4 Did § failed the game ?¤§ make § guess a french song by singing it in english¤The Punition !
+rep1/rep2-4 Did § failed the game ?¤§ make § guess a english song by singing it in french¤The Punition !
+rep1/rep2+4 Was § the first one to find the object ?¤§ find an object selected by §, if § finds it before you¤The Punition !
+rep1/rep2+4 Was the description interesting ?¤§ and § describe the life of § by saying 2 words each other¤The Punition !
+rep1/rep2+4 Did most of other people found the truth or not ?¤§ tell us an anecdote (real or fake), others have to guess if they are fake or not.¤The Punition !
 Spinning Wheel
 Red or Black
 questions
-rep1/rep2-1 What is §'s answer ?¤§ have you ever been drunk with your family ?
-rep1/rep2+1 Do everyone agree with § ?¤§ who resists the best to alcohol in the group ?
-rep1/rep2+1 Is the recipe correct ?¤§ tell us the recipe of a plate
-rep1/rep2+1 Is the recipe correct ?¤§ tell us the recipe of a cocktail
-rep1/rep2+1 Do others think this fusion is possible ?¤§ invent a possible fusion of 2 sports
-rep1/rep2+1 Did § answered ?¤§ tell with who would you hate to spend your holidays
-rep1/rep2+1 Did § answered ?¤§ does it bother you when it's not shaved
-rep1/rep2+1 What is §'s answer ?¤§ have you ever been surprised during the act ?
-rep1/rep2+1 What is §'s answer ?¤§ have you ever kissed someone of the same gender?
-rep1/rep2+1 Do others agree with § ?¤§ what fetishism disgust you the most ?
-rep1/rep2-1 Is §'s answer is greater than 3 days ?¤§ what is the longest time you haven't washed yourself?
-rep1/rep2+1 What is §'s answer ?¤§ have you ever been exited at high school ?
-rep1/rep2+1 What is §'s answer ?¤§ have you ever suffered from an injustice at high school ?
-rep1/rep2+1 Was it interesting ?¤§ tell something random about you
-rep1/rep2+1 Was it interesting ?¤§ with who could you fight in the group
-rep1/rep2-1 What is §'s answer ?¤§ have you ever fight with someone of your family ?
-rep1/rep2-1 What is §'s answer ?¤§ have you ever sent or received nudes
+rep1/rep2-1 What is §'s answer ?¤§ have you ever been drunk with your family ?¤The Punition !
+rep1/rep2+1 Do everyone agree with § ?¤§ who resists the best to alcohol in the group ?¤The Punition !
+rep1/rep2+1 Is the recipe correct ?¤§ tell us the recipe of a plate¤The Punition !
+rep1/rep2+1 Is the recipe correct ?¤§ tell us the recipe of a cocktail¤The Punition !
+rep1/rep2+1 Do others think this fusion is possible ?¤§ invent a possible fusion of 2 sports¤The Punition !
+rep1/rep2+1 Did § answered ?¤§ tell with who would you hate to spend your holidays¤The Punition !
+rep1/rep2+1 Did § answered ?¤§ does it bother you when it's not shaved¤The Punition !
+rep1/rep2+1 What is §'s answer ?¤§ have you ever been caught during the act ?¤The Punition !
+rep1/rep2+1 What is §'s answer ?¤§ have you ever kissed someone of the same gender?¤The Punition !
+rep1/rep2+1 Do others agree with § ?¤§ what fetishism disgust you the most ?¤The Punition !
+rep1/rep2-1 Is §'s answer is greater than 3 days ?¤§ what is the longest time you haven't washed yourself?¤The Punition !
+rep1/rep2+1 What is §'s answer ?¤§ have you ever been exited at high school ?¤The Punition !
+rep1/rep2+1 What is §'s answer ?¤§ have you ever suffered from an injustice at high school ?¤The Punition !
+rep1/rep2+1 Was it interesting ?¤§ tell something random about you¤The Punition !
+rep1/rep2+1 Was it interesting ?¤§ with who could you fight in the group¤The Punition !
+rep1/rep2-1 What is §'s answer ?¤§ have you ever fight with someone of your family ?¤The Punition !
+rep1/rep2-1 What is §'s answer ?¤§ have you ever sent or received nudes¤The Punition !
 End
 anecdotes
 rep1/rep2+1 Anecdote génante 1¤§ dis un truc génant hahahahaha

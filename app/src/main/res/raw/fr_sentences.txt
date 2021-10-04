@@ -1,61 +1,61 @@
 anecdotes
-rep1/rep2+2 Est-ce que c'était interessant ?¤§ raconte ta première cuite ou une mémorable
-rep1/rep2+2 Est-ce que c'était interessant ?¤§ dis quel est le pire truc que tu as déjà mangé
-rep1/rep2-2 Est-ce que § l'a déjà fait ?¤§ as-tu déjà bu en travaillant ?
-rep1/rep2+2 Est-ce que c'était interessant?¤§ raconte tes pires vacances
-rep1/rep2+2 Est-ce que c'était interessant ?¤§ raconte ta plus grosse connerie pendant tes études ou au lycée
-rep1/rep2+2 Est-ce que c'était drôle ?¤§ raconte un truc drôle qui t'es arrivé récement
+rep1/rep2+2 Est-ce que c'était interessant ?¤§ raconte ta première cuite ou une mémorable¤The Punition !
+rep1/rep2+2 Est-ce que c'était interessant ?¤§ dis quel est le pire truc que tu as déjà mangé¤The Punition !
+rep1/rep2-2 Est-ce que § l'a déjà fait ?¤§ as-tu déjà bu en travaillant ?¤The Punition !
+rep1/rep2+2 Est-ce que c'était interessant?¤§ raconte tes pires vacances¤The Punition !
+rep1/rep2+2 Est-ce que c'était interessant ?¤§ raconte ta plus grosse connerie pendant tes études ou au lycée¤The Punition !
+rep1/rep2+2 Est-ce que c'était drôle ?¤§ raconte un truc drôle qui t'es arrivé récement¤The Punition !
 gages
-rep1/rep2+3 Est-ce que c'était féérique ?¤§ fait un tour de magie dans les 10 prochaines secondes
-rep1/rep2+2 Est-ce que § est un expert ?¤§ parle comme un expert d'un sujet que § choisit
-rep1/rep2+2 Est-ce que ce reportage était convaincant ?¤§ interview § sur un sujet que § à choisit
-rep1/rep2+2 § est-il/elle capable de vivre au moyen-age ?¤§ traduit une phrase choisit par § du vieux fran¤ais vers le fran¤ais actuel
-rep1/rep2+2 Est-ce que votre serveur à bien débarassé ?¤§ tu débarasse la table ou les verres
-rep1/rep2+2 § un bon barman ?¤§ tu ressert les autres
-rep1/rep2+3 Est-ce que § a bu ce mélange divin ? ¤§ bois un mélange fait par §
-rep1/rep2+2 Est-ce que § l'a fait ?¤§ bloque 3 personnes sur messenger/whatsapp/instagram
-rep1/rep2+2 Est-ce que § l'a fait ?¤§ ouvre instagram et like les 3 premières publications
-rep1/rep2+2 Est-ce que § l'a fait ?¤§ fais un snap des pieds de ton voisin et envoie à 3 contacts
-rep1/rep2+2 Est-ce que § l'a fait ?¤§ Envoie "Bonjour" à la 15ème personnes sur ton messenger
-rep1/rep2+2 § à l'âme d'un chanteur ?¤§ Chante une chanson Acapella pendant 10 secondes
-rep1/rep2+2 Est ce que plus de la moitié à trouvé ?¤§ Fait deviner un Animal avec son cris
-rep1/rep2+2 Est ce que plus de la moitié à trouvé ?¤§ Fait deviner un Animal sans aucun bruit
+rep1/rep2+3 Est-ce que c'était féérique ?¤§ fait un tour de magie dans les 10 prochaines secondes¤The Punition !
+rep1/rep2+2 Est-ce que § est un expert ?¤§ parle comme un expert d'un sujet que § choisit¤The Punition !
+rep1/rep2+2 Est-ce que ce reportage était convaincant ?¤§ interview § sur un sujet que § à choisit¤The Punition !
+rep1/rep2+2 § est-il/elle capable de vivre au moyen-age ?¤§ traduit une phrase choisit par § du vieux fran¤ais vers le fran¤ais actuel¤The Punition !
+rep1/rep2+2 Est-ce que votre serveur à bien débarassé ?¤§ tu débarasse la table ou les verres¤The Punition !
+rep1/rep2+2 § un bon barman ?¤§ tu ressert les autres¤The Punition !
+rep1/rep2+3 Est-ce que § a bu ce mélange divin ? ¤§ bois un mélange fait par §¤The Punition !
+rep1/rep2+2 Est-ce que § l'a fait ?¤§ bloque 3 personnes sur messenger/whatsapp/instagram¤The Punition !
+rep1/rep2+2 Est-ce que § l'a fait ?¤§ ouvre instagram et like les 3 premières publications¤The Punition !
+rep1/rep2+2 Est-ce que § l'a fait ?¤§ fais un snap des pieds de ton voisin et envoie à 3 contacts¤The Punition !
+rep1/rep2+2 Est-ce que § l'a fait ?¤§ Envoie "Bonjour" à la 15ème personnes sur ton messenger¤The Punition !
+rep1/rep2+2 § à l'âme d'un chanteur ?¤§ Chante une chanson Acapella pendant 10 secondes¤The Punition !
+rep1/rep2+2 Est ce que plus de la moitié à trouvé ?¤§ Fait deviner un Animal avec son cris¤The Punition !
+rep1/rep2+2 Est ce que plus de la moitié à trouvé ?¤§ Fait deviner un Animal sans aucun bruit¤The Punition !
 minigames
-rep1/rep2+2 Est-ce que § a réussi à faire deviner le mot ?¤§ fais devenir un mot choisit par § à § en utilisant 3-4 mots
-rep1/rep2-2 Est-ce que § a décidé de garder le silence ?¤§, si tu bouches les chiottes chez § tu serais plutôt du genre à lui dire ou faire comme si de rien n'était
-rep1/rep2+2 Est-ce que § a réussi à faire deviner ? ¤§ fait deviner une chanson anglaise en la chantant en français à §
-rep1/rep2+2 Est-ce que § a réussi à faire deviner ? ¤§ fait deviner une chanson fran¤aise en la chantant en anglais à §
-rep1/rep2+2 Est-ce que § a ramené l'objet en premier ? ¤§ va chercher un objet que § choisit, § cherche aussi l'objet.
-rep1/rep2+2 Est-ce que la description était interessante ?¤§ et § décrivez la vie de § en disant un mot chacun votre tour
-rep1/rep2-2 Est-ce que plus de la moité des joueurs ont trouvé la vérité ?¤§ raconte une anecdote (vrai ou fausse), les autres doivent devinée si elle est vrai ou fausse.
+rep1/rep2+2 Est-ce que § a réussi à faire deviner le mot ?¤§ fais devenir un mot choisit par § à § en utilisant 3-4 mots¤The Punition !
+rep1/rep2-2 Est-ce que § a décidé de garder le silence ?¤§, si tu bouches les chiottes chez § tu serais plutôt du genre à lui dire ou faire comme si de rien n'était¤The Punition !
+rep1/rep2+2 Est-ce que § a réussi à faire deviner ? ¤§ fait deviner une chanson anglaise en la chantant en français à §¤The Punition !
+rep1/rep2+2 Est-ce que § a réussi à faire deviner ? ¤§ fait deviner une chanson fran¤aise en la chantant en anglais à §¤The Punition !
+rep1/rep2+2 Est-ce que § a ramené l'objet en premier ? ¤§ va chercher un objet que § choisit, § cherche aussi l'objet.¤The Punition !
+rep1/rep2+2 Est-ce que la description était interessante ?¤§ et § décrivez la vie de § en disant un mot chacun votre tour¤The Punition !
+rep1/rep2-2 Est-ce que plus de la moité des joueurs ont trouvé la vérité ?¤§ raconte une anecdote (vrai ou fausse), les autres doivent devinée si elle est vrai ou fausse.¤The Punition !
 Spinning Wheel
 Red or Black
 questions
-rep1/rep2-1 Quelle est la réponse de § ?¤§ as-tu déjà été bourré avec ta famille ?
-rep1/rep2+1 Les autres sont-ils d'accord avec § ?¤§ qui tient le mieux l'alcool dans le groupe ?
-rep1/rep2+1 La recette est-elle correcte ?¤§ donne la recette d'un plat
-rep1/rep2+1 La recette est-elle correcte ?¤§ donne la recette d'un cocktail
-rep1/rep2+1 Les autres sont-ils d'accord avec § ?¤§ donne une combinaison possible de 2 sports
-rep1/rep2-1 § a-t'il refusé de répondre ?¤§ dis avec qui tu détesterais partir en vacances
-rep1/rep2-1 § a-t'il refusé de répondre ?¤§ dis si ¤a te dérange quand c'est pas rasé
-rep1/rep2-1 Quelle est la réponse de § ?¤§ est-ce que tu t'es déjà fait surprendre pendant l'acte ?
-rep1/rep2+1 Quelle est la réponse de § ?¤§ est-ce que tu as déjà embrassé quelqu'un du même sexe?
-rep1/rep2+1 Les autres sont-ils d'accord avec § ?¤§ quel est le fétichisme qui te dégoute le plus ?
-rep1/rep2-1 Est-ce que c'est supérieur a 3 jours ?¤§ quel est la plus longue durée pendant la quelle tu ne t'es pas lavé ?
-rep1/rep2-1 Quelle est la réponse de § ?¤§ as-tu déjà été exité au lycée ?
-rep1/rep2+1 Quelle est la réponse de § ?¤§ as-tu déjà subit une inujustice au lycée ?
-rep1/rep2+1 Est-ce que c'était interessant ?¤§ dis un truc aléatoire sur toi
-rep1/rep2+1 Est-ce que c'était interessant ?¤§ Avec qui tu pourrais te battre dans le groupe ?
-rep1/rep2-1 Quelle est la réponse de § ?¤§ est-ce que tu t'es déjà battu avec quelqu'un de ta famille ?
-rep1/rep2-1 Quelle est la réponse de § ?¤§ as tu déjà re¤u ou envoyer des nudes ?
-rep1/rep2-1 Quelle est la réponse de § ?¤§ As tu déjà fantasmé sur un/une prof ?
-rep1/rep2+1 Quelle est la réponse de § ?¤§ As tu déjà eu un plan cul en vancance ?
-rep1/rep2-1 Quelle est la réponse de § ?¤§ As tu déjà pris de la drogue avec ta famille ?
-rep1/rep2+1 Quelle est la réponse de § ?¤§ Es tu déjà arrivé bourré en cours ou au travail ?
-rep1/rep2+1 Quelle est la réponse de § ?¤§ Es tu déjà été en cours ou au travail juste après une soirée ?
-rep1/rep2+1 Est ce que les autres sont d'accord ?¤§ qui serai d'après toi capable de prendre une décison importante bourré ?
-rep1/rep2+1 Les autres sont d'accord pour dire que c'est pourris ?¤§ quel a été le pire cadeau que l'on t'est fait ?
-rep1/rep2+1 Est ce que c'était involontaire ?¤§ t'es tu déjà fait dessus (enfant ¤a compte pas) ?
+rep1/rep2-1 Quelle est la réponse de § ?¤§ as-tu déjà été bourré avec ta famille ?¤The Punition !
+rep1/rep2+1 Les autres sont-ils d'accord avec § ?¤§ qui tient le mieux l'alcool dans le groupe ?¤The Punition !
+rep1/rep2+1 La recette est-elle correcte ?¤§ donne la recette d'un plat¤The Punition !
+rep1/rep2+1 La recette est-elle correcte ?¤§ donne la recette d'un cocktail¤The Punition !
+rep1/rep2+1 Les autres sont-ils d'accord avec § ?¤§ donne une combinaison possible de 2 sports¤The Punition !
+rep1/rep2-1 § a-t'il refusé de répondre ?¤§ dis avec qui tu détesterais partir en vacances¤The Punition !
+rep1/rep2-1 § a-t'il refusé de répondre ?¤§ dis si ¤a te dérange quand c'est pas rasé¤The Punition !
+rep1/rep2-1 Quelle est la réponse de § ?¤§ est-ce que tu t'es déjà fait surprendre pendant l'acte ?¤The Punition !
+rep1/rep2+1 Quelle est la réponse de § ?¤§ est-ce que tu as déjà embrassé quelqu'un du même sexe?¤The Punition !
+rep1/rep2+1 Les autres sont-ils d'accord avec § ?¤§ quel est le fétichisme qui te dégoute le plus ?¤The Punition !
+rep1/rep2-1 Est-ce que c'est supérieur a 3 jours ?¤§ quel est la plus longue durée pendant la quelle tu ne t'es pas lavé ?¤The Punition !
+rep1/rep2-1 Quelle est la réponse de § ?¤§ as-tu déjà été exité au lycée ?¤The Punition !
+rep1/rep2+1 Quelle est la réponse de § ?¤§ as-tu déjà subit une inujustice au lycée ?¤The Punition !
+rep1/rep2+1 Est-ce que c'était interessant ?¤§ dis un truc aléatoire sur toi¤The Punition !
+rep1/rep2+1 Est-ce que c'était interessant ?¤§ Avec qui tu pourrais te battre dans le groupe ?¤The Punition !
+rep1/rep2-1 Quelle est la réponse de § ?¤§ est-ce que tu t'es déjà battu avec quelqu'un de ta famille ?¤The Punition !
+rep1/rep2-1 Quelle est la réponse de § ?¤§ as tu déjà re¤u ou envoyer des nudes ?¤The Punition !
+rep1/rep2-1 Quelle est la réponse de § ?¤§ As tu déjà fantasmé sur un/une prof ?¤The Punition !
+rep1/rep2+1 Quelle est la réponse de § ?¤§ As tu déjà eu un plan cul en vancance ?¤The Punition !
+rep1/rep2-1 Quelle est la réponse de § ?¤§ As tu déjà pris de la drogue avec ta famille ?¤The Punition !
+rep1/rep2+1 Quelle est la réponse de § ?¤§ Es tu déjà arrivé bourré en cours ou au travail ?¤The Punition !
+rep1/rep2+1 Quelle est la réponse de § ?¤§ Es tu déjà été en cours ou au travail juste après une soirée ?¤The Punition !
+rep1/rep2+1 Est ce que les autres sont d'accord ?¤§ qui serai d'après toi capable de prendre une décison importante bourré ?¤The Punition !
+rep1/rep2+1 Les autres sont d'accord pour dire que c'est pourris ?¤§ quel a été le pire cadeau que l'on t'est fait ?¤The Punition !
+rep1/rep2+1 Est ce que c'était involontaire ?¤§ t'es tu déjà fait dessus (enfant ¤a compte pas) ?¤The Punition !
 End
 anecdotes
 rep1/rep2+1 Anecdote génante 1¤§ dis un truc génant hahahahaha

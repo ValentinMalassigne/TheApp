@@ -54,7 +54,7 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String> anecdotesList = new ArrayList<String>();
     private ArrayList<String> playerTurn = new ArrayList<String>();
     private ArrayList<String> gagesList = new ArrayList<String>();
-    private String[] currentChallenge = new String[7]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2
+    private String[] currentChallenge = new String[8]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: la punition
     private String currentPlayer ="";
     private ConstraintLayout gameLayout;
     private Activity activity;
@@ -229,6 +229,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void showAnswerPopup(int layout, String text, int typeOfCall){
+        final boolean[] rightAnswer = {false};//c'est un tab sinon ça passe bien entre les onClicks (c'est ce que android studio a recommandé)
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
@@ -265,15 +266,7 @@ public class GameActivity extends AppCompatActivity {
                         yesButton.setVisibility(View.GONE);
                         nextButton.setVisibility(View.VISIBLE);
                         // ajout au score
-                        for (int i = 0; i < scoreTab.length; i++) {
-                            if (playerTab[i].equals(currentPlayer)) {
-
-                                int scoreInt = Integer.parseInt(currentChallenge[0]);
-                                int currentPlayerScore = Integer.parseInt(scoreTab[i]);
-                                int newScore = scoreInt + currentPlayerScore;
-                                scoreTab[i] = Integer.toString(newScore);
-                            }
-                        }
+                        rightAnswer[0] =true;
                     } else { //sinon il a perdu
                         String temp = "<b>" + currentPlayer + "</b> " + getPunition();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
@@ -293,15 +286,7 @@ public class GameActivity extends AppCompatActivity {
                         yesButton.setVisibility(View.GONE);
                         nextButton.setVisibility(View.VISIBLE);
                         // ajout au score
-                        for (int i = 0; i < scoreTab.length; i++) {
-                            if (playerTab[i].equals(currentPlayer)) {
-
-                                int scoreInt = Integer.parseInt(currentChallenge[0]);
-                                int currentPlayerScore = Integer.parseInt(scoreTab[i]);
-                                int newScore = scoreInt + currentPlayerScore;
-                                scoreTab[i] = Integer.toString(newScore);
-                            }
-                        }
+                        rightAnswer[0] =true;
                     } else { //sinon il a perdu
                         String temp = "<b>" + currentPlayer + "</b> " + getPunition();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
@@ -323,6 +308,18 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
+                    // ajout au score (s'il a bien répondu)
+                    if(rightAnswer[0]){
+                        for (int i = 0; i < scoreTab.length; i++) {
+                            if (playerTab[i].equals(currentPlayer)) {
+
+                                int scoreInt = Integer.parseInt(currentChallenge[0]);
+                                int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                                int newScore = scoreInt + currentPlayerScore;
+                                scoreTab[i] = Integer.toString(newScore);
+                            }
+                        }
+                    }
                     newDisplay(view);
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -500,6 +497,7 @@ public class GameActivity extends AppCompatActivity {
             String rightAnswer;
             String button1Text;
             String button2Text;
+            String punition;
 
             //on lit tant que l'on est pas a / pour savoir quelle est le premier bouton
             while (!temp){
@@ -529,7 +527,7 @@ public class GameActivity extends AppCompatActivity {
 
             j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
 
-            //on lit tant que l'on a est pas a ç pour avoir la réponse
+            //on lit tant que l'on a est pas a ¤ pour avoir la réponse
             temp=false;
             while (!temp){
                 if(ligne.substring(i,i+1).equals("¤")){
@@ -538,8 +536,20 @@ public class GameActivity extends AppCompatActivity {
                     i++;
                 }
             }
-            answers=ligne.substring(j+1,i);
-            sentence=ligne.substring(i+1);//on lit tout jusqu'à la fin pour avoir la phrase
+            answers=ligne.substring(j+1,i); //la phrase qui demande quelle est la bonne réponse
+
+            j=i+1;
+            temp=false;
+            while (!temp){
+                if(ligne.substring(j,j+1).equals("¤")){
+                    temp=true;
+                }else{
+                    j++;
+                }
+            }
+
+            sentence=ligne.substring(i+1,j);//on lit la phrase
+            punition=ligne.substring(j+1);
 
             currentChallenge[0]=points;
             currentChallenge[1]=SetNamesInSentence(answers);
@@ -547,6 +557,7 @@ public class GameActivity extends AppCompatActivity {
             currentChallenge[4]=rightAnswer;
             currentChallenge[5]=button1Text;
             currentChallenge[6]=button2Text;
+            currentChallenge[7]=punition;
             result =true;
         }
 
@@ -559,13 +570,13 @@ public class GameActivity extends AppCompatActivity {
             i++;
         }
         if(alcoholTab[i].equals("drink0")){
-            res=getString(R.string.drink0_punition);
+            res=currentChallenge[7]+getString(R.string.drink0_punition);
         }else if(alcoholTab[i].equals("drink1")){
-            res=getString(R.string.drink1_punition);
+            res=currentChallenge[7]+getString(R.string.drink1_punition);
         } else if(alcoholTab[i].equals("drink2")){
-            res=getString(R.string.drink2_punition);
+            res=currentChallenge[7]+getString(R.string.drink2_punition);
         } else if(alcoholTab[i].equals("drink3")){
-            res=getString(R.string.drink3_punition);
+            res=currentChallenge[7]+getString(R.string.drink3_punition);
         }
         return res;
     }
