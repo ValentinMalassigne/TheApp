@@ -152,6 +152,7 @@ public class OptionActivity extends AppCompatActivity {
         int editID= 1;
         int deleteID=1001;
         int textID=101;
+        int linearID=10001;
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OptionActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
@@ -179,6 +180,7 @@ public class OptionActivity extends AppCompatActivity {
             LinearLayout linearLayout = new LinearLayout(getApplicationContext());
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
             linearLayout.setLayoutParams(params);
+            linearLayout.setId(linearID);
             displayLayout.addView(linearLayout);
             TextView textDisplay = new TextView(getApplicationContext());
             textDisplay.setLayoutParams(textParams);
@@ -210,6 +212,7 @@ public class OptionActivity extends AppCompatActivity {
                     addSentenceActivity.putExtra("editSentence",true);
                     startActivity(addSentenceActivity);
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    alertDialog.dismiss();
                     finish();
                 }
             });
@@ -223,7 +226,7 @@ public class OptionActivity extends AppCompatActivity {
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    deleteSentence(finalDeleteID);
+                    deleteSentence(finalDeleteID, layoutView);
                 }
             });
 
@@ -234,6 +237,7 @@ public class OptionActivity extends AppCompatActivity {
             deleteID++;
             editID++;
             textID++;
+            linearID++;
         }
         alertDialog.show();
     }
@@ -326,14 +330,6 @@ public class OptionActivity extends AppCompatActivity {
             }
         }
         fis.close();
-
-        //ça fait crash ce truc
-        /*for(int j=0;j<sentencesTab.length;j++){
-            for(int k=0;k<compteur;k++){
-                Log.d(TAG,sentencesTab[j][k]+" ligne "+Integer.toString(j)+" colonne "+Integer.toString(k));
-            }
-        }*/
-
     }
 
     private static String[] decoding(String gameMode, String type, String encoding){ // decoder sentence tab
@@ -450,13 +446,14 @@ public class OptionActivity extends AppCompatActivity {
     }
 
     //marche pas, raison : java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.CharSequence android.widget.TextView.getText()' on a null object reference
-    private void deleteSentence(int deleteID){
+    private void deleteSentence(int deleteID, View layoutView){
         int id = deleteID-900;
-        Log.d(TAG, "deleteSentence: "+id);
-        TextView sentenceTextView = (TextView) findViewById(id); //ça renvoit null donc il ne trouve pas le textView qui a cette id
-        Log.d(TAG, "deleteSentence: "+sentenceTextView);
-        String sentence = sentenceTextView.getHint().toString();
-        Log.d(TAG, "deleteSentence: "+sentence);
+        TextView sentenceTextView = (TextView) layoutView.findViewById(id); //on trouve le textview correspondant
+        String sentence = sentenceTextView.getHint().toString(); // on récupère son hint qui contient la phrase comme est enregistrer dans le fichier text
+        //on retire la ligne correspond à la phrase supprimé
+        LinearLayout containerLayout = layoutView.findViewById(id+9900);
+        containerLayout.setVisibility(View.GONE);
+
         //on copie ce qu'il y a dans le fichier
         try {
             FileInputStream fis = openFileInput(FILE_NAME);
@@ -464,13 +461,13 @@ public class OptionActivity extends AppCompatActivity {
             BufferedReader br = new BufferedReader(isr);
             String text;
             ArrayList<String> phrase = new ArrayList<String>();
-
+            boolean deleteDone = false;
             while ((text = br.readLine())!=null){
-
-                if(!text.equals(sentence)){ //si la phrase n'est pas la même que celle a supprimer alors on continue
+                if(text.equals(sentence)&&!deleteDone){ //si la phrase est celle a supprimé alors on la "passe", le boolean sert a éviter de supprimer plusieurs fois la phrases si l'utilisateur l'a sauvegardé plusieurs fois
+                    deleteDone=true;
+                }else{
                     phrase.add(text+"\n");
                 }
-
             }
             fis.close();
 
