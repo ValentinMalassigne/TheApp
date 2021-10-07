@@ -87,7 +87,7 @@
     <string name="your_turn">it\'s your turn</string>
     <string name="game_description">You can answer the question and earn points or skip and drink</string>
     <string name="block_popup">Do not show again !</string>
-    <string name="popup_reset_button">turn back on popups</string>
+    <string name="popup_reset_button">Reset settings</string>
     <string name="popups_enabled">popups are turned back on</string>
     <string name="text">text</string>
     <string name="add_answer">Add your answer</string>
