@@ -110,6 +110,7 @@
         <item> 1 </item>
         <item> 2 </item>
         <item> 3 </item>
+        <item> 4 </item>
     </string-array>
     <string name="title_activity_add_sentence2">AddSentenceActivity2</string>
     <string name="what_sentence_type">What type of sentence do you want to add ?</string>
@@ -129,4 +130,13 @@
     <string name="game_mode_edit_text">In which game mode do you want to add the sentence ?</string>
     <string name="sumury_text">Summary of your settings, you can still edit them.\nYou may need to scroll to view all of them</string>
     <string name="complete">Complete your sentence</string>
+    <string name="_1_point">1 point</string>
+    <string name="_2_points">2 points</string>
+    <string name="_3_points">3 points</string>
+    <string name="_4_points">4 points</string>
+    <string-array name="win_sentences_array">
+        <item>§ won ¤ points</item>
+        <item>§ earned ¤ points</item>
+        <item>§ grabbed ¤ points</item>
+    </string-array>
 </resources>

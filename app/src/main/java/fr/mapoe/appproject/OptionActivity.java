@@ -329,14 +329,6 @@ public class OptionActivity extends AppCompatActivity {
             }
         }
         fis.close();
-
-        //ça fait crash ce truc
-        /*for(int j=0;j<sentencesTab.length;j++){
-            for(int k=0;k<compteur;k++){
-                Log.d(TAG,sentencesTab[j][k]+" ligne "+Integer.toString(j)+" colonne "+Integer.toString(k));
-            }
-        }*/
-
     }
 
     private static String[] decoding(String gameMode, String type, String encoding){ // decoder sentence tab
@@ -452,18 +444,13 @@ public class OptionActivity extends AppCompatActivity {
         return res;
     }
 
-    //marche pas, raison : java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.CharSequence android.widget.TextView.getText()' on a null object reference
     private void deleteSentence(int deleteID,View layoutView){
         int id = deleteID-900;
-        Log.d(TAG, "deleteSentence: "+id);
         TextView sentenceTextView = (TextView) layoutView.findViewById(id); //on trouve le textview correspondant
         String sentence = sentenceTextView.getHint().toString(); // on récupère son hint qui contient la phrase comme est enregistrer dans le fichier text
         //on retire la ligne correspond à la phrase supprimé
         LinearLayout containerLayout = layoutView.findViewById(id+9900);
         containerLayout.setVisibility(View.GONE);
-        /*containerLayout.removeView(findViewById(id));//on retire le textView
-        containerLayout.removeView(findViewById(id-100));//on retire le editbutton
-        containerLayout.removeView(findViewById(id+900));//on retire le remove button*/
         //on copie ce qu'il y a dans le fichier
         try {
             FileInputStream fis = openFileInput(FILE_NAME);

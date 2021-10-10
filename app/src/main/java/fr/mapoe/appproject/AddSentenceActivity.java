@@ -50,8 +50,11 @@ public class AddSentenceActivity extends AppCompatActivity {
     private Button sentenceEditNextButton;
     private Button answerEditNextButton;
     private Button buttonsEditNextButton;
+    private Button button1Point;
+    private Button button2Points;
+    private Button button3Points;
+    private Button button4Points;
 
-    private Button pointNextButton;
     private EditText editButton1;
     private EditText editButton2;
     private EditText scrollableEditButton1;
@@ -122,8 +125,11 @@ public class AddSentenceActivity extends AppCompatActivity {
         this.editButton2 = findViewById(R.id.edit_button2);
         this.scrollableEditButton1 = findViewById(R.id.scrollable_edit_button1);
         this.scrollableEditButton2 = findViewById(R.id.scrollable_edit_button2);
-        this.pointNextButton = findViewById(R.id.next_point_button);
         this.visualizeButton = findViewById(R.id.visualize_button);
+        this.button1Point = findViewById(R.id.button_1_point);
+        this.button2Points = findViewById(R.id.button_2_points);
+        this.button3Points = findViewById(R.id.button_3_points);
+        this.button4Points = findViewById(R.id.button_4_points);
         // affichage du haut
         this.questionTextView = findViewById(R.id.question_textView);
         this.gameTypeLayout = findViewById(R.id.game_type_layout);
@@ -132,7 +138,6 @@ public class AddSentenceActivity extends AppCompatActivity {
         this.answerEditLayout = findViewById(R.id.answer_edit_layout);
         this.answerButtonLayout = findViewById(R.id.answer_button_layout);
         this.pointLayout = findViewById(R.id.point_layout);
-        this.pointListSpinner = findViewById(R.id.point_list);
         this.rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
         this.rightAnswerIs2 = findViewById(R.id.right_answer_is_2);
 
@@ -427,30 +432,47 @@ public class AddSentenceActivity extends AppCompatActivity {
                     //on change le text qui guide
                     questionTextView.setText("How many points in case of right answer ?");
                     //on active le spinner du nombre de points
-                    ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getApplicationContext(),
+                    /*ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getApplicationContext(),
                             R.array.pointList, R.layout.spinner_item);
                     adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    pointListSpinner.setAdapter(adapter1);
+                    pointListSpinner.setAdapter(adapter1);*/
 
 
                 }
             });
 
-            // button Next après avoir choisis les points
-            pointNextButton.setOnClickListener(new View.OnClickListener() {
+            //bouton 1 point
+            button1Point.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    pointLayout.setVisibility(View.GONE);
-                    scrollablePointLayout.setVisibility(View.VISIBLE);
-                    visualizeButton.setVisibility(View.VISIBLE);
-                    questionTextView.setText("Check every information and press next !");
-                    ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getApplicationContext(),
-                            R.array.pointList, R.layout.spinner_item);
-                    adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    scrollablePointList.setAdapter(adapter1);
-
+                    managePointsSelection(1);
                 }
             });
+
+            //bouton 2 points
+            button2Points.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    managePointsSelection(2);
+                }
+            });
+
+            //bouton 3 points
+            button3Points.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    managePointsSelection(3);
+                }
+            });
+
+            //bouton 4 points
+            button4Points.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    managePointsSelection(4);
+                }
+            });
+
             //button pour visualiser la phrase
             visualizeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -559,7 +581,10 @@ public class AddSentenceActivity extends AppCompatActivity {
                 scrollableEditButton1.setBackground(getDrawable(R.drawable.button));
                 scrollableEditButton2.setBackground(getDrawable(R.drawable.button));
                 visualizeButton.setBackground(getDrawable(R.drawable.button));
-                pointNextButton.setBackground(getDrawable(R.drawable.button));
+                button1Point.setBackground(getDrawable(R.drawable.button));
+                button2Points.setBackground(getDrawable(R.drawable.button));
+                button3Points.setBackground(getDrawable(R.drawable.button));
+                button4Points.setBackground(getDrawable(R.drawable.button));
             }
         }
         else{
@@ -577,10 +602,35 @@ public class AddSentenceActivity extends AppCompatActivity {
                 scrollableEditButton1.setBackground(getDrawable(R.drawable.button2));
                 scrollableEditButton2.setBackground(getDrawable(R.drawable.button2));
                 visualizeButton.setBackground(getDrawable(R.drawable.button2));
-                pointNextButton.setBackground(getDrawable(R.drawable.button2));
+                button1Point.setBackground(getDrawable(R.drawable.button2));
+                button2Points.setBackground(getDrawable(R.drawable.button2));
+                button3Points.setBackground(getDrawable(R.drawable.button2));
+                button4Points.setBackground(getDrawable(R.drawable.button2));
 
             }
         }
+    }
+
+    private void managePointsSelection(int pointsAmount){
+        pointLayout.setVisibility(View.GONE);
+        scrollablePointLayout.setVisibility(View.VISIBLE);
+        visualizeButton.setVisibility(View.VISIBLE);
+        questionTextView.setText("Check every information and press next !");
+
+        //setup du spinner dans le scrollView (ne pas oublier de lui donner la bonne valeur
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getApplicationContext(),
+                R.array.pointList, R.layout.spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        scrollablePointList.setAdapter(adapter1);
+
+        if(pointsAmount==2){
+            scrollablePointList.setSelection(1);//permet que l'élément selectionné soit le deuxième élément de la liste
+        }else if(pointsAmount==3){
+            scrollablePointList.setSelection(2);
+        }else if (pointsAmount==4){
+            scrollablePointList.setSelection(3);
+        }
+
     }
 
     //gère les checks box pour éviter d'écrire 4 fois la même chose
@@ -643,7 +693,6 @@ public class AddSentenceActivity extends AppCompatActivity {
     }
 
     //permet d'éviter d'écrire 4 fois le même code pour la selection du type de phrase
-
     private void manageSentenceTypeSelection(String usedButtonText){
         sentenceTypeLayout.setVisibility(View.GONE);
         sentenceEditLayout.setVisibility(View.VISIBLE);
@@ -661,6 +710,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         }
         questionTextView.setText(getString(R.string.complete));
     }
+
     private void showInfoPopup(int layout){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
