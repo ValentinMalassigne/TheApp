@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -260,7 +261,7 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (currentChallenge[4].equals("+")) {//si c'est + et que le joueur répond oui alors il a gagné
-                        String temp = "<b>" + currentPlayer + "</b> " + getString(R.string.scoring) + " " + currentChallenge[0] + " " + getString(R.string.points);
+                        String temp = getRandomWinSentence();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         noButton.setVisibility(View.GONE);
                         yesButton.setVisibility(View.GONE);
@@ -280,7 +281,7 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (currentChallenge[4].equals("-")) {//si c'est - et que le joueur répond oui alors il a gagné
-                        String temp = "<b>" + currentPlayer + "</b> " + getString(R.string.scoring) + " " + currentChallenge[0] + " " + getString(R.string.points);
+                        String temp = getRandomWinSentence();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         noButton.setVisibility(View.GONE);
                         yesButton.setVisibility(View.GONE);
@@ -1031,5 +1032,35 @@ public class GameActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    private String getRandomWinSentence(){
+
+        //on récupère les win sentences disponibles
+        Resources res = getResources();
+        String[] sentences = res.getStringArray(R.array.win_sentences_array);
+
+        //on selectionne une phrase au hasard dans le tableau sentences
+        int min=0;
+        int max = sentences.length-1;
+        Random r = new Random();
+        int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
+
+        String winSentence = sentences[number];
+        StringBuilder finalSentence = new StringBuilder();
+
+        //on remplace les caractères § et ¤ par le nom du joueur et le nombre de points gagnés
+        for(int i=0;i<winSentence.length();i++){
+            if(winSentence.substring(i,i+1).equals("§")){
+                finalSentence.append("<b>").append(currentPlayer).append("</b>");
+            }else if(winSentence.substring(i,i+1).equals("¤")) {
+                finalSentence.append("<b>").append(currentChallenge[0]).append("</b>");
+            }else{
+                //si on lit un caractère "normal" de la phrase on le copie cole sans modification
+                finalSentence.append(winSentence.charAt(i));
+            }
+        }
+
+        //la c'est assez technique, on retourne le résultat
+        return finalSentence.toString() ;
     }
 }

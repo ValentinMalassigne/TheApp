@@ -11,9 +11,11 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.text.HtmlCompat;
+import androidx.core.widget.TextViewCompat;
 
 import org.w3c.dom.Text;
 
@@ -115,6 +118,7 @@ public class OptionActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void showLanguagePopup(int layout) {
@@ -171,14 +175,16 @@ public class OptionActivity extends AppCompatActivity {
 
         Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.convergence);
         LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(230, ViewGroup.LayoutParams.WRAP_CONTENT,1);
+
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.bottomMargin= 50;
-        LinearLayout.LayoutParams deleteImageParams = new LinearLayout.LayoutParams(60, 60);
+        LinearLayout.LayoutParams deleteImageParams = new LinearLayout.LayoutParams(80, 80);
         deleteImageParams.leftMargin=10;
 
         for(int i =0;i< decodingTab.length;i++) {
             LinearLayout linearLayout = new LinearLayout(getApplicationContext());
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            linearLayout.setGravity(Gravity.CENTER);
             linearLayout.setLayoutParams(params);
             linearLayout.setId(linearID);
             displayLayout.addView(linearLayout);

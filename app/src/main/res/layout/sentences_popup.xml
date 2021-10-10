@@ -7,8 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/popupbg_shape"
     android:layout_gravity="center"
-    android:orientation="vertical"
-    android:id="@+id/sentence_layout">
+    android:orientation="vertical">
 
     <ImageButton
         android:id="@+id/x_popup_button"

@@ -87,7 +87,7 @@
     <string name="your_turn">c\'est à toi de jouer</string>
     <string name="game_description">Tu peux choisir de répondre à la question et de marquer des points ou de passer et de boire</string>
     <string name="block_popup">Ne plus afficher </string>
-    <string name="popup_reset_button">réinitialiser les paramètres</string>
+    <string name="popup_reset_button">Réinitialiser les paramètres</string>
     <string name="popups_enabled">les popups sont à nouveau activées</string>
     <string name="text">text</string>
     <string name="add_answer">Ajoutez votre réponse</string>
@@ -130,4 +130,15 @@
     <string name="sumury_text">"Recapitulatif de vos paramètres, vous pouvez toujours les editer ! N'oubliez pas de scroller pour voir les derniers "</string>
     <string name="right_the">"Ecrit "</string>
     <string name="complete">Complete ta phrase</string>
+    <string name="check_info">"Vérifie toutes les informations et appuie sur Suivant "</string>
+    <string name="point_case_right_answer">Combien de points en cas de bonne réponse ?</string>
+    <string name="_1_point">1 point</string>
+    <string name="_2_points">2 points</string>
+    <string name="_3_points">3 points</string>
+    <string name="_4_points">4 points</string>
+    <string-array name="win_sentences_array">
+        <item>§ a gagné ¤ points</item>
+        <item>§ engrange ¤ points</item>
+        <item>§ gratte ¤ points</item>
+    </string-array>
 </resources>

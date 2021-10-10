@@ -81,7 +81,7 @@
     <string name="restart_button">Play again</string>
     <string name="roulete_description">Because you don\'t need a reason to drink !</string>
     <string name="description_red_or_black">One chance out of two, easy right ?</string>
-    <string name="ApePiment">ApePiment</string>
+    <string name="ApePiment">ApeSpice</string>
     <string name="ape_pimnet_description">For a spicy apero, discover the naughty secrets of your friends</string>
     <string name="drink">drink</string>
     <string name="your_turn">it\'s your turn</string>
@@ -110,6 +110,7 @@
         <item> 1 </item>
         <item> 2 </item>
         <item> 3 </item>
+        <item> 4 </item>
     </string-array>
     <string name="title_activity_add_sentence2">AddSentenceActivity2</string>
     <string name="what_sentence_type">What type of sentence do you want to add ?</string>
@@ -129,4 +130,18 @@
     <string name="game_mode_edit_text">In which game mode do you want to add the sentence ?</string>
     <string name="sumury_text">Summary of your settings, you can still edit them.\nYou may need to scroll to view all of them</string>
     <string name="complete">Complete your sentence</string>
+    <string name="check_info">Check every information and press next !</string>
+    <string name="point_case_right_answer">How many points in case of right answer ?</string>
+    <string name="right_button">Right button</string>
+    <string name="left_button">Left Button</string>
+    <string name="player_mark">Player 1 mark</string>
+    <string name="_1_point">1 point</string>
+    <string name="_2_points">2 points</string>
+    <string name="_3_points">3 points</string>
+    <string name="_4_points">4 points</string>
+    <string-array name="win_sentences_array">
+        <item>§ won ¤ points</item>
+        <item>§ earned ¤ points</item>
+        <item>§ grabbed ¤ points</item>
+    </string-array>
 </resources>
