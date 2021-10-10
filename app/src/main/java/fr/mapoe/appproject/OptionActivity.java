@@ -339,7 +339,7 @@ public class OptionActivity extends AppCompatActivity {
     }
 
     private static String[] decoding(String gameMode, String type, String encoding){ // decoder sentence tab
-        String[] decoding = new String[8]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: mode de jeu
+        String[] decoding = new String[9]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: mode de jeu 8 : punition
         boolean temp = false;
         String points;
         String answers;
@@ -347,6 +347,7 @@ public class OptionActivity extends AppCompatActivity {
         String rightAnswer;
         String button1Text;
         String button2Text;
+        String punition;
         int i=0;
         int j;
         //on lit tant que l'on est pas a / pour savoir quelle est le premier bouton
@@ -387,7 +388,19 @@ public class OptionActivity extends AppCompatActivity {
             }
         }
         answers=encoding.substring(j+1,i);
-        sentence=encoding.substring(i+1);//on lit tout jusqu'à la fin pour avoir la phrase
+
+        j=i+1;
+        temp=false;
+        while (!temp){
+            if(encoding.substring(j,j+1).equals("¤")){
+                temp=true;
+            }else{
+                j++;
+            }
+        }
+
+        sentence=encoding.substring(i+1,j);//on lit la phrase
+        punition=encoding.substring(j+1);
 
         decoding[0] = points;
         decoding[1] = answers;
@@ -397,11 +410,12 @@ public class OptionActivity extends AppCompatActivity {
         decoding[5] = button1Text;
         decoding[6] = button2Text;
         decoding[7] = gameMode;
+        decoding[8] = punition;
         return decoding;
     }
 
     private void fillDecodingTab(){
-        decodingTab = new String[sentencesTab.length][8];
+        decodingTab = new String[sentencesTab.length][9];
         //Pour parcourir chaque ligne
         for (int i = 0; i < decodingTab.length; i++) {
             String[] currentTab = decoding(sentencesTab[i][2],sentencesTab[i][1],sentencesTab[i][0]);
