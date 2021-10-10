@@ -280,7 +280,7 @@ public class GameActivity extends AppCompatActivity {
             noButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (currentChallenge[4].equals("-")) {//si c'est - et que le joueur répond non alors il a gagné
+                    if (currentChallenge[4].equals("-")) {//si c'est - et que le joueur répond oui alors il a gagné
                         String temp = getRandomWinSentence();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         noButton.setVisibility(View.GONE);
@@ -1033,7 +1033,6 @@ public class GameActivity extends AppCompatActivity {
             }
         });
     }
-
     private String getRandomWinSentence(){
 
         //on récupère les win sentences disponibles

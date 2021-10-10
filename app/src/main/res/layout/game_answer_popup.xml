@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
     android:layout_height="300dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/score_main_layout"
     android:background="@drawable/popupbg_shape"
-    android:layout_gravity="center"
-    android:orientation="vertical">
+    android:layout_gravity="center">
 
     <ImageView
         android:layout_width="30dp"
@@ -43,6 +43,14 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/left_answer_arrow"
+        android:visibility="gone"
+        android:src="@drawable/left_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
     <LinearLayout
         android:id="@+id/linearLayout6"
         android:layout_width="match_parent"
@@ -64,6 +72,7 @@
             android:textColor="#FFFFFF"
             android:textSize="20sp"
             app:backgroundTint="@null"
+            android:textAllCaps="false"
             android:visibility="visible"/>
 
         <Button
@@ -74,10 +83,13 @@
             android:layout_weight="10"
             android:background="@drawable/button_shape"
             android:text="@string/no_button"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:visibility="visible"
             android:textSize="20sp"
             app:backgroundTint="@null" />
+
+
 
         <Button
             android:layout_marginLeft="20dp"

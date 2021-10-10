@@ -35,19 +35,22 @@
             android:background="@android:drawable/list_selector_background">
 
             <TextView
-                android:layout_weight="1"
+                android:id="@+id/language_text"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_height="match_parent"
+
+                android:layout_weight="1"
+                android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="35sp"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/convergence"
                 android:text="@string/language_button"
                 android:textColor="@color/white"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                android:layout_marginStart="50dp" />
+                android:textStyle="bold" />
 
             <ImageView
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/language"
@@ -59,60 +62,63 @@
 
         <LinearLayout
             android:id="@+id/add_sentence"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
             android:orientation="horizontal">
-
             <TextView
-                android:layout_weight="0"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="35sp"
                 android:fontFamily="@font/convergence"
                 android:text="@string/add_sentence"
                 android:textColor="@color/white"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                android:maxLines="2"
-                android:layout_marginStart="50dp" />
+                android:textStyle="bold" />
+
 
             <ImageView
                 android:layout_weight="0"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/add"
-
+                android:layout_marginLeft="30dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginStart="40dp"
                  />
 
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/edit_sentence"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/list_selector_background"
             android:gravity="center"
             android:orientation="horizontal">
             <TextView
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
+                android:layout_height="match_parent"
+
+                android:layout_weight="1"
+                android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="35sp"
+                android:layout_marginLeft="10dp"
                 android:fontFamily="@font/convergence"
                 android:text="@string/my_sentence"
                 android:textColor="@color/white"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                android:layout_marginStart="50dp" />
+                android:textStyle="bold" />
 
             <ImageView
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/open_book"
@@ -125,7 +131,7 @@
 
         <LinearLayout
             android:id="@+id/popup_layout"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:drawable/list_selector_background"
@@ -133,17 +139,27 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="35sp"
                 android:fontFamily="@font/convergence"
                 android:text="@string/popup_reset_button"
                 android:textColor="@color/white"
-                android:textSize="35sp"
+                android:layout_marginLeft="10dp"
                 android:textStyle="bold" />
+
+            <ImageView
+                android:layout_weight="0"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/reinitialiser"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="40dp" />
 
         </LinearLayout>
 

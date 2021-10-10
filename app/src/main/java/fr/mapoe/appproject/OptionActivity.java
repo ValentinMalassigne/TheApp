@@ -11,9 +11,11 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.text.HtmlCompat;
+import androidx.core.widget.TextViewCompat;
 
 import org.w3c.dom.Text;
 
@@ -115,6 +118,7 @@ public class OptionActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void showLanguagePopup(int layout) {
@@ -171,14 +175,16 @@ public class OptionActivity extends AppCompatActivity {
 
         Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.convergence);
         LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(230, ViewGroup.LayoutParams.WRAP_CONTENT,1);
+
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.bottomMargin= 50;
-        LinearLayout.LayoutParams deleteImageParams = new LinearLayout.LayoutParams(60, 60);
+        LinearLayout.LayoutParams deleteImageParams = new LinearLayout.LayoutParams(80, 80);
         deleteImageParams.leftMargin=10;
 
         for(int i =0;i< decodingTab.length;i++) {
             LinearLayout linearLayout = new LinearLayout(getApplicationContext());
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            linearLayout.setGravity(Gravity.CENTER);
             linearLayout.setLayoutParams(params);
             linearLayout.setId(linearID);
             displayLayout.addView(linearLayout);
@@ -212,6 +218,7 @@ public class OptionActivity extends AppCompatActivity {
                     addSentenceActivity.putExtra("editSentence",true);
                     startActivity(addSentenceActivity);
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    alertDialog.dismiss();
                     finish();
                 }
             });
@@ -332,7 +339,7 @@ public class OptionActivity extends AppCompatActivity {
     }
 
     private static String[] decoding(String gameMode, String type, String encoding){ // decoder sentence tab
-        String[] decoding = new String[9]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: mode de jeu 8 : punition
+        String[] decoding = new String[8]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: mode de jeu
         boolean temp = false;
         String points;
         String answers;
@@ -340,7 +347,6 @@ public class OptionActivity extends AppCompatActivity {
         String rightAnswer;
         String button1Text;
         String button2Text;
-        String punition;
         int i=0;
         int j;
         //on lit tant que l'on est pas a / pour savoir quelle est le premier bouton
@@ -381,19 +387,7 @@ public class OptionActivity extends AppCompatActivity {
             }
         }
         answers=encoding.substring(j+1,i);
-
-        j=i+1;
-        temp=false;
-        while (!temp){
-            if(encoding.substring(j,j+1).equals("¤")){
-                temp=true;
-            }else{
-                j++;
-            }
-        }
-        Log.d(TAG, "decoding: tout va bien");
-        sentence=encoding.substring(i+1,j);//on lit la phrase
-        punition=encoding.substring(j+1);
+        sentence=encoding.substring(i+1);//on lit tout jusqu'à la fin pour avoir la phrase
 
         decoding[0] = points;
         decoding[1] = answers;
@@ -403,7 +397,6 @@ public class OptionActivity extends AppCompatActivity {
         decoding[5] = button1Text;
         decoding[6] = button2Text;
         decoding[7] = gameMode;
-        decoding[8] = punition;
         return decoding;
     }
 
@@ -458,13 +451,15 @@ public class OptionActivity extends AppCompatActivity {
         return res;
     }
 
-    private void deleteSentence(int deleteID,View layoutView){
+    //marche pas, raison : java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.CharSequence android.widget.TextView.getText()' on a null object reference
+    private void deleteSentence(int deleteID, View layoutView){
         int id = deleteID-900;
         TextView sentenceTextView = (TextView) layoutView.findViewById(id); //on trouve le textview correspondant
         String sentence = sentenceTextView.getHint().toString(); // on récupère son hint qui contient la phrase comme est enregistrer dans le fichier text
         //on retire la ligne correspond à la phrase supprimé
         LinearLayout containerLayout = layoutView.findViewById(id+9900);
         containerLayout.setVisibility(View.GONE);
+
         //on copie ce qu'il y a dans le fichier
         try {
             FileInputStream fis = openFileInput(FILE_NAME);
@@ -474,13 +469,11 @@ public class OptionActivity extends AppCompatActivity {
             ArrayList<String> phrase = new ArrayList<String>();
             boolean deleteDone = false;
             while ((text = br.readLine())!=null){
-
                 if(text.equals(sentence)&&!deleteDone){ //si la phrase est celle a supprimé alors on la "passe", le boolean sert a éviter de supprimer plusieurs fois la phrases si l'utilisateur l'a sauvegardé plusieurs fois
                     deleteDone=true;
                 }else{
                     phrase.add(text+"\n");
                 }
-
             }
             fis.close();
 
