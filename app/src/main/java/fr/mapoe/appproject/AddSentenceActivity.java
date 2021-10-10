@@ -99,7 +99,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             editSentence = extras.getBoolean("editSentence");
-            decodedSentence=extras.getStringArray("decodedSentence");//0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame
+            decodedSentence=extras.getStringArray("decodedSentence");//0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame 8: réponse
         }
 
         ImageView infoButton = findViewById(R.id.info_image);
