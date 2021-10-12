@@ -174,7 +174,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                     deletePlayerButton.setId(idDeletePlayerButton);//id du premier deletePlayerBouton : 301
                     deletePlayerButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
                     deletePlayerButton.setBackgroundColor(Color.TRANSPARENT);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(80, 80, 2);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(120, 120, 2);
                     params.gravity = Gravity.CENTER;
                     deletePlayerButton.setLayoutParams(params);
                     deletePlayerButton.setImageResource(R.drawable.x_icon);

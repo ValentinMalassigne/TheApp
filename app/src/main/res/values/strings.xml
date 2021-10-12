@@ -38,10 +38,10 @@
     <string name="satisfying_question">is satisfying ?</string>
     <string name="scoring">scores</string>
     <string name="points">points !</string>
-    <string name="drink0_punition">do 5 push ups !</string>
-    <string name="drink1_punition">drink 1 sips !</string>
-    <string name="drink2_punition">drink 2 sips !</string>
-    <string name="drink3_punition">drink 3 sips !</string>
+    <string name="drink0_sips">0 sip</string>
+    <string name="drink1_sips">1 sip</string>
+    <string name="drink2_sips">2 sips</string>
+    <string name="drink3_sips">3 sips</string>
     <string name="title_activity_simple_wheel">SimpleWheelActivity</string>
     <string name="next">next</string>
     <string name="previous">previous</string>
@@ -139,6 +139,10 @@
     <string name="_2_points">2 points</string>
     <string name="_3_points">3 points</string>
     <string name="_4_points">4 points</string>
+    <string name="write_in_custom_answer_popup">Write what should be shown in the answer pop up</string>
+    <string name="edit_buttons_and_select_correct_answer">Edit the buttons to give them the text you want.\n And select which answer gives sips and which answer gives points</string>
+    <string name="how_many_points">How many points in case of right answer ?</string>
+    <string name="check_informations">Check every information and press next !</string>
     <string-array name="win_sentences_array">
         <item>§ won ¤ points</item>
         <item>§ earned ¤ points</item>

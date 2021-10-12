@@ -8,6 +8,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.text.HtmlCompat;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -15,12 +16,14 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
@@ -92,6 +95,7 @@ public class GameActivity extends AppCompatActivity {
         );
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,6 +169,33 @@ public class GameActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        xButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return false;
+            }
+        });
+
         {
             //on vérifie si l'utilisateur à bloqué la popup
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
@@ -269,7 +300,7 @@ public class GameActivity extends AppCompatActivity {
                         // ajout au score
                         rightAnswer[0] =true;
                     } else { //sinon il a perdu
-                        String temp = "<b>" + currentPlayer + "</b> " + getPunition();
+                        String temp = getPunition();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         yesButton.setVisibility(View.GONE);
                         noButton.setVisibility(View.GONE);
@@ -289,7 +320,7 @@ public class GameActivity extends AppCompatActivity {
                         // ajout au score
                         rightAnswer[0] =true;
                     } else { //sinon il a perdu
-                        String temp = "<b>" + currentPlayer + "</b> " + getPunition();
+                        String temp = getPunition();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         yesButton.setVisibility(View.GONE);
                         noButton.setVisibility(View.GONE);
@@ -299,7 +330,7 @@ public class GameActivity extends AppCompatActivity {
             });
         }
         else{ // appel par skip
-            String temp = "<b>" + currentPlayer + "</b> " + getPunition();
+            String temp = getPunition();
             textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
             yesButton.setVisibility(View.GONE);
             noButton.setVisibility(View.GONE);
@@ -565,21 +596,40 @@ public class GameActivity extends AppCompatActivity {
         return result;
     }
     private String getPunition(){
-        String res="";
+        StringBuilder res = new StringBuilder();
+        String rawPunition=currentChallenge[7];
+        String alcoholQuantity="";
         int i=0;
         while(!playerTab[i].equals(currentPlayer)){
             i++;
         }
-        if(alcoholTab[i].equals("drink0")){
-            res=currentChallenge[7]+getString(R.string.drink0_punition);
-        }else if(alcoholTab[i].equals("drink1")){
-            res=currentChallenge[7]+getString(R.string.drink1_punition);
-        } else if(alcoholTab[i].equals("drink2")){
-            res=currentChallenge[7]+getString(R.string.drink2_punition);
-        } else if(alcoholTab[i].equals("drink3")){
-            res=currentChallenge[7]+getString(R.string.drink3_punition);
+        switch (alcoholTab[i]){
+            case "drink0":
+                alcoholQuantity=getString(R.string.drink0_sips);
+                break;
+            case "drink1":
+                alcoholQuantity=getString(R.string.drink1_sips);
+                break;
+            case "drink2":
+                alcoholQuantity=getString(R.string.drink2_sips);
+                break;
+            case "drink3":
+                alcoholQuantity=getString(R.string.drink3_sips);
+                break;
+            default:
         }
-        return res;
+
+        for(i=0;i<rawPunition.length();i++){
+            if(rawPunition.substring(i,i+1).equals("§")){
+                res.append("<b>").append(currentPlayer).append("</b>");
+            }else if(rawPunition.substring(i,i+1).equals("µ")){
+                res.append(alcoholQuantity);
+            }else{
+                res.append(rawPunition.substring(i,i+1));
+            }
+        }
+
+        return res.toString();
     }
 
     private String SetNamesInSentence(String sentence){
@@ -1033,6 +1083,7 @@ public class GameActivity extends AppCompatActivity {
             }
         });
     }
+
     private String getRandomWinSentence(){
 
         //on récupère les win sentences disponibles
