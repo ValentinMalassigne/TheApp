@@ -37,10 +37,10 @@
     <string name="satisfying_question"> est-elle satifaisante ?</string>
     <string name="scoring"> marque </string>
     <string name="points"> points </string>
-    <string name="drink0_punition">fais 5 pompes !</string>
-    <string name="drink1_punition">bois 1 gorgée !</string>
-    <string name="drink2_punition">bois 2 gorgées !</string>
-    <string name="drink3_punition">bois 3 gorgées !</string>
+    <string name="drink0_sips">0 gorgée</string>
+    <string name="drink1_sips">1 gorgée</string>
+    <string name="drink2_sips">2 gorgées</string>
+    <string name="drink3_sips">3 gorgées</string>
     <string name="title_activity_simple_wheel">SimpleWheelActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="next">Suivant</string>
@@ -85,7 +85,7 @@
     <string name="duplicater_player_name_error">Vous ne pouvez pas utiliser plusieurs fois le même nom</string>
     <string name="drink">bois</string>
     <string name="your_turn">c\'est à toi de jouer</string>
-    <string name="game_description">Tu peux choisir de répondre à la question et de marquer des points ou de passer et de boire</string>
+    <string name="game_description">Tu peux choisir de répondre à la question et de tenter de marquer des points ou de passer et de boire en appuyant sur: </string>
     <string name="block_popup">Ne plus afficher </string>
     <string name="popup_reset_button">Réinitialiser les paramètres</string>
     <string name="popups_enabled">les popups sont à nouveau activées</string>
@@ -110,6 +110,7 @@
         <item> 1 </item>
         <item> 2 </item>
         <item> 3 </item>
+        <item> 4 </item>
     </string-array>
     <string name="title_activity_add_sentence2">AddSentenceActivity2</string>
     <string name="what_sentence_type">Quelle type de phrase voulez-vous ajouter</string>

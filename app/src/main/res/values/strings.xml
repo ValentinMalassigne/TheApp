@@ -38,10 +38,10 @@
     <string name="satisfying_question">is satisfying ?</string>
     <string name="scoring">scores</string>
     <string name="points">points !</string>
-    <string name="drink0_punition">do 5 push ups !</string>
-    <string name="drink1_punition">drink 1 sips !</string>
-    <string name="drink2_punition">drink 2 sips !</string>
-    <string name="drink3_punition">drink 3 sips !</string>
+    <string name="drink0_sips">0 sip</string>
+    <string name="drink1_sips">1 sip</string>
+    <string name="drink2_sips">2 sips</string>
+    <string name="drink3_sips">3 sips</string>
     <string name="title_activity_simple_wheel">SimpleWheelActivity</string>
     <string name="next">next</string>
     <string name="previous">previous</string>
@@ -85,7 +85,7 @@
     <string name="ape_pimnet_description">For a spicy apero, discover the naughty secrets of your friends</string>
     <string name="drink">drink</string>
     <string name="your_turn">it\'s your turn</string>
-    <string name="game_description">You can answer the question and earn points or skip and drink</string>
+    <string name="game_description">You can answer the question and earn points or skip and drink by pressing: </string>
     <string name="block_popup">Do not show again !</string>
     <string name="popup_reset_button">Reset settings</string>
     <string name="popups_enabled">popups are turned back on</string>
@@ -144,4 +144,8 @@
         <item>§ earned ¤ points</item>
         <item>§ grabbed ¤ points</item>
     </string-array>
+    <string name="write_in_custom_answer_popup">Write what should be shown in the answer pop up</string>
+    <string name="edit_buttons_and_select_correct_answer">Edit the buttons to give them the text you want.\n And select which answer gives sips and which answer gives points</string>
+    <string name="how_many_points">How many points in case of right answer ?</string>
+    <string name="check_informations">Check every information and press next !</string>
 </resources>

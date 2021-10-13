@@ -86,6 +86,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/apechill_title"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autoSizeMaxTextSize="35sp"
@@ -104,6 +105,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/appchil_description"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autoSizeMaxTextSize="15sp"
@@ -144,6 +146,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/apepiment_title"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autoSizeMaxTextSize="35sp"
@@ -160,6 +163,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/apepiment_description"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autoSizeMaxTextSize="15sp"
@@ -200,6 +204,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/roulette_title"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autoSizeMaxTextSize="35sp"
@@ -217,6 +222,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/roulette_description"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autoSizeMaxTextSize="15sp"
@@ -257,7 +263,7 @@
                         android:orientation="vertical">
 
                         <TextView
-
+                            android:id="@+id/card_title"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginRight="10dp"
@@ -277,6 +283,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/card_discription"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:autoSizeMaxTextSize="15sp"

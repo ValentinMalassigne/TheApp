@@ -99,9 +99,8 @@ public class AddSentenceActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             editSentence = extras.getBoolean("editSentence");
-            decodedSentence=extras.getStringArray("decodedSentence");//0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame 8: réponse
+            decodedSentence = extras.getStringArray("decodedSentence");//0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame 8: la punition        }
         }
-
         ImageView infoButton = findViewById(R.id.info_image);
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -314,7 +313,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             scrollableEditButton1.setText(decodedSentence[5]);
             scrollableEditButton2.setText(decodedSentence[6]);
 
-            scrollablePointList.setSelection(Integer.valueOf(decodedSentence[0]));
+            scrollablePointList.setSelection(Integer.parseInt(decodedSentence[0])-1);
             visualizeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -385,7 +384,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
                         scrollableSentenceEditText.setText(text);
                         //on change le text qui guide
-                        questionTextView.setText("Write what should be shown in the answer pop up");
+                        questionTextView.setText(R.string.write_in_custom_answer_popup);
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     } else {
@@ -411,7 +410,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                         scrollableAnswerEditText.setText(answer);
                         //on change le text qui guide
                         questionTextView = findViewById(R.id.question_textView);
-                        questionTextView.setText("Edit the buttons to give them the text you want.\n And select which answer gives sips and which answer gives points");
+                        questionTextView.setText(R.string.edit_buttons_and_select_correct_answer);
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     } else {
@@ -431,7 +430,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                     scrollableEditButton1.setText(editButton1.getText().toString());
                     scrollableEditButton2.setText(editButton2.getText().toString());
                     //on change le text qui guide
-                    questionTextView.setText("How many points in case of right answer ?");
+                    questionTextView.setText(R.string.how_many_points);
                 }
             });
                                                      }
@@ -674,7 +673,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         pointLayout.setVisibility(View.GONE);
         scrollablePointLayout.setVisibility(View.VISIBLE);
         visualizeButton.setVisibility(View.VISIBLE);
-        questionTextView.setText("Check every information and press next !");
+        questionTextView.setText(R.string.check_informations);
 
         //setup du spinner dans le scrollView (ne pas oublier de lui donner la bonne valeur
         ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getApplicationContext(),
@@ -877,7 +876,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text="<b><i>Joueur 1</i><b> bois";
+                String text="<b><i>Joueur 1</i><b> bois x gorgées ou c'est génant";
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
                 addButton.setVisibility(View.VISIBLE);
@@ -974,7 +973,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         encodingSentence+=scrollablePointList.getSelectedItem().toString()+ " ";
         encodingSentence+=answer+"¤";
         encodingSentence+=text;
-        encodingSentence+="¤The Punition !";//il faudra donner une punition custom
+        encodingSentence+="¤§ tu bois µ sinon c'est génant";//il faudra donner une punition custom
         return encodingSentence;
     }
 

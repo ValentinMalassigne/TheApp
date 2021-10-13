@@ -71,6 +71,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView playerCardTurn;
     private int typeOfGame =0;
     private static final String FILE_NAME = "custom_sentences.txt";
+    private Button answerButton;
 
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
@@ -133,7 +134,7 @@ public class GameActivity extends AppCompatActivity {
         });
 
         // Generer la popup réponse
-        Button answerButton = (Button) findViewById(R.id.answer_button);
+        this.answerButton = (Button) findViewById(R.id.answer_button);
         if(typeOfGame ==2){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 answerButton.setBackground(getDrawable(R.drawable.button2));
@@ -142,14 +143,18 @@ public class GameActivity extends AppCompatActivity {
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],1);
+                int typeOfCall= 1;
+                if(currentChallenge[5].equals("skip")){
+                    typeOfCall = 2;
+                }
+                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],typeOfCall);
             }
         });
-        Button skipButton = (Button) findViewById(R.id.skip_button);
+        ImageView skipButton = (ImageView) findViewById(R.id.skip_button);
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],2);
+                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],3);
             }
         });
 
@@ -219,7 +224,7 @@ public class GameActivity extends AppCompatActivity {
         ImageView leftButton = layoutView.findViewById(R.id.left_popup_arrow);
         leftButton.setVisibility(View.GONE);
         textInfo.setText(getString(R.string.game_description));
-        imageInfo.setVisibility(View.GONE);
+        imageInfo.setImageResource(R.drawable.skip_button);
 
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
@@ -258,7 +263,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void showAnswerPopup(int layout, String text, int typeOfCall){
-        final boolean[] rightAnswer = {false};//c'est un tab sinon ça passe bien entre les onClicks (c'est ce que android studio a recommandé)
+        final boolean[] rightAnswer = {false};
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
@@ -283,6 +288,7 @@ public class GameActivity extends AppCompatActivity {
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        // appel normal y a une réponse
         if(typeOfCall ==1) { // appel normal par réponse
             textDisplay.setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY));
             yesButton.setOnClickListener(new View.OnClickListener() {
@@ -297,7 +303,7 @@ public class GameActivity extends AppCompatActivity {
                         // ajout au score
                         rightAnswer[0] =true;
                     } else { //sinon il a perdu
-                        String temp = "<b>" + currentPlayer + "</b> " + getPunition();
+                        String temp = getPunition();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         yesButton.setVisibility(View.GONE);
                         noButton.setVisibility(View.GONE);
@@ -317,7 +323,7 @@ public class GameActivity extends AppCompatActivity {
                         // ajout au score
                         rightAnswer[0] =true;
                     } else { //sinon il a perdu
-                        String temp = "<b>" + currentPlayer + "</b> " + getPunition();
+                        String temp = getPunition();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         yesButton.setVisibility(View.GONE);
                         noButton.setVisibility(View.GONE);
@@ -326,8 +332,39 @@ public class GameActivity extends AppCompatActivity {
                 }
             });
         }
+        // appel sans réponse
+        else if(typeOfCall ==2){
+            yesButton.setVisibility(View.GONE);
+            noButton.setVisibility(View.GONE);
+            nextButton.setVisibility(View.VISIBLE);
+            nextButton.setText("ok");
+            // affiche le score marqué
+            String temp = getRandomWinSentence();
+            textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+
+                        for (int i = 0; i < scoreTab.length; i++) {
+                            if (playerTab[i].equals(currentPlayer)) {
+                                int scoreInt = Integer.parseInt(currentChallenge[0]);
+                                int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                                int newScore = scoreInt + currentPlayerScore;
+                                scoreTab[i] = Integer.toString(newScore);
+                                }
+                            }
+                        newDisplay(view);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    alertDialog.dismiss();
+                }
+            });
+        }
+        // appel par skip
         else{ // appel par skip
-            String temp = "<b>" + currentPlayer + "</b> " + getPunition();
+            String temp = getPunition();
             textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
             yesButton.setVisibility(View.GONE);
             noButton.setVisibility(View.GONE);
@@ -502,6 +539,12 @@ public class GameActivity extends AppCompatActivity {
 
             currentTitleDisplay.setText(type);
             currentTextDisplay.setText(HtmlCompat.fromHtml(phrase,HtmlCompat.FROM_HTML_MODE_LEGACY));
+            /*if(currentChallenge[7].equals("")){
+                answerButton.setText(getString(R.string.next));
+            }
+            else{
+                answerButton.setText(getString(R.string.show_answer));
+            }*/
         }
     }
 
@@ -584,8 +627,9 @@ public class GameActivity extends AppCompatActivity {
             currentChallenge[1]=SetNamesInSentence(answers);
             currentChallenge[2]=SetNamesInSentence(sentence);
             currentChallenge[4]=rightAnswer;
-            currentChallenge[5]=button1Text;
-            currentChallenge[6]=button2Text;
+            String[] btnText = SetNameInButton(button1Text,button2Text); // 0: btn1 1:btn2
+            currentChallenge[5]=btnText[0];
+            currentChallenge[6]=btnText[1];
             currentChallenge[7]=punition;
             result =true;
         }
@@ -593,21 +637,40 @@ public class GameActivity extends AppCompatActivity {
         return result;
     }
     private String getPunition(){
-        String res="";
+        StringBuilder res = new StringBuilder();
+        String rawPunition=currentChallenge[7];
+        String alcoholQuantity="";
         int i=0;
         while(!playerTab[i].equals(currentPlayer)){
             i++;
         }
-        if(alcoholTab[i].equals("drink0")){
-            res=currentChallenge[7]+getString(R.string.drink0_punition);
-        }else if(alcoholTab[i].equals("drink1")){
-            res=currentChallenge[7]+getString(R.string.drink1_punition);
-        } else if(alcoholTab[i].equals("drink2")){
-            res=currentChallenge[7]+getString(R.string.drink2_punition);
-        } else if(alcoholTab[i].equals("drink3")){
-            res=currentChallenge[7]+getString(R.string.drink3_punition);
+        switch (alcoholTab[i]){
+            case "drink0":
+                alcoholQuantity=getString(R.string.drink0_sips);
+                break;
+            case "drink1":
+                alcoholQuantity=getString(R.string.drink1_sips);
+                break;
+            case "drink2":
+                alcoholQuantity=getString(R.string.drink2_sips);
+                break;
+            case "drink3":
+                alcoholQuantity=getString(R.string.drink3_sips);
+                break;
+            default:
         }
-        return res;
+
+        for(i=0;i<rawPunition.length();i++){
+            if(rawPunition.substring(i,i+1).equals("§")){
+                res.append("<b>").append(currentPlayer).append("</b>");
+            }else if(rawPunition.substring(i,i+1).equals("µ")){
+                res.append(alcoholQuantity);
+            }else{
+                res.append(rawPunition.substring(i,i+1));
+            }
+        }
+
+        return res.toString();
     }
 
     private String SetNamesInSentence(String sentence){
@@ -632,6 +695,26 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         return res.toString();
+    }
+    private String[] SetNameInButton(String button1,String button2){
+        String btn1=button1;
+        String btn2=button1;
+        boolean nameInBtn1 = button1.substring(0,button1.length()).equals("§");
+        boolean nameInBtn2 = button2.substring(0,button2.length()).equals("§");
+        // si nom dans boutton 1 mais pas boutton 2
+        if(nameInBtn1 &!nameInBtn2){
+              btn1 = currentPlayer;
+        }
+        // inverse
+        else if(!nameInBtn1 & nameInBtn2){
+            btn2=currentPlayer;
+        }
+        // si un nom dans chaque boutton
+        else if(nameInBtn1 & nameInBtn2){
+            btn1 = currentPlayer;
+            btn2 = getRandomPlayer(currentPlayer);
+        }
+        return new String[]{btn1, btn2};
     }
 
     private String[] GetNextChallenge(String type) {
