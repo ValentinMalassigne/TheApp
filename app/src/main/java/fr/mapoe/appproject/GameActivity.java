@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
@@ -72,7 +73,7 @@ public class GameActivity extends AppCompatActivity {
     private int typeOfGame =0;
     private static final String FILE_NAME = "custom_sentences.txt";
     private Button answerButton;
-
+    private String otherPlayer;
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
                 (R.drawable.h01, R.drawable.h02, R.drawable.h03, R.drawable.h04,
@@ -115,7 +116,7 @@ public class GameActivity extends AppCompatActivity {
         // initialisation du tableau scoreTab et le remplir
         scoreTab = new String[playerTab.length];
         Arrays.fill(scoreTab, "0");
-
+        this.answerButton = (Button) findViewById(R.id.answer_button);
         //setUp des list
         try {
             setUpList();
@@ -132,9 +133,34 @@ public class GameActivity extends AppCompatActivity {
                 showScorePopup(R.layout.score_popup);
             }
         });
+        scoreButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return false;
+            }
+        });
 
         // Generer la popup réponse
-        this.answerButton = (Button) findViewById(R.id.answer_button);
+
         if(typeOfGame ==2){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 answerButton.setBackground(getDrawable(R.drawable.button2));
@@ -155,6 +181,31 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],3);
+            }
+        });
+        skipButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return false;
             }
         });
 
@@ -226,6 +277,7 @@ public class GameActivity extends AppCompatActivity {
         textInfo.setText(getString(R.string.game_description));
         imageInfo.setImageResource(R.drawable.skip_button);
 
+
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -275,7 +327,7 @@ public class GameActivity extends AppCompatActivity {
 
         //on change la réponse des boutons avec celles du fichier
         yesButton.setText(currentChallenge[5]);//la première rep
-        noButton.setText(currentChallenge[6]);//la deuxième rep
+        noButton.setText(currentChallenge[6]);//la deuxième rep*
 
         // change bg suivant le jeu
         if(typeOfGame ==2){
@@ -539,12 +591,18 @@ public class GameActivity extends AppCompatActivity {
 
             currentTitleDisplay.setText(type);
             currentTextDisplay.setText(HtmlCompat.fromHtml(phrase,HtmlCompat.FROM_HTML_MODE_LEGACY));
-            /*if(currentChallenge[7].equals("")){
-                answerButton.setText(getString(R.string.next));
+            TextView helpText = findViewById(R.id.help_text);
+            if(currentChallenge[5].equals("skip")){
+                answerButton.setText("répondu ?");
+
+                helpText.setVisibility(View.VISIBLE);
+
             }
             else{
                 answerButton.setText(getString(R.string.show_answer));
-            }*/
+                helpText.setVisibility(View.GONE);
+            }
+
         }
     }
 
@@ -553,6 +611,7 @@ public class GameActivity extends AppCompatActivity {
         String type = getChallengeTurn();
         String[] tempTab =GetNextChallenge(type);
         String ligne = tempTab[1];
+        Log.d(TAG,"bonjour "+ligne);
         boolean result=false;
         boolean temp = false;
         int i=0;
@@ -687,7 +746,8 @@ public class GameActivity extends AppCompatActivity {
                     res.append("<b>").append(Nom).append("</b>");
                 }else{
                     //nom des joueurs qui participent aussi
-                    res.append("<b>").append(getRandomPlayer(Nom)).append("</b>");
+                    otherPlayer = getRandomPlayer(Nom);
+                    res.append("<b>").append(otherPlayer).append("</b>");
                 }
             }else{
                 //si on lit un caractère "normal" de la phrase on le copie cole sans modification
@@ -698,7 +758,7 @@ public class GameActivity extends AppCompatActivity {
     }
     private String[] SetNameInButton(String button1,String button2){
         String btn1=button1;
-        String btn2=button1;
+        String btn2=button2;
         boolean nameInBtn1 = button1.substring(0,button1.length()).equals("§");
         boolean nameInBtn2 = button2.substring(0,button2.length()).equals("§");
         // si nom dans boutton 1 mais pas boutton 2
@@ -712,7 +772,7 @@ public class GameActivity extends AppCompatActivity {
         // si un nom dans chaque boutton
         else if(nameInBtn1 & nameInBtn2){
             btn1 = currentPlayer;
-            btn2 = getRandomPlayer(currentPlayer);
+            btn2 = otherPlayer;
         }
         return new String[]{btn1, btn2};
     }
@@ -907,7 +967,7 @@ public class GameActivity extends AppCompatActivity {
         wheel_player_call.setText(HtmlCompat.fromHtml("<b>"+currentPlayer+"</b>"+getString(R.string.wheel_player_call),HtmlCompat.FROM_HTML_MODE_LEGACY));
         getWheelGame();
     }
-
+    @SuppressLint("ClickableViewAccessibility")
     private void getWheelGame(){
         final String[] sectors = {"0","3","2","1","1","2","1","1","1","2","1","3"};
         final int[] sectorDegrees = new int[sectors.length];
@@ -920,6 +980,31 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 spinWheel(random,sectors,sectorDegrees,wheel);
+            }
+        });
+        spinBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return false;
             }
         });
 
@@ -1054,7 +1139,7 @@ public class GameActivity extends AppCompatActivity {
         TextView cardColor = (TextView) findViewById(R.id.card_color_display);
         TextView orText = (TextView) findViewById(R.id.or_text);
         this.cardImage = (ImageView) findViewById(R.id.card_image);
-
+        currentChallenge[7] = "§ "+getString(R.string.drink)+" µ";
         blackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1077,7 +1162,8 @@ public class GameActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), currentPlayer+" "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points)   , Toast.LENGTH_SHORT).show();
                 }
                 else{ //perdu
-                    cardColor.setText(getString(R.string.loose)+"\n"+ getPunition());
+
+                    cardColor.setText(HtmlCompat.fromHtml(getString(R.string.loose)+"<br>"+ getPunition(),HtmlCompat.FROM_HTML_MODE_LEGACY));
 
                 }
                 blackButton.setVisibility(View.GONE);
@@ -1110,8 +1196,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 // perdu
                 else{
-                    cardColor.setText(getString(R.string.loose)+"\n"+ getPunition());
-                }
+                    cardColor.setText(HtmlCompat.fromHtml(getString(R.string.loose)+"<br>"+ getPunition(),HtmlCompat.FROM_HTML_MODE_LEGACY));                }
 
                 blackButton.setVisibility(View.GONE);
                 redButton.setVisibility(View.GONE);

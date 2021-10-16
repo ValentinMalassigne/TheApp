@@ -181,6 +181,7 @@ public class OptionActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void showSentence(int layout){
         int editID= 1;
         int deleteID=1001;

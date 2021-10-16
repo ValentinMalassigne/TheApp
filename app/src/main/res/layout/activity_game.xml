@@ -60,6 +60,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/convergence"
             android:gravity="center"
+            android:layout_marginHorizontal="15dp"
             android:text="@string/first_display_text"
             android:textColor="@color/white"
             android:textSize="24sp" />
@@ -69,11 +70,22 @@
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_marginTop="70dp"
-            android:background="@drawable/button_shape"
+            android:background="@drawable/button"
             android:text="@string/show_answer"
+            android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             app:backgroundTint="@null" />
+        <TextView
+            android:id="@+id/help_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:visibility="visible"
+            android:text="@string/help_description"
+            android:textColor="@color/rouge_pale"
+            android:textSize="18sp"
+            android:textStyle="italic" />
 
         <ImageView
             android:layout_marginTop="20dp"
@@ -81,6 +93,8 @@
             android:layout_height="50dp"
             android:id="@+id/skip_button"
             android:src="@drawable/skip_button"/>
+
+
 
 
     </LinearLayout>
