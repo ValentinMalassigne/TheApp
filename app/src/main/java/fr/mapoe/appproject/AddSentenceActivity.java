@@ -667,6 +667,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
 
     }
+
     private void managePointsSelection(int pointsAmount){
         pointLayout.setVisibility(View.GONE);
         scrollablePointLayout.setVisibility(View.VISIBLE);
@@ -708,6 +709,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         }
         questionTextView.setText(getString(R.string.complete));
     }
+
     private void showInfoPopup(int layout){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
@@ -782,6 +784,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         });
 
     }
+
     private void addPlayerToSentence(EditText editText){
         String text = editText.getText().toString();
         if(numberOfOccurrences(text)<3) {
@@ -819,6 +822,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             }
         });
     }
+
     private void showAnswerPopup(int layout, String answer,String point){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
@@ -920,6 +924,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             }
         });
     }
+
     private int numberOfOccurrences(String source) {
         int occurrences = 0;
 
@@ -931,6 +936,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
         return occurrences;
     }
+
     private String getCleanText(String text) {
         String res = "";
         if (numberOfOccurrences(text) == 1) {

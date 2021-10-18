@@ -144,8 +144,9 @@
     <string name="how_many_points">How many points in case of right answer ?</string>
     <string name="check_informations">Check every information and press next !</string>
     <string-array name="win_sentences_array">
-        <item>§ won ¤ points</item>
-        <item>§ earned ¤ points</item>
-        <item>§ grabbed ¤ points</item>
+        <item>§ won ¤ point(s)</item>
+        <item>§ earned ¤ point(s)</item>
+        <item>§ grabbed ¤ point(s)</item>
+        <item>§ is on fire ¤ point(s)</item>
     </string-array>
 </resources>

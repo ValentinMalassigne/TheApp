@@ -129,7 +129,6 @@
     <string name="note_max_player">note: 3 joueurs maximun</string>
     <string name="game_mode_edit_text">Dans quel mode de jeu voulez vous ajouter votre phrase ?</string>
     <string name="sumury_text">"Recapitulatif de vos paramètres, vous pouvez toujours les editer ! N'oubliez pas de scroller pour voir les derniers "</string>
-    <string name="right_the">"Ecrit "</string>
     <string name="complete">Complete ta phrase</string>
     <string name="check_info">"Vérifie toutes les informations et appuie sur Suivant "</string>
     <string name="point_case_right_answer">Combien de points en cas de bonne réponse ?</string>
