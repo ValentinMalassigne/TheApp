@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -19,6 +20,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.Locale;
 
@@ -74,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         // go to character choose by ApeChill
         LinearLayout goToCharacter = (LinearLayout) findViewById(R.id.character_choose_image);
         goToCharacter.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +126,29 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        // text responsive si l'api le permet
+        if(Build.VERSION.SDK_INT >= 26){
+            setResponsiveText();
+        }
+
     }
+
+    private void setResponsiveText() {
+
+        TextView apeChillTitle = findViewById(R.id.apechill_title);
+        TextView apeChillDescription = findViewById(R.id.apepiment_description);
+        TextView apePiementTitle = findViewById(R.id.apepiment_description);
+        TextView apePiementDescription = findViewById(R.id.apepiment_description);
+        TextView rouletteTitle = findViewById(R.id.roulette_title);
+        TextView rouletteDescription = findViewById(R.id.roulette_description);
+        TextView cardTitle = findViewById(R.id.card_title);
+        TextView cardDescription = findViewById(R.id.card_discription);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            apeChillTitle.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM);
+        }
+    }
+
     private void getLanguage(){
         //on charge le langage enregistrer dans les shared preferences
         SharedPreferences language = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);

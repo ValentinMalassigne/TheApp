@@ -71,6 +71,7 @@ public class AddSentenceActivity extends AppCompatActivity {
     private EditText scrollableAnswerEditText;
     private LinearLayout pointLayout;
     private LinearLayout scrollableButtonLayout;
+    private Spinner pointListSpinner;
     private LinearLayout scrollablePointLayout;
     private Spinner scrollablePointList;
     private Button visualizeButton;
@@ -98,9 +99,8 @@ public class AddSentenceActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             editSentence = extras.getBoolean("editSentence");
-            decodedSentence=extras.getStringArray("decodedSentence");//0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame 8: la punition
+            decodedSentence = extras.getStringArray("decodedSentence");//0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame 8: la punition        }
         }
-
         ImageView infoButton = findViewById(R.id.info_image);
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +159,8 @@ public class AddSentenceActivity extends AppCompatActivity {
     }
 
     private void start(){
+        //ouverture du fichier
+        //situation ou l'on ouvre cette activity pour modifier une phrase
 
         //bouton ApeChill
         Button buttonApeChill = findViewById(R.id.button_ape_chill);
@@ -264,7 +266,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             scrollablePointList.setAdapter(adapter3);
 
-            //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame 8:punition
+            //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame
             if(decodedSentence[7].equals("ApePiment")){
                 gameModeSpinner.setSelection(1);
             }
@@ -433,6 +435,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             });
                                                      }
 
+
             //bouton 1 point
             button1Point.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -472,7 +475,6 @@ public class AddSentenceActivity extends AppCompatActivity {
                     managePointsSelection(4);
                 }
             });
-
             //button pour visualiser la phrase
             visualizeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -490,7 +492,6 @@ public class AddSentenceActivity extends AppCompatActivity {
 
                 }
             });
-
             //bouton ajouter un joueur a la phrase quand on te le demande
             ImageView addPlayerToSentence = findViewById(R.id.add_player_to_sentence);
             addPlayerToSentence.setOnClickListener(new View.OnClickListener() {
@@ -517,6 +518,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                     addPlayerToSentence(findViewById(R.id.scrollable_sentence_edit_text));
                 }
             });
+
 
             //bouton ajouter un joueur a la réponse dans le scrollview
             ImageView scrollableAddPlayerToAnswer = findViewById(R.id.scrollable_add_player_to_answer);
@@ -667,7 +669,6 @@ public class AddSentenceActivity extends AppCompatActivity {
 
 
     }
-
     private void managePointsSelection(int pointsAmount){
         pointLayout.setVisibility(View.GONE);
         scrollablePointLayout.setVisibility(View.VISIBLE);
@@ -709,7 +710,6 @@ public class AddSentenceActivity extends AppCompatActivity {
         }
         questionTextView.setText(getString(R.string.complete));
     }
-
     private void showInfoPopup(int layout){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
@@ -784,7 +784,6 @@ public class AddSentenceActivity extends AppCompatActivity {
         });
 
     }
-
     private void addPlayerToSentence(EditText editText){
         String text = editText.getText().toString();
         if(numberOfOccurrences(text)<3) {
@@ -822,7 +821,6 @@ public class AddSentenceActivity extends AppCompatActivity {
             }
         });
     }
-
     private void showAnswerPopup(int layout, String answer,String point){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
@@ -924,7 +922,6 @@ public class AddSentenceActivity extends AppCompatActivity {
             }
         });
     }
-
     private int numberOfOccurrences(String source) {
         int occurrences = 0;
 
@@ -936,7 +933,6 @@ public class AddSentenceActivity extends AppCompatActivity {
 
         return occurrences;
     }
-
     private String getCleanText(String text) {
         String res = "";
         if (numberOfOccurrences(text) == 1) {

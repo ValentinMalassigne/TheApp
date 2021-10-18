@@ -25,6 +25,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
@@ -71,7 +72,8 @@ public class GameActivity extends AppCompatActivity {
     private TextView playerCardTurn;
     private int typeOfGame =0;
     private static final String FILE_NAME = "custom_sentences.txt";
-
+    private Button answerButton;
+    private String otherPlayer;
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
                 (R.drawable.h01, R.drawable.h02, R.drawable.h03, R.drawable.h04,
@@ -94,7 +96,6 @@ public class GameActivity extends AppCompatActivity {
                         R.drawable.s13)
         );
     }
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,7 +116,7 @@ public class GameActivity extends AppCompatActivity {
         // initialisation du tableau scoreTab et le remplir
         scoreTab = new String[playerTab.length];
         Arrays.fill(scoreTab, "0");
-
+        this.answerButton = (Button) findViewById(R.id.answer_button);
         //setUp des list
         try {
             setUpList();
@@ -132,45 +133,7 @@ public class GameActivity extends AppCompatActivity {
                 showScorePopup(R.layout.score_popup);
             }
         });
-
-        // Generer la popup réponse
-        Button answerButton = (Button) findViewById(R.id.answer_button);
-        if(typeOfGame ==2){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                answerButton.setBackground(getDrawable(R.drawable.button2));
-            }
-        }
-        answerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],1);
-            }
-        });
-        Button skipButton = (Button) findViewById(R.id.skip_button);
-        skipButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],2);
-            }
-        });
-
-        ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
-        xButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // ouvre l'activity End game
-                Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
-                gameEndActivity.putExtra("playerTab", playerTab);
-                gameEndActivity.putExtra("alcoholTab", alcoholTab);
-                gameEndActivity.putExtra("typeOfGame", typeOfGame);
-                gameEndActivity.putExtra("scoreTab", scoreTab);
-                startActivity(gameEndActivity);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                finish();
-            }
-        });
-
-        xButton.setOnTouchListener(new View.OnTouchListener() {
+        scoreButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
@@ -196,6 +159,96 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        // Generer la popup réponse
+
+        if(typeOfGame ==2){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                answerButton.setBackground(getDrawable(R.drawable.button2));
+            }
+        }
+        answerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int typeOfCall= 1;
+                if(currentChallenge[5].equals("skip")){
+                    typeOfCall = 2;
+                }
+                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],typeOfCall);
+            }
+        });
+        ImageView skipButton = (ImageView) findViewById(R.id.skip_button);
+        skipButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],3);
+            }
+        });
+        skipButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return false;
+            }
+        });
+
+        ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
+        xButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // ouvre l'activity End game
+                Intent gameEndActivity = new Intent(getApplicationContext(), GameEndActivity.class);
+                gameEndActivity.putExtra("playerTab", playerTab);
+                gameEndActivity.putExtra("alcoholTab", alcoholTab);
+                gameEndActivity.putExtra("typeOfGame", typeOfGame);
+                gameEndActivity.putExtra("scoreTab", scoreTab);
+                startActivity(gameEndActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
+        });
+        xButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return false;
+            }
+        });
         {
             //on vérifie si l'utilisateur à bloqué la popup
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
@@ -222,7 +275,8 @@ public class GameActivity extends AppCompatActivity {
         ImageView leftButton = layoutView.findViewById(R.id.left_popup_arrow);
         leftButton.setVisibility(View.GONE);
         textInfo.setText(getString(R.string.game_description));
-        imageInfo.setVisibility(View.GONE);
+        imageInfo.setImageResource(R.drawable.skip_button);
+
 
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
@@ -261,7 +315,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void showAnswerPopup(int layout, String text, int typeOfCall){
-        final boolean[] rightAnswer = {false};//c'est un tab sinon ça passe bien entre les onClicks (c'est ce que android studio a recommandé)
+        final boolean[] rightAnswer = {false};
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
@@ -273,7 +327,7 @@ public class GameActivity extends AppCompatActivity {
 
         //on change la réponse des boutons avec celles du fichier
         yesButton.setText(currentChallenge[5]);//la première rep
-        noButton.setText(currentChallenge[6]);//la deuxième rep
+        noButton.setText(currentChallenge[6]);//la deuxième rep*
 
         // change bg suivant le jeu
         if(typeOfGame ==2){
@@ -286,6 +340,7 @@ public class GameActivity extends AppCompatActivity {
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        // appel normal y a une réponse
         if(typeOfCall ==1) { // appel normal par réponse
             textDisplay.setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY));
             yesButton.setOnClickListener(new View.OnClickListener() {
@@ -329,6 +384,37 @@ public class GameActivity extends AppCompatActivity {
                 }
             });
         }
+        // appel sans réponse
+        else if(typeOfCall ==2){
+            yesButton.setVisibility(View.GONE);
+            noButton.setVisibility(View.GONE);
+            nextButton.setVisibility(View.VISIBLE);
+            nextButton.setText("ok");
+            // affiche le score marqué
+            String temp = getRandomWinSentence();
+            textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
+            nextButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    try {
+
+                        for (int i = 0; i < scoreTab.length; i++) {
+                            if (playerTab[i].equals(currentPlayer)) {
+                                int scoreInt = Integer.parseInt(currentChallenge[0]);
+                                int currentPlayerScore = Integer.parseInt(scoreTab[i]);
+                                int newScore = scoreInt + currentPlayerScore;
+                                scoreTab[i] = Integer.toString(newScore);
+                                }
+                            }
+                        newDisplay(view);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    alertDialog.dismiss();
+                }
+            });
+        }
+        // appel par skip
         else{ // appel par skip
             String temp = getPunition();
             textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
@@ -505,6 +591,18 @@ public class GameActivity extends AppCompatActivity {
 
             currentTitleDisplay.setText(type);
             currentTextDisplay.setText(HtmlCompat.fromHtml(phrase,HtmlCompat.FROM_HTML_MODE_LEGACY));
+            TextView helpText = findViewById(R.id.help_text);
+            if(currentChallenge[5].equals("skip")){
+                answerButton.setText("répondu ?");
+
+                helpText.setVisibility(View.VISIBLE);
+
+            }
+            else{
+                answerButton.setText(getString(R.string.show_answer));
+                helpText.setVisibility(View.GONE);
+            }
+
         }
     }
 
@@ -513,6 +611,7 @@ public class GameActivity extends AppCompatActivity {
         String type = getChallengeTurn();
         String[] tempTab =GetNextChallenge(type);
         String ligne = tempTab[1];
+        Log.d(TAG,"bonjour "+ligne);
         boolean result=false;
         boolean temp = false;
         int i=0;
@@ -587,8 +686,9 @@ public class GameActivity extends AppCompatActivity {
             currentChallenge[1]=SetNamesInSentence(answers);
             currentChallenge[2]=SetNamesInSentence(sentence);
             currentChallenge[4]=rightAnswer;
-            currentChallenge[5]=button1Text;
-            currentChallenge[6]=button2Text;
+            String[] btnText = SetNameInButton(button1Text,button2Text); // 0: btn1 1:btn2
+            currentChallenge[5]=btnText[0];
+            currentChallenge[6]=btnText[1];
             currentChallenge[7]=punition;
             result =true;
         }
@@ -646,7 +746,8 @@ public class GameActivity extends AppCompatActivity {
                     res.append("<b>").append(Nom).append("</b>");
                 }else{
                     //nom des joueurs qui participent aussi
-                    res.append("<b>").append(getRandomPlayer(Nom)).append("</b>");
+                    otherPlayer = getRandomPlayer(Nom);
+                    res.append("<b>").append(otherPlayer).append("</b>");
                 }
             }else{
                 //si on lit un caractère "normal" de la phrase on le copie cole sans modification
@@ -654,6 +755,26 @@ public class GameActivity extends AppCompatActivity {
             }
         }
         return res.toString();
+    }
+    private String[] SetNameInButton(String button1,String button2){
+        String btn1=button1;
+        String btn2=button2;
+        boolean nameInBtn1 = button1.substring(0,button1.length()).equals("§");
+        boolean nameInBtn2 = button2.substring(0,button2.length()).equals("§");
+        // si nom dans boutton 1 mais pas boutton 2
+        if(nameInBtn1 &!nameInBtn2){
+              btn1 = currentPlayer;
+        }
+        // inverse
+        else if(!nameInBtn1 & nameInBtn2){
+            btn2=currentPlayer;
+        }
+        // si un nom dans chaque boutton
+        else if(nameInBtn1 & nameInBtn2){
+            btn1 = currentPlayer;
+            btn2 = otherPlayer;
+        }
+        return new String[]{btn1, btn2};
     }
 
     private String[] GetNextChallenge(String type) {
@@ -846,7 +967,7 @@ public class GameActivity extends AppCompatActivity {
         wheel_player_call.setText(HtmlCompat.fromHtml("<b>"+currentPlayer+"</b>"+getString(R.string.wheel_player_call),HtmlCompat.FROM_HTML_MODE_LEGACY));
         getWheelGame();
     }
-
+    @SuppressLint("ClickableViewAccessibility")
     private void getWheelGame(){
         final String[] sectors = {"0","3","2","1","1","2","1","1","1","2","1","3"};
         final int[] sectorDegrees = new int[sectors.length];
@@ -859,6 +980,31 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 spinWheel(random,sectors,sectorDegrees,wheel);
+            }
+        });
+        spinBtn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return false;
             }
         });
 
@@ -993,7 +1139,7 @@ public class GameActivity extends AppCompatActivity {
         TextView cardColor = (TextView) findViewById(R.id.card_color_display);
         TextView orText = (TextView) findViewById(R.id.or_text);
         this.cardImage = (ImageView) findViewById(R.id.card_image);
-
+        currentChallenge[7] = "§ "+getString(R.string.drink)+" µ";
         blackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1016,7 +1162,8 @@ public class GameActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), currentPlayer+" "+getString(R.string.scoring)+" "+currentChallenge[0]+" "+getString(R.string.points)   , Toast.LENGTH_SHORT).show();
                 }
                 else{ //perdu
-                    cardColor.setText(getString(R.string.loose)+"\n"+ getPunition());
+
+                    cardColor.setText(HtmlCompat.fromHtml(getString(R.string.loose)+"<br>"+ getPunition(),HtmlCompat.FROM_HTML_MODE_LEGACY));
 
                 }
                 blackButton.setVisibility(View.GONE);
@@ -1049,8 +1196,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 // perdu
                 else{
-                    cardColor.setText(getString(R.string.loose)+"\n"+ getPunition());
-                }
+                    cardColor.setText(HtmlCompat.fromHtml(getString(R.string.loose)+"<br>"+ getPunition(),HtmlCompat.FROM_HTML_MODE_LEGACY));                }
 
                 blackButton.setVisibility(View.GONE);
                 redButton.setVisibility(View.GONE);
@@ -1083,7 +1229,6 @@ public class GameActivity extends AppCompatActivity {
             }
         });
     }
-
     private String getRandomWinSentence(){
 
         //on récupère les win sentences disponibles

@@ -85,7 +85,7 @@
     <string name="ape_pimnet_description">For a spicy apero, discover the naughty secrets of your friends</string>
     <string name="drink">drink</string>
     <string name="your_turn">it\'s your turn</string>
-    <string name="game_description">You can answer the question and earn points or skip and drink</string>
+    <string name="game_description">You can answer the question and earn points or skip and drink by pressing: </string>
     <string name="block_popup">Do not show again !</string>
     <string name="popup_reset_button">Reset settings</string>
     <string name="popups_enabled">popups are turned back on</string>
@@ -134,19 +134,19 @@
     <string name="point_case_right_answer">How many points in case of right answer ?</string>
     <string name="right_button">Right button</string>
     <string name="left_button">Left Button</string>
-    <string name="player_mark">Player 1 mark</string>
+    <string name="player_mark">Player 1 scores</string>
     <string name="_1_point">1 point</string>
     <string name="_2_points">2 points</string>
     <string name="_3_points">3 points</string>
     <string name="_4_points">4 points</string>
+    <string name="help_description">If you don\'t want to answer press:</string>
+    <string-array name="win_sentences_array">
+        <item>§ won ¤ points</item>
+        <item>§ earned ¤ points</item>
+        <item>§ grabbed ¤ points</item>
+    </string-array>
     <string name="write_in_custom_answer_popup">Write what should be shown in the answer pop up</string>
     <string name="edit_buttons_and_select_correct_answer">Edit the buttons to give them the text you want.\n And select which answer gives sips and which answer gives points</string>
     <string name="how_many_points">How many points in case of right answer ?</string>
     <string name="check_informations">Check every information and press next !</string>
-    <string-array name="win_sentences_array">
-        <item>§ won ¤ point(s)</item>
-        <item>§ earned ¤ point(s)</item>
-        <item>§ grabbed ¤ point(s)</item>
-        <item>§ is on fire ¤ point(s)</item>
-    </string-array>
 </resources>

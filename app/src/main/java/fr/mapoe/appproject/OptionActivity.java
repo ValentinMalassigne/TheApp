@@ -79,7 +79,6 @@ public class OptionActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         goTomMenu.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -182,6 +181,7 @@ public class OptionActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void showSentence(int layout){
         int editID= 1;
         int deleteID=1001;
@@ -202,7 +202,6 @@ public class OptionActivity extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
-
         xButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -231,34 +230,54 @@ public class OptionActivity extends AppCompatActivity {
 
 
         Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.convergence);
-        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(230, ViewGroup.LayoutParams.WRAP_CONTENT,1);
+        // paramètre des TextView
+        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(850, ViewGroup.LayoutParams.MATCH_PARENT);
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.bottomMargin= 50;
-        LinearLayout.LayoutParams deleteImageParams = new LinearLayout.LayoutParams(80, 80);
-        deleteImageParams.leftMargin=10;
+        //paramètre du global Layout
+        LinearLayout.LayoutParams globalLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        globalLayoutParams.bottomMargin= 70;
+
+        //paramètre des images
+        LinearLayout.LayoutParams editImageParams = new LinearLayout.LayoutParams(90, 90);
+        editImageParams.bottomMargin = 30;
+        LinearLayout.LayoutParams deleteImageParams = new LinearLayout.LayoutParams(90, 90);
+
+        // paramètre layout des images
+        LinearLayout.LayoutParams imageLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         for(int i =0;i< decodingTab.length;i++) {
-            LinearLayout linearLayout = new LinearLayout(getApplicationContext());
-            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-            linearLayout.setGravity(Gravity.CENTER);
-            linearLayout.setLayoutParams(params);
-            linearLayout.setId(linearID);
-            displayLayout.addView(linearLayout);
+
+            // linear layout qui contient tout
+            LinearLayout globalLinearLayout = new LinearLayout(getApplicationContext());
+            globalLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            globalLinearLayout.setLayoutParams(globalLayoutParams);
+            globalLinearLayout.setId(linearID);
+            displayLayout.addView(globalLinearLayout);
+
+            // le text de la phrase
             TextView textDisplay = new TextView(getApplicationContext());
             textDisplay.setLayoutParams(textParams);
             textDisplay.setTypeface(typeface);
+            textDisplay.setGravity(Gravity.CENTER);
             textDisplay.setTextColor(Color.WHITE);
             textDisplay.setMaxLines(4);
             textDisplay.setTextSize(18);
             textDisplay.setText(HtmlCompat.fromHtml(getCleanText(decodingTab[i][2]),HtmlCompat.FROM_HTML_MODE_LEGACY));
             textDisplay.setId(textID);
-            textDisplay.setHint(sentencesTab[i][0]);//on lui donne la phrase (comme dans le fichier text en hint, utilise pour le delete sentence)
 
+            textDisplay.setHint(sentencesTab[i][0]);//on lui donne la phrase (comme dans le fichier text en hint, utilise pour le delete sentence)
+            globalLinearLayout.addView(textDisplay);
+            // un layout vertical qui contient les images
+
+            LinearLayout imageLayout = new LinearLayout(getApplicationContext());
+            imageLayout.setOrientation(LinearLayout.VERTICAL);
+            imageLayout.setGravity(Gravity.RIGHT);
+            imageLayout.setLayoutParams(imageLayoutParams);
+            globalLinearLayout.addView(imageLayout);
 
             ImageView edit = new ImageView(getApplicationContext());
             edit.setImageResource(R.drawable.edit_logo);
-            edit.setLayoutParams(deleteImageParams);
+            edit.setLayoutParams(editImageParams);
             edit.setId(editID);
             int finalI = i;
             edit.setOnClickListener(new View.OnClickListener() {
@@ -279,8 +298,34 @@ public class OptionActivity extends AppCompatActivity {
                     finish();
                 }
             });
+            edit.setOnTouchListener(new View.OnTouchListener() {
 
-            deleteImageParams.gravity = Gravity.CENTER;
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            ImageView view = (ImageView) v;
+                            //overlay is black with transparency of 0x77 (119)
+                            view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                            view.invalidate();
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL: {
+                            ImageView view = (ImageView) v;
+                            //clear the overlay
+                            view.getDrawable().clearColorFilter();
+                            view.invalidate();
+                            break;
+                        }
+                    }
+
+                    return false;
+                }
+            });
+
+
             ImageView delete = new ImageView(getApplicationContext());
             delete.setImageResource(R.drawable.poubelle);
             delete.setLayoutParams(deleteImageParams);
@@ -292,10 +337,35 @@ public class OptionActivity extends AppCompatActivity {
                     deleteSentence(finalDeleteID, layoutView);
                 }
             });
+            delete.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
 
-            linearLayout.addView(textDisplay);
-            linearLayout.addView(edit);
-            linearLayout.addView(delete);
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            ImageView view = (ImageView) v;
+                            //overlay is black with transparency of 0x77 (119)
+                            view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                            view.invalidate();
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL: {
+                            ImageView view = (ImageView) v;
+                            //clear the overlay
+                            view.getDrawable().clearColorFilter();
+                            view.invalidate();
+                            break;
+                        }
+                    }
+
+                    return false;
+                }
+            });
+            imageLayout.addView(edit);
+            imageLayout.addView(delete);
+
+
 
             deleteID++;
             editID++;
@@ -396,7 +466,7 @@ public class OptionActivity extends AppCompatActivity {
     }
 
     private static String[] decoding(String gameMode, String type, String encoding){ // decoder sentence tab
-        String[] decoding = new String[9]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: mode de jeu 8 : punition
+        String[] decoding = new String[9]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: mode de jeu 8 : punition        boolean temp = false;
         boolean temp = false;
         String points;
         String answers;
@@ -445,7 +515,6 @@ public class OptionActivity extends AppCompatActivity {
             }
         }
         answers=encoding.substring(j+1,i);
-
         j=i+1;
         temp=false;
         while (!temp){
