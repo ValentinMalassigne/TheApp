@@ -54,6 +54,7 @@ public class GameActivity extends AppCompatActivity {
 
     private String[] playerTab, alcoholTab, scoreTab;
     private ArrayList<String> challengeList =new ArrayList<String>();
+    private ArrayList<String> customSentencesList =new ArrayList<String>();
     private ArrayList<String> miniGamesList = new ArrayList<String>();
     private ArrayList<String> sentenceList = new ArrayList<String>();
     private ArrayList<String> anecdotesList = new ArrayList<String>();
@@ -552,28 +553,35 @@ public class GameActivity extends AppCompatActivity {
                 while (!reader.readLine().equals("End")) {
                 }
             }
-            reader.readLine();//on passe la ligne "anecdotes"
-            String tempLine = reader.readLine();//on lit la première anecdote
-            while (!tempLine.equals("gages")) {
-                anecdotesList.add(tempLine);
+            if(i==1){
+                reader.readLine();//on passe la ligne "anecdotes"
+                String tempLine = reader.readLine();//on lit la première anecdote
+                while (!tempLine.equals("gages")) {
+                    anecdotesList.add(tempLine);
+                    tempLine = reader.readLine();
+                }
                 tempLine = reader.readLine();
-            }
-            tempLine = reader.readLine();
-            while (!tempLine.equals("minigames")) {
-                gagesList.add(tempLine);
+                while (!tempLine.equals("minigames")) {
+                    gagesList.add(tempLine);
+                    tempLine = reader.readLine();
+                }
                 tempLine = reader.readLine();
-            }
-            tempLine = reader.readLine();
-            while (!tempLine.equals("questions")) {
-                miniGamesList.add(tempLine);
+                while (!tempLine.equals("questions")) {
+                    miniGamesList.add(tempLine);
+                    tempLine = reader.readLine();
+                }
                 tempLine = reader.readLine();
+                while (!tempLine.equals("End")) {
+                    sentenceList.add(tempLine);
+                    tempLine = reader.readLine();
+                }
+            }else{
+                String tempLine = reader.readLine();//on lit la première phrase
+                while (!tempLine.equals("End")) {
+                    customSentencesList.add(tempLine);
+                    tempLine = reader.readLine();
+                }
             }
-            tempLine = reader.readLine();
-            while (!tempLine.equals("End")) {
-                sentenceList.add(tempLine);
-                tempLine = reader.readLine();
-            }
-
             inputStream.close();
         }
     }
@@ -796,6 +804,23 @@ public class GameActivity extends AppCompatActivity {
             res[0]=getString(R.string.type_anecdote);
             res[1]=GetRandomAnecdote();
         }
+        if (type.equals("custom")){
+            res[0]="Custom";
+            res[1]=GetRandomCustomSentence();
+        }
+        return res;
+    }
+
+    private String GetRandomCustomSentence() {
+
+        int min=0;
+        int max = customSentencesList.size()-1;
+        Random r = new Random();
+        int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
+
+        String res=customSentencesList.get(number);
+        customSentencesList.remove(number);
+
         return res;
     }
 
@@ -889,7 +914,7 @@ public class GameActivity extends AppCompatActivity {
             challengeList.add("sentence");
             challengeList.add("sentence");
             challengeList.add("sentence");
-            challengeList.add("sentence");
+            challengeList.add("custom");
             challengeList.add("anecdote");
             challengeList.add("anecdote");
         }

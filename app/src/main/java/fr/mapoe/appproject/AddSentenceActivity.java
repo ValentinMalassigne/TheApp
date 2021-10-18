@@ -669,6 +669,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
 
     }
+
     private void managePointsSelection(int pointsAmount){
         pointLayout.setVisibility(View.GONE);
         scrollablePointLayout.setVisibility(View.VISIBLE);
@@ -692,7 +693,6 @@ public class AddSentenceActivity extends AppCompatActivity {
     }
 
     //permet d'éviter d'écrire 4 fois le même code pour la selection du type de phrase
-
     private void manageSentenceTypeSelection(String usedButtonText){
         sentenceTypeLayout.setVisibility(View.GONE);
         sentenceEditLayout.setVisibility(View.VISIBLE);
@@ -710,6 +710,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         }
         questionTextView.setText(getString(R.string.complete));
     }
+
     private void showInfoPopup(int layout){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
@@ -784,6 +785,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         });
 
     }
+
     private void addPlayerToSentence(EditText editText){
         String text = editText.getText().toString();
         if(numberOfOccurrences(text)<3) {
@@ -821,6 +823,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             }
         });
     }
+
     private void showAnswerPopup(int layout, String answer,String point){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
@@ -922,6 +925,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             }
         });
     }
+
     private int numberOfOccurrences(String source) {
         int occurrences = 0;
 
@@ -933,6 +937,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
         return occurrences;
     }
+
     private String getCleanText(String text) {
         String res = "";
         if (numberOfOccurrences(text) == 1) {
@@ -979,7 +984,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
     private void fileBuilder(){
         //construction du fichier
-        String fileText ="anecdotes\ngages\nminigames\nquestions\nEnd\nanecdotes\ngages\nminigames\nquestions\nEnd";
+        String fileText ="End\nEnd";
 
         File file = new File(getFilesDir()+"/"+FILE_NAME);
         if (!file.exists()){
@@ -1002,15 +1007,6 @@ public class AddSentenceActivity extends AppCompatActivity {
     }
 
     private void addSentence(String ligne, String sentenceType, int typeOfGame){
-        //on adaptes le sentenceType
-        if(sentenceType.equals("Anecdote"))
-            sentenceType="anecdotes";
-        if(sentenceType.equals("Gage"))
-            sentenceType="gages";
-        if(sentenceType.equals("Mini-jeu"))
-            sentenceType="minigames";
-        if(sentenceType.equals("Question"))
-            sentenceType="questions";
 
         //on copie ce qu'il y a dans le fichier
         try {
@@ -1020,12 +1016,13 @@ public class AddSentenceActivity extends AppCompatActivity {
             String text;
             ArrayList<String> phrase = new ArrayList<String>();
             int typeOfGameCounter=1;
+            boolean adDone = false;
             while ((text = br.readLine())!=null){
-
-                phrase.add(text+"\n");
-                if(text.equals(sentenceType) && typeOfGame==typeOfGameCounter){ //on trouve l'endroit où on doit insérer la ligne du joueur
+                if(typeOfGame==typeOfGameCounter && !adDone){ //on trouve l'endroit où on doit insérer la ligne du joueur
                     phrase.add(ligne+"\n");
+                    adDone=true;
                 }
+                phrase.add(text+"\n");
                 if(text.equals("End"))
                     typeOfGameCounter++;
             }
@@ -1044,9 +1041,11 @@ public class AddSentenceActivity extends AppCompatActivity {
             if(fos!=null){
                 fos.close();
             }
+            showFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 // pour voir le contenu du fichier

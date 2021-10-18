@@ -395,11 +395,10 @@ public class OptionActivity extends AppCompatActivity {
 
     private void readFile() throws IOException {
         //def des variables
-        String text;
         int compteur;
         //initialisation
         int i=0;
-        compteur=-10;//compte le nombre de phrases customs (il y a 10 lignes déjà utilisées dans le fichier donc on commence a -10)
+        compteur=-2;//compte le nombre de phrases customs (il y a 10 lignes déjà utilisées dans le fichier donc on commence a -10)
 
         //ouverture du fichier
         FileInputStream fis=openFileInput(FILE_NAME);
@@ -407,7 +406,7 @@ public class OptionActivity extends AppCompatActivity {
         BufferedReader br = new BufferedReader(isr);
 
         //on compte le nombre de ligne pour créer un tableau de bonne taille
-        while ((text = br.readLine())!=null){
+        while ((br.readLine())!=null){
             compteur++;
         }
         fis.close();
@@ -427,36 +426,10 @@ public class OptionActivity extends AppCompatActivity {
             else{
                 gameMode="ApePiment";
             }
-            br.readLine();//on passe la ligne "anecdotes"
-            String tempLine = br.readLine();//on lit la première anecdote
-            while (!tempLine.equals("gages")) {
-                sentencesTab[compteur][0]=tempLine;
-                sentencesTab[compteur][1]="anecdote";
-                sentencesTab[compteur][2]=gameMode;
-                compteur++;
-                tempLine = br.readLine();
-            }
-            tempLine = br.readLine();
-            while (!tempLine.equals("minigames")) {
-                sentencesTab[compteur][0]=tempLine;
-                sentencesTab[compteur][1]="gages";
-                sentencesTab[compteur][2]=gameMode;
-                compteur++;
-                tempLine = br.readLine();
-            }
-
-            tempLine = br.readLine();
-            while (!tempLine.equals("questions")) {
-                sentencesTab[compteur][0]=tempLine;
-                sentencesTab[compteur][1]="minigames";
-                sentencesTab[compteur][2]=gameMode;
-                compteur++;
-                tempLine = br.readLine();
-            }
-            tempLine = br.readLine();
+            String tempLine = br.readLine();//on lit la première ligne
             while (!tempLine.equals("End")) {
                 sentencesTab[compteur][0]=tempLine;
-                sentencesTab[compteur][1]="questions";
+                sentencesTab[compteur][1]="custom";
                 sentencesTab[compteur][2]=gameMode;
                 compteur++;
                 tempLine = br.readLine();
