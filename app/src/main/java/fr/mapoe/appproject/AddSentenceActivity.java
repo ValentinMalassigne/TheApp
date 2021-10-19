@@ -172,7 +172,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
                     }
                 });
-                questionTextView.setText(R.string.what_sentence_type);
+                questionTextView.setText(R.string.complete);
                 textViewResume.setVisibility(View.VISIBLE);
             }
         });
@@ -883,7 +883,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         encodingSentence+=scrollablePointList.getSelectedItem().toString()+ " ";
         encodingSentence+=answer+"¤";
         encodingSentence+=text;
-        encodingSentence+="¤§ tu bois µ sinon c'est génant";//il faudra donner une punition custom
+        encodingSentence+=getString(R.string.default_custom_sentence_punition);//il faudrait donner une punition custom
         return encodingSentence;
     }
 

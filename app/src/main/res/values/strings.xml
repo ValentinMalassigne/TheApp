@@ -129,7 +129,7 @@
     <string name="note_max_player">note: 3 players max</string>
     <string name="game_mode_edit_text">In which game mode do you want to add the sentence ?</string>
     <string name="sumury_text">Summary of your settings, you can still edit them.\nYou may need to scroll to view all of them</string>
-    <string name="complete">Complete your sentence</string>
+    <string name="complete">Write your sentence</string>
     <string name="check_info">Check every information and press next !</string>
     <string name="point_case_right_answer">How many points in case of right answer ?</string>
     <string name="right_button">Right button</string>
@@ -144,9 +144,11 @@
         <item>§ won ¤ points</item>
         <item>§ earned ¤ points</item>
         <item>§ grabbed ¤ points</item>
+        <item>§ is on fire ! + ¤ point(s)</item>
     </string-array>
     <string name="write_in_custom_answer_popup">Write what should be shown in the answer pop up</string>
     <string name="edit_buttons_and_select_correct_answer">Edit the buttons to give them the text you want.\n And select which answer gives sips and which answer gives points</string>
     <string name="how_many_points">How many points in case of right answer ?</string>
     <string name="check_informations">Check every information and press next !</string>
+    <string name="default_custom_sentence_punition">¤§ drink µ</string>
 </resources>
