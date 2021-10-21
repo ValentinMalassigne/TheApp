@@ -57,6 +57,9 @@
 
 
         <TextView
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/what_is_next_card"
             android:id="@+id/card_color_display"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,7 +67,7 @@
             android:fontFamily="@font/convergence"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="35sp"
+            android:textSize="26sp"
             android:textStyle="bold" />
         <androidx.cardview.widget.CardView
             app:cardCornerRadius="10dp"
@@ -79,7 +82,21 @@
                 android:id="@+id/card_image"
                 android:src="@drawable/cardback" />
         </androidx.cardview.widget.CardView>
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/restart_button"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/button"
+            android:text="@string/restart_button"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            app:backgroundTint="@null" />
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -99,7 +116,7 @@
             android:layout_width="137dp"
             android:layout_height="52dp"
             android:background="@drawable/red_button_shape"
-            android:shadowColor="#000000"
+            android:shadowColor="#FFFFFF"
             android:shadowDx="3"
             android:shadowDy="-1"
             android:shadowRadius="7"

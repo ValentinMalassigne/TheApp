@@ -905,7 +905,7 @@ public class GameActivity extends AppCompatActivity {
 
     private String getChallengeTurn(){
         //remplir la list
-        String res=null;
+        String res;
         if (challengeList.size()==0){
             challengeList.add("gage");
             challengeList.add("gage");
@@ -914,9 +914,14 @@ public class GameActivity extends AppCompatActivity {
             challengeList.add("sentence");
             challengeList.add("sentence");
             challengeList.add("sentence");
-            challengeList.add("custom");
+            challengeList.add("sentence");
             challengeList.add("anecdote");
             challengeList.add("anecdote");
+
+            //on vérifie si des phrases custom sont disponibles
+            if (!customSentencesList.isEmpty()){
+                challengeList.set(4,"custom");//on remple le 5eme element (une sentence) par custom
+            }
         }
         if(displayCounter==1){ //si on est au premier tour, on prend forcément entre une sentence et une anecdote
             int min=4;

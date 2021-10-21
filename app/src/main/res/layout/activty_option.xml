@@ -113,7 +113,7 @@
                 android:autoSizeMaxTextSize="35sp"
                 android:layout_marginLeft="10dp"
                 android:fontFamily="@font/convergence"
-                android:text="@string/my_sentence"
+                android:text="@string/my_sentences"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 

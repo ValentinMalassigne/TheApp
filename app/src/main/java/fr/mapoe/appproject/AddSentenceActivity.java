@@ -250,8 +250,8 @@ public class AddSentenceActivity extends AppCompatActivity {
                 gameModeSpinner.setSelection(1);
             }
 
-            decodedSentence[2]= decodedSentence[2].replaceAll("§","--joueur--");
-            decodedSentence[1]=decodedSentence[1].replaceAll("§","--joueur--");
+            decodedSentence[2]= decodedSentence[2].replaceAll("§",getString(R.string.player_landmark));
+            decodedSentence[1]=decodedSentence[1].replaceAll("§",getString(R.string.player_landmark));
             scrollableSentenceEditText.setText(decodedSentence[2]);
             scrollableAnswerEditText.setText(decodedSentence[1]);
 
@@ -291,7 +291,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                     String text = scrollableSentenceEditText.getText().toString();
                     String answer = scrollableAnswerEditText.getText().toString();
                     if (numberOfOccurrences(text) == 0) {
-                        text = "--joueur--" + " " + text;
+                        text = getString(R.string.player_landmark) + " " + text;
                     }
                     text = getCleanText(text);
                     answer = getCleanText(answer);
@@ -416,7 +416,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                     String text = scrollableSentenceEditText.getText().toString();
                     String answer = scrollableAnswerEditText.getText().toString();
                     if (numberOfOccurrences(text) == 0) {
-                        text = "--joueur--" + " " + text;
+                        text = getString(R.string.player_landmark) + " " + text;
                     }
                     text = getCleanText(text);
                     answer = getCleanText(answer);
@@ -695,7 +695,7 @@ public class AddSentenceActivity extends AppCompatActivity {
     private void addPlayerToSentence(EditText editText){
         String text = editText.getText().toString();
         if(numberOfOccurrences(text)<3) {
-            text += "--joueur--";
+            text += getString(R.string.player_landmark);
             editText.setText(text);
             editText.setSelection(editText.getText().length());
             maxAddPlayerText ++;
@@ -766,7 +766,12 @@ public class AddSentenceActivity extends AppCompatActivity {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text="<b><i>Joueur 1</i><b> marque "+point+" point(s)";
+                String text;
+                if(rightAnswer==0){
+                    text=getString(R.string.player1_scores)+point+getString(R.string.point);
+                }else{
+                    text=getString(R.string.player1_drink_x_sips);
+                }
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
                 addButton.setVisibility(View.VISIBLE);
@@ -785,7 +790,12 @@ public class AddSentenceActivity extends AppCompatActivity {
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text="<b><i>Joueur 1</i><b> bois x gorgées ou c'est génant";
+                String text;
+                if(rightAnswer==1){
+                    text=getString(R.string.player1_scores)+point+getString(R.string.point);
+                }else{
+                    text=getString(R.string.player1_drink_x_sips);
+                }
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
                 addButton.setVisibility(View.VISIBLE);
@@ -834,10 +844,10 @@ public class AddSentenceActivity extends AppCompatActivity {
     private int numberOfOccurrences(String source) {
         int occurrences = 0;
 
-        if (source.contains("--joueur--")) {
+        if (source.contains(getString(R.string.player_landmark))) {
             int withSentenceLength    = source.length();
-            int withoutSentenceLength = source.replace("--joueur--", "").length();
-            occurrences = (withSentenceLength - withoutSentenceLength) / "--joueur--".length();
+            int withoutSentenceLength = source.replace(getString(R.string.player_landmark), "").length();
+            occurrences = (withSentenceLength - withoutSentenceLength) / getString(R.string.player_landmark).length();
         }
 
         return occurrences;
@@ -846,16 +856,16 @@ public class AddSentenceActivity extends AppCompatActivity {
     private String getCleanText(String text) {
         String res = "";
         if (numberOfOccurrences(text) == 1) {
-            res = text.replaceFirst("--joueur--", "<b><i>Joueur 1</i></b>");
+            res = text.replaceFirst(getString(R.string.player_landmark), getString(R.string.player1_bold_italic));
 
         } else if (numberOfOccurrences(text) == 2) {
-            res = text.replaceFirst("--joueur--", "<b><i>Joueur 1</i></b>");
-            res=res.replace("--joueur--","<b><i>Joueur 2</i></b>");
+            res = text.replaceFirst(getString(R.string.player_landmark), getString(R.string.player1_bold_italic));
+            res=res.replace(getString(R.string.player_landmark),getString(R.string.player2_bold_italic));
         }
         else{
-            res = text.replaceFirst("--joueur--", "<b><i>Joueur 1</i></b>");
-            res=res.replace("--joueur--","<b><i>Joueur 3</i></b>");
-            res = res.replaceFirst("<b><i>Joueur 3</i></b>","<b><i>Joueur 2</i></b>");
+            res = text.replaceFirst(getString(R.string.player_landmark), getString(R.string.player1_bold_italic));
+            res=res.replace(getString(R.string.player_landmark),getString(R.string.player3_bold_italic));
+            res = res.replaceFirst(getString(R.string.player3_bold_italic),getString(R.string.player2_bold_italic));
         }
         return res;
     }
@@ -869,8 +879,8 @@ public class AddSentenceActivity extends AppCompatActivity {
         if(button2.equals("")){
             button2 = getString(R.string.no_button);
         }
-        String text = scrollableSentenceEditText.getText().toString().replace("--joueur--","§");
-        String answer = scrollableAnswerEditText.getText().toString().replace("--joueur--","§");
+        String text = scrollableSentenceEditText.getText().toString().replace(getString(R.string.player_landmark),"§");
+        String answer = scrollableAnswerEditText.getText().toString().replace(getString(R.string.player_landmark),"§");
         String encodingSentence = "";
         encodingSentence+=button1+"/";
         encodingSentence+=button2;

@@ -122,9 +122,9 @@
     <string name="edit">Edit</string>
     <string name="right_answer">je suis la bonne réponse</string>
     <string name="wrong_answer">je suis la mauvaise réponse</string>
-    <string name="add_sentence">Ajouter mes phrases</string>
+    <string name="add_sentence">Ajouter une phrase</string>
     <string name="my_sentence">Ma phrase</string>
-    <string name="my_sentences">Ma phrase</string>
+    <string name="my_sentences">Mes phrases</string>
     <string name="skip">passer</string>
     <string name="note_max_player">note: 3 joueurs maximun</string>
     <string name="game_mode_edit_text">Dans quel mode de jeu voulez vous ajouter votre phrase ?</string>
@@ -151,4 +151,12 @@
     <string name="edit_buttons_and_select_correct_answer">Tu peux modifier le texte des boutons si nécessaire.\n Et tu peux choisir quelle est la bonne réponse</string>
     <string name="how_many_points">Combien de points en cas de bonne réponse ?</string>
     <string name="check_informations">Vérifie les informations et appuie sur "visualiser" !</string>
+    <string name="what_is_next_card">Quelle est la couleur de la prochaine carte ?</string>
+    <string name="player_landmark">--joueur--</string>
+    <string name="player1_scores"><![CDATA[\"<b><i>Joueur 1</i><b> marque \"]]></string>
+    <string name="point">\" point(s)\"</string>
+    <string name="player1_drink_x_sips"><![CDATA[<b><i>Joueur 1</i><b> bois x gorgée(s)]]></string>
+    <string name="player1_bold_italic"><![CDATA[<b><i>Joueur 1</i></b>]]></string>
+    <string name="player2_bold_italic"><![CDATA[<b><i>Joueur 2</i></b>]]></string>
+    <string name="player3_bold_italic"><![CDATA[<b><i>Joueur 3</i></b>]]></string>
 </resources>

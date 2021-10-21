@@ -119,9 +119,9 @@
     <string name="edit">Modifier</string>
     <string name="right_answer">I\'m the right answer</string>
     <string name="wrong_answer">I\'m the wrong answer</string>
-    <string name="add_sentence">Add my sentences</string>
-    <string name="my_sentence">My sentences</string>
-    <string name="my_sentences">My sentence</string>
+    <string name="add_sentence">Add a sentence</string>
+    <string name="my_sentence">My sentence</string>
+    <string name="my_sentences">My sentences</string>
     <string name="skip">skip</string>
     <string name="first_text_info_addSentence">Complete your sentence along the way and follow its evolution by scrolling the screen below. Each part of your sentence is editable at any moment</string>
     <string name="second_text_info_addSentence1">By clicking on the picture bellow, a player will be mentioned</string>
@@ -151,4 +151,12 @@
     <string name="how_many_points">How many points in case of right answer ?</string>
     <string name="check_informations">Check every information and press next !</string>
     <string name="default_custom_sentence_punition">¤§ drink µ</string>
+    <string name="what_is_next_card">What is the next card\'s color ?</string>
+    <string name="player_landmark">--player--</string>
+    <string name="player1_scores"><![CDATA[\"<b><i>Player 1</i><b> scores \"]]></string>
+    <string name="point">\" point(s)\"</string>
+    <string name="player1_drink_x_sips"><![CDATA[<b><i>Player 1</i><b> drink x sip(s)]]></string>
+    <string name="player1_bold_italic"><![CDATA[<b><i>Player 1</i></b>]]></string>
+    <string name="player2_bold_italic"><![CDATA[<b><i>Player 2</i></b>]]></string>
+    <string name="player3_bold_italic"><![CDATA[<b><i>Player 3</i></b>]]></string>
 </resources>

@@ -50,7 +50,18 @@ public class CardGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_game);
 
+        AnimationBg.startBackgroundAnimation(findViewById(R.id.card_game_layout));
+        Button blackButton = (Button) findViewById(R.id.black_button);
+        Button redButton = (Button) findViewById(R.id.red_button);
         ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
+        Button restartButton = findViewById(R.id.restart_button);
+        TextView cardColor = (TextView) findViewById(R.id.card_color_display);
+        this.cardImage = (ImageView) findViewById(R.id.card_image);
+        this.nbCard = (TextView) findViewById(R.id.nb_card);
+
+        Random generate = new Random(System.currentTimeMillis());
+
+
         xButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,14 +74,17 @@ public class CardGameActivity extends AppCompatActivity {
             }
         });
 
-        AnimationBg.startBackgroundAnimation(findViewById(R.id.card_game_layout));
-        Button blackButton = (Button) findViewById(R.id.black_button);
-        Button redButton = (Button) findViewById(R.id.red_button);
-        TextView cardColor = (TextView) findViewById(R.id.card_color_display);
-        this.cardImage = (ImageView) findViewById(R.id.card_image);
-        this.nbCard = (TextView) findViewById(R.id.nb_card);
 
-        Random generate = new Random(System.currentTimeMillis());
+        restartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cardColor.setText(R.string.what_is_next_card);
+                restartButton.setVisibility(View.GONE);
+                cardImage.setImageResource(R.drawable.cardback);
+            }
+        });
+
+
         blackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +96,7 @@ public class CardGameActivity extends AppCompatActivity {
                     cardColor.setText(R.string.you_win);
                 else
                     cardColor.setText(R.string.you_lost);
+                restartButton.setVisibility(View.VISIBLE);
             }
         });
 
@@ -96,6 +111,7 @@ public class CardGameActivity extends AppCompatActivity {
                 }
                 else
                     cardColor.setText(R.string.you_lost);
+                restartButton.setVisibility(View.VISIBLE);
             }
         });
     }
