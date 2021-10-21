@@ -2,12 +2,14 @@ package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
-
+import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 
 
 public class GameEndActivity extends AppCompatActivity {
@@ -27,6 +30,7 @@ public class GameEndActivity extends AppCompatActivity {
     private String[][] tabClass;
     private String[] playerTab,scoreTab,alcoholTab;
     private int typeOfGame = 0;
+    private ArrayList<String> savedSentenceList;
 
 
     @Override
@@ -41,7 +45,12 @@ public class GameEndActivity extends AppCompatActivity {
             alcoholTab = extras.getStringArray("alcoholTab");
             scoreTab = extras.getStringArray("scoreTab");
             typeOfGame = extras.getInt("typeOfGame");
-
+            savedSentenceList = extras.getStringArrayList("savedList");
+        }
+        if(savedSentenceList!=null) {
+            for (int i = 0; i < savedSentenceList.size(); i++) {
+                Log.d(TAG, "GamendENd" +(String) savedSentenceList.get(i));
+            }
         }
         // init les tableaux
         classTab();
@@ -75,11 +84,15 @@ public class GameEndActivity extends AppCompatActivity {
                 characterChosse.putExtra("alcoholTab", alcoholTab);
                 characterChosse.putExtra("restart",true);
                 characterChosse.putExtra("TypeOfGame", typeOfGame);
+                characterChosse.putExtra("savedList",savedSentenceList);
                 startActivity(characterChosse);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();
             }
         });
+
+
+
 
 
     }

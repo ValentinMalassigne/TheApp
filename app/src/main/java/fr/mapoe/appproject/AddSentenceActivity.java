@@ -250,8 +250,8 @@ public class AddSentenceActivity extends AppCompatActivity {
                 gameModeSpinner.setSelection(1);
             }
 
-            decodedSentence[2]= decodedSentence[2].replaceAll("§","--joueur--");
-            decodedSentence[1]=decodedSentence[1].replaceAll("§","--joueur--");
+            decodedSentence[2]= decodedSentence[2].replaceAll("§",getString(R.string.player_landmark));
+            decodedSentence[1]=decodedSentence[1].replaceAll("§",getString(R.string.player_landmark));
             scrollableSentenceEditText.setText(decodedSentence[2]);
             scrollableAnswerEditText.setText(decodedSentence[1]);
 
@@ -291,7 +291,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                     String text = scrollableSentenceEditText.getText().toString();
                     String answer = scrollableAnswerEditText.getText().toString();
                     if (numberOfOccurrences(text) == 0) {
-                        text = "--joueur--" + " " + text;
+                        text = getString(R.string.player_landmark) + " " + text;
                     }
                     text = getCleanText(text);
                     answer = getCleanText(answer);
@@ -364,140 +364,140 @@ public class AddSentenceActivity extends AppCompatActivity {
                     scrollableEditButton1.setText(editButton1.getText().toString());
                     scrollableEditButton2.setText(editButton2.getText().toString());
                     //on change le text qui guide
-                    questionTextView.setText(R.string.how_many_points);
-                }
-            });
-                                                     }
-
-
-            //bouton 1 point
-            button1Point.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    managePointsSelection(1);
-                }
-            });
-
-            // button Next après avoir choisis les points
-            button1Point.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    managePointsSelection(1);
-                }
-            });
-
-            //bouton 2 points
-            button2Points.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    managePointsSelection(2);
-                }
-            });
-
-            //bouton 3 points
-            button3Points.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    managePointsSelection(3);
-                }
-            });
-
-            //bouton 4 points
-            button4Points.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    managePointsSelection(4);
-                }
-            });
-            //button pour visualiser la phrase
-            visualizeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String text = scrollableSentenceEditText.getText().toString();
-                    String answer = scrollableAnswerEditText.getText().toString();
-                    if (numberOfOccurrences(text) == 0) {
-                        text = "--joueur--" + " " + text;
-                    }
-                    text = getCleanText(text);
-                    answer = getCleanText(answer);
-                    String point = scrollablePointList.getSelectedItem().toString();
-                    showValidatePopup(R.layout.visualisation_popup, "Custom", text, answer, point);
-
-                }
-            });
-            //bouton ajouter un joueur a la phrase quand on te le demande
-            ImageView addPlayerToSentence = findViewById(R.id.add_player_to_sentence);
-            addPlayerToSentence.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addPlayerToSentence(findViewById(R.id.sentence_edit_text));
-                }
-            });
-
-            //bouton ajouter un joueur a la réponse quand on te le demande
-            ImageView addPlayerToAnswer = findViewById(R.id.add_player_to_answer);
-            addPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addPlayerToSentence(findViewById(R.id.answer_edit_text));
-                }
-            });
-
-            //bouton ajouter un joueur a la phrase dans le scrollview
-            ImageView scrollableAddPlayerToSentence = findViewById(R.id.scrollable_add_player_to_sentence);
-            scrollableAddPlayerToSentence.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addPlayerToSentence(findViewById(R.id.scrollable_sentence_edit_text));
-                }
-            });
-
-
-            //bouton ajouter un joueur a la réponse dans le scrollview
-            ImageView scrollableAddPlayerToAnswer = findViewById(R.id.scrollable_add_player_to_answer);
-            scrollableAddPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addPlayerToSentence(findViewById(R.id.scrollable_answer_edit_text));
-                }
-            });
-
-            //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-            CheckBox rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
-            rightAnswerIs1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    manageCheckBoxSelection(view, 0);
-                }
-            });
-
-            //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-            CheckBox rightAnswerIs2 = findViewById(R.id.right_answer_is_2);
-            rightAnswerIs2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    manageCheckBoxSelection(view, 1);
-                }
-            });
-
-            //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-            CheckBox scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
-            scrollableRightAnswerIs1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    manageCheckBoxSelection(view, 0);
-                }
-            });
-
-            //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-            CheckBox scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
-            scrollableRightAnswerIs2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    manageCheckBoxSelection(view, 1);
+                    questionTextView.setText(R.string.point_case_right_answer);
                 }
             });
         }
+
+
+        //bouton 1 point
+        button1Point.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                managePointsSelection(1);
+            }
+        });
+
+        // button Next après avoir choisis les points
+        button1Point.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                managePointsSelection(1);
+            }
+        });
+
+        //bouton 2 points
+        button2Points.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                managePointsSelection(2);
+            }
+        });
+
+        //bouton 3 points
+        button3Points.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                managePointsSelection(3);
+            }
+        });
+
+        //bouton 4 points
+        button4Points.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                managePointsSelection(4);
+            }
+        });
+        //button pour visualiser la phrase
+        visualizeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = scrollableSentenceEditText.getText().toString();
+                String answer = scrollableAnswerEditText.getText().toString();
+                if (numberOfOccurrences(text) == 0) {
+                    text = getString(R.string.player_landmark) + " " + text;
+                }
+                text = getCleanText(text);
+                answer = getCleanText(answer);
+                String point = scrollablePointList.getSelectedItem().toString();
+                showValidatePopup(R.layout.visualisation_popup, "Custom", text, answer, point);
+
+            }
+        });
+        //bouton ajouter un joueur a la phrase quand on te le demande
+        ImageView addPlayerToSentence = findViewById(R.id.add_player_to_sentence);
+        addPlayerToSentence.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addPlayerToSentence(findViewById(R.id.sentence_edit_text));
+            }
+        });
+
+        //bouton ajouter un joueur a la réponse quand on te le demande
+        ImageView addPlayerToAnswer = findViewById(R.id.add_player_to_answer);
+        addPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addPlayerToSentence(findViewById(R.id.answer_edit_text));
+            }
+        });
+
+        //bouton ajouter un joueur a la phrase dans le scrollview
+        ImageView scrollableAddPlayerToSentence = findViewById(R.id.scrollable_add_player_to_sentence);
+        scrollableAddPlayerToSentence.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addPlayerToSentence(findViewById(R.id.scrollable_sentence_edit_text));
+            }
+        });
+
+
+        //bouton ajouter un joueur a la réponse dans le scrollview
+        ImageView scrollableAddPlayerToAnswer = findViewById(R.id.scrollable_add_player_to_answer);
+        scrollableAddPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addPlayerToSentence(findViewById(R.id.scrollable_answer_edit_text));
+            }
+        });
+
+        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
+        CheckBox rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
+        rightAnswerIs1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                manageCheckBoxSelection(view, 0);
+            }
+        });
+
+        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
+        CheckBox rightAnswerIs2 = findViewById(R.id.right_answer_is_2);
+        rightAnswerIs2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                manageCheckBoxSelection(view, 1);
+            }
+        });
+
+        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
+        CheckBox scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
+        scrollableRightAnswerIs1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                manageCheckBoxSelection(view, 0);
+            }
+        });
+
+        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
+        CheckBox scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
+        scrollableRightAnswerIs2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                manageCheckBoxSelection(view, 1);
+            }
+        });
+    }
 
     private void setButtonBg(String gameMode){
         if(gameMode.equals("ApeChill")){
@@ -695,7 +695,7 @@ public class AddSentenceActivity extends AppCompatActivity {
     private void addPlayerToSentence(EditText editText){
         String text = editText.getText().toString();
         if(numberOfOccurrences(text)<3) {
-            text += "--joueur--";
+            text += getString(R.string.player_landmark);
             editText.setText(text);
             editText.setSelection(editText.getText().length());
             maxAddPlayerText ++;
@@ -766,7 +766,12 @@ public class AddSentenceActivity extends AppCompatActivity {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text="<b><i>Joueur 1</i><b> marque "+point+" point(s)";
+                String text;
+                if(rightAnswer==0){
+                    text=getString(R.string.player1_scores)+point+getString(R.string.point);
+                }else{
+                    text=getString(R.string.player1_drink_x_sips);
+                }
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
                 addButton.setVisibility(View.VISIBLE);
@@ -785,7 +790,12 @@ public class AddSentenceActivity extends AppCompatActivity {
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String text="<b><i>Joueur 1</i><b> bois x gorgées ou c'est génant";
+                String text;
+                if(rightAnswer==1){
+                    text=getString(R.string.player1_scores)+point+getString(R.string.point);
+                }else{
+                    text=getString(R.string.player1_drink_x_sips);
+                }
                 yesButton.setVisibility(View.GONE);
                 noButton.setVisibility(View.GONE);
                 addButton.setVisibility(View.VISIBLE);
@@ -834,10 +844,10 @@ public class AddSentenceActivity extends AppCompatActivity {
     private int numberOfOccurrences(String source) {
         int occurrences = 0;
 
-        if (source.contains("--joueur--")) {
+        if (source.contains(getString(R.string.player_landmark))) {
             int withSentenceLength    = source.length();
-            int withoutSentenceLength = source.replace("--joueur--", "").length();
-            occurrences = (withSentenceLength - withoutSentenceLength) / "--joueur--".length();
+            int withoutSentenceLength = source.replace(getString(R.string.player_landmark), "").length();
+            occurrences = (withSentenceLength - withoutSentenceLength) / getString(R.string.player_landmark).length();
         }
 
         return occurrences;
@@ -846,16 +856,16 @@ public class AddSentenceActivity extends AppCompatActivity {
     private String getCleanText(String text) {
         String res = "";
         if (numberOfOccurrences(text) == 1) {
-            res = text.replaceFirst("--joueur--", "<b><i>Joueur 1</i></b>");
+            res = text.replaceFirst(getString(R.string.player_landmark), getString(R.string.player1_bold_italic));
 
         } else if (numberOfOccurrences(text) == 2) {
-            res = text.replaceFirst("--joueur--", "<b><i>Joueur 1</i></b>");
-            res=res.replace("--joueur--","<b><i>Joueur 2</i></b>");
+            res = text.replaceFirst(getString(R.string.player_landmark), getString(R.string.player1_bold_italic));
+            res=res.replace(getString(R.string.player_landmark),getString(R.string.player2_bold_italic));
         }
         else{
-            res = text.replaceFirst("--joueur--", "<b><i>Joueur 1</i></b>");
-            res=res.replace("--joueur--","<b><i>Joueur 3</i></b>");
-            res = res.replaceFirst("<b><i>Joueur 3</i></b>","<b><i>Joueur 2</i></b>");
+            res = text.replaceFirst(getString(R.string.player_landmark), getString(R.string.player1_bold_italic));
+            res=res.replace(getString(R.string.player_landmark),getString(R.string.player3_bold_italic));
+            res = res.replaceFirst(getString(R.string.player3_bold_italic),getString(R.string.player2_bold_italic));
         }
         return res;
     }
@@ -869,8 +879,8 @@ public class AddSentenceActivity extends AppCompatActivity {
         if(button2.equals("")){
             button2 = getString(R.string.no_button);
         }
-        String text = scrollableSentenceEditText.getText().toString().replace("--joueur--","§");
-        String answer = scrollableAnswerEditText.getText().toString().replace("--joueur--","§");
+        String text = scrollableSentenceEditText.getText().toString().replace(getString(R.string.player_landmark),"§");
+        String answer = scrollableAnswerEditText.getText().toString().replace(getString(R.string.player_landmark),"§");
         String encodingSentence = "";
         encodingSentence+=button1+"/";
         encodingSentence+=button2;
@@ -953,7 +963,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
     }
 
-// pour voir le contenu du fichier
+    // pour voir le contenu du fichier
     private void showFile() throws IOException {
         //ouverture du fichier
         FileInputStream fis=openFileInput(FILE_NAME);

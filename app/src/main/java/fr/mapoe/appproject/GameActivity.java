@@ -7,13 +7,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.text.HtmlCompat;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -25,7 +23,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.RotateAnimation;
@@ -38,7 +35,6 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,7 +43,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
+import java.util.Collections;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
@@ -60,6 +56,7 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String> anecdotesList = new ArrayList<String>();
     private ArrayList<String> playerTurn = new ArrayList<String>();
     private ArrayList<String> gagesList = new ArrayList<String>();
+    private ArrayList<String> savedSentenceList = null;
     private String[] currentChallenge = new String[8]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: la punition
     private String currentPlayer ="";
     private ConstraintLayout gameLayout;
@@ -75,6 +72,7 @@ public class GameActivity extends AppCompatActivity {
     private static final String FILE_NAME = "custom_sentences.txt";
     private Button answerButton;
     private String otherPlayer;
+    boolean restart=false;
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
                 (R.drawable.h01, R.drawable.h02, R.drawable.h03, R.drawable.h04,
@@ -112,6 +110,17 @@ public class GameActivity extends AppCompatActivity {
             playerTab = extras.getStringArray("playerTab");
             alcoholTab = extras.getStringArray("alcoholTab");
             typeOfGame = extras.getInt("typeOfGame");
+            restart = extras.getBoolean("restart");
+            Log.d(TAG,"restart: "+String.valueOf(restart));
+            if(restart){
+                savedSentenceList = extras.getStringArrayList("savedList");
+                for(int i=0;i<savedSentenceList.size();i++){
+                    Log.d(TAG,"Phrases précédentes "+savedSentenceList.get(i));
+                }
+            }
+            else{
+                savedSentenceList = new ArrayList<String>();
+            }
         }
 
         // initialisation du tableau scoreTab et le remplir
@@ -220,6 +229,7 @@ public class GameActivity extends AppCompatActivity {
                 gameEndActivity.putExtra("alcoholTab", alcoholTab);
                 gameEndActivity.putExtra("typeOfGame", typeOfGame);
                 gameEndActivity.putExtra("scoreTab", scoreTab);
+                gameEndActivity.putExtra("savedList",savedSentenceList);
                 startActivity(gameEndActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
@@ -584,8 +594,47 @@ public class GameActivity extends AppCompatActivity {
             }
             inputStream.close();
         }
+        // on vérifie si la list savedSentenceList est remplis
+        if(savedSentenceList != null){
+            RemoveSentenceFromList();
+        }
     }
-
+   private void RemoveSentenceFromList(){
+        // on parcours savedSentenceList
+        for(int j=0;j<savedSentenceList.size();j++) {
+            // on parcours toutes les listes et on suprimes les phrases présentent dans savedSentenceList
+            for (int i = 0; i < anecdotesList.size(); i++) {
+                if(anecdotesList.get(i).equals(savedSentenceList.get(j))){
+                    String supp = anecdotesList.remove(i);
+                    Log.d("Annecdote supprimée",supp);
+                }
+            }
+            for (int i = 0; i < gagesList.size(); i++) {
+                if(gagesList.get(i).equals(savedSentenceList.get(j))){
+                    gagesList.remove(i);
+                }
+            }
+            for (int i = 0; i < miniGamesList.size(); i++) {
+                if(miniGamesList.get(i).equals(savedSentenceList.get(j))
+                        && !miniGamesList.get(i).equals("Spinning Wheel") && !miniGamesList.get(i).equals("Red or Black")){
+                    String supp= miniGamesList.remove(i);
+                    Log.d("minigame suppromée",supp);
+                }
+            }
+            for (int i = 0; i < sentenceList.size(); i++) {
+                if(sentenceList.get(i).equals(savedSentenceList.get(j))){
+                    String supp =sentenceList.remove(i);
+                    Log.d("sentence supprimée",supp);
+                }
+            }
+            for (int i = 0; i < customSentencesList.size(); i++) {
+                if(customSentencesList.get(i).equals(savedSentenceList.get(j))){
+                    String supp = customSentencesList.remove(i);
+                    Log.d("custom supprimée",supp);
+                }
+            }
+        }
+    }
     private void newDisplay(View view) throws IOException{
         displayCounter++;
         getPlayerTurn();
@@ -810,17 +859,14 @@ public class GameActivity extends AppCompatActivity {
         }
         return res;
     }
-
+    // pour chaque méthode on ajoutera la phrase à la liste contenant toutes les phrases déjà tombé
     private String GetRandomCustomSentence() {
-
         int min=0;
         int max = customSentencesList.size()-1;
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
-
-        String res=customSentencesList.get(number);
-        customSentencesList.remove(number);
-
+        String res=customSentencesList.remove(number);
+        savedSentenceList.add(res);
         return res;
     }
 
@@ -830,35 +876,28 @@ public class GameActivity extends AppCompatActivity {
         int max = gagesList.size()-1;
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
-
-        String res=gagesList.get(number);
-        gagesList.remove(number);
-
+        String res=gagesList.remove(number);
+        savedSentenceList.add(res);
         return res;
     }
 
     private String GetRandomMiniGame() {
-
         int min=0;
         int max = miniGamesList.size()-1;
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
-
-        String res=miniGamesList.get(number);
-        miniGamesList.remove(number);
+        String res= miniGamesList.remove(number);
+        savedSentenceList.add(res);
         return res;
     }
 
     private String GetRandomSentence() {
-
         int min=0;
         int max = sentenceList.size()-1;
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
-
-        String res=sentenceList.get(number);
-        sentenceList.remove(number);
-
+        String res=sentenceList.remove(number);
+        savedSentenceList.add(res);
         return res;
     }
 
@@ -868,10 +907,8 @@ public class GameActivity extends AppCompatActivity {
         int max = anecdotesList.size()-1;
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
-
-        String res=anecdotesList.get(number);
-        anecdotesList.remove(number);
-
+        String res=anecdotesList.remove(number);
+        savedSentenceList.add(res);
         return res;
     }
 
@@ -897,6 +934,7 @@ public class GameActivity extends AppCompatActivity {
             gameEndActivity.putExtra("scoreTab", scoreTab);
             gameEndActivity.putExtra("alcoholTab", alcoholTab);
             gameEndActivity.putExtra("typeOfGame", typeOfGame);
+            gameEndActivity.putExtra("savedList",savedSentenceList);
             startActivity(gameEndActivity);
             overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             finish();
@@ -905,7 +943,7 @@ public class GameActivity extends AppCompatActivity {
 
     private String getChallengeTurn(){
         //remplir la list
-        String res=null;
+        String res;
         if (challengeList.size()==0){
             challengeList.add("gage");
             challengeList.add("gage");
@@ -914,9 +952,14 @@ public class GameActivity extends AppCompatActivity {
             challengeList.add("sentence");
             challengeList.add("sentence");
             challengeList.add("sentence");
-            challengeList.add("custom");
+            challengeList.add("sentence");
             challengeList.add("anecdote");
             challengeList.add("anecdote");
+
+            //on vérifie si des phrases custom sont disponibles
+            if (!customSentencesList.isEmpty()){
+                challengeList.set(4,"custom");//on remple le 5eme element (une sentence) par custom
+            }
         }
         if(displayCounter==1){ //si on est au premier tour, on prend forcément entre une sentence et une anecdote
             int min=4;

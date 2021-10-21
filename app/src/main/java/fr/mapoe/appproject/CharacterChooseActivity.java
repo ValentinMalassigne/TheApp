@@ -3,7 +3,6 @@ package fr.mapoe.appproject;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,7 +11,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.InputFilter;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -40,7 +40,9 @@ public class CharacterChooseActivity extends AppCompatActivity {
     private Button goToMenu;
     private Button addPlayer;
     private Button goToGame;
+    boolean restart= false;
     private int typeOfGame = 0;
+    private ArrayList<String> savedSentenceList;
 
 
     @Override
@@ -54,7 +56,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         this.goToMenu = (Button) findViewById(R.id.menu_button);
         // recupération des valeurs passé en param
         Bundle extras = getIntent().getExtras();
-        boolean restart= false;
+
         String[] savePlayerTab=new String[0],saveAlcoholTab = new String[0];
 
         if (extras != null) {
@@ -62,11 +64,15 @@ public class CharacterChooseActivity extends AppCompatActivity {
             savePlayerTab = extras.getStringArray("playerTab");
             saveAlcoholTab = extras.getStringArray("alcoholTab");
             restart = extras.getBoolean("restart");
+            savedSentenceList = extras.getStringArrayList("savedList");
         }
         if(restart){
             init(savePlayerTab,saveAlcoholTab);
             for(int i=0; i<saveAlcoholTab.length;i++){
                 tempTab[i]=saveAlcoholTab[i];
+            }
+            for(int i=0;i<savedSentenceList.size();i++){
+                Log.d("characterChoose",savedSentenceList.get(i));
             }
         }
         else{
@@ -99,7 +105,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 finish();
             }
-
         });
 
         // go to game
@@ -128,6 +133,10 @@ public class CharacterChooseActivity extends AppCompatActivity {
                     gameActivity.putExtra("playerTab", playerTab);
                     gameActivity.putExtra("alcoholTab", alcoholTab);
                     gameActivity.putExtra("typeOfGame", typeOfGame);
+                    gameActivity.putExtra("restart", restart);
+                    if (restart){
+                        gameActivity.putExtra("savedList",savedSentenceList);
+                    }
                     startActivity(gameActivity);
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();

@@ -2,15 +2,17 @@ package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -21,6 +23,7 @@ public class CardGameActivity extends AppCompatActivity {
 
     private final ArrayList<Integer> idRedCardList,idBlackCardList;
     private TextView nbCard;
+    private TextView orText;
 
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
@@ -44,7 +47,7 @@ public class CardGameActivity extends AppCompatActivity {
                         R.drawable.s13)
         );
     }
-
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,12 +66,40 @@ public class CardGameActivity extends AppCompatActivity {
             }
         });
 
+        xButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return false;
+            }
+        });
+
         AnimationBg.startBackgroundAnimation(findViewById(R.id.card_game_layout));
         Button blackButton = (Button) findViewById(R.id.black_button);
         Button redButton = (Button) findViewById(R.id.red_button);
         TextView cardColor = (TextView) findViewById(R.id.card_color_display);
         this.cardImage = (ImageView) findViewById(R.id.card_image);
         this.nbCard = (TextView) findViewById(R.id.nb_card);
+        this.orText = (TextView) findViewById(R.id.or_text);
+        ImageView nextArrow = (ImageView) findViewById(R.id.next_arrow);
 
         Random generate = new Random(System.currentTimeMillis());
         blackButton.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +112,11 @@ public class CardGameActivity extends AppCompatActivity {
                 if (randomCard(randomNumber).equals("black"))
                     cardColor.setText(R.string.you_win);
                 else
-                    cardColor.setText(R.string.you_lost);
+                {cardColor.setText(R.string.you_lost);}
+                blackButton.setVisibility(View.GONE);
+                redButton.setVisibility(View.GONE);
+                orText.setVisibility(View.GONE);
+                nextArrow.setVisibility(View.VISIBLE);
             }
         });
 
@@ -94,10 +129,53 @@ public class CardGameActivity extends AppCompatActivity {
                 if(randomCard(randomNumber).equals("red")){
                     cardColor.setText(R.string.you_win);
                 }
-                else
-                    cardColor.setText(R.string.you_lost);
+                else {cardColor.setText(R.string.you_lost);}
+                blackButton.setVisibility(View.GONE);
+                redButton.setVisibility(View.GONE);
+                orText.setVisibility(View.GONE);
+                nextArrow.setVisibility(View.VISIBLE);
             }
         });
+        nextArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                blackButton.setVisibility(View.VISIBLE);
+                redButton.setVisibility(View.VISIBLE);
+                orText.setVisibility(View.VISIBLE);
+                nextArrow.setVisibility(View.GONE);
+                cardColor.setText("");
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    cardImage.setImageDrawable(getDrawable(R.drawable.cardback));
+                }
+            }
+        });
+        nextArrow.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return false;
+            }
+        });
+
     }
     private String randomCard(int randomNumber){
         String cardColor = "";
