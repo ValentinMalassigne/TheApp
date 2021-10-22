@@ -49,6 +49,7 @@ public class OptionActivity extends AppCompatActivity {
     SharedPreferences language;
     private String[][] sentencesTab;
     private String[][] decodingTab;
+    private float scale;
     private static final String FILE_NAME = "custom_sentences.txt";
     @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class OptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activty_option);
         AnimationBg.startBackgroundAnimation(findViewById(R.id.option_layout));
+        scale = getResources().getDisplayMetrics().density;
 
         //initialisation du SharedPreferences
         language= getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
@@ -231,16 +233,18 @@ public class OptionActivity extends AppCompatActivity {
 
         Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.convergence);
         // paramètre des TextView
-        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(850, ViewGroup.LayoutParams.MATCH_PARENT);
+        int dpWidthInPx  = (int) (300 * scale);
+        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(dpWidthInPx, ViewGroup.LayoutParams.MATCH_PARENT);
 
         //paramètre du global Layout
         LinearLayout.LayoutParams globalLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         globalLayoutParams.bottomMargin= 70;
 
+        int dpSizeInPx = (int) (33*scale);
         //paramètre des images
-        LinearLayout.LayoutParams editImageParams = new LinearLayout.LayoutParams(90, 90);
+        LinearLayout.LayoutParams editImageParams = new LinearLayout.LayoutParams(dpSizeInPx,dpSizeInPx);
         editImageParams.bottomMargin = 30;
-        LinearLayout.LayoutParams deleteImageParams = new LinearLayout.LayoutParams(90, 90);
+        LinearLayout.LayoutParams deleteImageParams = new LinearLayout.LayoutParams(dpSizeInPx, dpSizeInPx);
 
         // paramètre layout des images
         LinearLayout.LayoutParams imageLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);

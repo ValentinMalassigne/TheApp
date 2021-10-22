@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/convergence"
         android:gravity="center"
-        android:text="@string/my_sentence"
+        android:text="@string/my_sentences"
         android:textColor="@color/white"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"

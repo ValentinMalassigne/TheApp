@@ -123,8 +123,8 @@
     <string name="right_answer">je suis la bonne réponse</string>
     <string name="wrong_answer">je suis la mauvaise réponse</string>
     <string name="add_sentence">Ajouter une phrase</string>
-    <string name="my_sentence">Mes phrases</string>
-    <string name="my_sentences">Ma phrase</string>
+    <string name="my_sentence">Ma phrase</string>
+    <string name="my_sentences">Mes phrases</string>
     <string name="skip">passer</string>
     <string name="note_max_player">note: 3 joueurs maximun</string>
     <string name="game_mode_edit_text">Dans quel mode de jeu voulez-vous ajouter votre phrase ?</string>

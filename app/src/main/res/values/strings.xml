@@ -117,9 +117,9 @@
     <string name="edit">Modifier</string>
     <string name="right_answer">I\'m the right answer</string>
     <string name="wrong_answer">I\'m the wrong answer</string>
-    <string name="add_sentence">Add my sentence</string>
-    <string name="my_sentence">My sentences</string>
-    <string name="my_sentences">My sentence</string>
+    <string name="add_sentence">Add a sentence</string>
+    <string name="my_sentence">My sentence</string>
+    <string name="my_sentences">My sentences</string>
     <string name="skip">skip</string>
     <string name="first_text_info_addSentence">Complete your sentence along the way and follow its evolution by scrolling. Each part of your sentence is editable at any moment</string>
     <string name="second_text_info_addSentence1">By clicking on the picture bellow, a player will be mentioned</string>
