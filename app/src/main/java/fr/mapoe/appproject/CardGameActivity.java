@@ -143,7 +143,7 @@ public class CardGameActivity extends AppCompatActivity {
                 redButton.setVisibility(View.VISIBLE);
                 orText.setVisibility(View.VISIBLE);
                 nextArrow.setVisibility(View.GONE);
-                cardColor.setText("");
+                cardColor.setText(R.string.what_is_next_card);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     cardImage.setImageDrawable(getDrawable(R.drawable.cardback));
