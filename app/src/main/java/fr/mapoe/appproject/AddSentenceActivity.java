@@ -219,7 +219,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             visualizeButton.setVisibility(View.VISIBLE);
             scrollableGameModeLayout.setVisibility(View.VISIBLE);
             scrollableSentenceLayout.setVisibility(View.VISIBLE);
-            scrollableAnswerLayout.setVisibility(View.VISIBLE);
+            //scrollableAnswerLayout.setVisibility(View.VISIBLE);
             scrollableButtonLayout.setVisibility(View.VISIBLE);
             scrollablePointLayout.setVisibility(View.VISIBLE);
             scrollableGameModeLayout.setVisibility(View.VISIBLE);
@@ -307,6 +307,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             sentenceEditNextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    /* ce qui servait à afficher la demande de la réponse
                     //on change la visibilité des éléments nécessaire
                     EditText sentenceEditText = findViewById(R.id.sentence_edit_text);
                     String text = sentenceEditText.getText().toString();
@@ -324,12 +325,30 @@ public class AddSentenceActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(getApplicationContext(), "Veuillez remplir le champ", Toast.LENGTH_SHORT).show();
                     }
+                     */
+                    //on change la visibilité des éléments nécessaire
+                    EditText sentenceEditText = findViewById(R.id.sentence_edit_text);
+                    String text = sentenceEditText.getText().toString();
+                    if (!text.equals("")) {
+                        sentenceEditLayout.setVisibility(View.GONE);
+                        answerButtonLayout.setVisibility(View.VISIBLE);
+                        scrollableSentenceLayout.setVisibility(View.VISIBLE);
+                        //on transfert ce qu'il a écrit dans la case answer dans la case qui est dans le scrollview
+
+                        scrollableSentenceEditText.setText(text);
+                        //on change le text qui guide
+                        questionTextView.setText(R.string.edit_buttons_and_select_correct_answer);
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Veuillez remplir le champ", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
-            //bouton Next après avoir tappé la réponse
+            //bouton Next après avoir tappé la réponse (inutile vu que l'on ne demande pas la phrase
 
-            answerEditNextButton.setOnClickListener(new View.OnClickListener() {
+            /*answerEditNextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     //on change la visibilité des éléments nécessaire
@@ -351,7 +370,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Veuillez remplir le champ", Toast.LENGTH_SHORT).show();
                     }
                 }
-            });
+            });*/
             //bouton Next après avoir modifier les boutons
             buttonsEditNextButton.setOnClickListener(new View.OnClickListener() {
                 @Override

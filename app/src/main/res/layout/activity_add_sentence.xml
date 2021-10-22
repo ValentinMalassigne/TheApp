@@ -313,64 +313,52 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="20dp">
+                android:orientation="horizontal"
+                android:gravity="center">
 
-                    <Button
-                        android:id="@+id/button_1_point"
-                        android:background="@drawable/button"
-                        app:backgroundTint = "@null"
-                        android:layout_width="80dp"
-                        android:layout_height="45dp"
-                        android:layout_weight="1"
-                        android:text="@string/_1_point"
-                        android:textColor="@color/white"
-                        android:layout_marginRight="10dp"/>
+                <Button
+                    android:id="@+id/button_1_point"
+                    android:background="@drawable/roud_button"
+                    app:backgroundTint = "@null"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:text="1"
+                    android:textSize="25sp"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="20dp"/>
 
-                    <Button
-                        android:id="@+id/button_2_points"
-                        android:background="@drawable/button"
-                        app:backgroundTint = "@null"
-                        android:layout_width="80dp"
-                        android:textColor="@color/white"
-                        android:layout_height="45dp"
-                        android:layout_weight="1"
-                        android:text="@string/_2_points"
-                        android:layout_marginLeft="10dp"/>
-                </LinearLayout>
-                <LinearLayout
+                <Button
+                    android:id="@+id/button_2_points"
+                    android:background="@drawable/roud_button"
+                    app:backgroundTint = "@null"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:text="2"
+                    android:textSize="25sp"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="20dp"/>
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                <Button
+                    android:id="@+id/button_3_points"
+                    android:background="@drawable/roud_button"
+                    app:backgroundTint = "@null"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:text="3"
+                    android:textSize="25sp"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="20dp"/>
 
-                    <Button
-                        android:id="@+id/button_3_points"
-                        android:background="@drawable/button"
-                        app:backgroundTint = "@null"
-                        android:layout_width="80dp"
-                        android:layout_height="45dp"
-                        android:layout_weight="1"
-                        android:textColor="@color/white"
-                        android:text="@string/_3_points"
-                        android:layout_marginRight="10dp"/>
-                    <Button
-                        android:id="@+id/button_4_points"
-                        android:background="@drawable/button"
-                        app:backgroundTint = "@null"
-                        android:layout_width="80dp"
-                        android:textColor="@color/white"
-                        android:layout_height="45dp"
-                        android:layout_weight="1"
-                        android:text="@string/_4_points"
-                        android:layout_marginLeft="10dp"/>
-                </LinearLayout>
+                <Button
+                    android:id="@+id/button_4_points"
+                    android:background="@drawable/roud_button"
+                    app:backgroundTint = "@null"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:text="4"
+                    android:textSize="25sp"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="20dp"/>
 
             </LinearLayout>
 
