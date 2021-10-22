@@ -364,140 +364,140 @@ public class AddSentenceActivity extends AppCompatActivity {
                     scrollableEditButton1.setText(editButton1.getText().toString());
                     scrollableEditButton2.setText(editButton2.getText().toString());
                     //on change le text qui guide
-                    questionTextView.setText(R.string.how_many_points);
-                }
-            });
-                                                     }
-
-
-            //bouton 1 point
-            button1Point.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    managePointsSelection(1);
-                }
-            });
-
-            // button Next après avoir choisis les points
-            button1Point.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    managePointsSelection(1);
-                }
-            });
-
-            //bouton 2 points
-            button2Points.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    managePointsSelection(2);
-                }
-            });
-
-            //bouton 3 points
-            button3Points.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    managePointsSelection(3);
-                }
-            });
-
-            //bouton 4 points
-            button4Points.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    managePointsSelection(4);
-                }
-            });
-            //button pour visualiser la phrase
-            visualizeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    String text = scrollableSentenceEditText.getText().toString();
-                    String answer = scrollableAnswerEditText.getText().toString();
-                    if (numberOfOccurrences(text) == 0) {
-                        text = getString(R.string.player_landmark) + " " + text;
-                    }
-                    text = getCleanText(text);
-                    answer = getCleanText(answer);
-                    String point = scrollablePointList.getSelectedItem().toString();
-                    showValidatePopup(R.layout.visualisation_popup, "Custom", text, answer, point);
-
-                }
-            });
-            //bouton ajouter un joueur a la phrase quand on te le demande
-            ImageView addPlayerToSentence = findViewById(R.id.add_player_to_sentence);
-            addPlayerToSentence.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addPlayerToSentence(findViewById(R.id.sentence_edit_text));
-                }
-            });
-
-            //bouton ajouter un joueur a la réponse quand on te le demande
-            ImageView addPlayerToAnswer = findViewById(R.id.add_player_to_answer);
-            addPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addPlayerToSentence(findViewById(R.id.answer_edit_text));
-                }
-            });
-
-            //bouton ajouter un joueur a la phrase dans le scrollview
-            ImageView scrollableAddPlayerToSentence = findViewById(R.id.scrollable_add_player_to_sentence);
-            scrollableAddPlayerToSentence.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addPlayerToSentence(findViewById(R.id.scrollable_sentence_edit_text));
-                }
-            });
-
-
-            //bouton ajouter un joueur a la réponse dans le scrollview
-            ImageView scrollableAddPlayerToAnswer = findViewById(R.id.scrollable_add_player_to_answer);
-            scrollableAddPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addPlayerToSentence(findViewById(R.id.scrollable_answer_edit_text));
-                }
-            });
-
-            //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-            CheckBox rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
-            rightAnswerIs1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    manageCheckBoxSelection(view, 0);
-                }
-            });
-
-            //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-            CheckBox rightAnswerIs2 = findViewById(R.id.right_answer_is_2);
-            rightAnswerIs2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    manageCheckBoxSelection(view, 1);
-                }
-            });
-
-            //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-            CheckBox scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
-            scrollableRightAnswerIs1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    manageCheckBoxSelection(view, 0);
-                }
-            });
-
-            //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-            CheckBox scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
-            scrollableRightAnswerIs2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    manageCheckBoxSelection(view, 1);
+                    questionTextView.setText(R.string.point_case_right_answer);
                 }
             });
         }
+
+
+        //bouton 1 point
+        button1Point.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                managePointsSelection(1);
+            }
+        });
+
+        // button Next après avoir choisis les points
+        button1Point.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                managePointsSelection(1);
+            }
+        });
+
+        //bouton 2 points
+        button2Points.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                managePointsSelection(2);
+            }
+        });
+
+        //bouton 3 points
+        button3Points.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                managePointsSelection(3);
+            }
+        });
+
+        //bouton 4 points
+        button4Points.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                managePointsSelection(4);
+            }
+        });
+        //button pour visualiser la phrase
+        visualizeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text = scrollableSentenceEditText.getText().toString();
+                String answer = scrollableAnswerEditText.getText().toString();
+                if (numberOfOccurrences(text) == 0) {
+                    text = getString(R.string.player_landmark) + " " + text;
+                }
+                text = getCleanText(text);
+                answer = getCleanText(answer);
+                String point = scrollablePointList.getSelectedItem().toString();
+                showValidatePopup(R.layout.visualisation_popup, "Custom", text, answer, point);
+
+            }
+        });
+        //bouton ajouter un joueur a la phrase quand on te le demande
+        ImageView addPlayerToSentence = findViewById(R.id.add_player_to_sentence);
+        addPlayerToSentence.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addPlayerToSentence(findViewById(R.id.sentence_edit_text));
+            }
+        });
+
+        //bouton ajouter un joueur a la réponse quand on te le demande
+        ImageView addPlayerToAnswer = findViewById(R.id.add_player_to_answer);
+        addPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addPlayerToSentence(findViewById(R.id.answer_edit_text));
+            }
+        });
+
+        //bouton ajouter un joueur a la phrase dans le scrollview
+        ImageView scrollableAddPlayerToSentence = findViewById(R.id.scrollable_add_player_to_sentence);
+        scrollableAddPlayerToSentence.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addPlayerToSentence(findViewById(R.id.scrollable_sentence_edit_text));
+            }
+        });
+
+
+        //bouton ajouter un joueur a la réponse dans le scrollview
+        ImageView scrollableAddPlayerToAnswer = findViewById(R.id.scrollable_add_player_to_answer);
+        scrollableAddPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addPlayerToSentence(findViewById(R.id.scrollable_answer_edit_text));
+            }
+        });
+
+        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
+        CheckBox rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
+        rightAnswerIs1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                manageCheckBoxSelection(view, 0);
+            }
+        });
+
+        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
+        CheckBox rightAnswerIs2 = findViewById(R.id.right_answer_is_2);
+        rightAnswerIs2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                manageCheckBoxSelection(view, 1);
+            }
+        });
+
+        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
+        CheckBox scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
+        scrollableRightAnswerIs1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                manageCheckBoxSelection(view, 0);
+            }
+        });
+
+        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
+        CheckBox scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
+        scrollableRightAnswerIs2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                manageCheckBoxSelection(view, 1);
+            }
+        });
+    }
 
     private void setButtonBg(String gameMode){
         if(gameMode.equals("ApeChill")){
@@ -963,7 +963,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
     }
 
-// pour voir le contenu du fichier
+    // pour voir le contenu du fichier
     private void showFile() throws IOException {
         //ouverture du fichier
         FileInputStream fis=openFileInput(FILE_NAME);
