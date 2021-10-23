@@ -161,4 +161,7 @@
     <string name="modify_button">Modify</string>
     <string name="modify">Confirm</string>
     <string name="confirm_or_keep_editing">Do you confirm your modifications or you want to keep editing ?</string>
+    <string name="answerd_button">answered ?</string>
+    <string name="drink_warning">Drink responsivly and ask your friends for help if you need it.</string>
+    <string name="finish">finis</string>
 </resources>

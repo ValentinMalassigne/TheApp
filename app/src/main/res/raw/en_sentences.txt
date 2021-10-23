@@ -1,49 +1,83 @@
-anecdotes
-rep1/rep2+2 Was it interesting ?¤§ tell us the first time you were drunk¤§ drink µ or you cringe
-rep1/rep2+2 Was it interesting ?¤§ tell the worst thing you ever ate¤§ drink µ or you cringe
-rep1/rep2-2 Have § ever done it before ?¤§ have you ever drink while working ?¤§ drink µ or you cringe
-rep1/rep2+2 Was it interesting ?¤§ tell your worst holidays¤§ drink µ or you cringe
-rep1/rep2+2 Was it interesting ?¤§ tell us the worst thing you have done during your studies¤§ drink µ or you cringe
-rep1/rep2+2 Was it funny ?¤§ say something funny that happened to you recently¤§ drink µ or you cringe
 gages
-rep1/rep2+4 Is § a magician ?¤§ do a magick trick in the next 10 seconds¤§ drink µ or you cringe
-rep1/rep2+4 Is § looking like an expert ?¤§ talk like an expert about a subject that § chose¤§ drink µ or you cringe
-rep1/rep2-4 Was the interview boring ?¤§ interview § on a subject chose by §¤§ drink µ or you cringe
-rep1/rep2-4 Did § failed ?¤§ translate a sentence chose by § from french to english¤§ drink µ or you cringe
-rep1/rep2+4 Did § clear the table ?¤§ clear the table¤§ drink µ or you cringe
-rep1/rep2+4 Is § a good waiter ?¤§ refill others glass¤§ drink µ or you cringe
-rep1/rep2+4 Did § drunk the tasty juice ?¤§ drink a cocktail made by §¤§ drink µ or you cringe
-rep1/rep2+4 Did § blocked at least 3 people ?¤§ block 3 people on messenger/whatsapp/instagram¤§ drink µ or you cringe
-rep1/rep2+4 Did § liked at least 3 publications ?¤§ open instagram and like the 3 first publications¤§ drink µ or you cringe
-rep1/rep2+4 Did § sent the snap ?¤§ do a snap of the foot of the person on your right and send it to 3 people¤§ drink µ or you cringe
+humiliated/that’s fine-2 How did you feel ?¤§ drink like a dog ¤It’s not shameful to drink differently, you are not the center of the world, not everyone is like you. Drink µ and remember this lesson.
+yes/no+2 Was the §-mobile efficient ?¤§ pretend to be a car¤It seems you ran out of gas, drink µ to refuel
+yes/no+2 Did the childbirth go well ?¤§ pretend to give birth to a bottle¤it’s was a hard event, drink µ to recover.
+yes/no+2 Was the conversation interesting ?¤§ call someone with §’s phone ¤What a wasted opportunity, drink µ to move on
+yes/no+2 Was § a good masseur ?¤§ gives a back massage to §¤Did you fail because of the stage fright ? Drink µ to relax
+magical/bad+3 Was it magical ?¤§ do a magic trick in the next 10 seconds¤Make µ magically disappear from your glass.
+yes/no+2 Are the others convinced ?¤§ pretend to be an expert on a subject chosen by §¤Drink µ to be more confident next time
+yes/no+2 Would § be able to live in the Middle Ages  ?¤§ translate a sentence chosen by § from old english to current english (you can google it)¤Drink µ to get closer to your ancestors
+yes/no+2 Are you satisfied with the service ?¤§ clean the table¤Drink µ to be forgiven
+yes/no+2 Could § be a bartender ?¤§ fill other’s glasses¤ Instead of serving you will drink µ
+yes/no+3 § Was it good ?¤§ drink a mixture made by §¤oh too bad ..., we are nice and you can (must) drink µ to get rid of the taste
+yes/no+2 Did § do it ?¤§ block 3 people on messenger/whatsapp/instagram¤It’s true, that’s mean to block people, drink µ
+yesi/no+2 Did § do it ?¤§ open instagram and like the 3 first publications you see¤It’s important to love, drink µ
+yes/no-2 Did § do it ?¤§ send a snap of your neighbor’s feet to 3 people¤What a stupid idea to send a foot picture, drink µ to forget this mistake
+yes/no+2 Did § do it ?¤§ send "Hey" to the 15th person on messenger¤If you don’t want to communicate then drink µ
+yes/no+2 Is § a singer in the soul ?¤§ sing a song Acapella for 10 seconds¤§ your vocal cords were probably too dry, drink µ to fix that
+yes/no+2 Did § show his primal side ?¤§ make others guess an animal by sounding like it¤Drink µ to get closer to the beast
+yes/no+2 Did § show his primal side ?¤§ make others guess an animal without any sound¤Drink µ to get closer to the beast
 minigames
-rep1/rep2-4 Did § failed the game ?¤§ make § guess a word chose by § by using 3 words¤§ drink µ or you cringe
-rep1/rep2+4 Was § honest ? ¤§ if you were to block the toilets of § would you tell him or stay quiet¤§ drink µ or you cringe
-rep1/rep2-4 Did § failed the game ?¤§ make § guess a french song by singing it in english¤§ drink µ or you cringe
-rep1/rep2-4 Did § failed the game ?¤§ make § guess a english song by singing it in french¤§ drink µ or you cringe
-rep1/rep2+4 Was § the first one to find the object ?¤§ find an object selected by §, if § finds it before you¤§ drink µ or you cringe
-rep1/rep2+4 Was the description interesting ?¤§ and § describe the life of § by saying 2 words each other¤§ drink µ or you cringe
-rep1/rep2+4 Did most of other people found the truth or not ?¤§ tell us an anecdote (real or fake), others have to guess if they are fake or not.¤§ drink µ or you cringe
+yes/no+2 Did § succeed?¤§ make § guess a word chosen by §, without saying more than 3 other words¤It may be the other’s fault, anyway § drink µ
+§/§+2Who has won?¤§ and § look each other in the eyes and tell jokes, the first to laugh loses ¤§, You will be better next time ! But before that drink µ
+yes/no+2 Is § a cocktail expert ?¤§ give the name of 3 cocktails starting with M¤That was so easy !, there is Mojito,  Margherita, Monaco (don’t forget to drink µ)
+Honest/Stay quiet+2 Would § have stayed silent ?¤§, if you block the toilets at §’s home, would you rather say it or hide it ? ¤§, it is important to be honest, drink µ to be forgiven
+yes/no-2 Did § enjoy this discovery ?¤§ exchange your glass with § and both of you finish your drinks¤ Perfect, you can discover even more things, drink µ
+§/§+2 Who brought back the object first ?¤§ find an object chosen by §, § has to find the object before you.¤You must be thirsty after this race, each of you drink µ
+yes/no-2 Is the majority correct ?¤§ tells an anecdote (true or false), others have to guess if you are being honest or not¤§ unfortunately the others were more discerning, drink µ maybe that will help you
+§/§ 2+2 Who won ?¤ Rock Paper Sips ! Do § a rock paper scissors with §, 1 try!¤The loser drinks µ
 Spinning Wheel
 Red or Black
 questions
-rep1/rep2-1 What is §'s answer ?¤§ have you ever been drunk with your family ?¤§ drink µ or you cringe
-rep1/rep2+1 Do everyone agree with § ?¤§ who resists the best to alcohol in the group ?¤§ drink µ or you cringe
-rep1/rep2+1 Is the recipe correct ?¤§ tell us the recipe of a plate¤§ drink µ or you cringe
-rep1/rep2+1 Is the recipe correct ?¤§ tell us the recipe of a cocktail¤§ drink µ or you cringe
-rep1/rep2+1 Do others think this fusion is possible ?¤§ invent a possible fusion of 2 sports¤§ drink µ or you cringe
-rep1/rep2+1 Did § answered ?¤§ tell with who would you hate to spend your holidays¤§ drink µ or you cringe
-rep1/rep2+1 Did § answered ?¤§ does it bother you when it's not shaved¤§ drink µ or you cringe
-rep1/rep2+1 What is §'s answer ?¤§ have you ever been caught during the act ?¤§ drink µ or you cringe
-rep1/rep2+1 What is §'s answer ?¤§ have you ever kissed someone of the same gender?¤§ drink µ or you cringe
-rep1/rep2+1 Do others agree with § ?¤§ what fetishism disgust you the most ?¤§ drink µ or you cringe
-rep1/rep2-1 Is §'s answer is greater than 3 days ?¤§ what is the longest time you haven't washed yourself?¤§ drink µ or you cringe
-rep1/rep2+1 What is §'s answer ?¤§ have you ever been exited at high school ?¤§ drink µ or you cringe
-rep1/rep2+1 What is §'s answer ?¤§ have you ever suffered from an injustice at high school ?¤§ drink µ or you cringe
-rep1/rep2+1 Was it interesting ?¤§ tell something random about you¤§ drink µ or you cringe
-rep1/rep2+1 Was it interesting ?¤§ with who could you fight in the group¤§ drink µ or you cringe
-rep1/rep2-1 What is §'s answer ?¤§ have you ever fight with someone of your family ?¤§ drink µ or you cringe
-rep1/rep2-1 What is §'s answer ?¤§ have you ever sent or received nudes¤§ drink µ or you cringe
+yes/no+2 Would you do it again ?¤§ tell the first time you were drunk, or one that was outstanding¤§ so today is the occasion to do it again, drink µ
+yes/no-2 Was it one purpose ?¤§ What is the worst thing you ever ate ?¤§ you will also volunteer to drink µ
+skip/skip-2skip¤§ tell us one mistakes you made that you never told to your parents¤§ drink µ
+yes/no-2 Was it on purpose ?¤§ have you ever drunk while working (school/jobs/…) ?¤§ you will also volunteer to drink µ
+skip/skip-2skip¤§ tell us your worst holidays ?¤We are going to help you forget that, §drink µ
+yes/no+2 Did you get caught ?¤§ tell us the stupidest stupid thing you did in high school or college¤It is time to pay for your crimes, drink µ
+skip/skip+2skip¤§ tell us something funny that happened to you recently¤Drink µ to get some inspiration
+skip/skip+1skip¤§ tell us the most embarrassing moment you ever experienced¤§ drink µ
+yes/no+2 ¤§ have you gotten drunk in the last 3 days ?¤Well done, keep it up, drink µ
+yes/no+1¤§ have you ever cheated on an exam?¤We don't give points to cheaters, drink µ
+yes/no-1¤§ have you ever pissed in a swimming pool ?¤ That's disgusting drink µ
+yes/no-2¤§ could you organize baby races at the nursery?¤Poor children… § drink µ
+no/of course+2¤§ could you pay for sexe ?¤You have good values, however you still need to drink µ
+yes/no-1 Is it worse than a yogurt expired for 1 day?¤§ what is the worst thing you have ever eaten ?¤Nothing is worse than an expired yogurt ! drink µ
+yes/no-1 ¤ have you ever been taken home by a friend from a club or a bar¤To thank him drink µ
+yes/no+1 ¤§ have you ever faked a signature ?¤ That's bad, drink µ
+yes/no+1 Do the others agree with §?¤§ between § and § who do you think is the biggest drinker ?¤It seems you are not right, drink µ to be forgiven
+yes/non+1skip¤§ have you ever done something while drunk that you regret now?¤Do not live with regrets, drink µ and move forward !
+yes/no-1¤§ have you ever stolen something from a friend ?¤Drink µ and that will be erased !
+skip/skip+1¤§ what is the worst gift you ever received from someone here ?¤§ drink µ
+yesi/no+1 Does the majority agree with § ?¤§ tell us who has the ugliest hands¤First, you hurt someone’s feelings. Second, the others disagree with you. Drink µ.
+foot/hands-1Be careful you won’t be able to drink without your hands¤§ do you prefer to lose your hands or your feet ? ¤Enjoy your hands and drink µ
+yes/no+1 ¤§ have you ever dreamed of someone here ?¤Think a little more about your friends, drink µ to be forgiven
+yes/no-1¤§ have you ever been drunk with your family ?¤So you will also get drunk with us tonight, drink µ
+yes/no+1 Does the majority agree with § ?¤§ who handles alcohol the best in the group ?¤Drink µ to train
+delicious/disgusting+1 Is the recipe correct ?¤§ tell us your favourite recipe¤Are you trying to intoxicate us ? Drink µ
+delicious/disgusting+1 Is the recipe correct ?¤§ tell us a cocktail recipe¤Are you trying to intoxicate us ? Drink µ
+yes/no+1 Do the others think this idea could be real ?¤§ imagine a combination of 2 sports (it has to be doable)¤Drink µ, it will help you to have better ideas for next time
+skip/skip-1 § do you need a little boost ?¤§ tell us who you would hate to go on holidays with¤§ Drink µ
+yeti/no-1 So ?¤§ do you like hairs ?¤Drink µ to get your mind right
+yes/no-1¤§ have you ever been caught while doing it ?¤§ Drink µ (yes that’s arbitrary and without any justifications, but you still have to do it)
+yes/no-1¤§ have you ever kissed someone of the same gender as you?¤§ you drink µ (it’s not my fault, you clicked the button)
+yes/no+1 For 1 million $ would you do it ?¤§ which fetish disgusts you the most ?¤Oh so money is not interesting §, what a lie, drink µ as a punition
+yes/no+1 Is it over 3 days ?¤§ what is the longest time you've ever gone without taking a shower ? (except while being a kid)¤So you are a clean person ? drink µ to fix that
+yes/no-1¤§ have you ever been aroused at your high school ?¤Drink µ to calm down your hormones
+yes/no+1¤§ have you ever suffered from an injustice at high school ?¤Drink µ to forget it
+skip/skip+1skip¤§ tell us something random about you¤§ drink µ
+yes/no+1 Could you be the one starting the fight ?¤§ Who could you fight in the group ? ?¤First drink µ to calm down, and now the others can call you the fighter
+yes/no-1¤§ have you ever fought with someone in your family ?¤You have to show others who is the boss, drink µ
+yes/no-1¤§ have you ever sent nudes ?¤Too bad, drink µ
+oui/non-1¤§ have you ever had a fantasy about a teacher ?¤ You are sane… drink µ to fix that
+yes/no+1¤§ have you ever had a hookup during the holidays ?¤Too bad, drink µ
+yes/no-1¤§ have you ever taken drugs with your family ?¤Oh ok, then drink µ you should not feel anything anyway
+yes/no+1¤§ have you ever been drunk at school or work ?¤You should try that’s really funny  (do not forget to drink µ)
+yes/no+1¤§ have you ever attended class or went to work after a party without sleeping ?¤§ likes to party ! Drink µ
+yes/no+1 Do others agree with you ?¤§ who, in this group, could take an important decision while being drunk ?¤I agree with you, however you still need to drink µ
+It sucks/It’s fine+1 What do the others think of the present¤§ what is the worst present you ever received ? ¤It’s better than nothing, drink µ to forget
+Disgusting/no-1 Was it on purpose ?¤§ have you ever shat/peed yourself (except as a kid) ?¤We don’t want the details, drink µ
+fly/whisky+1?¤§ would you prefer to be able to fly or to be able to drink a full bottle of whisky ? ¤We are going to train you for this superpower, drink µ
 End
 anecdotes
 rep1/rep2+1 Anecdote génante 1¤§ dis un truc génant hahahahaha

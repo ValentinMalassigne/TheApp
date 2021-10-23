@@ -162,4 +162,7 @@
     <string name="modify_button">Modifier</string>
     <string name="modify">Confirmer</string>
     <string name="confirm_or_keep_editing">Confirmes-tu tes modifications ou tu veux continuer de modifier ?</string>
+    <string name="answerd_button">répondu ?</string>
+    <string name="drink_warning">Buvez avec modération et demandez de l\'aide à vos amis si besoins.</string>
+    <string name="finish">finis</string>
 </resources>
