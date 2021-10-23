@@ -77,11 +77,12 @@
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             app:backgroundTint="@null" />
+
         <TextView
             android:id="@+id/help_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             android:visibility="visible"
             android:text="@string/help_description"
             android:textColor="@color/rouge_pale"
@@ -89,14 +90,11 @@
             android:textStyle="italic" />
 
         <ImageView
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:id="@+id/skip_button"
             android:src="@drawable/skip_button"/>
-
-
-
 
     </LinearLayout>
 

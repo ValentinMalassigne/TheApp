@@ -107,7 +107,7 @@
                     android:hint="@string/text"
                     android:inputType="textMultiLine|textCapSentences"
                     android:maxLines="5"
-                    android:maxLength="50"
+                    android:maxLength="150"
                     android:textColor="@color/white"
                     android:textColorHint="@color/grey"
                     />
@@ -164,7 +164,7 @@
                     android:hint="@string/show_answer"
                     android:inputType="textMultiLine|textCapSentences"
                     android:maxLines="5"
-                    android:maxLength="50"
+                    android:maxLength="150"
                     android:textColor="@color/white"
                     android:textColorHint="@color/grey"
                     />
@@ -475,7 +475,7 @@
                         android:hint="@string/sentence"
                         android:inputType="textMultiLine|textCapSentences"
                         android:maxLines="5"
-                        android:maxLength="50"
+                        android:maxLength="150"
                         android:textColor="@color/white"
                         android:textColorHint="@color/grey"
                         />
@@ -523,7 +523,7 @@
                         android:hint="@string/show_answer"
                         android:inputType="textMultiLine|textCapSentences"
                         android:maxLines="5"
-                        android:maxLength="50"
+                        android:maxLength="150"
                         android:textColor="@color/white"
                         android:textColorHint="@color/grey"
                         />

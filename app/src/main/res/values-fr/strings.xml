@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ApeTime</string>
     <string name="start_button">Jouer</string>
@@ -30,7 +31,6 @@
     <string name="drink_1_message">n\'a pas très soif</string>
     <string name="drink_2_message">n\'a soif</string>
     <string name="drink_3_message">est déglingo</string>
-    <string name="gage_success_question"> à réussi le gage ?</string>
     <string name="miniGame_success_question">à t\'il réussi le Mini-Jeux ?</string>
     <string name="answer_action_success">à t\'il répondu/fait l\'action ?</string>
     <string name="the_annecdote">L\'anecdote de </string>
@@ -119,7 +119,7 @@
     <string name="second_text_info_addSentence1">En cliquant sur l\'image ci-dessous, un joueur sera mentionné à cette position</string>
     <string name="third_text_info_addSentence">Une fois que tout est prêt, appuie sur \"Visualiser\" afin de voir comment ta phrase apparaîtra dans le jeu</string>
     <string name="add">Ajouter</string>
-    <string name="edit">Edit</string>
+    <string name="edit">Modifier</string>
     <string name="right_answer">je suis la bonne réponse</string>
     <string name="wrong_answer">je suis la mauvaise réponse</string>
     <string name="add_sentence">Ajouter une phrase</string>
@@ -128,10 +128,10 @@
     <string name="skip">passer</string>
     <string name="note_max_player">note: 3 joueurs maximun</string>
     <string name="game_mode_edit_text">Dans quel mode de jeu voulez-vous ajouter votre phrase ?</string>
-    <string name="sumury_text">"Recapitulatif de vos paramètres, vous pouvez toujours les editer ! N'oubliez pas de scroller pour voir les derniers "</string>
+    <string name="sumury_text">"Recapitulatif de vos paramètres, vous pouvez toujours les editer !"</string>
     <string name="complete">Complête ta phrase</string>
     <string name="check_info">"Vérifie toutes les informations et appuie sur suivant "</string>
-    <string name="point_case_right_answer">Combien de points en cas de bonne réponse ?</string>
+    <string name="point_case_right_answer">Combien de points si le joueur répond ?</string>
     <string name="_1_point">1 point</string>
     <string name="_2_points">2 points</string>
     <string name="_3_points">3 points</string>
@@ -158,4 +158,8 @@
     <string name="player1_bold_italic"><![CDATA[<b><i>Joueur 1</i></b>]]></string>
     <string name="player2_bold_italic"><![CDATA[<b><i>Joueur 2</i></b>]]></string>
     <string name="player3_bold_italic"><![CDATA[<b><i>Joueur 3</i></b>]]></string>
+    <string name="confirm_add_sentence">Tu confirmes l\'ajout de la phrase ou tu veux encore la modifier ?</string>
+    <string name="modify_button">Modifier</string>
+    <string name="modify">Confirmer</string>
+    <string name="confirm_or_keep_editing">Confirmes-tu tes modifications ou tu veux continuer de modifier ?</string>
 </resources>
