@@ -2,6 +2,8 @@ package fr.mapoe.appproject;
 
 import static android.content.ContentValues.TAG;
 
+import static java.lang.Thread.sleep;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,6 +21,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -41,6 +44,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -71,7 +75,9 @@ public class GameActivity extends AppCompatActivity {
     private int typeOfGame =0;
     private static final String FILE_NAME = "custom_sentences.txt";
     private Button answerButton;
-    private String otherPlayer;
+    private ImageView skipButton;
+    private String secondPlayer;
+    private String thirdPlayer;
     boolean restart=false;
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
@@ -100,7 +106,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        AnimationBg.startBackgroundAnimation(findViewById(R.id.game_layout));
+        //AnimationBg.startBackgroundAnimation(findViewById(R.id.game_layout));
         this.activity = this;
         ConstraintLayout gameLayout = (ConstraintLayout) findViewById(R.id.game_layout);
 
@@ -186,7 +192,7 @@ public class GameActivity extends AppCompatActivity {
                 showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],typeOfCall);
             }
         });
-        ImageView skipButton = (ImageView) findViewById(R.id.skip_button);
+        skipButton = (ImageView) findViewById(R.id.skip_button);
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -638,19 +644,25 @@ public class GameActivity extends AppCompatActivity {
     private void newDisplay(View view) throws IOException{
         displayCounter++;
         getPlayerTurn();
-
+        // on réinitialise pour éviter que ça face de la merde
+        secondPlayer = "";
+        thirdPlayer= "";
+        skipButton = findViewById(R.id.skip_button);
+        skipButton.setVisibility(View.INVISIBLE);
         if(GetNextInformations()) {//on vérifie si on continue a construire la page avec lex textView
-            String phrase = currentChallenge[2];
+
             String type = currentChallenge[3];
 
             TextView currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
-            TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
+
 
             currentTitleDisplay.setText(type);
-            currentTextDisplay.setText(HtmlCompat.fromHtml(phrase,HtmlCompat.FROM_HTML_MODE_LEGACY));
+            // appel la méthode pour afficher le texte
+            SetDynamicText();
+
             TextView helpText = findViewById(R.id.help_text);
             if(currentChallenge[5].equals("skip")){
-                answerButton.setText("répondu ?");
+                answerButton.setText(R.string.answered);
 
                 helpText.setVisibility(View.VISIBLE);
 
@@ -740,8 +752,8 @@ public class GameActivity extends AppCompatActivity {
             punition=ligne.substring(j+1);
 
             currentChallenge[0]=points;
-            currentChallenge[1]=SetNamesInSentence(answers);
-            currentChallenge[2]=SetNamesInSentence(sentence);
+            currentChallenge[1]=SetNamesInAnswer(answers);
+            currentChallenge[2]=SetNameInSentence(sentence);
             currentChallenge[4]=rightAnswer;
             String[] btnText = SetNameInButton(button1Text,button2Text); // 0: btn1 1:btn2
             currentChallenge[5]=btnText[0];
@@ -789,7 +801,7 @@ public class GameActivity extends AppCompatActivity {
         return res.toString();
     }
 
-    private String SetNamesInSentence(String sentence){
+    private String SetNamesInAnswer(String sentence){
         StringBuilder res= new StringBuilder();
         String Nom="";
         boolean temp = false;
@@ -801,10 +813,9 @@ public class GameActivity extends AppCompatActivity {
                     //nom du joueur principal
                     Nom=currentPlayer;
                     res.append("<b>").append(Nom).append("</b>");
-                }else{
-                    //nom des joueurs qui participent aussi
-                    otherPlayer = getRandomPlayer(Nom);
-                    res.append("<b>").append(otherPlayer).append("</b>");
+                }
+                else{
+                    res.append("<b>").append(secondPlayer).append("</b>");
                 }
             }else{
                 //si on lit un caractère "normal" de la phrase on le copie cole sans modification
@@ -813,6 +824,7 @@ public class GameActivity extends AppCompatActivity {
         }
         return res.toString();
     }
+
     private String[] SetNameInButton(String button1,String button2){
         String btn1=button1;
         String btn2=button2;
@@ -829,9 +841,46 @@ public class GameActivity extends AppCompatActivity {
         // si un nom dans chaque boutton
         else if(nameInBtn1 & nameInBtn2){
             btn1 = currentPlayer;
-            btn2 = otherPlayer;
+            btn2 = secondPlayer;
         }
         return new String[]{btn1, btn2};
+    }
+
+    private int numberOfOccurrences(String source,String test) {
+        int occurrences = 0;
+
+        if (source.contains(test)) {
+            int withSentenceLength    = source.length();
+            int withoutSentenceLength = source.replace(test, "").length();
+            occurrences = (withSentenceLength - withoutSentenceLength) / test.length();
+        }
+
+        return occurrences;
+    }
+    private String SetNameInSentence(String text) {
+        String res = "";
+        int nbPlayer = numberOfOccurrences(text,"§");
+        String str=nbPlayer+"";
+        Log.d("CACA",str);
+        if (numberOfOccurrences(text,"§") == 1) {
+            res = text.replaceFirst("§", currentPlayer);
+
+        }
+        else if (numberOfOccurrences(text,"§") == 2) {
+            secondPlayer=getRandomPlayer(currentPlayer);
+            res = text.replaceFirst("§", currentPlayer);
+            res=res.replaceFirst("§",secondPlayer);
+        }
+        else{
+            secondPlayer = getRandomPlayer(currentPlayer);
+            thirdPlayer = getRandomPlayer(currentPlayer);
+            Log.d("secondPlayer",secondPlayer);
+            Log.d("thirdPlayer",thirdPlayer);
+            res = text.replaceFirst("§", currentPlayer);
+            res=res.replace("§",thirdPlayer);
+            res = res.replaceFirst(thirdPlayer,secondPlayer);
+        }
+        return res;
     }
 
     private String[] GetNextChallenge(String type) {
@@ -992,7 +1041,100 @@ public class GameActivity extends AppCompatActivity {
 
         return res;
     }
+    private void SetDynamicText(){
+        TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
+        String phrase = currentChallenge[2];
+        int[] firstNameIndex = {phrase.indexOf(currentPlayer),phrase.indexOf(currentPlayer)+currentPlayer.length()-1};
+        int[] secondNameIndex ={1000,1000};
+        if(!secondPlayer.equals("")){
+            secondNameIndex = new int[]{phrase.indexOf(secondPlayer), phrase.indexOf(secondPlayer) + secondPlayer.length() - 1};
+        }
+        int[] thirdNameIndex ={1000,1000};
 
+        if(!thirdPlayer.equals("")){
+            int t = numberOfOccurrences(phrase,thirdPlayer);
+            String str = t+"";
+            if(numberOfOccurrences(phrase,thirdPlayer)!=1){
+                StringBuilder tempReplace = new StringBuilder();
+                for(int i=0;i<thirdPlayer.length();i++){
+                    tempReplace.append("r");
+                }
+                phrase.replaceFirst(thirdPlayer, String.valueOf(tempReplace));
+                thirdNameIndex = new int[]{phrase.indexOf(thirdPlayer), phrase.indexOf(thirdPlayer) + thirdPlayer.length() - 1};
+                phrase.replace(String.valueOf(tempReplace),thirdPlayer);
+                Log.d("phrase:", String.valueOf(tempReplace));
+            }
+            else{
+                thirdNameIndex = new int[]{phrase.indexOf(thirdPlayer), phrase.indexOf(thirdPlayer) + thirdPlayer.length() - 1};
+            }
+
+        }
+
+        int time = 300;
+        // 1er caratère
+        String firstChar = String.valueOf(phrase.charAt(0));
+        // si le nom du joueur est au début on met la 1er lettre en gras
+        if(firstNameIndex[0]==0){
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    currentTextDisplay.setText(HtmlCompat.fromHtml("<b>"+firstChar+"</b>",HtmlCompat.FROM_HTML_MODE_LEGACY));
+                }
+            }, time);
+        }
+        // sinon normal
+        else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    currentTextDisplay.setText(firstChar);
+                }
+            }, time);
+        }
+        time += 25;
+
+        // pour ajouter les autres caractères
+        for(int i=1;i<phrase.length();i++) {
+            String character = String.valueOf(phrase.charAt(i));
+            // si i est compris dans l'index d'un nom on met le character en gras
+            if((firstNameIndex[0]<=i && i<=firstNameIndex[1])
+                    || (secondNameIndex[0]<=i && i<=secondNameIndex[1])
+                    || (thirdNameIndex[0]<=i && i<=thirdNameIndex[1])
+                    ){
+                if(!character.equals(" ")) {
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            currentTextDisplay.append(HtmlCompat.fromHtml("<b><i>" + character + "</i></b>", HtmlCompat.FROM_HTML_MODE_LEGACY));
+                        }
+                    }, time);
+                }
+                else{
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            currentTextDisplay.append(character);
+                        }
+                    }, time);
+                }
+            }
+            else {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        currentTextDisplay.append(character);
+                    }
+                }, time);
+            }
+            time+=25;
+        }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                skipButton.setVisibility(View.VISIBLE);
+            }
+        }, time);
+    }
     private boolean checkGameEnd(){
         boolean res=false;
         switch (playerTab.length){

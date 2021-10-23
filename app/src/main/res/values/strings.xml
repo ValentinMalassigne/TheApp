@@ -157,4 +157,6 @@
     <string name="player1_bold_italic"><![CDATA[<b><i>Player 1</i></b>]]></string>
     <string name="player2_bold_italic"><![CDATA[<b><i>Player 2</i></b>]]></string>
     <string name="player3_bold_italic"><![CDATA[<b><i>Player 3</i></b>]]></string>
+    <string name="answered">answered ?</string>
+    <string name="finish">finish</string>
 </resources>

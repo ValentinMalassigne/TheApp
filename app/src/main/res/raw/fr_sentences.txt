@@ -1,11 +1,13 @@
 anecdotes
-oui/non+2 Serait-tu prêt à recommencer ?¤§ raconte ta première cuite ou une cuite mémorable¤§ c’est donc l’occasion de boire µ
-oui/non-2 C'était volontaire ?¤§ quel est le pire truc que tu as déjà mangé¤§ tu vas aussi être volontaire pour boire µ
-skip/skip-2skip¤§ raconte nous une connerie que t’as jamais osé raconter à tes parents¤§ bois µ
-oui/non-2 C'était volontaire ?¤§ as-tu déjà bu en travaillant ?¤§ tu vas aussi être volontaire pour boire µ
-skip/skip-2skip¤§ raconte tes pires vacances ?¤On va t’aider à oublier ça, § bois µ
-oui/non+2 Tu t'es fait choper ?¤§ raconte ta plus grosse connerie pendant tes études ou au lycée¤Il est temps que tu paye pour tes crimes, bois µ
-skip/skip+2skip¤§ raconte un truc drôle qui t'est arrivé récemment¤Prend µ pour avoir un peu d’inspiration
+skip/skip+2skip¤§ blablabla § sur blablabla §¤bois µ
+skip/skip+2skip¤§ blablabla § sur blablabla §¤bois µ
+skip/skip+2skip¤§ blablabla § sur blablabla §¤bois µ
+skip/skip+2skip¤§ blablabla § sur blablabla §¤bois µ
+skip/skip+2skip¤§ blablabla § sur blablabla §¤bois µ
+skip/skip+2skip¤§ blablabla § sur blablabla §¤bois µ
+skip/skip+2skip¤§ blablabla § sur blablabla §¤bois µ
+skip/skip+2skip¤§ blablabla § sur blablabla §¤bois µ
+skip/skip+2skip¤§ blablabla § sur blablabla §¤bois µ
 gages
 oui/non+2 ¤§ est-ce que tu as été bourré dans les 3 derniers jours ?¤Très bien continue comme ça, bois µ
 humilié/ça va-2 Comment tu t’es senti ?¤§ bois ton verre comme un chien ¤ Il n’y a pas de honte à boire différemment, tu n’es pas le centre du monde, il y a des gens différents de toi. Bois µ et retient cette leçon.
