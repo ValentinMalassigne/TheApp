@@ -318,14 +318,14 @@
 
                 <Button
                     android:id="@+id/button_1_point"
-                    android:background="@drawable/roud_button"
-                    app:backgroundTint = "@null"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:text="1"
                     android:textSize="25sp"
+                    app:backgroundTint = "@null"
                     android:textColor="@color/white"
-                    android:layout_marginRight="20dp"/>
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/roud_button"/>
 
                 <Button
                     android:id="@+id/button_2_points"
@@ -357,8 +357,7 @@
                     android:layout_height="60dp"
                     android:text="4"
                     android:textSize="25sp"
-                    android:textColor="@color/white"
-                    android:layout_marginRight="20dp"/>
+                    android:textColor="@color/white"/>
 
             </LinearLayout>
 

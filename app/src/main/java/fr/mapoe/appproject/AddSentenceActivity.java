@@ -397,14 +397,6 @@ public class AddSentenceActivity extends AppCompatActivity {
             }
         });
 
-        // button Next après avoir choisis les points
-        button1Point.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                managePointsSelection(1);
-            }
-        });
-
         //bouton 2 points
         button2Points.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -529,10 +521,10 @@ public class AddSentenceActivity extends AppCompatActivity {
                 scrollableEditButton1.setBackground(getDrawable(R.drawable.button));
                 scrollableEditButton2.setBackground(getDrawable(R.drawable.button));
                 visualizeButton.setBackground(getDrawable(R.drawable.button));
-                button1Point.setBackground(getDrawable(R.drawable.button));
-                button2Points.setBackground(getDrawable(R.drawable.button));
-                button3Points.setBackground(getDrawable(R.drawable.button));
-                button4Points.setBackground(getDrawable(R.drawable.button));
+                button1Point.setBackground(getDrawable(R.drawable.roud_button));
+                button2Points.setBackground(getDrawable(R.drawable.roud_button));
+                button3Points.setBackground(getDrawable(R.drawable.roud_button));
+                button4Points.setBackground(getDrawable(R.drawable.roud_button));
             }
         }
         else{
@@ -546,10 +538,10 @@ public class AddSentenceActivity extends AppCompatActivity {
                 scrollableEditButton1.setBackground(getDrawable(R.drawable.button2));
                 scrollableEditButton2.setBackground(getDrawable(R.drawable.button2));
                 visualizeButton.setBackground(getDrawable(R.drawable.button2));
-                button1Point.setBackground(getDrawable(R.drawable.button2));
-                button2Points.setBackground(getDrawable(R.drawable.button2));
-                button3Points.setBackground(getDrawable(R.drawable.button2));
-                button4Points.setBackground(getDrawable(R.drawable.button2));
+                button1Point.setBackground(getDrawable(R.drawable.roud_button2));
+                button2Points.setBackground(getDrawable(R.drawable.roud_button2));
+                button3Points.setBackground(getDrawable(R.drawable.roud_button2));
+                button4Points.setBackground(getDrawable(R.drawable.roud_button2));
 
             }
         }
