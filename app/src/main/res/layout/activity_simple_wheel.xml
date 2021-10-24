@@ -7,6 +7,7 @@
     android:id="@+id/simple_wheel_layout"
     android:background="@drawable/gradient_list"
     tools:context=".MainActivity">
+
     <ImageButton
         android:id="@+id/x_button"
         android:layout_width="32dp"
@@ -18,37 +19,35 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
+    <ImageView
+        android:id="@+id/wheel"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/wheel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/beer_down"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:src="@drawable/arrow" />
-
-        <ImageView
-            android:id="@+id/wheel"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:scaleType="centerInside"
-            android:src="@drawable/wheel" />
-
-        <ImageView
-            android:id="@+id/spinBtn"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:src="@drawable/spin" />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/spinBtn"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/spin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wheel" />
 
     <TextView
         android:id="@+id/wheel_result_display"
@@ -63,7 +62,6 @@
         android:textSize="24sp"
         android:layout_marginRight="177dp"
         android:layout_marginBottom="59dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
