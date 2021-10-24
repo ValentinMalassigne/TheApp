@@ -7,7 +7,6 @@ oui/non+2 La conversation était-elle pertinente ?¤§ appelle n’importe qui a
 oui/non+2 § t’a bien massé(e)?¤§ masse le dos de §¤C’était à cause du trac ? Prends µ pour te détendre
 magique/nul+3 Est-ce que c'était féérique ?¤§ fais un tour de magie dans les 10 prochaines secondes¤Fais magiquement disparaître µ de ton verre.
 oui/non+2 Les autres, ça vous a semblé convaincant ?¤§ fais toi passer pour un expert du sujet choisi par §¤Bois µ pour être plus à l’aise la prochaine fois
-oui/non+2 § est-il/elle capable de vivre au moyen-âge ?¤§ traduis une phrase choisie par §, du vieux français vers le français actuel (tu peux chercher sur internet)¤Prends µ pour te rapprocher de tes ancêtres
 oui/non+2 Êtes-vous satisfaits du service ?¤§ tu débarrasses la table ou les verres¤Bois µ pour te faire pardonner
 oui/non+2 § pourrait-il/elle être barman ?¤§ tu ressers les autres¤à défaut de servir, bois µ
 oui/non+3 § c'était bon ?¤§ bois un mélange fait par §¤Ah dommage, on est sympas on te laisse boire µ pour passer le goût
@@ -30,6 +29,8 @@ oui/non+2 Est-ce que quelqu'un a réussi à deviner ?¤§ fais deviner une chans
 §/§+2 Qui a ramené l'objet en premier ?¤§ va chercher un objet que § choisit, § doit essayer de le ramener plus vite que toi.¤Vous devez avoir soif après cette course, prenez µ chacun(e)
 oui/non-2 Est-ce que plus de la moitié des joueurs ont trouvé la vérité ?¤§ raconte une anecdote (vraie ou fausse), les autres doivent essayer de deviner¤§ malheureusement les autres ont été perspicaces, allez bois µ ça va peut être t’aider
 §/§+2Qui a gagné ?¤ Shi-fu-gorgée ! § fais un pierre papier ciseaux avec § en 1 round gagnant !¤Le perdant boit µ
+Spinning Wheel
+Red or Black
 Spinning Wheel
 Red or Black
 questions
@@ -85,7 +86,7 @@ oui/non+1¤§ as-tu déjà été en cours ou au travail juste après une soirée
 oui/non+1 Est ce que les autres sont d'accord avec toi ?¤§ qui d'après toi serait capable de prendre une décision importante en étant bourré(e) ?¤Moi je suis d’accord avec toi (mais ça t’empêche pas de boire µ)
 A chier/Ca passe+1 Les autres, vous en pensez quoi ?¤§ quel a été le pire cadeau que l'on t'ait fait ?¤C’est mieux que rien, mais bon prends µ pour oublier
 ignoble/non-1 Est ce que c'était involontaire ?¤§ t'es-tu déjà fait dessus (enfant ça compte pas) ?¤On veut pas les détails bois µ
-voler/whisky+1?¤§ tu préfères pouvoir voler ou pouvoir boire une bouteille de whisky cul-sec?¤On va t’entraîner pour ce super pouvoir, bois µ
+voler/whisky+1 ¤§ tu préfères pouvoir voler ou pouvoir boire une bouteille de whisky cul-sec?¤On va t’entraîner pour ce super pouvoir, bois µ
 End
 anecdotes
 rep1/rep2+1 Anecdote génante 1¤§ dis un truc génant hahahahaha

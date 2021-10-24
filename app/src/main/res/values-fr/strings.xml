@@ -54,7 +54,7 @@
     <string name="remain">"Il reste "</string>
     <string name="cardPack">cartes dans le paquet</string>
     <string name="next_button">suivant</string>
-    <string name="wheel_player_call">\ lance la roue en cliquant sur SPIN</string>
+    <string name="wheel_player_call">\ lance la roue en cliquant sur Lancer</string>
     <string name="or">ou</string>
     <string name="black">Noir</string>
     <string name="red">Rouge</string>
@@ -151,7 +151,7 @@
     <string name="edit_buttons_and_select_correct_answer">Tu peux modifier le texte des boutons si nécessaire.\n Et tu peux choisir quelle est la bonne réponse</string>
     <string name="check_informations">Vérifie les informations et appuie sur "visualiser" !</string>
     <string name="what_is_next_card">Quelle est la couleur de la prochaine carte ?</string>
-    <string name="player_landmark">--joueur--</string>
+    <string name="player_landmark">joueur</string>
     <string name="player1_scores"><![CDATA[\"<b><i>Joueur 1</i><b> marque \"]]></string>
     <string name="point">\" point(s)\"</string>
     <string name="player1_drink_x_sips"><![CDATA[<b><i>Joueur 1</i><b> bois x gorgée(s)]]></string>
@@ -165,4 +165,8 @@
     <string name="answerd_button">répondu ?</string>
     <string name="drink_warning">Buvez avec modération et demandez de l\'aide à vos amis si besoins.</string>
     <string name="finish">finis</string>
+    <string name="modify_what_you_want">\"Modifie ce que tu veux et appuie sur suivant !\"</string>
+    <string name="spin">Lancer</string>
+    <string name="coming_soon">Bientôt disponible</string>
+    <string name="new_game_coming_soon">Un nouveau jeu sera bientôt disponible, soyez prêt !</string>
 </resources>

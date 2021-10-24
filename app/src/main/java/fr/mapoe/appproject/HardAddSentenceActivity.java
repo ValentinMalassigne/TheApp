@@ -84,7 +84,6 @@ public class HardAddSentenceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sentence);
-        AnimationBg.startBackgroundAnimation(findViewById(R.id.add_sentence_layout));
         fileBuilder();
         init();
         // recuperer les données
@@ -837,11 +836,6 @@ public class HardAddSentenceActivity extends AppCompatActivity {
                     typeOfGame=1;
                 }
                 addSentence(encoding,"Custom",typeOfGame);
-                try {
-                    showFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 answerText.setText(encoding);
             }
         });
@@ -968,7 +962,7 @@ public class HardAddSentenceActivity extends AppCompatActivity {
             if(fos!=null){
                 fos.close();
             }
-            showFile();
+            //showFile();
         } catch (IOException e) {
             e.printStackTrace();
         }

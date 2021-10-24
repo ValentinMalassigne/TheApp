@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:fontFamily="@font/convergence"
     android:gravity="center"
+
     android:textColor="@color/white"
-    android:textSize="18sp"
+    android:autoSizeTextType="uniform"
     android:textStyle="italic" />

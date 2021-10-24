@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
         //changement de la langue
         getLanguage();
 
-        AnimationBg.startBackgroundAnimation(findViewById(R.id.main_layout));
-
         //go to option
         ImageView goToOption = (ImageView) findViewById(R.id.setting_button);
         goToOption.setOnClickListener(new View.OnClickListener() {
@@ -99,11 +97,11 @@ public class MainActivity extends AppCompatActivity {
         goToApePiment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent characterChooseActivity = new Intent(getApplicationContext(), CharacterChooseActivity.class);
+                /*Intent characterChooseActivity = new Intent(getApplicationContext(), CharacterChooseActivity.class);
                 characterChooseActivity.putExtra("typeOfGame",2);
                 startActivity(characterChooseActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                finish();
+                finish();*/
             }
         });
         // go to Simple Wheel

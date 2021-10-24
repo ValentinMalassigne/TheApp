@@ -26,8 +26,8 @@ public class SimpleWheelActivity extends AppCompatActivity {
     private static final Random random = new Random();
     private int degree=0;
     private boolean isSpinning=false;
-
     private ImageView wheel;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +72,8 @@ public class SimpleWheelActivity extends AppCompatActivity {
             }
         });
 
-        final ImageView spinBtn = findViewById(R.id.spinBtn);
+        final Button spinBtn = findViewById(R.id.spinBtn);
         wheel = findViewById(R.id.wheel);
-
-
-        AnimationBg.startBackgroundAnimation(findViewById(R.id.simple_wheel_layout));
 
         getDegreeForSectors();
 
@@ -87,31 +84,6 @@ public class SimpleWheelActivity extends AppCompatActivity {
                     spin();
                     isSpinning=true;
                 }
-            }
-        });
-        spinBtn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        ImageView view = (ImageView) v;
-                        //overlay is black with transparency of 0x77 (119)
-                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        view.invalidate();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL: {
-                        ImageView view = (ImageView) v;
-                        //clear the overlay
-                        view.getDrawable().clearColorFilter();
-                        view.invalidate();
-                        break;
-                    }
-                }
-
-                return false;
             }
         });
     }
@@ -132,7 +104,6 @@ public class SimpleWheelActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-
                 wheelResult.setText(getString(R.string.drink)+" "+sectors[sectors.length-(degree+1)]+getString(R.string.sips));
                 isSpinning=false;
             }
