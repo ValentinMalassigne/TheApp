@@ -105,7 +105,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        //AnimationBg.startBackgroundAnimation(findViewById(R.id.game_layout));
         this.activity = this;
         ConstraintLayout gameLayout = (ConstraintLayout) findViewById(R.id.game_layout);
 
@@ -116,12 +115,8 @@ public class GameActivity extends AppCompatActivity {
             alcoholTab = extras.getStringArray("alcoholTab");
             typeOfGame = extras.getInt("typeOfGame");
             restart = extras.getBoolean("restart");
-            Log.d(TAG, "restart: " + String.valueOf(restart));
             if (restart) {
                 savedSentenceList = extras.getStringArrayList("savedList");
-                for (int i = 0; i < savedSentenceList.size(); i++) {
-                    Log.d(TAG, "Phrases précédentes " + savedSentenceList.get(i));
-                }
             } else {
                 savedSentenceList = new ArrayList<String>();
             }
@@ -371,7 +366,7 @@ public class GameActivity extends AppCompatActivity {
                         // ajout au score
                         rightAnswer[0] = true;
                     } else { //sinon il a perdu
-                        String temp = getPunition();
+                        String temp = getPunition(0);
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         yesButton.setVisibility(View.GONE);
                         noButton.setVisibility(View.GONE);
@@ -391,7 +386,7 @@ public class GameActivity extends AppCompatActivity {
                         // ajout au score
                         rightAnswer[0] = true;
                     } else { //sinon il a perdu
-                        String temp = getPunition();
+                        String temp = getPunition(0);
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         yesButton.setVisibility(View.GONE);
                         noButton.setVisibility(View.GONE);
@@ -432,7 +427,7 @@ public class GameActivity extends AppCompatActivity {
         }
         // appel par skip
         else { // appel par skip
-            String temp = getPunition();
+            String temp = getPunition(1);
             textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
             yesButton.setVisibility(View.GONE);
             noButton.setVisibility(View.GONE);
@@ -614,22 +609,20 @@ public class GameActivity extends AppCompatActivity {
                 if (miniGamesList.get(i).equals(savedSentenceList.get(j))
                         && !miniGamesList.get(i).equals("Spinning Wheel") && !miniGamesList.get(i).equals("Red or Black")) {
                     String supp = miniGamesList.remove(i);
-                    Log.d("minigame suppromée", supp);
                 }
             }
             for (int i = 0; i < sentenceList.size(); i++) {
                 if (sentenceList.get(i).equals(savedSentenceList.get(j))) {
                     String supp = sentenceList.remove(i);
-                    Log.d("sentence supprimée", supp);
                 }
             }
             for (int i = 0; i < customSentencesList.size(); i++) {
                 if (customSentencesList.get(i).equals(savedSentenceList.get(j))) {
                     String supp = customSentencesList.remove(i);
-                    Log.d("custom supprimée", supp);
                 }
             }
         }
+        savedSentenceList=new ArrayList<String>();
     }
 
     private void newDisplay(View view) throws IOException {
@@ -669,7 +662,6 @@ public class GameActivity extends AppCompatActivity {
         int nbSentences = 0;
         while (!testList.isEmpty()) {
             nbSentences++;
-            Log.d(TAG, "testApp: " + nbSentences + " " + testList.get(0));
             testGetNextInformations(testList.remove(0));
         }
     }
@@ -759,7 +751,7 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    ArrayList<String> testSetUpList() throws IOException {
+    private ArrayList<String> testSetUpList() throws IOException {
         ArrayList<String> testList=new ArrayList<String>();
         //on récup la langue acctuelement utilisé par l'appli
         String language = getResources().getConfiguration().locale.getLanguage();
@@ -882,9 +874,15 @@ public class GameActivity extends AppCompatActivity {
         return result;
     }
 
-    private String getPunition(){
+    private String getPunition(int typeOfPunition){
         StringBuilder res = new StringBuilder();
-        String rawPunition=currentChallenge[7];
+        String rawPunition="";
+        if(typeOfPunition==0){
+            rawPunition=currentChallenge[7];
+        }else{
+            rawPunition=getString(R.string.default_custom_sentence_punition);
+            rawPunition=rawPunition.substring(1);//on retire le premier charactère
+        }
         String alcoholQuantity="";
         int i=0;
         while(!playerTab[i].equals(currentPlayer)){
@@ -978,7 +976,6 @@ public class GameActivity extends AppCompatActivity {
         String res = "";
         int nbPlayer = numberOfOccurrences(text,"§");
         String str=nbPlayer+"";
-        Log.d("CACA",str);
         if (numberOfOccurrences(text,"§") == 1) {
             res = text.replaceFirst("§", currentPlayer);
 
@@ -991,8 +988,6 @@ public class GameActivity extends AppCompatActivity {
         else{
             secondPlayer = getRandomPlayer(currentPlayer);
             thirdPlayer = getRandomPlayer(currentPlayer);
-            Log.d("secondPlayer",secondPlayer);
-            Log.d("thirdPlayer",thirdPlayer);
             res = text.replaceFirst("§", currentPlayer);
             res=res.replace("§",thirdPlayer);
             res = res.replaceFirst(thirdPlayer,secondPlayer);
@@ -1099,9 +1094,9 @@ public class GameActivity extends AppCompatActivity {
         if (challengeList.size()==0){
             challengeList.add("gage");
             challengeList.add("gage");
+            challengeList.add("gage");
             challengeList.add("miniGame");
             challengeList.add("miniGame");
-            challengeList.add("sentence");
             challengeList.add("sentence");
             challengeList.add("sentence");
             challengeList.add("sentence");
@@ -1110,7 +1105,7 @@ public class GameActivity extends AppCompatActivity {
 
             //on vérifie si des phrases custom sont disponibles
             if (!customSentencesList.isEmpty()){
-                challengeList.set(4,"custom");//on remple le 5eme element (une sentence) par custom
+                challengeList.set(9,"custom");//on remple le 5eme element (une sentence) par custom
             }
         }
         if(displayCounter==1){ //si on est au premier tour, on prend forcément entre une sentence et une anecdote
@@ -1166,7 +1161,6 @@ public class GameActivity extends AppCompatActivity {
                 phrase.replaceFirst(thirdPlayer, String.valueOf(tempReplace));
                 thirdNameIndex = new int[]{phrase.indexOf(thirdPlayer), phrase.indexOf(thirdPlayer) + thirdPlayer.length() - 1};
                 phrase.replace(String.valueOf(tempReplace),thirdPlayer);
-                Log.d("phrase:", String.valueOf(tempReplace));
             }
             else{
                 thirdNameIndex = new int[]{phrase.indexOf(thirdPlayer), phrase.indexOf(thirdPlayer) + thirdPlayer.length() - 1};
@@ -1284,42 +1278,17 @@ public class GameActivity extends AppCompatActivity {
     }
     @SuppressLint("ClickableViewAccessibility")
     private void getWheelGame(){
-        final String[] sectors = {"0","3","2","1","1","2","1","1","1","2","1","3"};
+        final String[] sectors = {"1","2","3","1","2","3","1","2","3"};
         final int[] sectorDegrees = new int[sectors.length];
         final Random random = new Random();
 
-        ImageView spinBtn = findViewById(R.id.spinBtn);
+        Button spinBtn = findViewById(R.id.spinBtn);
         ImageView wheel = findViewById(R.id.wheel);
 
         spinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 spinWheel(random,sectors,sectorDegrees,wheel);
-            }
-        });
-        spinBtn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        ImageView view = (ImageView) v;
-                        //overlay is black with transparency of 0x77 (119)
-                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        view.invalidate();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL: {
-                        ImageView view = (ImageView) v;
-                        //clear the overlay
-                        view.getDrawable().clearColorFilter();
-                        view.invalidate();
-                        break;
-                    }
-                }
-
-                return false;
             }
         });
 
@@ -1339,6 +1308,7 @@ public class GameActivity extends AppCompatActivity {
         rotateAnimation.setFillAfter(true);
         rotateAnimation.setInterpolator(new DecelerateInterpolator());
         int finalDegree = degree;
+        TextView wheel_player_call = findViewById(R.id.wheel_player_call);
         rotateAnimation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {}
@@ -1346,15 +1316,11 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 //on fait disparaitre le bouton de spin
-                ImageView spinBtn= findViewById(R.id.spinBtn);
+                Button spinBtn= findViewById(R.id.spinBtn);
                 spinBtn.setVisibility(View.GONE);
 
-                //on fait apparaitre le résultat de la roue
-                TextView wheel_result_display;
-                wheel_result_display= findViewById(R.id.wheel_result_display);
-                wheel_result_display.setVisibility(View.VISIBLE);
                 String result ="<b>"+currentPlayer+"</b>"+getString(R.string.you_drink)+sectors[sectors.length-(finalDegree +1)]+getString(R.string.sips);
-                wheel_result_display.setText(HtmlCompat.fromHtml(result,HtmlCompat.FROM_HTML_MODE_LEGACY));
+                wheel_player_call.setText(HtmlCompat.fromHtml(result,HtmlCompat.FROM_HTML_MODE_LEGACY));
 
                 // ajout au score
                 for (int i=0;i<scoreTab.length;i++){
@@ -1376,14 +1342,12 @@ public class GameActivity extends AppCompatActivity {
                         //on fait disparaitre les elements de la roulette et on remet les textview de base
                         LinearLayout main_layout=findViewById(R.id.main_layout);
                         main_layout.setVisibility(View.VISIBLE);
-                        TextView wheel_result_display = findViewById(R.id.wheel_result_display);
-                        wheel_result_display.setVisibility(View.GONE);
                         Button next_button = findViewById(R.id.next_button);
                         next_button.setVisibility(View.GONE);
                         LinearLayout wheel_layout=findViewById(R.id.wheel_layout);
                         wheel_layout.setVisibility(View.GONE);
                         //on supprime le gone du spinBtn car il doit être a nouveau visible si la roulette est encore appelée
-                        ImageView spinBtn= findViewById(R.id.spinBtn);
+                        Button spinBtn= findViewById(R.id.spinBtn);
                         spinBtn.setVisibility(View.VISIBLE);
                         try {
                             newDisplay(gameLayout);
@@ -1478,7 +1442,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 else{ //perdu
 
-                    cardColor.setText(HtmlCompat.fromHtml(getString(R.string.loose)+"<br>"+ getPunition(),HtmlCompat.FROM_HTML_MODE_LEGACY));
+                    cardColor.setText(HtmlCompat.fromHtml(getString(R.string.loose)+"<br>"+ getPunition(0),HtmlCompat.FROM_HTML_MODE_LEGACY));
 
                 }
                 blackButton.setVisibility(View.GONE);
@@ -1511,7 +1475,7 @@ public class GameActivity extends AppCompatActivity {
                 }
                 // perdu
                 else{
-                    cardColor.setText(HtmlCompat.fromHtml(getString(R.string.loose)+"<br>"+ getPunition(),HtmlCompat.FROM_HTML_MODE_LEGACY));                }
+                    cardColor.setText(HtmlCompat.fromHtml(getString(R.string.loose)+"<br>"+ getPunition(0),HtmlCompat.FROM_HTML_MODE_LEGACY));                }
 
                 blackButton.setVisibility(View.GONE);
                 redButton.setVisibility(View.GONE);

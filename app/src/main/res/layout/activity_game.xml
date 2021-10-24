@@ -5,7 +5,7 @@
     android:id="@+id/game_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/test2"
+    android:background="@drawable/bg_dark"
     android:gravity="center"
     tools:context=".MainActivity">
 
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-
+    <!-- main -->
     <LinearLayout
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
@@ -97,7 +97,7 @@
             android:src="@drawable/skip_button"/>
 
     </LinearLayout>
-
+        <!-- wheel-->
     <LinearLayout
         android:id="@+id/wheel_layout"
         android:layout_width="match_parent"
@@ -111,45 +111,42 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/convergence"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginBottom="15dp"
             android:gravity="center"
             android:text="@string/first_display_text"
             android:textColor="@color/white"
             android:textSize="24sp" />
-
         <ImageView
-            android:id="@+id/arrow"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:src="@drawable/arrow"/>
+            android:id="@+id/imageView2"
+            android:layout_width="50dp"
+            android:layout_height="80dp"
+            android:src="@drawable/beer_down" />
 
         <ImageView
             android:id="@+id/wheel"
             android:layout_width="250dp"
             android:layout_height="250dp"
             android:scaleType="centerInside"
-            android:src="@drawable/wheel"
-            />
+            android:src="@drawable/wheel" />
 
-        <ImageView
+
+
+        <Button
             android:id="@+id/spinBtn"
-            android:layout_width="150dp"
+            android:layout_width="180dp"
             android:layout_height="60dp"
-            android:src="@drawable/spin"/>
+            android:layout_marginTop="45dp"
+            android:background="@drawable/spin_button"
+            android:shadowColor="#000000"
+            android:shadowDx="3"
+            android:shadowDy="-2"
+            android:shadowRadius="4"
+            android:text="@string/spin"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            app:backgroundTint="@null" />
 
-        <TextView
-            android:id="@+id/wheel_result_display"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/convergence"
-            android:gravity="center"
-            android:text="@string/first_display_text"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:visibility="gone" />
 
         <Button
             android:id="@+id/next_button"
@@ -163,7 +160,7 @@
             app:backgroundTint="@null"
             android:visibility="gone" />
     </LinearLayout>
-
+    <!-- card -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

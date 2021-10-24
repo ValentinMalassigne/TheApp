@@ -9,6 +9,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -94,8 +96,6 @@ public class CardGameActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-       // AnimationBg.startBackgroundAnimation(findViewById(R.id.card_game_layout));
         Button blackButton = (Button) findViewById(R.id.black_button);
         Button redButton = (Button) findViewById(R.id.red_button);
         TextView cardColor = (TextView) findViewById(R.id.card_color_display);
@@ -152,7 +152,12 @@ public class CardGameActivity extends AppCompatActivity {
                 cardColor.setText(R.string.what_is_next_card);
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Animation slideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+                    slideDown.reset();
+                    cardImage.clearAnimation();
+                    cardImage.startAnimation(slideDown);
                     cardImage.setImageDrawable(getDrawable(R.drawable.cardback));
+
                 }
                 if(nb==0){
                     replayButton.setVisibility(View.VISIBLE);
@@ -267,13 +272,13 @@ public class CardGameActivity extends AppCompatActivity {
             if (randomNumber==0) {
                 // on tire une rouge
                 int rdmId = idRedCardList.remove(generate.nextInt(idRedCardList.size()));
-                cardImage.setImageResource(rdmId);
+                SetImageSrc(rdmId);
                 cardColor = "red";
             }
             else {
                 // on tire une noir
                 int rdmId = idBlackCardList.remove(generate.nextInt(idBlackCardList.size()));
-                cardImage.setImageResource(rdmId);
+                SetImageSrc(rdmId);
                 cardColor = "black";
 
             }
@@ -281,17 +286,23 @@ public class CardGameActivity extends AppCompatActivity {
         // si rouge pleines et noir vide
         else if(idRedCardList.size()!=0 && idBlackCardList.size()==0){
             int rdmId = idRedCardList.remove(generate.nextInt(idRedCardList.size()));
-            cardImage.setImageResource(rdmId);
+            SetImageSrc(rdmId);
             cardColor = "red";
         }
         // si rouge vide et noir pleines
         else if(idRedCardList.size() ==0 && idBlackCardList.size()!=0){
             int rdmId = idBlackCardList.remove(generate.nextInt(idBlackCardList.size()));
-            cardImage.setImageResource(rdmId);
-
+            SetImageSrc(rdmId);
             cardColor = "black";
         }
         return cardColor;
+    }
+    private void SetImageSrc(int id){
+        Animation slideLeft = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_in_left);
+        slideLeft.reset();
+        cardImage.clearAnimation();
+        cardImage.startAnimation(slideLeft);
+        cardImage.setImageResource(id);
     }
 
     @Override

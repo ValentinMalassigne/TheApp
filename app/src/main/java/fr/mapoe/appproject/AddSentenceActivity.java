@@ -84,7 +84,6 @@ public class AddSentenceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sentence);
-        AnimationBg.startBackgroundAnimation(findViewById(R.id.add_sentence_layout));
         fileBuilder();
         init();
         // recuperer les données
@@ -215,7 +214,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
         //situation ou l'on ouvre cette activity pour modifier une phrase
         if(editSentence){
-            questionTextView.setText("Modify what you want and press next !");
+            questionTextView.setText(getString(R.string.modify_what_you_want));
             buttonApeChill.setVisibility(View.GONE);
             buttonApePiment.setVisibility(View.GONE);
             visualizeButton.setVisibility(View.VISIBLE);
@@ -705,8 +704,10 @@ public class AddSentenceActivity extends AppCompatActivity {
 
     private void addPlayerToSentence(EditText editText){
         String text = editText.getText().toString();
-        if(numberOfOccurrences(text)<3) {
-            text += getString(R.string.player_landmark);
+        int nbOccurrence = numberOfOccurrences(text);
+        if(nbOccurrence<3) {
+            String player = "{ "+getString(R.string.player_landmark)+" }";
+            text += player;
             editText.setText(text);
             editText.setSelection(editText.getText().length());
             maxAddPlayerText ++;
@@ -955,7 +956,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             if(fos!=null){
                 fos.close();
             }
-            showFile();
+            //showFile();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -37,7 +37,6 @@ public class GameEndActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_end);
-        AnimationBg.startBackgroundAnimation(findViewById(R.id.score_main_layout));
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -47,11 +46,7 @@ public class GameEndActivity extends AppCompatActivity {
             typeOfGame = extras.getInt("typeOfGame");
             savedSentenceList = extras.getStringArrayList("savedList");
         }
-        if(savedSentenceList!=null) {
-            for (int i = 0; i < savedSentenceList.size(); i++) {
-                Log.d(TAG, "GamendENd" +(String) savedSentenceList.get(i));
-            }
-        }
+
         // init les tableaux
         classTab();
         printWinner();

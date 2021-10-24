@@ -56,7 +56,6 @@ public class OptionActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activty_option);
-        AnimationBg.startBackgroundAnimation(findViewById(R.id.option_layout));
         scale = getResources().getDisplayMetrics().density;
 
         //initialisation du SharedPreferences
@@ -525,7 +524,6 @@ public class OptionActivity extends AppCompatActivity {
             //Pour parcourir chaque colonne
             for (int j = 0; j < currentTab.length; j++) {
                 decodingTab[i][j] = currentTab[j];
-                Log.d(TAG,decodingTab[i][j]);
             }
         }
     }

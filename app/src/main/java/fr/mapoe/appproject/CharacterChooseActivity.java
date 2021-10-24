@@ -71,9 +71,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
             for(int i=0; i<saveAlcoholTab.length;i++){
                 tempTab[i]=saveAlcoholTab[i];
             }
-            for(int i=0;i<savedSentenceList.size();i++){
-                Log.d("characterChoose",savedSentenceList.get(i));
-            }
         }
         else{
             Arrays.fill(tempTab, "drink2");

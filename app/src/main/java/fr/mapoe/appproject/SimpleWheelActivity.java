@@ -21,13 +21,13 @@ import java.util.Random;
 
 public class SimpleWheelActivity extends AppCompatActivity {
 
-    private static final String[] sectors = {"0","3","2","1","1","2","1","1","1","2","1","3"};
+    private static final String[] sectors = {"1","2","3","1","2","3","1","2","3"};
     private static final int[] sectorDegrees = new int[sectors.length];
     private static final Random random = new Random();
     private int degree=0;
     private boolean isSpinning=false;
-
     private ImageView wheel;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +72,8 @@ public class SimpleWheelActivity extends AppCompatActivity {
             }
         });
 
-        final ImageView spinBtn = findViewById(R.id.spinBtn);
+        final Button spinBtn = findViewById(R.id.spinBtn);
         wheel = findViewById(R.id.wheel);
-
-
-        AnimationBg.startBackgroundAnimation(findViewById(R.id.simple_wheel_layout));
 
         getDegreeForSectors();
 
@@ -89,34 +86,11 @@ public class SimpleWheelActivity extends AppCompatActivity {
                 }
             }
         });
-        spinBtn.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        ImageView view = (ImageView) v;
-                        //overlay is black with transparency of 0x77 (119)
-                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
-                        view.invalidate();
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP:
-                    case MotionEvent.ACTION_CANCEL: {
-                        ImageView view = (ImageView) v;
-                        //clear the overlay
-                        view.getDrawable().clearColorFilter();
-                        view.invalidate();
-                        break;
-                    }
-                }
-
-                return false;
-            }
-        });
     }
 
     private void spin(){
+        TextView wheelResult = findViewById(R.id.wheel_result_display);
+        wheelResult.setText("");
         degree= random.nextInt(sectors.length-1);
         RotateAnimation rotateAnimation = new RotateAnimation(0, (360* sectors.length)+sectorDegrees[degree],RotateAnimation.RELATIVE_TO_SELF,0.5f,RotateAnimation.RELATIVE_TO_SELF, 0.5f);
         rotateAnimation.setDuration(3600);
@@ -130,7 +104,6 @@ public class SimpleWheelActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                TextView wheelResult = findViewById(R.id.wheel_result_display);
                 wheelResult.setText(getString(R.string.drink)+" "+sectors[sectors.length-(degree+1)]+getString(R.string.sips));
                 isSpinning=false;
             }

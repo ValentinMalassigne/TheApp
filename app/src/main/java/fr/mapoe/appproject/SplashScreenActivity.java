@@ -3,8 +3,11 @@ package fr.mapoe.appproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.w3c.dom.Text;
 
 public class SplashScreenActivity extends AppCompatActivity {
     private final int SPLASH_SCREEN_TIMEOUT = 1500;

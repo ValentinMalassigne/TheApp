@@ -52,7 +52,7 @@
     <string name="remain">remains</string>
     <string name="cardPack">cards in the pack</string>
     <string name="next_button">next</string>
-    <string name="wheel_player_call">" spin the wheel by clicking on SPIN"</string>
+    <string name="wheel_player_call">" spin the wheel by clicking on Spin"</string>
     <string name="or">or</string>
     <string name="black">Black</string>
     <string name="red">Red</string>
@@ -150,7 +150,7 @@
     <string name="default_custom_sentence_punition">¤§ drink µ</string>
     <string name="description_ape_chill">Fill in the players\' names and let the fun begin !</string>
     <string name="what_is_next_card">What is the next card\'s color ?</string>
-    <string name="player_landmark">--player--</string>
+    <string name="player_landmark">player</string>
     <string name="player1_scores"><![CDATA[\"<b><i>Player 1</i><b> scores \"]]></string>
     <string name="point">\" point(s)\"</string>
     <string name="player1_drink_x_sips"><![CDATA[<b><i>Player 1</i><b> drink x sip(s)]]></string>
@@ -164,4 +164,7 @@
     <string name="answerd_button">answered ?</string>
     <string name="drink_warning">Drink responsivly and ask your friends for help if you need it.</string>
     <string name="finish">finis</string>
+    <string name="modify_what_you_want">\"Modify what you want and press next !\"</string>
+    <string name="spin">spin</string>
+    <string name="apetime">ApeTime</string>
 </resources>
