@@ -54,15 +54,16 @@ public class CardGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_game);
 
-        ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
         init();
+
+        ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
         xButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // ouvre l'activity End game
                 Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(mainActivity);
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                 finish();
 
             }
@@ -94,7 +95,7 @@ public class CardGameActivity extends AppCompatActivity {
             }
         });
 
-        //AnimationBg.startBackgroundAnimation(findViewById(R.id.card_game_layout));
+       // AnimationBg.startBackgroundAnimation(findViewById(R.id.card_game_layout));
         Button blackButton = (Button) findViewById(R.id.black_button);
         Button redButton = (Button) findViewById(R.id.red_button);
         TextView cardColor = (TextView) findViewById(R.id.card_color_display);
@@ -103,40 +104,37 @@ public class CardGameActivity extends AppCompatActivity {
         this.orText = (TextView) findViewById(R.id.or_text);
         ImageView nextArrow = (ImageView) findViewById(R.id.next_arrow);
         ImageView replayButton = (ImageView) findViewById(R.id.replay_button);
+
         Random generate = new Random(System.currentTimeMillis());
         blackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                    int randomNumber = generate.nextInt(2);
-                    if (randomCard(randomNumber).equals("black"))
-                        cardColor.setText(R.string.you_win);
-                    else {
-                        cardColor.setText(R.string.you_lost);
-                    }
-                    blackButton.setVisibility(View.GONE);
-                    redButton.setVisibility(View.GONE);
-                    orText.setVisibility(View.GONE);
-                    nextArrow.setVisibility(View.VISIBLE);
-
+                int randomNumber = generate.nextInt(2);
+                if (randomCard(randomNumber).equals("black"))
+                    cardColor.setText(R.string.you_win);
+                else {
+                    cardColor.setText(R.string.you_lost);
+                }
+                blackButton.setVisibility(View.GONE);
+                redButton.setVisibility(View.GONE);
+                orText.setVisibility(View.GONE);
+                nextArrow.setVisibility(View.VISIBLE);
             }
         });
 
         redButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                    int randomNumber = generate.nextInt(2);
-                    if (randomCard(randomNumber).equals("red")) {
-                        cardColor.setText(R.string.you_win);
-                    } else {
-                        cardColor.setText(R.string.you_lost);
-                    }
-                    blackButton.setVisibility(View.GONE);
-                    redButton.setVisibility(View.GONE);
-                    orText.setVisibility(View.GONE);
-                    nextArrow.setVisibility(View.VISIBLE);
+                int randomNumber = generate.nextInt(2);
+                if (randomCard(randomNumber).equals("red")) {
+                    cardColor.setText(R.string.you_win);
+                } else {
+                    cardColor.setText(R.string.you_lost);
+                }
+                blackButton.setVisibility(View.GONE);
+                redButton.setVisibility(View.GONE);
+                orText.setVisibility(View.GONE);
+                nextArrow.setVisibility(View.VISIBLE);
                 }
         });
         nextArrow.setOnClickListener(new View.OnClickListener() {

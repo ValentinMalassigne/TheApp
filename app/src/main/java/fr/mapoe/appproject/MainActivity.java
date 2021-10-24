@@ -2,6 +2,7 @@ package fr.mapoe.appproject;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -10,7 +11,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -18,6 +21,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -73,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     }
                 }
-
                 return false;
             }
         });
@@ -132,6 +135,50 @@ public class MainActivity extends AppCompatActivity {
             setResponsiveText();
         }
 
+        //setup la popup warning
+        warningPopup();
+    }
+
+    private void warningPopup(){
+        long currentTime= System.currentTimeMillis();
+        //on charge la dernière date d'affichage enregistrée dans les shared preferences
+        SharedPreferences language = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        long lastTime = language.getLong("lastWarningTime",0);
+        if(currentTime-lastTime>3600000){//une heure en millisecondes
+            showInfoDialog(R.layout.info_popup);
+            //ici on enregistre dans les SharedPreferences la langue choisie par l'utilisateur
+            SharedPreferences.Editor editor = language.edit();
+            editor.putLong("lastWarningTime",currentTime);
+            editor.apply();
+        }
+    }
+
+    private void showInfoDialog(int layout){// créer la popup info
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        View layoutView = getLayoutInflater().inflate(layout,null);
+        Button okButton = layoutView.findViewById(R.id.ok_button);
+        CheckBox checkBox = layoutView.findViewById(R.id.block_popup_checkBox);
+        ImageView imageInfo = layoutView.findViewById(R.id.image_info);
+        ImageView nextButton = layoutView.findViewById(R.id.right_popup_arrow);
+        ImageView leftButton = layoutView.findViewById(R.id.left_popup_arrow);
+        TextView textInfo = layoutView.findViewById(R.id.text_info);
+        leftButton.setVisibility(View.GONE);
+        nextButton.setVisibility(View.GONE);
+        imageInfo.setVisibility(View.GONE);
+        checkBox.setVisibility(View.GONE);
+        textInfo.setText(R.string.drink_warning);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
     }
 
     private void setResponsiveText() {
@@ -150,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getLanguage(){
-        //on charge le langage enregistrer dans les shared preferences
+        //on charge le langage enregistrée dans les shared preferences
         SharedPreferences language = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         String choseLanguage = language.getString("language","");
         //on récup la langue acctuelement utilisé par l'appli

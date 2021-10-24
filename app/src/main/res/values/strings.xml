@@ -114,7 +114,7 @@
     <string name="what_sentence_type">What type of sentence do you want to add ?</string>
     <string name="sentence">Sentence</string>
     <string name="add">Add</string>
-    <string name="edit">Modifier</string>
+    <string name="edit">Edit</string>
     <string name="right_answer">I\'m the right answer</string>
     <string name="wrong_answer">I\'m the wrong answer</string>
     <string name="add_sentence">Add a sentence</string>
@@ -126,10 +126,10 @@
     <string name="third_text_info_addSentence">When everything is ready, press \"Visualise\" in order to see how your sentence will appear in the game</string>
     <string name="note_max_player">note: 3 players max</string>
     <string name="game_mode_edit_text">In which game mode do you want to add your sentence ?</string>
-    <string name="sumury_text">Summary of your settings, you can still edit them. You may need to scroll to see all of them</string>
+    <string name="sumury_text">Summary of your settings, you can still edit them.</string>
     <string name="complete">Complete your sentence</string>
     <string name="check_info">"Check every information and press next "</string>
-    <string name="point_case_right_answer">How many points for a right answer ?</string>
+    <string name="point_case_right_answer">How many points if the player answers ?</string>
     <string name="right_button">Right button</string>
     <string name="left_button">Left Button</string>
     <string name="player_mark">Player 1 scores</string>
@@ -157,6 +157,11 @@
     <string name="player1_bold_italic"><![CDATA[<b><i>Player 1</i></b>]]></string>
     <string name="player2_bold_italic"><![CDATA[<b><i>Player 2</i></b>]]></string>
     <string name="player3_bold_italic"><![CDATA[<b><i>Player 3</i></b>]]></string>
-    <string name="answered">answered ?</string>
-    <string name="finish">finish</string>
+    <string name="confirm_add_sentence">Do you confirm adding this sentence, or you want to modify it ?</string>
+    <string name="modify_button">Modify</string>
+    <string name="modify">Confirm</string>
+    <string name="confirm_or_keep_editing">Do you confirm your modifications or you want to keep editing ?</string>
+    <string name="answerd_button">answered ?</string>
+    <string name="drink_warning">Drink responsivly and ask your friends for help if you need it.</string>
+    <string name="finish">finis</string>
 </resources>

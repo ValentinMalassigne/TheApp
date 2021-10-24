@@ -2,8 +2,6 @@ package fr.mapoe.appproject;
 
 import static android.content.ContentValues.TAG;
 
-import static java.lang.Thread.sleep;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -44,7 +42,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -53,16 +50,15 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity {
 
     private String[] playerTab, alcoholTab, scoreTab;
-    private ArrayList<String> challengeList =new ArrayList<String>();
-    private ArrayList<String> customSentencesList =new ArrayList<String>();
+    private ArrayList<String> challengeList = new ArrayList<String>();
+    private ArrayList<String> customSentencesList = new ArrayList<String>();
     private ArrayList<String> miniGamesList = new ArrayList<String>();
     private ArrayList<String> sentenceList = new ArrayList<String>();
-    private ArrayList<String> anecdotesList = new ArrayList<String>();
     private ArrayList<String> playerTurn = new ArrayList<String>();
     private ArrayList<String> gagesList = new ArrayList<String>();
     private ArrayList<String> savedSentenceList = null;
     private String[] currentChallenge = new String[8]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: la punition
-    private String currentPlayer ="";
+    private String currentPlayer = "";
     private ConstraintLayout gameLayout;
     private Activity activity;
     private int displayCounter = 0;
@@ -70,15 +66,16 @@ public class GameActivity extends AppCompatActivity {
     private LinearLayout cardBodyLayout;
     private LinearLayout footerCardLayout;
     private ImageView cardImage;
-    private final ArrayList<Integer> idRedCardList,idBlackCardList;
+    private final ArrayList<Integer> idRedCardList, idBlackCardList;
     private TextView playerCardTurn;
-    private int typeOfGame =0;
+    private int typeOfGame = 0;
     private static final String FILE_NAME = "custom_sentences.txt";
     private Button answerButton;
     private ImageView skipButton;
     private String secondPlayer;
     private String thirdPlayer;
-    boolean restart=false;
+    boolean restart = false;
+
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
                 (R.drawable.h01, R.drawable.h02, R.drawable.h03, R.drawable.h04,
@@ -90,6 +87,7 @@ public class GameActivity extends AppCompatActivity {
                         R.drawable.d12, R.drawable.d13)
         );
     }
+
     {
         idBlackCardList = new ArrayList<Integer>(Arrays.asList
                 (R.drawable.c01, R.drawable.c02, R.drawable.c03, R.drawable.c04, R.drawable.c05,
@@ -101,6 +99,7 @@ public class GameActivity extends AppCompatActivity {
                         R.drawable.s13)
         );
     }
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,14 +116,13 @@ public class GameActivity extends AppCompatActivity {
             alcoholTab = extras.getStringArray("alcoholTab");
             typeOfGame = extras.getInt("typeOfGame");
             restart = extras.getBoolean("restart");
-            Log.d(TAG,"restart: "+String.valueOf(restart));
-            if(restart){
+            Log.d(TAG, "restart: " + String.valueOf(restart));
+            if (restart) {
                 savedSentenceList = extras.getStringArrayList("savedList");
-                for(int i=0;i<savedSentenceList.size();i++){
-                    Log.d(TAG,"Phrases précédentes "+savedSentenceList.get(i));
+                for (int i = 0; i < savedSentenceList.size(); i++) {
+                    Log.d(TAG, "Phrases précédentes " + savedSentenceList.get(i));
                 }
-            }
-            else{
+            } else {
                 savedSentenceList = new ArrayList<String>();
             }
         }
@@ -135,6 +133,7 @@ public class GameActivity extends AppCompatActivity {
         this.answerButton = (Button) findViewById(R.id.answer_button);
         //setUp des list
         try {
+            //testApp();
             setUpList();
             newDisplay(gameLayout);
         } catch (IOException e) {
@@ -177,7 +176,7 @@ public class GameActivity extends AppCompatActivity {
 
         // Generer la popup réponse
 
-        if(typeOfGame ==2){
+        if (typeOfGame == 2) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 answerButton.setBackground(getDrawable(R.drawable.button2));
             }
@@ -185,18 +184,18 @@ public class GameActivity extends AppCompatActivity {
         answerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int typeOfCall= 1;
-                if(currentChallenge[5].equals("skip")){
+                int typeOfCall = 1;
+                if (currentChallenge[5].equals("skip")) {
                     typeOfCall = 2;
                 }
-                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],typeOfCall);
+                showAnswerPopup(R.layout.game_answer_popup, currentChallenge[1], typeOfCall);
             }
         });
         skipButton = (ImageView) findViewById(R.id.skip_button);
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAnswerPopup(R.layout.game_answer_popup,currentChallenge[1],3);
+                showAnswerPopup(R.layout.game_answer_popup, currentChallenge[1], 3);
             }
         });
         skipButton.setOnTouchListener(new View.OnTouchListener() {
@@ -235,9 +234,9 @@ public class GameActivity extends AppCompatActivity {
                 gameEndActivity.putExtra("alcoholTab", alcoholTab);
                 gameEndActivity.putExtra("typeOfGame", typeOfGame);
                 gameEndActivity.putExtra("scoreTab", scoreTab);
-                gameEndActivity.putExtra("savedList",savedSentenceList);
+                gameEndActivity.putExtra("savedList", savedSentenceList);
                 startActivity(gameEndActivity);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 finish();
             }
         });
@@ -270,10 +269,10 @@ public class GameActivity extends AppCompatActivity {
             //on vérifie si l'utilisateur à bloqué la popup
             SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
             String alcohol_reminder_popup_blocked = "";
-            if(sharedPreferences.contains("block_apechill_tutorial_popup")){
-                alcohol_reminder_popup_blocked = sharedPreferences.getString("block_apechill_tutorial_popup","");
+            if (sharedPreferences.contains("block_apechill_tutorial_popup")) {
+                alcohol_reminder_popup_blocked = sharedPreferences.getString("block_apechill_tutorial_popup", "");
             }
-            if(!alcohol_reminder_popup_blocked.equals("blocked"))
+            if (!alcohol_reminder_popup_blocked.equals("blocked"))
                 showInfoDialog(R.layout.info_popup);
 
         }
@@ -316,26 +315,26 @@ public class GameActivity extends AppCompatActivity {
         blockPopupCheckBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean checked =  ((CheckBox) view).isChecked();
+                boolean checked = ((CheckBox) view).isChecked();
                 //ici on enregistre dans les SharedPreferences si l'utilisateur bloque la popup
                 SharedPreferences blockPopup;
                 blockPopup = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = blockPopup.edit();
-                if(checked){
-                    editor.putString("block_apechill_tutorial_popup","blocked");
-                }else{
-                    editor.putString("block_apechill_tutorial_popup","activated");
+                if (checked) {
+                    editor.putString("block_apechill_tutorial_popup", "blocked");
+                } else {
+                    editor.putString("block_apechill_tutorial_popup", "activated");
                 }
                 editor.apply();
             }
         });
     }
 
-    private void showAnswerPopup(int layout, String text, int typeOfCall){
+    private void showAnswerPopup(int layout, String text, int typeOfCall) {
         final boolean[] rightAnswer = {false};
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
-        View layoutView = getLayoutInflater().inflate(layout,null);
+        View layoutView = getLayoutInflater().inflate(layout, null);
         // déclarer les éléments de la popup
         TextView textDisplay = (TextView) layoutView.findViewById(R.id.text_display);
         Button yesButton = (Button) layoutView.findViewById(R.id.yes_button);
@@ -347,7 +346,7 @@ public class GameActivity extends AppCompatActivity {
         noButton.setText(currentChallenge[6]);//la deuxième rep*
 
         // change bg suivant le jeu
-        if(typeOfGame ==2){
+        if (typeOfGame == 2) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 yesButton.setBackground(getDrawable(R.drawable.button2));
                 noButton.setBackground(getDrawable(R.drawable.button2));
@@ -358,7 +357,7 @@ public class GameActivity extends AppCompatActivity {
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         // appel normal y a une réponse
-        if(typeOfCall ==1) { // appel normal par réponse
+        if (typeOfCall == 1) { // appel normal par réponse
             textDisplay.setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY));
             yesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -370,7 +369,7 @@ public class GameActivity extends AppCompatActivity {
                         yesButton.setVisibility(View.GONE);
                         nextButton.setVisibility(View.VISIBLE);
                         // ajout au score
-                        rightAnswer[0] =true;
+                        rightAnswer[0] = true;
                     } else { //sinon il a perdu
                         String temp = getPunition();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
@@ -390,7 +389,7 @@ public class GameActivity extends AppCompatActivity {
                         yesButton.setVisibility(View.GONE);
                         nextButton.setVisibility(View.VISIBLE);
                         // ajout au score
-                        rightAnswer[0] =true;
+                        rightAnswer[0] = true;
                     } else { //sinon il a perdu
                         String temp = getPunition();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
@@ -402,7 +401,7 @@ public class GameActivity extends AppCompatActivity {
             });
         }
         // appel sans réponse
-        else if(typeOfCall ==2){
+        else if (typeOfCall == 2) {
             yesButton.setVisibility(View.GONE);
             noButton.setVisibility(View.GONE);
             nextButton.setVisibility(View.VISIBLE);
@@ -421,8 +420,8 @@ public class GameActivity extends AppCompatActivity {
                                 int currentPlayerScore = Integer.parseInt(scoreTab[i]);
                                 int newScore = scoreInt + currentPlayerScore;
                                 scoreTab[i] = Integer.toString(newScore);
-                                }
                             }
+                        }
                         newDisplay(view);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -432,7 +431,7 @@ public class GameActivity extends AppCompatActivity {
             });
         }
         // appel par skip
-        else{ // appel par skip
+        else { // appel par skip
             String temp = getPunition();
             textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
             yesButton.setVisibility(View.GONE);
@@ -444,7 +443,7 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     // ajout au score (s'il a bien répondu)
-                    if(rightAnswer[0]){
+                    if (rightAnswer[0]) {
                         for (int i = 0; i < scoreTab.length; i++) {
                             if (playerTab[i].equals(currentPlayer)) {
 
@@ -465,15 +464,15 @@ public class GameActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void showScorePopup(int layout){
+    private void showScorePopup(int layout) {
         Typeface typeface = ResourcesCompat.getFont(getApplicationContext(), R.font.convergence);
         TableLayout.LayoutParams rowParams = new TableLayout.LayoutParams();
-        rowParams.setMargins(0,10,0,0);
+        rowParams.setMargins(0, 10, 0, 0);
 
         int id = 1;
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
-        View layoutView = getLayoutInflater().inflate(layout,null);
+        View layoutView = getLayoutInflater().inflate(layout, null);
         // déclarer les élements de la popup
         TableLayout tableLayout = (TableLayout) layoutView.findViewById(R.id.idTable);
         ImageButton xButton = (ImageButton) layoutView.findViewById(R.id.x_popup_button);
@@ -490,7 +489,7 @@ public class GameActivity extends AppCompatActivity {
 
         TextView name = new TextView(getApplicationContext());
         name.setText(R.string.name);
-        name.setTypeface(typeface,Typeface.BOLD);
+        name.setTypeface(typeface, Typeface.BOLD);
         name.setTextSize(25);
         name.setTextColor(Color.WHITE);
         topRow.addView(name);
@@ -504,7 +503,7 @@ public class GameActivity extends AppCompatActivity {
         topRow.addView(score);
         id++;
         // ajout des lignes 1 par 1
-        for(int i=0;i<scoreTab.length;i++){
+        for (int i = 0; i < scoreTab.length; i++) {
             TableRow row = new TableRow(getApplicationContext());
             row.setId(id);
             row.setLayoutParams(rowParams);
@@ -535,31 +534,32 @@ public class GameActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {}
+    public void onBackPressed() {
+    }
 
     private void setUpList() throws IOException {
-        int nbFiles=1;
+        int nbFiles = 1;
         //on vérifie si l'utilisateur à des phrases custom
-        File file = new File(getFilesDir()+"/"+FILE_NAME);
-        if (file.exists()){
-            nbFiles=2;
+        File file = new File(getFilesDir() + "/" + FILE_NAME);
+        if (file.exists()) {
+            nbFiles = 2;
         }
 
         //on récup la langue acctuelement utilisé par l'appli
         String language = getResources().getConfiguration().locale.getLanguage();
 
         InputStream inputStream = null;
-        if(language.equals("fr")) {
+        if (language.equals("fr")) {
             inputStream = this.getResources().openRawResource(R.raw.fr_sentences);
-        }else{
+        } else {
             inputStream = this.getResources().openRawResource(R.raw.en_sentences);
         }
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
         //une fois la boucle lit le fichier raw et une fois elle lit le fichier custom (s'il existe)
-        for(int i=1;i<=nbFiles;i++) {
-            if(i==2){
-                FileInputStream fis=openFileInput(FILE_NAME);
+        for (int i = 1; i <= nbFiles; i++) {
+            if (i == 2) {
+                FileInputStream fis = openFileInput(FILE_NAME);
                 InputStreamReader isr = new InputStreamReader(fis);
                 reader = new BufferedReader(isr);
             }
@@ -569,14 +569,9 @@ public class GameActivity extends AppCompatActivity {
                 while (!reader.readLine().equals("End")) {
                 }
             }
-            if(i==1){
-                reader.readLine();//on passe la ligne "anecdotes"
-                String tempLine = reader.readLine();//on lit la première anecdote
-                while (!tempLine.equals("gages")) {
-                    anecdotesList.add(tempLine);
-                    tempLine = reader.readLine();
-                }
-                tempLine = reader.readLine();
+            if (i == 1) {
+                reader.readLine();//on passe la ligne "gages"
+                String tempLine = reader.readLine();//on lit le premier gage
                 while (!tempLine.equals("minigames")) {
                     gagesList.add(tempLine);
                     tempLine = reader.readLine();
@@ -591,7 +586,7 @@ public class GameActivity extends AppCompatActivity {
                     sentenceList.add(tempLine);
                     tempLine = reader.readLine();
                 }
-            }else{
+            } else {
                 String tempLine = reader.readLine();//on lit la première phrase
                 while (!tempLine.equals("End")) {
                     customSentencesList.add(tempLine);
@@ -601,47 +596,43 @@ public class GameActivity extends AppCompatActivity {
             inputStream.close();
         }
         // on vérifie si la list savedSentenceList est remplis
-        if(savedSentenceList != null){
+        if (savedSentenceList != null) {
             RemoveSentenceFromList();
         }
     }
-   private void RemoveSentenceFromList(){
+
+    private void RemoveSentenceFromList() {
         // on parcours savedSentenceList
-        for(int j=0;j<savedSentenceList.size();j++) {
+        for (int j = 0; j < savedSentenceList.size(); j++) {
             // on parcours toutes les listes et on suprimes les phrases présentent dans savedSentenceList
-            for (int i = 0; i < anecdotesList.size(); i++) {
-                if(anecdotesList.get(i).equals(savedSentenceList.get(j))){
-                    String supp = anecdotesList.remove(i);
-                    Log.d("Annecdote supprimée",supp);
-                }
-            }
             for (int i = 0; i < gagesList.size(); i++) {
-                if(gagesList.get(i).equals(savedSentenceList.get(j))){
+                if (gagesList.get(i).equals(savedSentenceList.get(j))) {
                     gagesList.remove(i);
                 }
             }
             for (int i = 0; i < miniGamesList.size(); i++) {
-                if(miniGamesList.get(i).equals(savedSentenceList.get(j))
-                        && !miniGamesList.get(i).equals("Spinning Wheel") && !miniGamesList.get(i).equals("Red or Black")){
-                    String supp= miniGamesList.remove(i);
-                    Log.d("minigame suppromée",supp);
+                if (miniGamesList.get(i).equals(savedSentenceList.get(j))
+                        && !miniGamesList.get(i).equals("Spinning Wheel") && !miniGamesList.get(i).equals("Red or Black")) {
+                    String supp = miniGamesList.remove(i);
+                    Log.d("minigame suppromée", supp);
                 }
             }
             for (int i = 0; i < sentenceList.size(); i++) {
-                if(sentenceList.get(i).equals(savedSentenceList.get(j))){
-                    String supp =sentenceList.remove(i);
-                    Log.d("sentence supprimée",supp);
+                if (sentenceList.get(i).equals(savedSentenceList.get(j))) {
+                    String supp = sentenceList.remove(i);
+                    Log.d("sentence supprimée", supp);
                 }
             }
             for (int i = 0; i < customSentencesList.size(); i++) {
-                if(customSentencesList.get(i).equals(savedSentenceList.get(j))){
+                if (customSentencesList.get(i).equals(savedSentenceList.get(j))) {
                     String supp = customSentencesList.remove(i);
-                    Log.d("custom supprimée",supp);
+                    Log.d("custom supprimée", supp);
                 }
             }
         }
     }
-    private void newDisplay(View view) throws IOException{
+
+    private void newDisplay(View view) throws IOException {
         displayCounter++;
         getPlayerTurn();
         // on réinitialise pour éviter que ça face de la merde
@@ -649,25 +640,23 @@ public class GameActivity extends AppCompatActivity {
         thirdPlayer= "";
         skipButton = findViewById(R.id.skip_button);
         skipButton.setVisibility(View.INVISIBLE);
-        if(GetNextInformations()) {//on vérifie si on continue a construire la page avec lex textView
 
+        if (GetNextInformations()) {//on vérifie si on continue a construire la page avec lex textView
             String type = currentChallenge[3];
 
             TextView currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
-
 
             currentTitleDisplay.setText(type);
             // appel la méthode pour afficher le texte
             SetDynamicText();
 
             TextView helpText = findViewById(R.id.help_text);
-            if(currentChallenge[5].equals("skip")){
-                answerButton.setText(R.string.answered);
+            if (currentChallenge[5].equals("skip")) {
+                answerButton.setText(R.string.answerd_button);
 
                 helpText.setVisibility(View.VISIBLE);
 
-            }
-            else{
+            } else {
                 answerButton.setText(getString(R.string.show_answer));
                 helpText.setVisibility(View.GONE);
             }
@@ -675,12 +664,140 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private boolean GetNextInformations()
-    {
+    private void testApp() throws IOException {
+        ArrayList<String> testList = testSetUpList();
+        int nbSentences = 0;
+        while (!testList.isEmpty()) {
+            nbSentences++;
+            Log.d(TAG, "testApp: " + nbSentences + " " + testList.get(0));
+            testGetNextInformations(testList.remove(0));
+        }
+    }
+
+    private void testGetNextInformations(String testPhrase) {
+        String ligne = testPhrase;
+        boolean result = false;
+        boolean temp = false;
+        int i = 0;
+        int j;
+        if (ligne.equals("Spinning Wheel")) {
+            //setUpWheel();
+        } else if (ligne.equals("Red or Black")) {
+           //startCardGame();
+        } else {
+            //currentChallenge[3] = tempTab[0]; on vérifie pas le type de la phrase c'est useless
+            String points;
+            String answers;
+            String sentence;
+            String rightAnswer;
+            String button1Text;
+            String button2Text;
+            String punition;
+
+            //on lit tant que l'on est pas a / pour savoir quelle est le premier bouton
+            while (!temp) {
+                if (ligne.substring(i, i + 1).equals("/")) {
+                    temp = true;
+                } else {
+                    i++;
+                }
+            }
+            button1Text = ligne.substring(0, i);
+            j = i + 1;//on sauvergarde à quelle caractère il faut reprendre la lecture
+
+            //on lit tant que l'on est pas a + ou - pour savoir quelle est le deuxième bouton
+            temp = false;
+            while (!temp) {
+                if (ligne.substring(i, i + 1).equals("+") || ligne.substring(i, i + 1).equals("-")) {
+                    temp = true;
+                } else {
+                    i++;
+                }
+            }
+
+            button2Text = ligne.substring(j, i);
+
+            rightAnswer = ligne.substring(i, i + 1);//on recup le + ou - qui se trouve juste après la deuxième rep
+            points = ligne.substring(i + 1, i + 2);//on recup le nb de points qui est juste après le + ou -
+
+            j = i + 1;//on sauvergarde à quelle caractère il faut reprendre la lecture
+
+            //on lit tant que l'on a est pas a ¤ pour avoir la réponse
+            temp = false;
+            while (!temp) {
+                if (ligne.substring(i, i + 1).equals("¤")) {
+                    temp = true;
+                } else {
+                    i++;
+                }
+            }
+            answers = ligne.substring(j + 1, i); //la phrase qui demande quelle est la bonne réponse
+
+            j = i + 1;
+            temp = false;
+            while (!temp) {
+                if (ligne.substring(j, j + 1).equals("¤")) {
+                    temp = true;
+                } else {
+                    j++;
+                }
+            }
+
+            sentence = ligne.substring(i + 1, j);//on lit la phrase
+            punition = ligne.substring(j + 1);
+
+            currentChallenge[0] = points;
+            currentChallenge[1]=SetNamesInAnswer(answers);
+            currentChallenge[2]=SetNameInSentence(sentence);
+            currentChallenge[4] = rightAnswer;
+            String[] btnText = SetNameInButton(button1Text, button2Text); // 0: btn1 1:btn2
+            currentChallenge[5] = btnText[0];
+            currentChallenge[6] = btnText[1];
+            currentChallenge[7] = punition;
+            result = true;
+        }
+
+    }
+
+    ArrayList<String> testSetUpList() throws IOException {
+        ArrayList<String> testList=new ArrayList<String>();
+        //on récup la langue acctuelement utilisé par l'appli
+        String language = getResources().getConfiguration().locale.getLanguage();
+
+        InputStream inputStream = null;
+        if (language.equals("fr")) {
+            inputStream = this.getResources().openRawResource(R.raw.fr_sentences);
+        } else {
+            inputStream = this.getResources().openRawResource(R.raw.en_sentences);
+        }
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+        //on passe toute les lignes tant que l'on est pas aux lignes du mode génant
+        if (typeOfGame == 2) {
+            while (!reader.readLine().equals("End")) {
+            }
+        }
+
+        String tempLine;
+        reader.readLine();
+        tempLine = reader.readLine();//skip de la ligne gages
+        while (!tempLine.equals("End")) {
+            if(tempLine.equals("gages")||tempLine.equals("minigames")||tempLine.equals("questions")){
+
+            }else{
+                testList.add(tempLine);
+            }
+            tempLine = reader.readLine();
+        }
+
+        inputStream.close();
+        return testList;
+    }
+
+    private boolean GetNextInformations(){
         String type = getChallengeTurn();
         String[] tempTab =GetNextChallenge(type);
         String ligne = tempTab[1];
-        Log.d(TAG,"bonjour "+ligne);
         boolean result=false;
         boolean temp = false;
         int i=0;
@@ -764,6 +881,7 @@ public class GameActivity extends AppCompatActivity {
 
         return result;
     }
+
     private String getPunition(){
         StringBuilder res = new StringBuilder();
         String rawPunition=currentChallenge[7];
@@ -813,8 +931,7 @@ public class GameActivity extends AppCompatActivity {
                     //nom du joueur principal
                     Nom=currentPlayer;
                     res.append("<b>").append(Nom).append("</b>");
-                }
-                else{
+                }else{
                     res.append("<b>").append(secondPlayer).append("</b>");
                 }
             }else{
@@ -898,16 +1015,13 @@ public class GameActivity extends AppCompatActivity {
             res[0]=getString(R.string.type_sentence);
             res[1]=GetRandomSentence();
         }
-        if (type.equals("anecdote")){
-            res[0]=getString(R.string.type_anecdote);
-            res[1]=GetRandomAnecdote();
-        }
         if (type.equals("custom")){
             res[0]="Custom";
             res[1]=GetRandomCustomSentence();
         }
         return res;
     }
+
     // pour chaque méthode on ajoutera la phrase à la liste contenant toutes les phrases déjà tombé
     private String GetRandomCustomSentence() {
         int min=0;
@@ -946,17 +1060,6 @@ public class GameActivity extends AppCompatActivity {
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
         String res=sentenceList.remove(number);
-        savedSentenceList.add(res);
-        return res;
-    }
-
-    private String GetRandomAnecdote() {
-
-        int min=0;
-        int max = anecdotesList.size()-1;
-        Random r = new Random();
-        int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
-        String res=anecdotesList.remove(number);
         savedSentenceList.add(res);
         return res;
     }
@@ -1002,8 +1105,8 @@ public class GameActivity extends AppCompatActivity {
             challengeList.add("sentence");
             challengeList.add("sentence");
             challengeList.add("sentence");
-            challengeList.add("anecdote");
-            challengeList.add("anecdote");
+            challengeList.add("sentence");
+            challengeList.add("sentence");
 
             //on vérifie si des phrases custom sont disponibles
             if (!customSentencesList.isEmpty()){
@@ -1041,6 +1144,7 @@ public class GameActivity extends AppCompatActivity {
 
         return res;
     }
+
     private void SetDynamicText(){
         TextView currentTextDisplay = (TextView) findViewById(R.id.current_text_display);
         String phrase = currentChallenge[2];
@@ -1100,7 +1204,7 @@ public class GameActivity extends AppCompatActivity {
             if((firstNameIndex[0]<=i && i<=firstNameIndex[1])
                     || (secondNameIndex[0]<=i && i<=secondNameIndex[1])
                     || (thirdNameIndex[0]<=i && i<=thirdNameIndex[1])
-                    ){
+            ){
                 if(!character.equals(" ")) {
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -1135,6 +1239,7 @@ public class GameActivity extends AppCompatActivity {
             }
         }, time);
     }
+
     private boolean checkGameEnd(){
         boolean res=false;
         switch (playerTab.length){
@@ -1439,6 +1544,7 @@ public class GameActivity extends AppCompatActivity {
             }
         });
     }
+
     private String getRandomWinSentence(){
 
         //on récupère les win sentences disponibles

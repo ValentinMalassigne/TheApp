@@ -103,6 +103,7 @@
             android:visibility="gone"
             android:textSize="20sp"
             app:backgroundTint="@null" />
+
         <Button
             android:layout_marginLeft="20dp"
             android:id="@+id/next_button"
@@ -110,6 +111,19 @@
             android:layout_height="50dp"
             android:background="@drawable/button"
             android:text="@string/next"
+            android:textColor="#FFFFFF"
+            android:visibility="gone"
+            android:textAllCaps="false"
+            android:textSize="20sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:layout_marginLeft="20dp"
+            android:id="@+id/modify_sentence_button"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button"
+            android:text="@string/modify_button"
             android:textColor="#FFFFFF"
             android:visibility="gone"
             android:textAllCaps="false"

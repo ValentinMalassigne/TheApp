@@ -40,7 +40,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 
-public class AddSentenceActivity extends AppCompatActivity {
+public class HardAddSentenceActivity extends AppCompatActivity {
 
     private int maxAddPlayerText=0,maxAddAnswerText=0,typeOfGame=1,rightAnswer=0;//rightAnswer=0 veut dire que la bonne réponse est celle de gauche
     private Button sentenceEditNextButton;
@@ -93,7 +93,6 @@ public class AddSentenceActivity extends AppCompatActivity {
             editSentence = extras.getBoolean("editSentence");
             decodedSentence = extras.getStringArray("decodedSentence");//0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame 8: la punition        }
         }
-
         ImageView infoButton = findViewById(R.id.info_image);
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +144,6 @@ public class AddSentenceActivity extends AppCompatActivity {
     }
 
     private void start(){
-
         //ouverture du fichier
         //situation ou l'on ouvre cette activity pour modifier une phrase
 
@@ -222,7 +220,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             scrollableGameModeLayout.setVisibility(View.VISIBLE);
             scrollableSentenceLayout.setVisibility(View.VISIBLE);
             //scrollableAnswerLayout.setVisibility(View.VISIBLE);
-            //scrollableButtonLayout.setVisibility(View.VISIBLE);
+            scrollableButtonLayout.setVisibility(View.VISIBLE);
             scrollablePointLayout.setVisibility(View.VISIBLE);
             scrollableGameModeLayout.setVisibility(View.VISIBLE);
 
@@ -299,6 +297,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                     answer = getCleanText(answer);
                     String point = scrollablePointList.getSelectedItem().toString();
                     showValidatePopup(R.layout.visualisation_popup, "Custom", text, answer, point);
+
                 }
             });
         }
@@ -332,13 +331,13 @@ public class AddSentenceActivity extends AppCompatActivity {
                     String text = sentenceEditText.getText().toString();
                     if (!text.equals("")) {
                         sentenceEditLayout.setVisibility(View.GONE);
-                        pointLayout.setVisibility(View.VISIBLE);
+                        answerButtonLayout.setVisibility(View.VISIBLE);
                         scrollableSentenceLayout.setVisibility(View.VISIBLE);
                         //on transfert ce qu'il a écrit dans la case answer dans la case qui est dans le scrollview
+
                         scrollableSentenceEditText.setText(text);
                         //on change le text qui guide
-                        //questionTextView.setText(R.string.edit_buttons_and_select_correct_answer);
-                        questionTextView.setText(R.string.point_case_right_answer);
+                        questionTextView.setText(R.string.edit_buttons_and_select_correct_answer);
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     } else {
@@ -434,6 +433,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                 answer = getCleanText(answer);
                 String point = scrollablePointList.getSelectedItem().toString();
                 showValidatePopup(R.layout.visualisation_popup, "Custom", text, answer, point);
+
             }
         });
         //bouton ajouter un joueur a la phrase quand on te le demande
@@ -630,7 +630,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
     private void showInfoPopup(int layout){
         AlertDialog alertDialog;
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(HardAddSentenceActivity.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
 
         Button okButton = layoutView.findViewById(R.id.ok_button);
@@ -715,7 +715,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
     private void showValidatePopup(int layout,String title, String text,String answer,String point){
         AlertDialog alertDialog;
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(HardAddSentenceActivity.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
         // déclarer les élements de la popup
         TextView titleDisplay = layoutView.findViewById(R.id.current_title_display);
@@ -737,30 +737,19 @@ public class AddSentenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 alertDialog.dismiss();
-                String text=getString(R.string.player1_scores)+point+getString(R.string.point);
-                showAnswerPopup(R.layout.game_answer_popup,text);
-            }
-        });
-        skip_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                alertDialog.dismiss();
-                String text=getString(R.string.player1_drink_x_sips);
-                showAnswerPopup(R.layout.game_answer_popup,text);
+                showAnswerPopup(R.layout.game_answer_popup,answer,point);
             }
         });
     }
 
-    private void showAnswerPopup(int layout, String answer){
+    private void showAnswerPopup(int layout, String answer,String point){
         AlertDialog alertDialog;
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(HardAddSentenceActivity.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
         //recuperer les éléments de la popup
         Button yesButton = layoutView.findViewById(R.id.yes_button);
         Button noButton = layoutView.findViewById(R.id.no_button);
         Button addButton = layoutView.findViewById(R.id.add_button);
-        Button nextButton = layoutView.findViewById(R.id.next_button);
-        Button modifySentenceButton = layoutView.findViewById(R.id.modify_sentence_button);
         ImageView xButton = layoutView.findViewById(R.id.x_answer_button);
         ImageView leftArrow = layoutView.findViewById(R.id.left_answer_arrow);
         TextView answerText = layoutView.findViewById(R.id.text_display);
@@ -769,52 +758,76 @@ public class AddSentenceActivity extends AppCompatActivity {
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         alertDialog.show();
         answerText.setText(HtmlCompat.fromHtml(answer,HtmlCompat.FROM_HTML_MODE_LEGACY));
-
-        //on cache yes et no, on affiche next
-        yesButton.setVisibility(View.GONE);
-        noButton.setVisibility(View.GONE);
-        nextButton.setVisibility(View.VISIBLE);
-        leftArrow.setVisibility(View.VISIBLE);
-
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        if(typeOfGame ==2){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                yesButton.setBackground(getDrawable(R.drawable.button2));
+                noButton.setBackground(getDrawable(R.drawable.button2));
+                addButton.setBackground(getDrawable(R.drawable.button2));
+            }
+        }
+        ViewGroup.LayoutParams params = yesButton.getLayoutParams();
+        String yesButtonText = scrollableEditButton1.getText().toString();
+        if(yesButtonText.equals("")){
+            yesButtonText = getString(R.string.yes_button);
+        }
+        //passe le button en wrap_content
+        params.width=ViewGroup.LayoutParams.WRAP_CONTENT;
+        yesButton.setLayoutParams(params);
+        yesButton.setTransformationMethod(null);
+        yesButton.setText(yesButtonText);
+        yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addButton.setVisibility(View.VISIBLE);
-                answerText.setText(HtmlCompat.fromHtml(getString(R.string.confirm_add_sentence),HtmlCompat.FROM_HTML_MODE_LEGACY));
-                nextButton.setVisibility(View.GONE);
-                modifySentenceButton.setVisibility(View.VISIBLE);
-                leftArrow.setVisibility(View.GONE);
-                if(editSentence){
-                    answerText.setText(R.string.confirm_or_keep_editing);
-                    addButton.setText(R.string.modify);
+                String text;
+                if(rightAnswer==0){
+                    text=getString(R.string.player1_scores)+point+getString(R.string.point);
+                }else{
+                    text=getString(R.string.player1_drink_x_sips);
                 }
+                yesButton.setVisibility(View.GONE);
+                noButton.setVisibility(View.GONE);
+                addButton.setVisibility(View.VISIBLE);
+                xButton.setVisibility(View.VISIBLE);
+                leftArrow.setVisibility(View.VISIBLE);
+                answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
         });
-
-        modifySentenceButton.setOnClickListener(new View.OnClickListener() {
+        String noButtonText = scrollableEditButton2.getText().toString();
+        if(noButtonText.equals("")){
+            noButtonText = getString(R.string.no_button);
+        }
+        noButton.setLayoutParams(params);
+        noButton.setTransformationMethod(null);
+        noButton.setText(noButtonText);
+        noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alertDialog.dismiss();
+                String text;
+                if(rightAnswer==1){
+                    text=getString(R.string.player1_scores)+point+getString(R.string.point);
+                }else{
+                    text=getString(R.string.player1_drink_x_sips);
+                }
+                yesButton.setVisibility(View.GONE);
+                noButton.setVisibility(View.GONE);
+                addButton.setVisibility(View.VISIBLE);
+                xButton.setVisibility(View.VISIBLE);
+                leftArrow.setVisibility(View.VISIBLE);
+                answerText.setText(HtmlCompat.fromHtml(text,HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
         });
-
         leftArrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alertDialog.dismiss();
-                String text = scrollableSentenceEditText.getText().toString();
-                String answer = scrollableAnswerEditText.getText().toString();
-                if (numberOfOccurrences(text) == 0) {
-                    text = getString(R.string.player_landmark) + " " + text;
-                }
-                text = getCleanText(text);
-                answer = getCleanText(answer);
-                String point = scrollablePointList.getSelectedItem().toString();
-                showValidatePopup(R.layout.visualisation_popup, "Custom", text, answer, point);
+                leftArrow.setVisibility(View.GONE);
+                yesButton.setVisibility(View.VISIBLE);
+                noButton.setVisibility(View.VISIBLE);
+                addButton.setVisibility(View.GONE);
+                answerText.setText(HtmlCompat.fromHtml(answer,HtmlCompat.FROM_HTML_MODE_LEGACY));
             }
         });
-
-
+        if(editSentence)
+            addButton.setText(getString(R.string.edit));
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -824,11 +837,12 @@ public class AddSentenceActivity extends AppCompatActivity {
                     typeOfGame=1;
                 }
                 addSentence(encoding,"Custom",typeOfGame);
-                alertDialog.dismiss();
-                Intent optionActivity = new Intent(getApplicationContext(), OptionActivity.class);
-                startActivity(optionActivity);
-                overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-                finish();
+                try {
+                    showFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                answerText.setText(encoding);
             }
         });
         xButton.setOnClickListener(new View.OnClickListener() {
@@ -869,8 +883,14 @@ public class AddSentenceActivity extends AppCompatActivity {
     }
 
     private String encoding(){
-        String button1 = "skip";
-        String button2 = "skip";
+        String button1 = editButton1.getText().toString();
+        String button2 = editButton2.getText().toString();
+        if(button1.equals("")){
+            button1= getString(R.string.yes_button);
+        }
+        if(button2.equals("")){
+            button2 = getString(R.string.no_button);
+        }
         String text = scrollableSentenceEditText.getText().toString().replace(getString(R.string.player_landmark),"§");
         String answer = scrollableAnswerEditText.getText().toString().replace(getString(R.string.player_landmark),"§");
         String encodingSentence = "";
@@ -914,11 +934,7 @@ public class AddSentenceActivity extends AppCompatActivity {
     }
 
     private void addSentence(String ligne, String sentenceType, int typeOfGame){
-        String previousSentence ="";
-        if(editSentence){ //on reconstitue la phrase qui a été modifié pour pouvoir retirer son ancienne versions du fichier texte
-            previousSentence+=decodedSentence[5]+"/"+decodedSentence[6]+decodedSentence[4]+decodedSentence[0]+decodedSentence[1]+"¤"+decodedSentence[2]+getString(R.string.default_custom_sentence_punition);
-            previousSentence=previousSentence.replaceAll(getString(R.string.player_landmark),"§");
-        }
+
         //on copie ce qu'il y a dans le fichier
         try {
             FileInputStream fis = openFileInput(FILE_NAME);
@@ -933,10 +949,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                     phrase.add(ligne+"\n");
                     adDone=true;
                 }
-                if(!text.equals(previousSentence)){ //on ne copie pas l'ancienne phrase
-                    phrase.add(text+"\n");
-                }
-
+                phrase.add(text+"\n");
                 if(text.equals("End"))
                     typeOfGameCounter++;
             }
@@ -972,7 +985,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         //on compte le nombre de ligne pour créer un tableau de bonne taille
         String text;
         while ((text = br.readLine())!=null){
-            Log.d(TAG, "showFile : "+text);
+            Log.d(TAG, text);
         }
         fis.close();
     }
