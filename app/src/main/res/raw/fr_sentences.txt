@@ -86,7 +86,7 @@ oui/non+1¤§ as-tu déjà été en cours ou au travail juste après une soirée
 oui/non+1 Est ce que les autres sont d'accord avec toi ?¤§ qui d'après toi serait capable de prendre une décision importante en étant bourré(e) ?¤Moi je suis d’accord avec toi (mais ça t’empêche pas de boire µ)
 A chier/Ca passe+1 Les autres, vous en pensez quoi ?¤§ quel a été le pire cadeau que l'on t'ait fait ?¤C’est mieux que rien, mais bon prends µ pour oublier
 ignoble/non-1 Est ce que c'était involontaire ?¤§ t'es-tu déjà fait dessus (enfant ça compte pas) ?¤On veut pas les détails bois µ
-voler/whisky+1?¤§ tu préfères pouvoir voler ou pouvoir boire une bouteille de whisky cul-sec?¤On va t’entraîner pour ce super pouvoir, bois µ
+voler/whisky+1 ¤§ tu préfères pouvoir voler ou pouvoir boire une bouteille de whisky cul-sec?¤On va t’entraîner pour ce super pouvoir, bois µ
 End
 anecdotes
 rep1/rep2+1 Anecdote génante 1¤§ dis un truc génant hahahahaha

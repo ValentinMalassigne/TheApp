@@ -167,4 +167,6 @@
     <string name="finish">finis</string>
     <string name="modify_what_you_want">\"Modifie ce que tu veux et appuie sur suivant !\"</string>
     <string name="spin">Lancer</string>
+    <string name="coming_soon">Bientôt disponible</string>
+    <string name="new_game_coming_soon">Un nouveau jeu sera bientôt disponible, soyez prêt !</string>
 </resources>

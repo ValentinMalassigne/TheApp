@@ -167,4 +167,6 @@
     <string name="modify_what_you_want">\"Modify what you want and press next !\"</string>
     <string name="spin">spin</string>
     <string name="apetime">ApeTime</string>
+    <string name="coming_soon">Coming soon</string>
+    <string name="new_game_coming_soon">A new game will coming soon be ready !</string>
 </resources>
