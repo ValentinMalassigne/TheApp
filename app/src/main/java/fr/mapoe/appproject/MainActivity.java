@@ -143,11 +143,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences language = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         long lastTime = language.getLong("lastWarningTime",0);
         if(currentTime-lastTime>3600000){//une heure en millisecondes
-            showInfoDialog(R.layout.info_popup);
             //ici on enregistre dans les SharedPreferences la langue choisie par l'utilisateur
             SharedPreferences.Editor editor = language.edit();
             editor.putLong("lastWarningTime",currentTime);
             editor.apply();
+            showInfoDialog(R.layout.info_popup);
         }
     }
 
