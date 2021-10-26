@@ -169,4 +169,9 @@
     <string name="apetime">ApeTime</string>
     <string name="coming_soon">Coming soon</string>
     <string name="new_game_coming_soon">A new game will coming soon be ready !</string>
+    <string name="ApeBus">ApeBus</string>
+    <string name="apebus_description">"The famous game auto-bus is here two ! "</string>
+    <string name="temp_win_bus">Well done ! Now next card, plus or minus ?</string>
+    <string name="lost_game_bus">Lost, its restarting, plus or minus ?</string>
+    <string name="well_done_u_win">Well done! You win</string>
 </resources>

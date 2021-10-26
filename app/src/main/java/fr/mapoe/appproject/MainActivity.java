@@ -127,6 +127,17 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        // go to bus game
+        LinearLayout goToBusGame = (LinearLayout) findViewById(R.id.bus_game_layout);
+        goToBusGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent busGameActivity = new Intent(getApplicationContext(), BusGameActivity.class);
+                startActivity(busGameActivity);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                finish();
+            }
+        });
 
         // text responsive si l'api le permet
         if(Build.VERSION.SDK_INT >= 26){

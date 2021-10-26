@@ -78,24 +78,23 @@ public class GameActivity extends AppCompatActivity {
 
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
-                (R.drawable.h01, R.drawable.h02, R.drawable.h03, R.drawable.h04,
-                        R.drawable.h05, R.drawable.h06, R.drawable.h07, R.drawable.h08,
-                        R.drawable.h09, R.drawable.h10, R.drawable.h11, R.drawable.h12,
-                        R.drawable.h13, R.drawable.d01, R.drawable.d02, R.drawable.d03,
-                        R.drawable.d04, R.drawable.d05, R.drawable.d06, R.drawable.d07,
-                        R.drawable.d08, R.drawable.d09, R.drawable.d10, R.drawable.d11,
+                (R.drawable.h1, R.drawable.h2, R.drawable.h3, R.drawable.h4,
+                        R.drawable.h5, R.drawable.h6, R.drawable.h7, R.drawable.h8,
+                        R.drawable.h9, R.drawable.h10, R.drawable.h11, R.drawable.h12,
+                        R.drawable.h13, R.drawable.d1, R.drawable.d2, R.drawable.d3,
+                        R.drawable.d4, R.drawable.d5, R.drawable.d6, R.drawable.d7,
+                        R.drawable.d8, R.drawable.d9, R.drawable.d10, R.drawable.d11,
                         R.drawable.d12, R.drawable.d13)
         );
     }
-
     {
         idBlackCardList = new ArrayList<Integer>(Arrays.asList
-                (R.drawable.c01, R.drawable.c02, R.drawable.c03, R.drawable.c04, R.drawable.c05,
-                        R.drawable.c06, R.drawable.c07, R.drawable.c08, R.drawable.c09,
+                (R.drawable.c1, R.drawable.c2, R.drawable.c3, R.drawable.c4, R.drawable.c5,
+                        R.drawable.c6, R.drawable.c7, R.drawable.c8, R.drawable.c9,
                         R.drawable.c10, R.drawable.c11, R.drawable.c12, R.drawable.c13,
-                        R.drawable.s01, R.drawable.s02, R.drawable.s03, R.drawable.s04,
-                        R.drawable.s05, R.drawable.s06, R.drawable.s07, R.drawable.s08,
-                        R.drawable.s09, R.drawable.s10, R.drawable.s11, R.drawable.s12,
+                        R.drawable.s1, R.drawable.s2, R.drawable.s3, R.drawable.s4,
+                        R.drawable.s5, R.drawable.s6, R.drawable.s7, R.drawable.s8,
+                        R.drawable.s9, R.drawable.s10, R.drawable.s11, R.drawable.s12,
                         R.drawable.s13)
         );
     }
@@ -1176,7 +1175,7 @@ public class GameActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    currentTextDisplay.setText(HtmlCompat.fromHtml("<b>"+firstChar+"</b>",HtmlCompat.FROM_HTML_MODE_LEGACY));
+                    currentTextDisplay.setText(HtmlCompat.fromHtml("<b><i>"+firstChar+"</i></b>",HtmlCompat.FROM_HTML_MODE_LEGACY));
                 }
             }, time);
         }

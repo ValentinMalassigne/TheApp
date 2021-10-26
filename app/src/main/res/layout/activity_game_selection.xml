@@ -291,6 +291,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/bus_game_layout"
                 android:layout_marginTop="15dp"
                 android:background="@android:drawable/list_selector_background"
                 android:orientation="horizontal">
@@ -300,7 +301,7 @@
                     android:layout_height="100dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:src="@drawable/coming_soon" />
+                    android:src="@drawable/bus" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -311,15 +312,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/coming_soon"
-                        android:textSize="40sp"
+                        android:text="@string/ApeBus"
+                        android:textSize="35sp"
+                        android:fontFamily="@font/convergence"
+                        android:textColor="@color/white"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:text="@string/new_game_coming_soon" />
+                        android:textSize="15sp"
+                        android:textColor="@color/white"
+                        android:text="@string/apebus_description" />
                 </LinearLayout>
 
             </LinearLayout>
