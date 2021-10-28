@@ -296,8 +296,9 @@
 
             </LinearLayout>
 
-
+            <!-- apebus-->
             <LinearLayout
+                android:id="@+id/bus_game_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
@@ -309,7 +310,7 @@
                     android:layout_height="100dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:src="@drawable/coming_soon" />
+                    android:src="@drawable/bus" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -317,18 +318,40 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/coming_soon"
-                        android:textSize="40sp"
-                        android:textStyle="bold" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            android:autoSizeMaxTextSize="35sp"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/convergence"
+                            android:maxLines="1"
+                            android:text="@string/ApeBus"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
-                        android:text="@string/new_game_coming_soon" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:autoSizeMaxTextSize="15sp"
+                            android:autoSizeTextType="uniform"
+                            android:fontFamily="@font/convergence"
+                            android:text="@string/apebus_description"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
                 </LinearLayout>
 
             </LinearLayout>

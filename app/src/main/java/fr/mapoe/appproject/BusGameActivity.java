@@ -1,13 +1,11 @@
 package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.text.HtmlCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,22 +15,24 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Random;
 
 public class BusGameActivity extends AppCompatActivity {
-    private ImageView card1,card2,card3,card4,card5,packqueCard;
-    private Button plusButton;
-    private Button minusButton;
+    private ImageView packqueCard;
+    private ImageView plusButton;
+    private ImageView minusButton;
     private TextView text;
     private int currentCard=0;
     private ArrayList<ImageView> cardList; // list pour stocker les cartes restantes dans le paquet
     private ArrayList<ImageView> cardFold;
     private ImageView[] cardTurn;
+    private int nbCard;
+    private LinearLayout.LayoutParams normalParams;
+    private LinearLayout.LayoutParams zoomParams;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -40,6 +40,11 @@ public class BusGameActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_game);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            nbCard = extras.getInt("nbCard");
+            Log.d("nbCard:",Integer.toString(nbCard));
+        }
         init();
         ImageView xButton = (ImageView) findViewById(R.id.x_button);
         xButton.setOnClickListener(new View.OnClickListener() {
@@ -78,21 +83,88 @@ public class BusGameActivity extends AppCompatActivity {
                 return false;
             }
         });
+        plusButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return false;
+            }
+        });
+        minusButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return false;
+            }
+        });
     }
     private void init(){
-        this.card1=findViewById(R.id.card1);
-        this.card2=findViewById(R.id.card2);
-        this.card3=findViewById(R.id.card3);
-        this.card4=findViewById(R.id.card4);
-        this.card5=findViewById(R.id.card5);
+        float scale = getResources().getDisplayMetrics().density;;
+        // paramètre des cartes
+        int normalWidth = (int) (107 * scale);
+        int normalHeight = (int) (150 * scale);
+        int zoomWidth = (int) (128 * scale);
+        int zoomHeight = (int) (180 * scale);
+        int margin = (int) (30 * scale);
+        normalParams = new LinearLayout.LayoutParams(normalWidth,normalHeight);
+        normalParams.leftMargin = margin;
+        zoomParams = new LinearLayout.LayoutParams(zoomWidth,zoomHeight);
+        zoomParams.leftMargin = margin;
+
+        cardTurn = new ImageView[nbCard]; // tableau qui stock les cartes
+        // créer les cartes:
+        LinearLayout cardLayout = findViewById(R.id.cardLayout);
+        for(int i=0;i<nbCard;i++){
+            ImageView card = new ImageView(getApplicationContext());
+            card.setLayoutParams(normalParams);
+            cardLayout.addView(card);
+            cardTurn[i] = card;
+        }
+
         this.plusButton = findViewById(R.id.plus_button);
         this.minusButton = findViewById(R.id.minus_button);
         this.packqueCard = findViewById(R.id.cardBack);
         this.text = findViewById(R.id.text);
         cardList = new ArrayList<ImageView>();
         cardFold = new ArrayList<ImageView>();
-        // ajout des cartes d'affichages dans le tableau
-        cardTurn = new ImageView[]{card1,card2,card3,card4,card5};
+
+
         // remplir le tableau des cartes
         for(int i=1;i<53;i++){
             String cardName ="";
@@ -133,11 +205,9 @@ public class BusGameActivity extends AppCompatActivity {
         for(int i=0;i<cardTurn.length;i++){
             int rdmIndex = generate.nextInt(cardList.size()-1);
             cardFold.add(cardList.remove(rdmIndex));
-
         }
         //  afficher les 5 premières cartes avec animation
         for(int i=0;i<cardFold.size();i++) {
-            Log.d("N° de la carte:", Integer.toString(cardFold.get(i).getId()));
             // animation sur la cardBack
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -164,54 +234,86 @@ public class BusGameActivity extends AppCompatActivity {
                     cardTurn[finalI].clearAnimation();
                     cardTurn[finalI].startAnimation(slideUpToDown);
 
-
                 }
             }, time);
             time+=1000;
 
         }
-        game();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                cardTurn[0].setLayoutParams(zoomParams);
+                plusButton.setVisibility(View.VISIBLE);
+                minusButton.setVisibility(View.VISIBLE);
+                Log.d("carte",Integer.toString(cardList.size()));
+            }
+        },time);
+        OnClickButton();
     }
-    private void game(){
+    private void OnClickButton(){
         Random generate = new Random(System.currentTimeMillis());
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("carte acutelle",Integer.toString(currentCard));
                 int rdmIndex = generate.nextInt(cardList.size()-1);
                 int previousId = cardTurn[currentCard].getId();
+                int previousIndex = currentCard;
                 ImageView newCard = cardList.get(rdmIndex); // pour stocker la nouvelle carte
-                newCard.setBackground(null);
-                SetImageDynamically(cardTurn[currentCard],newCard.getDrawable());
                 cardTurn[currentCard].setId(newCard.getId());
                 cardFold.add(cardList.remove(rdmIndex)); // on retir la card de la liste des carte restante
+                Log.d("carte",Integer.toString(cardList.size()));
                 Boolean correct = CompareCard(previousId,newCard.getId(),"+");
-                CheckCorrect(correct);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    cardTurn[currentCard].setBackground(getDrawable(R.drawable.hightlight_corner_shape));
+                // fonction qui regarde si la répons est correct et qui renvoie un string contenant le message à afficher
+                String message = CheckCorrect(correct);
+                if(currentCard!=nbCard){
+                    SetImageDynamically(cardTurn[previousIndex], newCard.getDrawable(), message);
                 }
+                else{
+                    text.setText(message);
+                }
+
+                ResetOnclick();
             }
         });
 
         minusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("carte acutelle",Integer.toString(currentCard));
                 int rdmIndex = generate.nextInt(cardList.size()-1);
                 int previousId = cardTurn[currentCard].getId();
+                int previousIndex = currentCard;
                 ImageView newCard = cardList.get(rdmIndex); // pour stocker la nouvelle carte
-                newCard.setBackground(null);
-                SetImageDynamically(cardTurn[currentCard],newCard.getDrawable());
                 cardTurn[currentCard].setId(newCard.getId());
                 cardFold.add(cardList.remove(rdmIndex)); // on retir la card de la liste des carte restante
+                Log.d("carte",Integer.toString(cardList.size()));
                 Boolean correct = CompareCard(previousId,newCard.getId(),"-");
-                CheckCorrect(correct);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    cardTurn[currentCard].setBackground(getDrawable(R.drawable.hightlight_corner_shape));
+                // fonction qui regarde si la répons est correct et qui renvoie un string contenant le message à afficher
+                String message = CheckCorrect(correct);
+                if(currentCard!=nbCard){
+                    SetImageDynamically(cardTurn[previousIndex], newCard.getDrawable(), message);
                 }
+                else{
+                    text.setText(message);
+                }
+                ResetOnclick();
             }
         });
+    }
+    // fonction qui réinitialise le onclick pour éviter que le mec spam pendant l'animation
+    private void ResetOnclick(){
+        plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+            }
+        });
+        minusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
     // pour comparer 2 cartes entres elles
     private Boolean CompareCard(int id1,int id2,String type){
@@ -219,7 +321,7 @@ public class BusGameActivity extends AppCompatActivity {
             //recuperer l'id des deux cartes
             id1 = reduceId(id1);
             id2 = reduceId(id2);
-            Log.d("","id1= "+Integer.toString(id1)+" id2: "+Integer.toString(id2));
+
             if(id2>id1 && type.equals("+")){
                 correct=true;
             }
@@ -237,23 +339,40 @@ public class BusGameActivity extends AppCompatActivity {
             }
         return correct;
     }
-    private void CheckCorrect(Boolean correct){
+    private String CheckCorrect(Boolean correct){
+        String message = "";
         // si le joueur à bon on passe à la carte suivante
+        Log.d("Index",Integer.toString(currentCard));
         if(correct){
-            currentCard++;
-            if(currentCard==5){
-                text.setText(getString(R.string.well_done_u_win));
-                plusButton.setVisibility(View.GONE);
-                minusButton.setVisibility(View.GONE);
+            if(currentCard!=nbCard-1) {
+                currentCard++;
+                message = getString(R.string.temp_win_bus);
             }
             else{
-                text.setText(getString(R.string.temp_win_bus));
+                message = getString(R.string.well_done_u_win);
+                plusButton.setVisibility(View.INVISIBLE);
+                minusButton.setVisibility(View.INVISIBLE);
+                Button restart = findViewById(R.id.restart_button);
+                packqueCard.setVisibility(View.GONE);
+                restart.setVisibility(View.VISIBLE);
+                restart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+                        mainActivity.putExtra("apebus restart",true);
+                        startActivity(mainActivity);
+                        overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
+                        finish();
+                    }
+                });
             }
         }
+        // perdu on recommence à0
         else{
             currentCard=0;
-            text.setText(getString(R.string.lost_game_bus));
+            message = getString(R.string.lost_game_bus);
         }
+        return message;
     }
     // fonction qui retourne un id réduit entre 1 et 13 suivant la carte
     private int reduceId(int id){
@@ -273,7 +392,14 @@ public class BusGameActivity extends AppCompatActivity {
         else{}
         return id;
     }
-    private void SetImageDynamically(ImageView image, Drawable drawable){
+
+    /**
+     *
+     * @param image à afficher dynamiquement
+     * @param drawable
+     * @param message du text à changer à la fin de l'animation
+     */
+    private void SetImageDynamically(ImageView image, Drawable drawable, String message){
 
         int time=300;
         Animation slideUpToDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_up_to_down);
@@ -284,6 +410,7 @@ public class BusGameActivity extends AppCompatActivity {
                 slide_out_right.reset();
                 packqueCard.clearAnimation();
                 packqueCard.startAnimation(slide_out_right);
+                text.setText("");
             }
         }, time);
         time+=500;
@@ -291,10 +418,33 @@ public class BusGameActivity extends AppCompatActivity {
             @Override
             public void run() {
                 image.setImageDrawable(drawable);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    image.setBackground(getDrawable(R.drawable.corner_shape));
+                }
                 slideUpToDown.reset();
                 image.clearAnimation();
                 image.startAnimation(slideUpToDown);
             }
         }, time);
+        time+=1000;
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SetCurrentCardEffect();
+                text.setText(message);
+                OnClickButton();
+            }
+        },time);
+
+    }
+
+    /**
+     * permet de zoomer sur la carte actuelle
+      */
+    private void SetCurrentCardEffect(){
+        for(int i=0;i<cardTurn.length;i++){
+                cardTurn[i].setLayoutParams(normalParams);
+            }
+        cardTurn[currentCard].setLayoutParams(zoomParams);
     }
 }

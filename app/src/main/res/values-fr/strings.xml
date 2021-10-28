@@ -172,4 +172,6 @@
     <string name="apebus_description">Le fameux jeu de l\'auto-bus est la aussi !</string>
     <string name="temp_win_bus">Bien joué ! Carte suivante, plus ou moins ?</string>
     <string name="lost_game_bus">Perdu, ça recommence, plus ou moins ?</string>
+    <string name="well_done_u_win">Bravo ! Tu as gagné</string>
+    <string name="how_many_card">Niveau de difficulté</string>
 </resources>
