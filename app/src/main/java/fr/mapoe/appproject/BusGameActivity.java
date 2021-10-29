@@ -1,10 +1,13 @@
 package fr.mapoe.appproject;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,7 +29,7 @@ public class BusGameActivity extends AppCompatActivity {
     private ImageView packqueCard;
     private ImageView plusButton;
     private ImageView minusButton;
-    private TextView text;
+    private TextView text,cardRemain;
     private int currentCard=0;
     private ArrayList<ImageView> cardList; // list pour stocker les cartes restantes dans le paquet
     private ArrayList<ImageView> cardFold;
@@ -45,7 +49,7 @@ public class BusGameActivity extends AppCompatActivity {
             nbCard = extras.getInt("nbCard");
             Log.d("nbCard:",Integer.toString(nbCard));
         }
-        init();
+        showInfoDialog(R.layout.info_popup,1);
         ImageView xButton = (ImageView) findViewById(R.id.x_button);
         xButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +87,73 @@ public class BusGameActivity extends AppCompatActivity {
                 return false;
             }
         });
+        ImageView infoButton = (ImageView) findViewById(R.id.info_button);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showInfoDialog(R.layout.info_popup,0);
+            }
+        });
+        infoButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+                        //overlay is black with transparency of 0x77 (119)
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+                        //clear the overlay
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        break;
+                    }
+                }
+
+                return false;
+            }
+        });
+
+    }
+    @SuppressLint("ClickableViewAccessibility")
+    private void init(){
+        float scale = getResources().getDisplayMetrics().density;
+        // paramètre des cartes
+        int normalWidth = (int) (107 * scale);
+        int normalHeight = (int) (150 * scale);
+        int zoomWidth = (int) (128 * scale);
+        int zoomHeight = (int) (180 * scale);
+        int margin = (int) (30 * scale);
+        normalParams = new LinearLayout.LayoutParams(normalWidth,normalHeight);
+        normalParams.leftMargin = margin;
+        zoomParams = new LinearLayout.LayoutParams(zoomWidth,zoomHeight);
+        zoomParams.leftMargin = margin;
+
+        cardTurn = new ImageView[nbCard]; // tableau qui stock les cartes
+        // créer les cartes:
+        LinearLayout cardLayout = findViewById(R.id.cardLayout);
+        for(int i=0;i<nbCard;i++){
+            ImageView card = new ImageView(getApplicationContext());
+            if(i==(nbCard-1)){
+                LinearLayout.LayoutParams lastParams = normalParams;
+                lastParams.rightMargin = margin;
+                card.setLayoutParams(lastParams);
+            }
+            else{
+                card.setLayoutParams(normalParams);
+            }
+            cardLayout.addView(card);
+            cardTurn[i] = card;
+        }
+
+        this.plusButton = findViewById(R.id.plus_button);
+        this.minusButton = findViewById(R.id.minus_button);
         plusButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -133,34 +204,9 @@ public class BusGameActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
-    private void init(){
-        float scale = getResources().getDisplayMetrics().density;;
-        // paramètre des cartes
-        int normalWidth = (int) (107 * scale);
-        int normalHeight = (int) (150 * scale);
-        int zoomWidth = (int) (128 * scale);
-        int zoomHeight = (int) (180 * scale);
-        int margin = (int) (30 * scale);
-        normalParams = new LinearLayout.LayoutParams(normalWidth,normalHeight);
-        normalParams.leftMargin = margin;
-        zoomParams = new LinearLayout.LayoutParams(zoomWidth,zoomHeight);
-        zoomParams.leftMargin = margin;
-
-        cardTurn = new ImageView[nbCard]; // tableau qui stock les cartes
-        // créer les cartes:
-        LinearLayout cardLayout = findViewById(R.id.cardLayout);
-        for(int i=0;i<nbCard;i++){
-            ImageView card = new ImageView(getApplicationContext());
-            card.setLayoutParams(normalParams);
-            cardLayout.addView(card);
-            cardTurn[i] = card;
-        }
-
-        this.plusButton = findViewById(R.id.plus_button);
-        this.minusButton = findViewById(R.id.minus_button);
         this.packqueCard = findViewById(R.id.cardBack);
         this.text = findViewById(R.id.text);
+        this.cardRemain = findViewById(R.id.card_remain);
         cardList = new ArrayList<ImageView>();
         cardFold = new ArrayList<ImageView>();
 
@@ -195,6 +241,7 @@ public class BusGameActivity extends AppCompatActivity {
             card.setId(i);
             cardList.add(card);
         }
+        cardRemain.setText(Integer.toString(cardList.size()));
         int time =300;
         // on affiches les 5 cartes sur l'écran
         Random generate = new Random(System.currentTimeMillis());
@@ -233,6 +280,8 @@ public class BusGameActivity extends AppCompatActivity {
                     slideUpToDown.reset();
                     cardTurn[finalI].clearAnimation();
                     cardTurn[finalI].startAnimation(slideUpToDown);
+                    int nb = Integer.valueOf(cardRemain.getText().toString())-1;
+                    cardRemain.setText(Integer.toString(nb));
 
                 }
             }, time);
@@ -340,37 +389,46 @@ public class BusGameActivity extends AppCompatActivity {
         return correct;
     }
     private String CheckCorrect(Boolean correct){
+        int nb = currentCard + 1;
         String message = "";
         // si le joueur à bon on passe à la carte suivante
         Log.d("Index",Integer.toString(currentCard));
-        if(correct){
-            if(currentCard!=nbCard-1) {
-                currentCard++;
-                message = getString(R.string.temp_win_bus);
+        if(cardList.size()!=0) {
+
+            if (correct) {
+                if (currentCard != nbCard - 1) {
+                    currentCard++;
+                    message = getString(R.string.temp_win_bus);
+                } else {
+                    message = getString(R.string.well_done_u_win);
+                    plusButton.setVisibility(View.INVISIBLE);
+                    minusButton.setVisibility(View.INVISIBLE);
+                    Button restart = findViewById(R.id.restart_button);
+                    packqueCard.setVisibility(View.GONE);
+                    cardRemain.setVisibility(View.GONE);
+                    restart.setVisibility(View.VISIBLE);
+                    restart.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+                            mainActivity.putExtra("apebus restart", true);
+                            startActivity(mainActivity);
+                            overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
+                            finish();
+                        }
+                    });
+                }
             }
-            else{
-                message = getString(R.string.well_done_u_win);
-                plusButton.setVisibility(View.INVISIBLE);
-                minusButton.setVisibility(View.INVISIBLE);
-                Button restart = findViewById(R.id.restart_button);
-                packqueCard.setVisibility(View.GONE);
-                restart.setVisibility(View.VISIBLE);
-                restart.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                        mainActivity.putExtra("apebus restart",true);
-                        startActivity(mainActivity);
-                        overridePendingTransition(R.anim.slide_out_right,R.anim.slide_in_left);
-                        finish();
-                    }
-                });
+            // perdu on recommence à0
+            else {
+                currentCard = 0;
+                message = getString(R.string.lost_game_bus);
+                message = message.replace("µ",Integer.toString(nb));
+
             }
         }
-        // perdu on recommence à0
         else{
-            currentCard=0;
-            message = getString(R.string.lost_game_bus);
+            message="perdu";
         }
         return message;
     }
@@ -411,6 +469,7 @@ public class BusGameActivity extends AppCompatActivity {
                 packqueCard.clearAnimation();
                 packqueCard.startAnimation(slide_out_right);
                 text.setText("");
+                cardRemain.setText(Integer.toString(cardList.size()));
             }
         }, time);
         time+=500;
@@ -446,5 +505,49 @@ public class BusGameActivity extends AppCompatActivity {
                 cardTurn[i].setLayoutParams(normalParams);
             }
         cardTurn[currentCard].setLayoutParams(zoomParams);
+    }
+
+    // popup des règles
+    private void showInfoDialog(int layout, int typeOfCall){
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(BusGameActivity.this);
+        View layoutView = getLayoutInflater().inflate(layout,null);
+
+        Button okButton = layoutView.findViewById(R.id.ok_button);
+        CheckBox checkBox = layoutView.findViewById(R.id.block_popup_checkBox);
+        ImageView imageInfo = layoutView.findViewById(R.id.image_info);
+        ImageView nextButton = layoutView.findViewById(R.id.right_popup_arrow);
+        ImageView leftButton = layoutView.findViewById(R.id.left_popup_arrow);
+        TextView textInfo = layoutView.findViewById(R.id.text_info);
+        leftButton.setVisibility(View.GONE);
+        imageInfo.setVisibility(View.INVISIBLE);
+        checkBox.setVisibility(View.GONE);
+        okButton.setVisibility(View.GONE);
+        textInfo.setText(R.string.ape_bus_rules);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textInfo.setText(R.string.ape_bus_rules2);
+                nextButton.setVisibility(View.GONE);
+                okButton.setVisibility(View.VISIBLE);
+            }
+        });
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+                if (typeOfCall == 1){
+                    init();
+                }
+            }
+        });
+    }
+    @Override
+    public void onBackPressed() {
+
     }
 }

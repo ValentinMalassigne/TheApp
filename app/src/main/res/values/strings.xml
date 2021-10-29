@@ -172,7 +172,9 @@
     <string name="ApeBus">ApeBus</string>
     <string name="apebus_description">"The famous game auto-bus is here two ! "</string>
     <string name="temp_win_bus">Good job ! Now next card, plus or minus ?</string>
-    <string name="lost_game_bus">Lost, its restarting, plus or minus ?</string>
+    <string name="lost_game_bus">Lost, Drink µ sips and its restarting, plus or minus ?</string>
     <string name="well_done_u_win">Well done! You win</string>
     <string name="how_many_card">Level of difficulty</string>
+    <string name="ape_bus_rules">Wait until the animation is finish, try to guess if the card drawn is plus or minus that the previous one</string>
+    <string name="ape_bus_rules2">Is better if one of your friend make you play</string>
 </resources>
