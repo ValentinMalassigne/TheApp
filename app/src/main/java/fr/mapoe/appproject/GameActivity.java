@@ -127,8 +127,8 @@ public class GameActivity extends AppCompatActivity {
         this.answerButton = (Button) findViewById(R.id.answer_button);
         //setUp des list
         try {
-            //testApp();
             setUpList();
+            //testApp();
             newDisplay(gameLayout);
         } catch (IOException e) {
             e.printStackTrace();
@@ -657,15 +657,73 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void testApp() throws IOException {
-        ArrayList<String> testList = testSetUpList();
+        DataBaseManager dataBaseManager = new DataBaseManager();
+        String res;
+        int nbSentences = convertTxtToDataBase();
+        for (int i=1;i<=nbSentences;i++){
+            res="";
+            String[] sentenceFromDB = dataBaseManager.getSentenceFromDB("FR",i,getApplicationContext());
+            for(int j=0;j<9;j++){
+                res=res+sentenceFromDB[j];
+            }
+            Log.d(TAG, "testApp: "+res);
+        }
+        /*ArrayList<String> testList = testSetUpList();
         int nbSentences = 0;
         while (!testList.isEmpty()) {
             nbSentences++;
             testGetNextInformations(testList.remove(0));
+        }*/
+    }
+
+    private int convertTxtToDataBase(){
+        DataBaseManager dataBaseManager = new DataBaseManager();
+        String[] sentenceData = new String[9];
+        int total = 0;
+
+        while (!gagesList.isEmpty()){
+            testGetNextInformations(gagesList.remove(0));
+            for(int i=0;i<8;i++){
+                sentenceData[i]=currentChallenge[i];
+            }
+            sentenceData[3]="gages";
+            sentenceData[8]="ApeTime";
+            dataBaseManager.addSentenceToDB("FR",sentenceData,getApplicationContext());
+            total++;
         }
+//0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: la punition 8:typeOfGame
+        while (!miniGamesList.isEmpty()){
+            testGetNextInformations(miniGamesList.remove(0));
+            for(int i=0;i<8;i++){
+                if(currentChallenge[2].equals("Spinning Wheel") || currentChallenge[2].equals("Red or Black")){
+                    sentenceData[i]="";
+                    sentenceData[2]=currentChallenge[2];
+                }else{
+                    sentenceData[i]=currentChallenge[i];
+                }
+
+            }
+            sentenceData[3]="minigames";
+            sentenceData[8]="ApeTime";
+            dataBaseManager.addSentenceToDB("FR",sentenceData,getApplicationContext());
+            total++;
+        }
+
+        while (!sentenceList.isEmpty()){
+            testGetNextInformations(sentenceList.remove(0));
+            for(int i=0;i<8;i++){
+                sentenceData[i]=currentChallenge[i];
+            }
+            sentenceData[3]="questions";
+            sentenceData[8]="ApeTime";
+            dataBaseManager.addSentenceToDB("FR",sentenceData,getApplicationContext());
+            total++;
+        }
+        return total;
     }
 
     private void testGetNextInformations(String testPhrase) {
+        Log.d(TAG, "testGetNextInformations: "+testPhrase);
         String ligne = testPhrase;
         boolean result = false;
         boolean temp = false;
@@ -673,8 +731,10 @@ public class GameActivity extends AppCompatActivity {
         int j;
         if (ligne.equals("Spinning Wheel")) {
             //setUpWheel();
+            currentChallenge[2]=testPhrase;
         } else if (ligne.equals("Red or Black")) {
            //startCardGame();
+            currentChallenge[2]=testPhrase;
         } else {
             //currentChallenge[3] = tempTab[0]; on vérifie pas le type de la phrase c'est useless
             String points;
@@ -747,7 +807,6 @@ public class GameActivity extends AppCompatActivity {
             currentChallenge[7] = punition;
             result = true;
         }
-
     }
 
     private ArrayList<String> testSetUpList() throws IOException {

@@ -39,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null) {
             restart = extras.getBoolean("apebus restart");
         }
+
+        //mise à jour de la base de données local (important de le faire après changement langue
+        UpdateLocalDataBase updateLocalDataBase = new UpdateLocalDataBase();
+        updateLocalDataBase.checkForUpdate(getApplicationContext());
+
         // si restart on ouvre la popup de ApeBus
         if(restart)
         showNbCardDialog(R.layout.activity_popup_drink_selection);
