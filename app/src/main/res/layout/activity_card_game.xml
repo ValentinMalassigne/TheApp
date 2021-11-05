@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_dark"
+    android:background="@drawable/background_gradient_color_red"
     android:gravity="center"
     android:id="@+id/card_game_layout"
     tools:context=".MainActivity">

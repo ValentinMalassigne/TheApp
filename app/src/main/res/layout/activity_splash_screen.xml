@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_light"
+    android:background="@drawable/background_gradient_color_red"
     tools:context=".SplashScreenActivity">
 
     <TextView
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:text="@string/apetime"
         android:textSize="35sp"
+        android:textColor="@color/white"
         android:fontFamily="@font/convergence"
         app:layout_constraintBottom_toTopOf="@+id/cardview"
         app:layout_constraintEnd_toEndOf="parent"

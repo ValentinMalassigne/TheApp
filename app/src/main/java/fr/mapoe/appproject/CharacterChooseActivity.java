@@ -3,16 +3,20 @@ package fr.mapoe.appproject;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -155,8 +159,10 @@ public class CharacterChooseActivity extends AppCompatActivity {
         }
 
     }
-
+    @SuppressLint("ClickableViewAccessibility")
     private void addPlayers(String[] savePlayerTab, String[] saveAlcoholTab, boolean initialisation,int i){
+        // Créer les différents params
+        float scale = getResources().getDisplayMetrics().density;
         if (nbJoueurs < 10) {
             EditText addPlayerEditText = findViewById(R.id.add_player_edit_text);
             //on vérifie que le nom n'est pas celui d'un joueur déjà existant
@@ -180,7 +186,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                     deletePlayerButton.setId(idDeletePlayerButton);//id du premier deletePlayerBouton : 301
                     deletePlayerButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
                     deletePlayerButton.setBackgroundColor(Color.TRANSPARENT);
-                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(120, 120, 2);
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) (50*scale), (int) (50*scale), 2);
                     params.gravity = Gravity.CENTER;
                     deletePlayerButton.setLayoutParams(params);
                     deletePlayerButton.setImageResource(R.drawable.x_icon);
@@ -188,6 +194,31 @@ public class CharacterChooseActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             deletePlayer(deletePlayerButton.getId());
+                        }
+                    });
+                    deletePlayerButton.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View v, MotionEvent event) {
+
+                            switch (event.getAction()) {
+                                case MotionEvent.ACTION_DOWN: {
+                                    ImageView view = (ImageView) v;
+                                    //overlay is black with transparency of 0x77 (119)
+                                    view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                                    view.invalidate();
+                                    break;
+                                }
+                                case MotionEvent.ACTION_UP:
+                                case MotionEvent.ACTION_CANCEL: {
+                                    ImageView view = (ImageView) v;
+                                    //clear the overlay
+                                    view.getDrawable().clearColorFilter();
+                                    view.invalidate();
+                                    break;
+                                }
+                            }
+
+                            return false;
                         }
                     });
                     LinearLayout linearLayout = new LinearLayout(getApplicationContext());
@@ -203,7 +234,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                         playerName.setText(addPlayerEditText.getText().toString());
                     }
                     addPlayerEditText.setText("");
-                    playerName.setLayoutParams(new LinearLayout.LayoutParams(150, 150, 8));
+                    playerName.setLayoutParams(new LinearLayout.LayoutParams((int) (70*scale), (int) (70*scale), 8));
                     playerName.setId(nbJoueurs); //id du premier TextView : 1
                     playerName.setGravity(Gravity.CENTER);
                     playerName.setTextSize(25);
@@ -214,7 +245,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
                     imageButton.setId(idImageButtons);//id du premier bouton : 201
                     imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
                     imageButton.setBackgroundColor(Color.TRANSPARENT);
-                    imageButton.setLayoutParams(new LinearLayout.LayoutParams(150, 150, 2));
+                    imageButton.setLayoutParams(new LinearLayout.LayoutParams((int) (70*scale), (int) (70*scale), 2));
                     if (initialisation) {
                         if (saveAlcoholTab[i].equals("drink0")) {
                             imageButton.setImageResource(R.drawable.drink_0);
