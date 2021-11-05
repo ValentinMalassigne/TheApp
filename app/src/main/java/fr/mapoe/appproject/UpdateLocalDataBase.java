@@ -90,9 +90,11 @@ public class UpdateLocalDataBase extends AppCompatActivity {
         if (ligne.equals("Spinning Wheel")) {
             //setUpWheel();
             currentChallenge[2]=ligne;
+            currentChallenge[3]="minigames";
         } else if (ligne.equals("Red or Black")) {
             //startCardGame();
             currentChallenge[2]=ligne;
+            currentChallenge[3]="minigames";
         } else {
             //currentChallenge[3] = tempTab[0]; on vérifie pas le type de la phrase c'est useless
             String points;
