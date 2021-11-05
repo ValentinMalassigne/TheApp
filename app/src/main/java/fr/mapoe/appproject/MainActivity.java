@@ -1,7 +1,5 @@
 package fr.mapoe.appproject;
 
-import static android.content.ContentValues.TAG;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,10 +12,8 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -25,9 +21,6 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.util.Locale;
 
 
@@ -41,7 +34,14 @@ public class MainActivity extends AppCompatActivity {
 
         //changement de la langue
         getLanguage();
-
+        Bundle extras = getIntent().getExtras();
+        Boolean restart = false;
+        if (extras != null) {
+            restart = extras.getBoolean("apebus restart");
+        }
+        // si restart on ouvre la popup de ApeBus
+        if(restart)
+        showNbCardDialog(R.layout.activity_popup_drink_selection);
         //go to option
         ImageView goToOption = (ImageView) findViewById(R.id.setting_button);
         goToOption.setOnClickListener(new View.OnClickListener() {
@@ -127,11 +127,14 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        // text responsive si l'api le permet
-        if(Build.VERSION.SDK_INT >= 26){
-            setResponsiveText();
-        }
+        // go to bus game
+        LinearLayout goToBusGame = (LinearLayout) findViewById(R.id.bus_game_layout);
+        goToBusGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showNbCardDialog(R.layout.activity_popup_drink_selection);
+            }
+        });
 
         //setup la popup warning
         warningPopup();
@@ -150,7 +153,65 @@ public class MainActivity extends AppCompatActivity {
             showInfoDialog(R.layout.info_popup);
         }
     }
+    @SuppressLint("ClickableViewAccessibility")
+    private void showNbCardDialog(int layout){
+        AlertDialog alertDialog ;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
+        View layoutView = getLayoutInflater().inflate(layout,null);
+        ImageView drink0 = layoutView.findViewById(R.id.drink0);
+        drink0.setVisibility(View.GONE);
+        ImageView[] numberImage = new ImageView[3];
+        numberImage[0] = layoutView.findViewById(R.id.drink1);
+        numberImage[1] = layoutView.findViewById(R.id.drink2);
+        numberImage[2] = layoutView.findViewById(R.id.drink3);
+        TextView title = layoutView.findViewById(R.id.title);
+        numberImage[0].setImageResource(R.drawable.nb5);
+        numberImage[1].setImageResource(R.drawable.nb6);
+        numberImage[2].setImageResource(R.drawable.nb7);
+        title.setText(getString(R.string.how_many_card));
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+        for(int i=0;i<numberImage.length;i++){
+            int finalI = i;
+            numberImage[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                    Intent busGameActivity = new Intent(getApplicationContext(), BusGameActivity.class);
+                    busGameActivity.putExtra("nbCard", finalI +5);
+                    startActivity(busGameActivity);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                    finish();
+                }
+            });
+            numberImage[i].setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
 
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            ImageView view = (ImageView) v;
+                            //overlay is black with transparency of 0x77 (119)
+                            view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                            view.invalidate();
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL: {
+                            ImageView view = (ImageView) v;
+                            //clear the overlay
+                            view.getDrawable().clearColorFilter();
+                            view.invalidate();
+                            break;
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+    }
     private void showInfoDialog(int layout){// créer la popup info
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
@@ -177,21 +238,6 @@ public class MainActivity extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
-    }
-
-    private void setResponsiveText() {
-
-        TextView apeChillTitle = findViewById(R.id.apechill_title);
-        TextView apeChillDescription = findViewById(R.id.apepiment_description);
-        TextView apePiementTitle = findViewById(R.id.apepiment_description);
-        TextView apePiementDescription = findViewById(R.id.apepiment_description);
-        TextView rouletteTitle = findViewById(R.id.roulette_title);
-        TextView rouletteDescription = findViewById(R.id.roulette_description);
-        TextView cardTitle = findViewById(R.id.card_title);
-        TextView cardDescription = findViewById(R.id.card_discription);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            apeChillTitle.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_UNIFORM);
-        }
     }
 
     private void getLanguage(){
