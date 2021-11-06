@@ -65,17 +65,17 @@ public class UpdateLocalDataBase extends AppCompatActivity {
         reader.readLine();//on passe la ligne "gages"
         String tempLine = reader.readLine();//on lit le premier gage
         while (!tempLine.equals("minigames")) {
-            dataBaseManager.addSentenceToDB(language,transformSentenceIntoTab(tempLine,"gages","ApeTime"),context);
+            dataBaseManager.addSentenceToDB(language,transformSentenceIntoTab(tempLine,"gages","ApeChill"),context);
             tempLine = reader.readLine();
         }
         tempLine = reader.readLine();
         while (!tempLine.equals("questions")) {
-            dataBaseManager.addSentenceToDB(language,transformSentenceIntoTab(tempLine,"minigames","ApeTime"),context);
+            dataBaseManager.addSentenceToDB(language,transformSentenceIntoTab(tempLine,"minigames","ApeChill"),context);
             tempLine = reader.readLine();
         }
         tempLine = reader.readLine();
         while (!tempLine.equals("End")) {
-            dataBaseManager.addSentenceToDB(language,transformSentenceIntoTab(tempLine,"questions","ApeTime"),context);
+            dataBaseManager.addSentenceToDB(language,transformSentenceIntoTab(tempLine,"questions","ApeChill"),context);
             tempLine = reader.readLine();
         }
         inputStream.close();

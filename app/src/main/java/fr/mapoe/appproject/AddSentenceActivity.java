@@ -72,6 +72,7 @@ public class AddSentenceActivity extends AppCompatActivity {
     private CheckBox scrollableRightAnswerIs2;
     private CheckBox scrollableRightAnswerIs1;
     private boolean editSentence = false;
+    private int editSentenceIndex;
     private String[] decodedSentence;
     private static final String FILE_NAME = "custom_sentences.txt";
     private Button button1Point;
@@ -89,6 +90,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            editSentenceIndex=extras.getInt("editSentenceIndex");
             editSentence = extras.getBoolean("editSentence");
             decodedSentence = extras.getStringArray("decodedSentence");//0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame 8: la punition        }
         }
@@ -819,12 +821,12 @@ public class AddSentenceActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String encoding = encoding();
                 int typeOfGame = 2;
                 if(gameModeSpinner.getSelectedItem().toString().equals("ApeChill")){
                     typeOfGame=1;
                 }
-                addSentence(encoding,"Custom",typeOfGame);
+                String[] encoding = encoding(typeOfGame);
+                addSentence(encoding);
                 alertDialog.dismiss();
                 Intent optionActivity = new Intent(getApplicationContext(), OptionActivity.class);
                 startActivity(optionActivity);
@@ -868,25 +870,32 @@ public class AddSentenceActivity extends AppCompatActivity {
         }
         return res;
     }
-
-    private String encoding(){
+    //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: la punition 8:typeOfGame
+    private String[] encoding(int typeOfGame){
         String button1 = "skip";
         String button2 = "skip";
         String text = scrollableSentenceEditText.getText().toString().replace(getString(R.string.player_landmark),"§");
-        String answer = scrollableAnswerEditText.getText().toString().replace(getString(R.string.player_landmark),"§");
-        String encodingSentence = "";
-        encodingSentence+=button1+"/";
-        encodingSentence+=button2;
+        String answer = "";
+        String[] encodingSentence = new String[9];
+
+        encodingSentence[0]=scrollablePointList.getSelectedItem().toString();
+        encodingSentence[1]=answer;
+        encodingSentence[2]=text;
+        encodingSentence[3]="custom";
         if(rightAnswer==0){
-            encodingSentence+="+";
+            encodingSentence[4]="+";
         }
         else{
-            encodingSentence+="-";
+            encodingSentence[4]="-";
         }
-        encodingSentence+=scrollablePointList.getSelectedItem().toString()+ " ";
-        encodingSentence+=answer+"¤";
-        encodingSentence+=text;
-        encodingSentence+=getString(R.string.default_custom_sentence_punition);//il faudrait donner une punition custom
+        encodingSentence[5]=button1;
+        encodingSentence[6]=button2;
+        encodingSentence[7]=getString(R.string.default_custom_sentence_punition);//il faudrait donner une punition custom
+        if(typeOfGame==1){
+            encodingSentence[8]="ApeChill";
+        }else{
+            encodingSentence[8]="ApePiment";
+        }
         return encodingSentence;
     }
 
@@ -914,51 +923,20 @@ public class AddSentenceActivity extends AppCompatActivity {
         }
     }
 
-    private void addSentence(String ligne, String sentenceType, int typeOfGame){
-        String previousSentence ="";
-        if(editSentence){ //on reconstitue la phrase qui a été modifié pour pouvoir retirer son ancienne versions du fichier texte
-            previousSentence+=decodedSentence[5]+"/"+decodedSentence[6]+decodedSentence[4]+decodedSentence[0]+decodedSentence[1]+"¤"+decodedSentence[2]+getString(R.string.default_custom_sentence_punition);
-            previousSentence=previousSentence.replaceAll(getString(R.string.player_landmark),"§");
+    private void addSentence(String[] ligne){
+        DataBaseManager dataBaseManager = new DataBaseManager();
+        //on récup la langue acctuelement utilisé par l'appli
+        String language = getResources().getConfiguration().locale.getLanguage();
+
+        if (language.equals("fr")) {
+            language="FR";
+        } else {
+            language="EN";
         }
-        //on copie ce qu'il y a dans le fichier
-        try {
-            FileInputStream fis = openFileInput(FILE_NAME);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader br = new BufferedReader(isr);
-            String text;
-            ArrayList<String> phrase = new ArrayList<String>();
-            int typeOfGameCounter=1;
-            boolean adDone = false;
-            while ((text = br.readLine())!=null){
-                if(typeOfGame==typeOfGameCounter && !adDone){ //on trouve l'endroit où on doit insérer la ligne du joueur
-                    phrase.add(ligne+"\n");
-                    adDone=true;
-                }
-                if(!text.equals(previousSentence)){ //on ne copie pas l'ancienne phrase
-                    phrase.add(text+"\n");
-                }
-
-                if(text.equals("End"))
-                    typeOfGameCounter++;
-            }
-            fis.close();
-
-            //on prépare le remplissage du fichier retour
-            String remplissage = "";
-            while (!phrase.isEmpty()){
-                remplissage=remplissage+(phrase.remove(0));
-            }
-
-            //on réouvre le fichier mais cette fois ci pour y écrire
-            FileOutputStream fos = null;
-            fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
-            fos.write(remplissage.getBytes());
-            if(fos!=null){
-                fos.close();
-            }
-            //showFile();
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(editSentence){
+            dataBaseManager.updateSentence(language,ligne,editSentenceIndex,getApplicationContext());
+        }else{
+            dataBaseManager.addSentenceToDB(language,ligne,getApplicationContext());
         }
 
     }

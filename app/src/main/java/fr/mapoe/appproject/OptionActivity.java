@@ -40,6 +40,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -47,10 +48,11 @@ import java.util.Locale;
 public class OptionActivity extends AppCompatActivity {
 
     SharedPreferences language;
-    private String[][] sentencesTab;
-    private String[][] decodingTab;
     private float scale;
+    private ArrayList<String[]> customSentencesList;
     private static final String FILE_NAME = "custom_sentences.txt";
+    private DataBaseManager dataBaseManager = new DataBaseManager();
+    private String[] currentSentence;
     @SuppressLint("ClickableViewAccessibility")
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -137,17 +139,32 @@ public class OptionActivity extends AppCompatActivity {
         editSentenceLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    readFile();
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                fillDecodingTab();
+                getCustomSentencesFromDB();
                 showSentence(R.layout.sentences_popup);
 
             }
         });
+
+    }
+
+    private void getCustomSentencesFromDB(){
+        customSentencesList = new ArrayList<String[]>();
+        String[] tempSentence = new String[9];
+        String language = getResources().getConfiguration().locale.getLanguage();
+
+        InputStream inputStream = null;
+        if (language.equals("fr")) {
+            language="FR";
+        } else {
+            language="EN";
+        }
+        int length = dataBaseManager.getNumberOfSentences(language,getApplicationContext());
+        for(int i=1;i<=length;i++){
+            tempSentence=dataBaseManager.getSentenceFromDB(language,i,getApplicationContext());
+            if(tempSentence[3].equals("custom")) {
+                customSentencesList.add(tempSentence);
+            }
+        }
 
     }
 
@@ -248,7 +265,10 @@ public class OptionActivity extends AppCompatActivity {
         // paramètre layout des images
         LinearLayout.LayoutParams imageLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-        for(int i =0;i< decodingTab.length;i++) {
+        for(int i =0;i< customSentencesList.size();i++) {
+
+            currentSentence=customSentencesList.get(i);
+            //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: la punition 8:typeOfGame
 
             // linear layout qui contient tout
             LinearLayout globalLinearLayout = new LinearLayout(getApplicationContext());
@@ -265,10 +285,10 @@ public class OptionActivity extends AppCompatActivity {
             textDisplay.setTextColor(Color.WHITE);
             textDisplay.setMaxLines(4);
             textDisplay.setTextSize(18);
-            textDisplay.setText(HtmlCompat.fromHtml(getCleanText(decodingTab[i][2]),HtmlCompat.FROM_HTML_MODE_LEGACY));
+            textDisplay.setText(HtmlCompat.fromHtml(getCleanText(currentSentence[2]),HtmlCompat.FROM_HTML_MODE_LEGACY));
             textDisplay.setId(textID);
 
-            textDisplay.setHint(sentencesTab[i][0]);//on lui donne la phrase (comme dans le fichier text en hint, utilise pour le delete sentence)
+            textDisplay.setHint(Integer.toString(i));//normalement i correspond à l'id de la phrase (, utilise pour le delete sentence)
             globalLinearLayout.addView(textDisplay);
             // un layout vertical qui contient les images
 
@@ -282,19 +302,15 @@ public class OptionActivity extends AppCompatActivity {
             edit.setImageResource(R.drawable.edit_logo);
             edit.setLayoutParams(editImageParams);
             edit.setId(editID);
-            int finalI = i;
+            int finalEditID = editID;
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // il faut envoyer la ligne correspondante
-                    String[] line = new String[8];
-                    for(int j=0;j<line.length;j++){
-                        line[j] = decodingTab[finalI][j];
-                    }
 
                     Intent addSentenceActivity = new Intent(getApplicationContext(), AddSentenceActivity.class);
-                    addSentenceActivity.putExtra("decodedSentence", line);
+                    addSentenceActivity.putExtra("decodedSentence", customSentencesList.get(finalEditID));
                     addSentenceActivity.putExtra("editSentence",true);
+                    addSentenceActivity.putExtra("editSentenceIndex", finalEditID);
                     startActivity(addSentenceActivity);
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     alertDialog.dismiss();
@@ -394,138 +410,6 @@ public class OptionActivity extends AppCompatActivity {
         Intent refresh = new Intent(this, OptionActivity.class);
         finish();
         startActivity(refresh);
-    }
-
-    private void readFile() throws IOException {
-        //def des variables
-        int compteur;
-        //initialisation
-        int i=0;
-        compteur=-2;//compte le nombre de phrases customs (il y a 10 lignes déjà utilisées dans le fichier donc on commence a -10)
-
-        //ouverture du fichier
-        FileInputStream fis=openFileInput(FILE_NAME);
-        InputStreamReader isr = new InputStreamReader(fis);
-        BufferedReader br = new BufferedReader(isr);
-
-        //on compte le nombre de ligne pour créer un tableau de bonne taille
-        while ((br.readLine())!=null){
-            compteur++;
-        }
-        fis.close();
-        sentencesTab = new String[compteur][3];//0 phrase, 1 type de phrase, 2 type de jeu
-
-        //ouverture du fichier
-        fis=openFileInput(FILE_NAME);
-        isr = new InputStreamReader(fis);
-        br = new BufferedReader(isr);
-        //lecture du fichier et on sauvegarde les phrases
-        compteur=0;
-        for(i=1;i<=2;i++){//on fait deux tours, un pour les phrases normals, un pour les phrases génantes
-            String gameMode = "";
-            if(i==1){
-                gameMode ="Apechill";
-            }
-            else{
-                gameMode="ApePiment";
-            }
-            String tempLine = br.readLine();//on lit la première ligne
-            while (!tempLine.equals("End")) {
-                sentencesTab[compteur][0]=tempLine;
-                sentencesTab[compteur][1]="custom";
-                sentencesTab[compteur][2]=gameMode;
-                compteur++;
-                tempLine = br.readLine();
-            }
-        }
-        fis.close();
-    }
-
-    private static String[] decoding(String gameMode, String type, String encoding){ // decoder sentence tab
-        String[] decoding = new String[9]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: mode de jeu 8 : punition        boolean temp = false;
-        boolean temp = false;
-        String points;
-        String answers;
-        String sentence;
-        String rightAnswer;
-        String button1Text;
-        String button2Text;
-        String punition;
-        int i=0;
-        int j;
-        //on lit tant que l'on est pas a / pour savoir quelle est le premier bouton
-        while (!temp){
-            if(encoding.substring(i,i+1).equals("/")){
-                temp=true;
-            }else {
-                i++;
-            }
-        }
-        button1Text=encoding.substring(0,i);
-        j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
-
-        //on lit tant que l'on est pas a + ou - pour savoir quelle est le deuxième bouton
-        temp=false;
-        while (!temp){
-            if(encoding.substring(i,i+1).equals("+") || encoding.substring(i,i+1).equals("-")){
-                temp=true;
-            }else {
-                i++;
-            }
-        }
-
-        button2Text=encoding.substring(j,i);
-
-        rightAnswer = encoding.substring(i,i+1);//on recup le + ou - qui se trouve juste après la deuxième rep
-        points= encoding.substring(i+1,i+2);//on recup le nb de points qui est juste après le + ou -
-
-        j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
-
-        //on lit tant que l'on a est pas a ç pour avoir la réponse
-        temp=false;
-        while (!temp){
-            if(encoding.substring(i,i+1).equals("¤")){
-                temp=true;
-            }else {
-                i++;
-            }
-        }
-        answers=encoding.substring(j+1,i);
-        j=i+1;
-        temp=false;
-        while (!temp){
-            if(encoding.substring(j,j+1).equals("¤")){
-                temp=true;
-            }else{
-                j++;
-            }
-        }
-
-        sentence=encoding.substring(i+1,j);//on lit la phrase
-        punition=encoding.substring(j+1);
-
-        decoding[0] = points;
-        decoding[1] = answers;
-        decoding[2] = sentence;
-        decoding[3] = type;
-        decoding[4] = rightAnswer;
-        decoding[5] = button1Text;
-        decoding[6] = button2Text;
-        decoding[7] = gameMode;
-        decoding[8] = punition;
-        return decoding;
-    }
-
-    private void fillDecodingTab(){
-        decodingTab = new String[sentencesTab.length][9];
-        //Pour parcourir chaque ligne
-        for (int i = 0; i < decodingTab.length; i++) {
-            String[] currentTab = decoding(sentencesTab[i][2],sentencesTab[i][1],sentencesTab[i][0]);
-            //Pour parcourir chaque colonne
-            for (int j = 0; j < currentTab.length; j++) {
-                decodingTab[i][j] = currentTab[j];
-            }
-        }
     }
 
     private String getCleanText(String text) {

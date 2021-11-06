@@ -329,6 +329,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void showAnswerPopup(int layout, String text, int typeOfCall) {
         final boolean[] rightAnswer = {false};
+        int rightButton;
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
@@ -338,9 +339,20 @@ public class GameActivity extends AppCompatActivity {
         Button noButton = (Button) layoutView.findViewById(R.id.no_button);
         Button nextButton = (Button) layoutView.findViewById(R.id.next_button);
 
-        //on change la réponse des boutons avec celles du fichier
-        yesButton.setText(currentChallenge[5]);//la première rep
-        noButton.setText(currentChallenge[6]);//la deuxième rep*
+        //génération de l'aléatoire des boutons réponse : (0 = bouton gauche, 1 = bouton droite)
+        Random r = new Random();
+        rightButton = r.nextInt(2) ; //génère un entier 0 ou 1 (2 est exclu)
+
+        //on change la réponse des boutons avec celles des la phrases
+        if(rightButton==0){
+            yesButton.setText(currentChallenge[5]);//la première rep est la rightAnswer
+            noButton.setText(currentChallenge[6]);//la deuxième rep*
+        }else{
+            yesButton.setText(currentChallenge[6]);//la première rep
+            noButton.setText(currentChallenge[5]);//la deuxième rep est la rightAnswer
+        }
+
+
 
         // change bg suivant le jeu
         if (typeOfGame == 2) {
@@ -359,7 +371,7 @@ public class GameActivity extends AppCompatActivity {
             yesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (currentChallenge[4].equals("+")) {//si c'est + et que le joueur répond oui alors il a gagné
+                    if (rightButton==0) {//si c'est 0 et que le joueur répond oui alors il a gagné
                         String temp = getRandomWinSentence();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         noButton.setVisibility(View.GONE);
@@ -379,7 +391,7 @@ public class GameActivity extends AppCompatActivity {
             noButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (currentChallenge[4].equals("-")) {//si c'est - et que le joueur répond oui alors il a gagné
+                    if (rightButton==1) {//si c'est 1 et que le joueur répond non alors il a gagné
                         String temp = getRandomWinSentence();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         noButton.setVisibility(View.GONE);
@@ -539,7 +551,6 @@ public class GameActivity extends AppCompatActivity {
         //on récup la langue acctuelement utilisé par l'appli
         String language = getResources().getConfiguration().locale.getLanguage();
 
-        InputStream inputStream = null;
         if (language.equals("fr")) {
             language="FR";
         } else {
@@ -550,7 +561,6 @@ public class GameActivity extends AppCompatActivity {
 
         for(int i=1;i<=numberOfSentences;i++) {
             tempSentence=dataBaseManager.getSentenceFromDB(language,i,getApplicationContext());
-            Log.d(TAG, "setUpList: type : "+tempSentence[2]);
             if(tempSentence[3].equals("gages")){
                 gagesList.add(tempSentence);
             }else if(tempSentence[3].equals("minigames")){
