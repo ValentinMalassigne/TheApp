@@ -2,8 +2,6 @@ package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +11,9 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -24,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.Locale;
+
+import fr.mapoe.appproject.tools.AccesHTTP;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null) {
             restart = extras.getBoolean("apebus restart");
         }
+        AccesHTTP accesHTTP = new AccesHTTP(this);
+        accesHTTP.execute();
+
         // si restart on ouvre la popup de ApeBus
         if(restart)
         showNbCardDialog(R.layout.activity_popup_drink_selection);

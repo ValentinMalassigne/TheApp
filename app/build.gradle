@@ -28,8 +28,8 @@ android {
     buildFeatures {
         viewBinding true
     }
+    useLibrary 'org.apache.http.legacy'
 }
-
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.3.1'
