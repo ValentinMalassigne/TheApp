@@ -41,10 +41,8 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null) {
             restart = extras.getBoolean("apebus restart");
         }
-        AccesHTTP accesHTTP = new AccesHTTP(this);
-        accesHTTP.execute();
 
-        //mise à jour de la base de données local (important de le faire après changement langue
+        //mise à jour de la base de données local
         UpdateLocalDataBase updateLocalDataBase = new UpdateLocalDataBase();
         updateLocalDataBase.checkForUpdate(getApplicationContext());
 

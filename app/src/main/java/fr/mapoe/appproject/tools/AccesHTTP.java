@@ -15,6 +15,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import fr.mapoe.appproject.UpdateLocalDataBase;
+
 /**
  * Accès à la page PHP
  * Décode Le JSON
@@ -73,11 +75,10 @@ public class AccesHTTP extends AsyncTask<Void,Integer,String> {
                     sentenceTab[i][j] = dataParsed[j];
                 }
             }
-            for(int i=0;i<sentenceTab.length;i++){
-                for(int j=0;j<10;j++){
-                    Log.d("anus",sentenceTab[i][j]);
-                }
-            }
+
+            //vu que le getter marche pas je suis obligé de lancer l'update comme ça
+            UpdateLocalDataBase updateLocalDataBase = new UpdateLocalDataBase();
+            updateLocalDataBase.updateFromOnlineDB(sentenceTab,context);
 
             return 1;
 

@@ -17,10 +17,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import fr.mapoe.appproject.tools.AccesHTTP;
+
 public class UpdateLocalDataBase extends AppCompatActivity {
     private static final String FILE_NAME = "custom_sentences.txt";
-
+    private DataBaseManager dataBaseManager = new DataBaseManager();
+    private Context mainActivityContext;
     public void checkForUpdate(Context context){
+        mainActivityContext = context;
+        AccesHTTP accesHTTP = new AccesHTTP(context);
+        accesHTTP.execute();
         int onlineVersion=1; // normalement il faudra récup la version de la base de donnée online;
         //on charge la version de la db enregistrée dans les shared preferences
         SharedPreferences localDBVersion = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
@@ -40,9 +46,43 @@ public class UpdateLocalDataBase extends AppCompatActivity {
 
     }
 
-    private void setUpList(Context context) throws IOException {
+    public void updateFromOnlineDB(String[][] sentenceTab,Context context){
+        String language="CUSTOM"; //pour les tests on enregistre la table online dans la table custom
+        for(int i=0;i<sentenceTab.length;i++){
+                dataBaseManager.addSentenceToDB(language,adaptToLocalBase(sentenceTab[i]),context);
+        }
+    }
 
-        DataBaseManager dataBaseManager = new DataBaseManager();
+    private String[] adaptToLocalBase(String[] sentence){
+        String[] adaptedSentence=new String[10];
+        adaptedSentence[0]=sentence[8];
+        adaptedSentence[1]=sentence[3];
+        adaptedSentence[2]=sentence[2];
+        adaptedSentence[3]="custom";//sentence[1];
+        adaptedSentence[4]=sentence[6];
+        adaptedSentence[5]=sentence[4];
+        adaptedSentence[6]=sentence[5];
+        adaptedSentence[7]=sentence[7];
+        adaptedSentence[8]=sentence[0];
+        return adaptedSentence;
+    }
+
+    /* Ne marche pas et jsp pas pourquoi, il y a une erreur avec sentenceTab.length, car sentenceTab est null, ducoup le getter ne semble pas marcher
+    public void updateFromOnlineDB(Context context){
+        AccesHTTP accesHTTP = new AccesHTTP(context);
+        accesHTTP.execute();
+
+        String[][] sentenceTab=accesHTTP.getSentenceTab();
+
+        for(int i=0;i<sentenceTab.length;i++){
+            for(int j=0;j<10;j++){
+                Log.d("anus",sentenceTab[i][j]);
+            }
+        }
+    }*/
+
+    //uniquement utile tant que l'on a des fichiers local
+    private void setUpList(Context context) throws IOException {
 
         //on récup la langue acctuelement utilisé par l'appli
         String language = context.getResources().getConfiguration().locale.getLanguage();
@@ -81,6 +121,7 @@ public class UpdateLocalDataBase extends AppCompatActivity {
         inputStream.close();
     }
 
+    //uniquement utile tant que l'on a des fichiers local
     private String[] transformSentenceIntoTab(String ligne,String SentenceType,String typeOfGame) {
         String[] currentChallenge = new String[9];
         boolean result = false;
