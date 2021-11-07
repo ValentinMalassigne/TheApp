@@ -134,7 +134,12 @@ public class OptionActivity extends AppCompatActivity {
             }
         });
         LinearLayout editSentenceLayout  = (LinearLayout) findViewById(R.id.edit_sentence);
-        if(!checkFileExist())
+
+        //on vérifie si il y a des phrases custom :
+        SharedPreferences customSentences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        boolean isCustomSentencesCreated = customSentences.getBoolean("customSentences",false);
+        //on vérifie aussi s'il y a au moins 1 phrase custom (le cas oû il a supprimé son unique phrase)
+        if((!isCustomSentencesCreated) || (dataBaseManager.getNumberOfSentences("CUSTOM",getApplicationContext())==0))
             editSentenceLayout.setVisibility(View.GONE);
         editSentenceLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,15 +154,8 @@ public class OptionActivity extends AppCompatActivity {
 
     private void getCustomSentencesFromDB(){
         customSentencesList = new ArrayList<String[]>();
-        String[] tempSentence = new String[9];
-        String language = getResources().getConfiguration().locale.getLanguage();
-
-        InputStream inputStream = null;
-        if (language.equals("fr")) {
-            language="FR";
-        } else {
-            language="EN";
-        }
+        String[] tempSentence;
+        String language = "CUSTOM";
         int length = dataBaseManager.getNumberOfSentences(language,getApplicationContext());
         for(int i=1;i<=length;i++){
             tempSentence=dataBaseManager.getSentenceFromDB(language,i,getApplicationContext());
@@ -308,9 +306,8 @@ public class OptionActivity extends AppCompatActivity {
                 public void onClick(View view) {
 
                     Intent addSentenceActivity = new Intent(getApplicationContext(), AddSentenceActivity.class);
-                    addSentenceActivity.putExtra("decodedSentence", customSentencesList.get(finalEditID));
+                    addSentenceActivity.putExtra("decodedSentence", customSentencesList.get(finalEditID-1));
                     addSentenceActivity.putExtra("editSentence",true);
-                    addSentenceActivity.putExtra("editSentenceIndex", finalEditID);
                     startActivity(addSentenceActivity);
                     overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     alertDialog.dismiss();
@@ -415,16 +412,16 @@ public class OptionActivity extends AppCompatActivity {
     private String getCleanText(String text) {
         String res = "";
         if (numberOfOccurrences(text) == 1) {
-            res = text.replaceFirst("§", "<b><i>Joueur 1</i></b>");
+            res = text.replaceFirst("§", getString(R.string.player1_bold_italic));
 
         } else if (numberOfOccurrences(text) == 2) {
-            res = text.replaceFirst("§", "<b><i>Joueur 1</i></b>");
-            res=res.replace("§","<b><i>Joueur 2</i></b>");
+            res = text.replaceFirst("§", getString(R.string.player1_bold_italic));
+            res=res.replace("§",getString(R.string.player2_bold_italic));
         }
         else{
-            res = text.replaceFirst("§", "<b><i>Joueur 1</i></b>");
-            res=res.replace("§","<b><i>Joueur 3</i></b>");
-            res = res.replaceFirst("<b><i>Joueur 3</i></b>","<b><i>Joueur 2</i></b>");
+            res = text.replaceFirst("§", getString(R.string.player1_bold_italic));
+            res=res.replace("§",getString(R.string.player3_bold_italic));
+            res = res.replaceFirst(getString(R.string.player3_bold_italic),getString(R.string.player2_bold_italic));
         }
         return res;
     }
@@ -441,16 +438,6 @@ public class OptionActivity extends AppCompatActivity {
         return occurrences;
     }
 
-    private Boolean checkFileExist(){
-        Boolean res = true;
-        File file = new File(getFilesDir()+"/"+FILE_NAME);
-        if (!file.exists()){
-            res = false;
-        }
-        return res;
-    }
-
-    //marche pas, raison : java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.CharSequence android.widget.TextView.getText()' on a null object reference
     private void deleteSentence(int deleteID, View layoutView){
         int id = deleteID-900;
         TextView sentenceTextView = (TextView) layoutView.findViewById(id); //on trouve le textview correspondant
@@ -459,39 +446,8 @@ public class OptionActivity extends AppCompatActivity {
         LinearLayout containerLayout = layoutView.findViewById(id+9900);
         containerLayout.setVisibility(View.GONE);
 
-        //on copie ce qu'il y a dans le fichier
-        try {
-            FileInputStream fis = openFileInput(FILE_NAME);
-            InputStreamReader isr = new InputStreamReader(fis);
-            BufferedReader br = new BufferedReader(isr);
-            String text;
-            ArrayList<String> phrase = new ArrayList<String>();
-            boolean deleteDone = false;
-            while ((text = br.readLine())!=null){
-                if(text.equals(sentence)&&!deleteDone){ //si la phrase est celle a supprimé alors on la "passe", le boolean sert a éviter de supprimer plusieurs fois la phrases si l'utilisateur l'a sauvegardé plusieurs fois
-                    deleteDone=true;
-                }else{
-                    phrase.add(text+"\n");
-                }
-            }
-            fis.close();
-
-            //on prépare le remplissage du fichier retour
-            String remplissage = "";
-            while (!phrase.isEmpty()){
-                remplissage=remplissage+(phrase.remove(0));
-            }
-
-            //on réouvre le fichier mais cette fois ci pour y écrire
-            FileOutputStream fos = null;
-            fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
-            fos.write(remplissage.getBytes());
-            if(fos!=null){
-                fos.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //on effectue la requette SQL qui supprime la sentence
+        dataBaseManager.deleteSentenceInDB("CUSTOM",customSentencesList.get(id-101)[2],getApplicationContext());
     }
 
     @Override

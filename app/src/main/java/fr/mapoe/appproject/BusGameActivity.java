@@ -4,6 +4,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -19,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,7 +28,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class BusGameActivity extends AppCompatActivity {
-    private ImageView packqueCard;
+    private ImageView cardBack;
     private ImageView plusButton;
     private ImageView minusButton;
     private TextView text,cardRemain;
@@ -37,6 +39,7 @@ public class BusGameActivity extends AppCompatActivity {
     private int nbCard;
     private LinearLayout.LayoutParams normalParams;
     private LinearLayout.LayoutParams zoomParams;
+    private HorizontalScrollView horizontalScrollView;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -129,31 +132,27 @@ public class BusGameActivity extends AppCompatActivity {
         int normalHeight = (int) (150 * scale);
         int zoomWidth = (int) (128 * scale);
         int zoomHeight = (int) (180 * scale);
-        int margin = (int) (30 * scale);
+        int margin = (int) (15 * scale);
         normalParams = new LinearLayout.LayoutParams(normalWidth,normalHeight);
         normalParams.leftMargin = margin;
+        normalParams.rightMargin = margin;
         zoomParams = new LinearLayout.LayoutParams(zoomWidth,zoomHeight);
         zoomParams.leftMargin = margin;
+        normalParams.rightMargin = margin;
 
         cardTurn = new ImageView[nbCard]; // tableau qui stock les cartes
         // créer les cartes:
         LinearLayout cardLayout = findViewById(R.id.cardLayout);
         for(int i=0;i<nbCard;i++){
             ImageView card = new ImageView(getApplicationContext());
-            if(i==(nbCard-1)){
-                LinearLayout.LayoutParams lastParams = normalParams;
-                lastParams.rightMargin = margin;
-                card.setLayoutParams(lastParams);
-            }
-            else{
-                card.setLayoutParams(normalParams);
-            }
+            card.setLayoutParams(normalParams);
             cardLayout.addView(card);
             cardTurn[i] = card;
         }
 
         this.plusButton = findViewById(R.id.plus_button);
         this.minusButton = findViewById(R.id.minus_button);
+        this.horizontalScrollView = findViewById(R.id.horizontalScrollView);
         plusButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -204,7 +203,7 @@ public class BusGameActivity extends AppCompatActivity {
                 return false;
             }
         });
-        this.packqueCard = findViewById(R.id.cardBack);
+        this.cardBack = findViewById(R.id.cardBack);
         this.text = findViewById(R.id.text);
         this.cardRemain = findViewById(R.id.card_remain);
         cardList = new ArrayList<ImageView>();
@@ -260,8 +259,8 @@ public class BusGameActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     slide_out_right.reset();
-                    packqueCard.clearAnimation();
-                    packqueCard.startAnimation(slide_out_right);
+                    cardBack.clearAnimation();
+                    cardBack.startAnimation(slide_out_right);
                 }
             }, time);
             time+=500;
@@ -305,13 +304,15 @@ public class BusGameActivity extends AppCompatActivity {
         plusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int rdmIndex = generate.nextInt(cardList.size()-1);
+                int rdmIndex=0;
+                if(cardList.size()!=1) {
+                    rdmIndex = generate.nextInt(cardList.size() - 1);
+                }
                 int previousId = cardTurn[currentCard].getId();
                 int previousIndex = currentCard;
                 ImageView newCard = cardList.get(rdmIndex); // pour stocker la nouvelle carte
                 cardTurn[currentCard].setId(newCard.getId());
                 cardFold.add(cardList.remove(rdmIndex)); // on retir la card de la liste des carte restante
-                Log.d("carte",Integer.toString(cardList.size()));
                 Boolean correct = CompareCard(previousId,newCard.getId(),"+");
                 // fonction qui regarde si la répons est correct et qui renvoie un string contenant le message à afficher
                 String message = CheckCorrect(correct);
@@ -321,7 +322,6 @@ public class BusGameActivity extends AppCompatActivity {
                 else{
                     text.setText(message);
                 }
-
                 ResetOnclick();
             }
         });
@@ -329,13 +329,15 @@ public class BusGameActivity extends AppCompatActivity {
         minusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int rdmIndex = generate.nextInt(cardList.size()-1);
+                int rdmIndex=0;
+                if(cardList.size()!=1) {
+                    rdmIndex = generate.nextInt(cardList.size() - 1);
+                }
                 int previousId = cardTurn[currentCard].getId();
                 int previousIndex = currentCard;
                 ImageView newCard = cardList.get(rdmIndex); // pour stocker la nouvelle carte
                 cardTurn[currentCard].setId(newCard.getId());
                 cardFold.add(cardList.remove(rdmIndex)); // on retir la card de la liste des carte restante
-                Log.d("carte",Integer.toString(cardList.size()));
                 Boolean correct = CompareCard(previousId,newCard.getId(),"-");
                 // fonction qui regarde si la répons est correct et qui renvoie un string contenant le message à afficher
                 String message = CheckCorrect(correct);
@@ -401,22 +403,7 @@ public class BusGameActivity extends AppCompatActivity {
                     message = getString(R.string.temp_win_bus);
                 } else {
                     message = getString(R.string.well_done_u_win);
-                    plusButton.setVisibility(View.INVISIBLE);
-                    minusButton.setVisibility(View.INVISIBLE);
-                    Button restart = findViewById(R.id.restart_button);
-                    packqueCard.setVisibility(View.GONE);
-                    cardRemain.setVisibility(View.GONE);
-                    restart.setVisibility(View.VISIBLE);
-                    restart.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                            mainActivity.putExtra("apebus restart", true);
-                            startActivity(mainActivity);
-                            overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
-                            finish();
-                        }
-                    });
+                    restart();
                 }
             }
             // perdu on recommence à0
@@ -428,7 +415,8 @@ public class BusGameActivity extends AppCompatActivity {
             }
         }
         else{
-            message="perdu";
+            message=getString(R.string.loose);
+            restart();
         }
         return message;
     }
@@ -451,6 +439,26 @@ public class BusGameActivity extends AppCompatActivity {
         return id;
     }
 
+    // recommencer
+    private void restart(){
+        plusButton.setVisibility(View.INVISIBLE);
+        minusButton.setVisibility(View.INVISIBLE);
+        Button restart = findViewById(R.id.restart_button);
+        cardBack.setVisibility(View.GONE);
+        cardRemain.setVisibility(View.GONE);
+        restart.setVisibility(View.VISIBLE);
+        restart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+                mainActivity.putExtra("apebus restart", true);
+                startActivity(mainActivity);
+                overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
+                finish();
+            }
+        });
+    }
+
     /**
      *
      * @param image à afficher dynamiquement
@@ -466,8 +474,8 @@ public class BusGameActivity extends AppCompatActivity {
             @Override
             public void run() {
                 slide_out_right.reset();
-                packqueCard.clearAnimation();
-                packqueCard.startAnimation(slide_out_right);
+                cardBack.clearAnimation();
+                cardBack.startAnimation(slide_out_right);
                 text.setText("");
                 cardRemain.setText(Integer.toString(cardList.size()));
             }
@@ -491,6 +499,7 @@ public class BusGameActivity extends AppCompatActivity {
             public void run() {
                 SetCurrentCardEffect();
                 text.setText(message);
+                Scroll();
                 OnClickButton();
             }
         },time);
@@ -527,6 +536,13 @@ public class BusGameActivity extends AppCompatActivity {
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                if(typeOfCall==1)
+                    init();
+            }
+        });
         alertDialog.show();
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -546,6 +562,18 @@ public class BusGameActivity extends AppCompatActivity {
             }
         });
     }
+
+    // fonction pour scroll correctement
+    private void Scroll(){
+        // retour à 0
+        if(currentCard == 0){
+            horizontalScrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+        }
+        else if (currentCard == 4){
+            horizontalScrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+        }
+    }
+
     @Override
     public void onBackPressed() {
 

@@ -5,6 +5,7 @@ import static android.content.ContentValues.TAG;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -74,7 +75,6 @@ public class AddSentenceActivity extends AppCompatActivity {
     private boolean editSentence = false;
     private int editSentenceIndex;
     private String[] decodedSentence;
-    private static final String FILE_NAME = "custom_sentences.txt";
     private Button button1Point;
     private Button button2Points;
     private Button button3Points;
@@ -85,12 +85,10 @@ public class AddSentenceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sentence);
-        fileBuilder();
         init();
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            editSentenceIndex=extras.getInt("editSentenceIndex");
             editSentence = extras.getBoolean("editSentence");
             decodedSentence = extras.getStringArray("decodedSentence");//0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7:typeOfGame 8: la punition        }
         }
@@ -899,61 +897,18 @@ public class AddSentenceActivity extends AppCompatActivity {
         return encodingSentence;
     }
 
-    private void fileBuilder(){
-        //construction du fichier
-        String fileText ="End\nEnd";
-
-        File file = new File(getFilesDir()+"/"+FILE_NAME);
-        if (!file.exists()){
-            FileOutputStream fos = null;
-
-            try {
-                fos = openFileOutput(FILE_NAME,MODE_PRIVATE);
-                fos.write(fileText.getBytes());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if(fos!=null){
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
     private void addSentence(String[] ligne){
         DataBaseManager dataBaseManager = new DataBaseManager();
-        //on récup la langue acctuelement utilisé par l'appli
-        String language = getResources().getConfiguration().locale.getLanguage();
-
-        if (language.equals("fr")) {
-            language="FR";
-        } else {
-            language="EN";
-        }
+        String language="CUSTOM";
         if(editSentence){
-            dataBaseManager.updateSentence(language,ligne,editSentenceIndex,getApplicationContext());
+            dataBaseManager.updateSentenceInDB(language,ligne,decodedSentence[2].replace(getString(R.string.player_landmark),"§"),getApplicationContext());
         }else{
             dataBaseManager.addSentenceToDB(language,ligne,getApplicationContext());
         }
-
-    }
-
-    // pour voir le contenu du fichier
-    private void showFile() throws IOException {
-        //ouverture du fichier
-        FileInputStream fis=openFileInput(FILE_NAME);
-        InputStreamReader isr = new InputStreamReader(fis);
-        BufferedReader br = new BufferedReader(isr);
-
-        //on compte le nombre de ligne pour créer un tableau de bonne taille
-        String text;
-        while ((text = br.readLine())!=null){
-            Log.d(TAG, "showFile : "+text);
-        }
-        fis.close();
+        SharedPreferences customSentences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = customSentences.edit();
+        editor.putBoolean("customSentences",true);
+        editor.apply();
     }
 
     @Override

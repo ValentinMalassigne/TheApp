@@ -5,8 +5,7 @@
     android:id="@+id/option_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_dark"
-
+    android:background="@drawable/background_gradient_color_red"
     tools:context=".MainActivity">
 
     <ImageView

@@ -170,10 +170,11 @@
     <string name="coming_soon">Bientôt disponible</string>
     <string name="new_game_coming_soon">Un nouveau jeu sera bientôt disponible, soyez prêt !</string>
     <string name="apebus_description">Le fameux jeu de l\'auto-bus est la aussi !</string>
-    <string name="temp_win_bus">Bien joué ! Carte suivante, plus ou moins ?</string>
+    <string name="temp_win_bus">Bien joué ! Maintenant carte suivante, plus ou moins ?</string>
     <string name="lost_game_bus">Perdu, bois µ gorgée(s) et ça recommence, plus ou moins ?</string>
-    <string name="well_done_u_win">Bravo ! Tu as gagné</string>
+    <string name="well_done_u_win">Bravo ! tu as gagné</string>
     <string name="how_many_card">Niveau de difficulté</string>
-    <string name="ape_bus_rules">Attend la fin de l\'animation pour commencer, essaye de deviner si la card tiré est plus ou moins grandes que la précédente</string>
-    <string name="ape_bus_rules2">"C'est mieux si un de tes amis te fais jouer "</string>
+    <string name="ape_bus_rules">Attend la fin de l\'animation. Tente de deviner si la carte tiré sera plus ou moins grande que la carte zommé</string>
+    <string name="ape_bus_rules2">C\'est mieux si un amis te fait jouer</string>
+    <string name="welcome">Bienvenue</string>
 </resources>

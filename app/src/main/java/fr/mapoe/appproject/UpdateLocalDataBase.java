@@ -22,16 +22,16 @@ public class UpdateLocalDataBase extends AppCompatActivity {
 
     public void checkForUpdate(Context context){
         int onlineVersion=1; // normalement il faudra récup la version de la base de donnée online;
-        //on charge le langage enregistrée dans les shared preferences
+        //on charge la version de la db enregistrée dans les shared preferences
         SharedPreferences localDBVersion = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         int currentLocalDBVersion = localDBVersion.getInt("localDBVersion",0);
 
         //si on voit que la version local n'est pas la bonne alors on met a jour la db, et normalement on met aussi le shared preferences a jour
-        if(currentLocalDBVersion!=onlineVersion){
+        if(currentLocalDBVersion!=onlineVersion) {
             try {
                 setUpList(context);
                 SharedPreferences.Editor editor = localDBVersion.edit();
-                editor.putInt("localDBVersion",onlineVersion);
+                editor.putInt("localDBVersion", onlineVersion);
                 editor.apply();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -157,20 +157,15 @@ public class UpdateLocalDataBase extends AppCompatActivity {
             sentence = ligne.substring(i + 1, j);//on lit la phrase
             punition = ligne.substring(j + 1);
 
-            currentChallenge[0] = points;
+            currentChallenge[0]=points;
             currentChallenge[1]=answers;
             currentChallenge[2]=sentence;
             currentChallenge[3]=SentenceType;
             currentChallenge[4]=rightAnswer;
-            if(rightAnswer.equals("+")){
-                currentChallenge[5] = button1Text;
-                currentChallenge[6] = button2Text;
-            }else{
-                currentChallenge[6] = button1Text;
-                currentChallenge[5] = button2Text;
-            }
-            currentChallenge[7] = punition;
-            currentChallenge[8] = typeOfGame;
+            currentChallenge[6]=button1Text;//c'est inversé bouton rep1 est la réponse de gauche mais dans la table on commence par la réponse de droite
+            currentChallenge[5]=button2Text;
+            currentChallenge[7]=punition;
+            currentChallenge[8]=typeOfGame;
             result = true;
         }
         return currentChallenge;

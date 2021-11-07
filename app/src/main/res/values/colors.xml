@@ -11,4 +11,6 @@
     <color name="rouge_pale">#FFC3C3</color>
     <color name="red">#FF1B1B</color>
     <color name="green">#11651D</color>
+    <color name="test1">#99BDD7</color>
+    <color name="test2">#8AB3D0</color>
 </resources>

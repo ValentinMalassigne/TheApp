@@ -56,7 +56,7 @@ public class GameActivity extends AppCompatActivity {
     private ArrayList<String[]> sentenceList = new ArrayList<String[]>();
     private ArrayList<String> playerTurn = new ArrayList<String>();
     private ArrayList<String[]> gagesList = new ArrayList<String[]>();
-    private ArrayList<String[]> savedSentenceList = null;
+    private ArrayList<String> savedSentenceList = null;
     private String[] currentChallenge = new String[8]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: la punition
     private String currentPlayer = "";
     private ConstraintLayout gameLayout;
@@ -120,7 +120,7 @@ public class GameActivity extends AppCompatActivity {
             if (restart) {
                 //savedSentenceList = extras.getStringArrayList("savedList");
             } else {
-                savedSentenceList = new ArrayList<String[]>();
+                savedSentenceList = new ArrayList<String>();
             }
         }
 
@@ -339,18 +339,8 @@ public class GameActivity extends AppCompatActivity {
         Button noButton = (Button) layoutView.findViewById(R.id.no_button);
         Button nextButton = (Button) layoutView.findViewById(R.id.next_button);
 
-        //génération de l'aléatoire des boutons réponse : (0 = bouton gauche, 1 = bouton droite)
-        Random r = new Random();
-        rightButton = r.nextInt(2) ; //génère un entier 0 ou 1 (2 est exclu)
-
-        //on change la réponse des boutons avec celles des la phrases
-        if(rightButton==0){
-            yesButton.setText(currentChallenge[5]);//la première rep est la rightAnswer
-            noButton.setText(currentChallenge[6]);//la deuxième rep*
-        }else{
-            yesButton.setText(currentChallenge[6]);//la première rep
-            noButton.setText(currentChallenge[5]);//la deuxième rep est la rightAnswer
-        }
+        yesButton.setText(currentChallenge[5]);//la première rep
+        noButton.setText(currentChallenge[6]);//la deuxième rep est la rightAnswer
 
 
 
@@ -371,7 +361,7 @@ public class GameActivity extends AppCompatActivity {
             yesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (rightButton==0) {//si c'est 0 et que le joueur répond oui alors il a gagné
+                    if (currentChallenge[4].equals("+")) {//si c'est + et que le joueur répond oui alors il a gagné
                         String temp = getRandomWinSentence();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         noButton.setVisibility(View.GONE);
@@ -391,7 +381,7 @@ public class GameActivity extends AppCompatActivity {
             noButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (rightButton==1) {//si c'est 1 et que le joueur répond non alors il a gagné
+                    if (currentChallenge[4].equals("-")) {//si c'est - et que le joueur répond non alors il a gagné
                         String temp = getRandomWinSentence();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         noButton.setVisibility(View.GONE);
@@ -584,28 +574,28 @@ public class GameActivity extends AppCompatActivity {
         for (int j = 0; j < savedSentenceList.size(); j++) {
             // on parcours toutes les listes et on suprimes les phrases présentent dans savedSentenceList
             for (int i = 0; i < gagesList.size(); i++) {
-                if (gagesList.get(i).equals(savedSentenceList.get(j))) {
+                if (gagesList.get(i)[2].equals(savedSentenceList.get(j))) {
                     gagesList.remove(i);
                 }
             }
             for (int i = 0; i < miniGamesList.size(); i++) {
-                if (miniGamesList.get(i).equals(savedSentenceList.get(j))
+                if (miniGamesList.get(i)[2].equals(savedSentenceList.get(j))
                         && !miniGamesList.get(i).equals("Spinning Wheel") && !miniGamesList.get(i).equals("Red or Black")) {
                     String[] supp = miniGamesList.remove(i);
                 }
             }
             for (int i = 0; i < sentenceList.size(); i++) {
-                if (sentenceList.get(i).equals(savedSentenceList.get(j))) {
+                if (sentenceList.get(i)[2].equals(savedSentenceList.get(j))) {
                     String[] supp = sentenceList.remove(i);
                 }
             }
             for (int i = 0; i < customSentencesList.size(); i++) {
-                if (customSentencesList.get(i).equals(savedSentenceList.get(j))) {
+                if (customSentencesList.get(i)[2].equals(savedSentenceList.get(j))) {
                     String[] supp = customSentencesList.remove(i);
                 }
             }
         }
-        savedSentenceList=new ArrayList<String[]>();
+        savedSentenceList=new ArrayList<String>();
     }
 
     private void newDisplay(View view) throws IOException {
@@ -953,7 +943,7 @@ public class GameActivity extends AppCompatActivity {
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
         String[] res=customSentencesList.remove(number);
-        savedSentenceList.add(res);
+        savedSentenceList.add(res[2]);//on rajoute la deuxième case qui correspond à la deuxième
         return res;
     }
 
@@ -964,7 +954,7 @@ public class GameActivity extends AppCompatActivity {
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
         String[] res=gagesList.remove(number);
-        savedSentenceList.add(res);
+        savedSentenceList.add(res[2]);//on rajoute la deuxième case qui correspond à la deuxième
         return res;
     }
 
@@ -974,7 +964,7 @@ public class GameActivity extends AppCompatActivity {
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
         String[] res= miniGamesList.remove(number);
-        savedSentenceList.add(res);
+        savedSentenceList.add(res[2]);//on rajoute la deuxième case qui correspond à la deuxième
         return res;
     }
 
@@ -985,7 +975,7 @@ public class GameActivity extends AppCompatActivity {
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
         String[] res=sentenceList.remove(number);
-        savedSentenceList.add(res);
+        savedSentenceList.add(res[2]);//on rajoute la deuxième case qui correspond à la deuxième
         return res;
     }
 

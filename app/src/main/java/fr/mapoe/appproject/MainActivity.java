@@ -23,6 +23,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.Locale;
 
+import fr.mapoe.appproject.tools.AccesHTTP;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null) {
             restart = extras.getBoolean("apebus restart");
         }
+        AccesHTTP accesHTTP = new AccesHTTP(this);
+        accesHTTP.execute();
 
         //mise à jour de la base de données local (important de le faire après changement langue
         UpdateLocalDataBase updateLocalDataBase = new UpdateLocalDataBase();

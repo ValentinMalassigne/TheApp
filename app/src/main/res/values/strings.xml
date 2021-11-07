@@ -177,4 +177,5 @@
     <string name="how_many_card">Level of difficulty</string>
     <string name="ape_bus_rules">Wait until the animation is finish, try to guess if the card drawn is plus or minus that the previous one</string>
     <string name="ape_bus_rules2">Is better if one of your friend make you play</string>
+    <string name="welcome">Welcome</string>
 </resources>

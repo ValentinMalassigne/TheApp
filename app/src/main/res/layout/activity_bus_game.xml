@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/info_button"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"
         android:src="@drawable/question_mark"
@@ -45,7 +45,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/convergence"
-            android:text="Bienvenue"
+            android:text="@string/welcome"
             android:textColor="@color/white"
             android:textSize="24sp" />
 
@@ -114,6 +114,8 @@
         android:id="@+id/horizontalScrollView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:scrollbarSize="24sp"
+        android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,7 +124,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:id="@+id/cardLayout"
             android:gravity="center"
             android:orientation="horizontal">
