@@ -94,7 +94,7 @@ public class BusGameActivity extends AppCompatActivity {
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               showInfoDialog(R.layout.info_popup,0);
+                showInfoDialog(R.layout.info_popup,0);
             }
         });
         infoButton.setOnTouchListener(new View.OnTouchListener() {
@@ -122,8 +122,8 @@ public class BusGameActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
 
+    }
     @SuppressLint("ClickableViewAccessibility")
     private void init(){
         float scale = getResources().getDisplayMetrics().density;
@@ -132,13 +132,13 @@ public class BusGameActivity extends AppCompatActivity {
         int normalHeight = (int) (150 * scale);
         int zoomWidth = (int) (128 * scale);
         int zoomHeight = (int) (180 * scale);
-         int margin = (int) (15 * scale);
+        int margin = (int) (15 * scale);
         normalParams = new LinearLayout.LayoutParams(normalWidth,normalHeight);
         normalParams.leftMargin = margin;
         normalParams.rightMargin = margin;
         zoomParams = new LinearLayout.LayoutParams(zoomWidth,zoomHeight);
         zoomParams.leftMargin = margin;
-        zoomParams.rightMargin = margin;
+        normalParams.rightMargin = margin;
 
         cardTurn = new ImageView[nbCard]; // tableau qui stock les cartes
         // créer les cartes:
@@ -306,7 +306,7 @@ public class BusGameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int rdmIndex=0;
                 if(cardList.size()!=1) {
-                     rdmIndex = generate.nextInt(cardList.size() - 1);
+                    rdmIndex = generate.nextInt(cardList.size() - 1);
                 }
                 int previousId = cardTurn[currentCard].getId();
                 int previousIndex = currentCard;
@@ -415,7 +415,7 @@ public class BusGameActivity extends AppCompatActivity {
             }
         }
         else{
-            message="perdu";
+            message=getString(R.string.loose);
             restart();
         }
         return message;
@@ -438,6 +438,7 @@ public class BusGameActivity extends AppCompatActivity {
         else{}
         return id;
     }
+
     // recommencer
     private void restart(){
         plusButton.setVisibility(View.INVISIBLE);
@@ -457,6 +458,7 @@ public class BusGameActivity extends AppCompatActivity {
             }
         });
     }
+
     /**
      *
      * @param image à afficher dynamiquement
@@ -508,7 +510,6 @@ public class BusGameActivity extends AppCompatActivity {
      * permet de zoomer sur la carte actuelle
       */
     private void SetCurrentCardEffect(){
-
         for(int i=0;i<cardTurn.length;i++){
                 cardTurn[i].setLayoutParams(normalParams);
             }
@@ -539,7 +540,7 @@ public class BusGameActivity extends AppCompatActivity {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
                 if(typeOfCall==1)
-                init();
+                    init();
             }
         });
         alertDialog.show();
@@ -561,6 +562,7 @@ public class BusGameActivity extends AppCompatActivity {
             }
         });
     }
+
     // fonction pour scroll correctement
     private void Scroll(){
         // retour à 0
@@ -571,6 +573,7 @@ public class BusGameActivity extends AppCompatActivity {
             horizontalScrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
         }
     }
+
     @Override
     public void onBackPressed() {
 

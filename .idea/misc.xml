@@ -57,6 +57,8 @@
         <entry key="..\:/TheApp/app/src/main/res/layout/visualisation_popup.xml" value="0.25416666666666665" />
         <entry key="..\:/TheApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2703125" />
         <entry key="..\:/TheApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2703125" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/drawable/background_gradient_color_green.xml" value="0.3828125" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/drawable/background_gradient_color_red.xml" value="0.3828125" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/drawable/button.xml" value="0.2703125" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/drawable/button2.xml" value="0.2703125" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/drawable/button_shape.xml" value="0.2703125" />
@@ -77,8 +79,12 @@
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/drawable/roud_button_clicked.xml" value="0.2703125" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/drawable/roud_button_clicked2.xml" value="0.2703125" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/font/convergence.xml" value="0.284375" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout-v26/activity_add_sentence.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout-v26/activity_game_selection.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout-v26/activty_option.xml" value="0.28442028985507245" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout/activity_about.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout/activity_add_sentence.xml" value="0.4" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout/activity_bus_game.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout/activity_card_game.xml" value="0.2" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout/activity_character_choose.xml" value="0.5" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout/activity_game.xml" value="0.264" />

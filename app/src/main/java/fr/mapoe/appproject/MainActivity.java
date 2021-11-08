@@ -2,6 +2,7 @@ package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +14,6 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -41,8 +41,10 @@ public class MainActivity extends AppCompatActivity {
         if (extras != null) {
             restart = extras.getBoolean("apebus restart");
         }
-        AccesHTTP accesHTTP = new AccesHTTP(this);
-        accesHTTP.execute();
+
+        //mise à jour de la base de données local
+        UpdateLocalDataBase updateLocalDataBase = new UpdateLocalDataBase();
+        updateLocalDataBase.checkForUpdate(getApplicationContext());
 
         // si restart on ouvre la popup de ApeBus
         if(restart)
@@ -151,11 +153,11 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences language = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         long lastTime = language.getLong("lastWarningTime",0);
         if(currentTime-lastTime>3600000){//une heure en millisecondes
-            showInfoDialog(R.layout.info_popup);
             //ici on enregistre dans les SharedPreferences la langue choisie par l'utilisateur
             SharedPreferences.Editor editor = language.edit();
             editor.putLong("lastWarningTime",currentTime);
             editor.apply();
+            showInfoDialog(R.layout.info_popup);
         }
     }
     @SuppressLint("ClickableViewAccessibility")

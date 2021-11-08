@@ -51,11 +51,11 @@ public class GameActivity extends AppCompatActivity {
 
     private String[] playerTab, alcoholTab, scoreTab;
     private ArrayList<String> challengeList = new ArrayList<String>();
-    private ArrayList<String> customSentencesList = new ArrayList<String>();
-    private ArrayList<String> miniGamesList = new ArrayList<String>();
-    private ArrayList<String> sentenceList = new ArrayList<String>();
+    private ArrayList<String[]> customSentencesList = new ArrayList<String[]>();
+    private ArrayList<String[]> miniGamesList = new ArrayList<String[]>();
+    private ArrayList<String[]> sentenceList = new ArrayList<String[]>();
     private ArrayList<String> playerTurn = new ArrayList<String>();
-    private ArrayList<String> gagesList = new ArrayList<String>();
+    private ArrayList<String[]> gagesList = new ArrayList<String[]>();
     private ArrayList<String> savedSentenceList = null;
     private String[] currentChallenge = new String[8]; //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: la punition
     private String currentPlayer = "";
@@ -74,6 +74,7 @@ public class GameActivity extends AppCompatActivity {
     private ImageView skipButton;
     private String secondPlayer;
     private String thirdPlayer;
+    private DataBaseManager dataBaseManager;
     boolean restart = false;
 
     {
@@ -105,6 +106,8 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         this.activity = this;
+        dataBaseManager = new DataBaseManager();
+
         ConstraintLayout gameLayout = (ConstraintLayout) findViewById(R.id.game_layout);
 
         // recuperer les données
@@ -115,7 +118,7 @@ public class GameActivity extends AppCompatActivity {
             typeOfGame = extras.getInt("typeOfGame");
             restart = extras.getBoolean("restart");
             if (restart) {
-                savedSentenceList = extras.getStringArrayList("savedList");
+                //savedSentenceList = extras.getStringArrayList("savedList");
             } else {
                 savedSentenceList = new ArrayList<String>();
             }
@@ -127,8 +130,8 @@ public class GameActivity extends AppCompatActivity {
         this.answerButton = (Button) findViewById(R.id.answer_button);
         //setUp des list
         try {
-            //testApp();
             setUpList();
+            //testApp();
             newDisplay(gameLayout);
         } catch (IOException e) {
             e.printStackTrace();
@@ -326,6 +329,7 @@ public class GameActivity extends AppCompatActivity {
 
     private void showAnswerPopup(int layout, String text, int typeOfCall) {
         final boolean[] rightAnswer = {false};
+        int rightButton;
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
@@ -335,9 +339,10 @@ public class GameActivity extends AppCompatActivity {
         Button noButton = (Button) layoutView.findViewById(R.id.no_button);
         Button nextButton = (Button) layoutView.findViewById(R.id.next_button);
 
-        //on change la réponse des boutons avec celles du fichier
         yesButton.setText(currentChallenge[5]);//la première rep
-        noButton.setText(currentChallenge[6]);//la deuxième rep*
+        noButton.setText(currentChallenge[6]);//la deuxième rep est la rightAnswer
+
+
 
         // change bg suivant le jeu
         if (typeOfGame == 2) {
@@ -376,7 +381,7 @@ public class GameActivity extends AppCompatActivity {
             noButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (currentChallenge[4].equals("-")) {//si c'est - et que le joueur répond oui alors il a gagné
+                    if (currentChallenge[4].equals("-")) {//si c'est - et que le joueur répond non alors il a gagné
                         String temp = getRandomWinSentence();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         noButton.setVisibility(View.GONE);
@@ -532,63 +537,32 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void setUpList() throws IOException {
-        int nbFiles = 1;
-        //on vérifie si l'utilisateur à des phrases custom
-        File file = new File(getFilesDir() + "/" + FILE_NAME);
-        if (file.exists()) {
-            nbFiles = 2;
-        }
-
+        String[] tempSentence = new String[9];
         //on récup la langue acctuelement utilisé par l'appli
         String language = getResources().getConfiguration().locale.getLanguage();
 
-        InputStream inputStream = null;
         if (language.equals("fr")) {
-            inputStream = this.getResources().openRawResource(R.raw.fr_sentences);
+            language="FR";
         } else {
-            inputStream = this.getResources().openRawResource(R.raw.en_sentences);
+            language="EN";
         }
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-        //une fois la boucle lit le fichier raw et une fois elle lit le fichier custom (s'il existe)
-        for (int i = 1; i <= nbFiles; i++) {
-            if (i == 2) {
-                FileInputStream fis = openFileInput(FILE_NAME);
-                InputStreamReader isr = new InputStreamReader(fis);
-                reader = new BufferedReader(isr);
-            }
+        int numberOfSentences = dataBaseManager.getNumberOfSentences(language,getApplicationContext());
 
-            //on passe toute les lignes tant que l'on est pas aux lignes du mode génant
-            if (typeOfGame == 2) {
-                while (!reader.readLine().equals("End")) {
-                }
+        for(int i=1;i<=numberOfSentences;i++) {
+            tempSentence=dataBaseManager.getSentenceFromDB(language,i,getApplicationContext());
+            if(tempSentence[3].equals("gages")){
+                gagesList.add(tempSentence);
+            }else if(tempSentence[3].equals("minigames")){
+                miniGamesList.add(tempSentence);
+            }else if(tempSentence[3].equals("questions")){
+                sentenceList.add(tempSentence);
+            }else if(tempSentence[3].equals("custom")){
+                customSentencesList.add(tempSentence);
             }
-            if (i == 1) {
-                reader.readLine();//on passe la ligne "gages"
-                String tempLine = reader.readLine();//on lit le premier gage
-                while (!tempLine.equals("minigames")) {
-                    gagesList.add(tempLine);
-                    tempLine = reader.readLine();
-                }
-                tempLine = reader.readLine();
-                while (!tempLine.equals("questions")) {
-                    miniGamesList.add(tempLine);
-                    tempLine = reader.readLine();
-                }
-                tempLine = reader.readLine();
-                while (!tempLine.equals("End")) {
-                    sentenceList.add(tempLine);
-                    tempLine = reader.readLine();
-                }
-            } else {
-                String tempLine = reader.readLine();//on lit la première phrase
-                while (!tempLine.equals("End")) {
-                    customSentencesList.add(tempLine);
-                    tempLine = reader.readLine();
-                }
-            }
-            inputStream.close();
         }
+
+
         // on vérifie si la list savedSentenceList est remplis
         if (savedSentenceList != null) {
             RemoveSentenceFromList();
@@ -600,24 +574,24 @@ public class GameActivity extends AppCompatActivity {
         for (int j = 0; j < savedSentenceList.size(); j++) {
             // on parcours toutes les listes et on suprimes les phrases présentent dans savedSentenceList
             for (int i = 0; i < gagesList.size(); i++) {
-                if (gagesList.get(i).equals(savedSentenceList.get(j))) {
+                if (gagesList.get(i)[2].equals(savedSentenceList.get(j))) {
                     gagesList.remove(i);
                 }
             }
             for (int i = 0; i < miniGamesList.size(); i++) {
-                if (miniGamesList.get(i).equals(savedSentenceList.get(j))
+                if (miniGamesList.get(i)[2].equals(savedSentenceList.get(j))
                         && !miniGamesList.get(i).equals("Spinning Wheel") && !miniGamesList.get(i).equals("Red or Black")) {
-                    String supp = miniGamesList.remove(i);
+                    String[] supp = miniGamesList.remove(i);
                 }
             }
             for (int i = 0; i < sentenceList.size(); i++) {
-                if (sentenceList.get(i).equals(savedSentenceList.get(j))) {
-                    String supp = sentenceList.remove(i);
+                if (sentenceList.get(i)[2].equals(savedSentenceList.get(j))) {
+                    String[] supp = sentenceList.remove(i);
                 }
             }
             for (int i = 0; i < customSentencesList.size(); i++) {
-                if (customSentencesList.get(i).equals(savedSentenceList.get(j))) {
-                    String supp = customSentencesList.remove(i);
+                if (customSentencesList.get(i)[2].equals(savedSentenceList.get(j))) {
+                    String[] supp = customSentencesList.remove(i);
                 }
             }
         }
@@ -633,7 +607,7 @@ public class GameActivity extends AppCompatActivity {
         skipButton = findViewById(R.id.skip_button);
         skipButton.setVisibility(View.INVISIBLE);
 
-        if (GetNextInformations()) {//on vérifie si on continue a construire la page avec lex textView
+        if (GetNextInformations()) {//on vérifie si on continue a construire la page avec les textView
             String type = currentChallenge[3];
 
             TextView currentTitleDisplay = (TextView) findViewById(R.id.current_title_display);
@@ -657,15 +631,26 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void testApp() throws IOException {
-        ArrayList<String> testList = testSetUpList();
+        String res;
+        int nbSentences = dataBaseManager.getNumberOfSentences("FR",getApplicationContext());
+        for (int i=1;i<=nbSentences;i++){
+            res="";
+            String[] sentenceFromDB = dataBaseManager.getSentenceFromDB("FR",i,getApplicationContext());
+            for(int j=0;j<9;j++){
+                res=res+sentenceFromDB[j];
+            }
+            Log.d(TAG, "testApp: "+res);
+        }
+        /*ArrayList<String> testList = testSetUpList();
         int nbSentences = 0;
         while (!testList.isEmpty()) {
             nbSentences++;
             testGetNextInformations(testList.remove(0));
-        }
+        }*/
     }
 
     private void testGetNextInformations(String testPhrase) {
+        Log.d(TAG, "testGetNextInformations: "+testPhrase);
         String ligne = testPhrase;
         boolean result = false;
         boolean temp = false;
@@ -673,8 +658,10 @@ public class GameActivity extends AppCompatActivity {
         int j;
         if (ligne.equals("Spinning Wheel")) {
             //setUpWheel();
+            currentChallenge[2]=testPhrase;
         } else if (ligne.equals("Red or Black")) {
            //startCardGame();
+            currentChallenge[2]=testPhrase;
         } else {
             //currentChallenge[3] = tempTab[0]; on vérifie pas le type de la phrase c'est useless
             String points;
@@ -747,7 +734,6 @@ public class GameActivity extends AppCompatActivity {
             currentChallenge[7] = punition;
             result = true;
         }
-
     }
 
     private ArrayList<String> testSetUpList() throws IOException {
@@ -786,90 +772,27 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private boolean GetNextInformations(){
+        //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: la punition 8:typeOfGame
         String type = getChallengeTurn();
-        String[] tempTab =GetNextChallenge(type);
-        String ligne = tempTab[1];
-        boolean result=false;
-        boolean temp = false;
-        int i=0;
-        int j;
-        if(ligne.equals("Spinning Wheel")){
+        String[] tempSentenceTab =GetNextChallenge(type);
+        boolean result = false; //il sert a savoir si on a une page classique ou un mini jeu custom
+
+        if(tempSentenceTab[2].equals("Spinning Wheel")){
             setUpWheel();
-        }else if(ligne.equals("Red or Black")) {
+        }else if(tempSentenceTab[2].equals("Red or Black")) {
             startCardGame();
         }else{
-            currentChallenge[3]= tempTab[0];
-            String points;
-            String answers;
-            String sentence;
-            String rightAnswer;
-            String button1Text;
-            String button2Text;
-            String punition;
-
-            //on lit tant que l'on est pas a / pour savoir quelle est le premier bouton
-            while (!temp){
-                if(ligne.substring(i,i+1).equals("/")){
-                    temp=true;
-                }else {
-                    i++;
-                }
-            }
-            button1Text=ligne.substring(0,i);
-            j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
-
-            //on lit tant que l'on est pas a + ou - pour savoir quelle est le deuxième bouton
-            temp=false;
-            while (!temp){
-                if(ligne.substring(i,i+1).equals("+") || ligne.substring(i,i+1).equals("-")){
-                    temp=true;
-                }else {
-                    i++;
-                }
-            }
-
-            button2Text=ligne.substring(j,i);
-
-            rightAnswer = ligne.substring(i,i+1);//on recup le + ou - qui se trouve juste après la deuxième rep
-            points= ligne.substring(i+1,i+2);//on recup le nb de points qui est juste après le + ou -
-
-            j=i+1;//on sauvergarde à quelle caractère il faut reprendre la lecture
-
-            //on lit tant que l'on a est pas a ¤ pour avoir la réponse
-            temp=false;
-            while (!temp){
-                if(ligne.substring(i,i+1).equals("¤")){
-                    temp=true;
-                }else {
-                    i++;
-                }
-            }
-            answers=ligne.substring(j+1,i); //la phrase qui demande quelle est la bonne réponse
-
-            j=i+1;
-            temp=false;
-            while (!temp){
-                if(ligne.substring(j,j+1).equals("¤")){
-                    temp=true;
-                }else{
-                    j++;
-                }
-            }
-
-            sentence=ligne.substring(i+1,j);//on lit la phrase
-            punition=ligne.substring(j+1);
-
-            currentChallenge[0]=points;
-            currentChallenge[1]=SetNamesInAnswer(answers);
-            currentChallenge[2]=SetNameInSentence(sentence);
-            currentChallenge[4]=rightAnswer;
-            String[] btnText = SetNameInButton(button1Text,button2Text); // 0: btn1 1:btn2
+            currentChallenge[0]=tempSentenceTab[0];
+            currentChallenge[1]=SetNamesInAnswer(tempSentenceTab[1]);
+            currentChallenge[2]=SetNameInSentence(tempSentenceTab[2]);
+            currentChallenge[3]=tempSentenceTab[3];
+            currentChallenge[4]=tempSentenceTab[4];
+            String[] btnText = SetNameInButton(tempSentenceTab[5],tempSentenceTab[6]); // 0: btn1 1:btn2
             currentChallenge[5]=btnText[0];
             currentChallenge[6]=btnText[1];
-            currentChallenge[7]=punition;
+            currentChallenge[7]=tempSentenceTab[7];
             result =true;
         }
-
         return result;
     }
 
@@ -971,6 +894,7 @@ public class GameActivity extends AppCompatActivity {
 
         return occurrences;
     }
+
     private String SetNameInSentence(String text) {
         String res = "";
         int nbPlayer = numberOfOccurrences(text,"§");
@@ -995,66 +919,63 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private String[] GetNextChallenge(String type) {
-        String[] res=new String[2];
+        String[] res=new String[9];
 
         if(type.equals("gage")){
-            res[0]=getString(R.string.type_gage);
-            res[1]=GetRandomGage();
+            res=GetRandomGage();
         }
         if(type.equals("miniGame")){
-            res[0]=getString(R.string.type_mini_game);
-            res[1]=GetRandomMiniGame();
+            res=GetRandomMiniGame();
         }
         if (type.equals("sentence")){
-            res[0]=getString(R.string.type_sentence);
-            res[1]=GetRandomSentence();
+            res=GetRandomSentence();
         }
         if (type.equals("custom")){
-            res[0]="Custom";
-            res[1]=GetRandomCustomSentence();
+            res=GetRandomCustomSentence();
         }
         return res;
     }
 
     // pour chaque méthode on ajoutera la phrase à la liste contenant toutes les phrases déjà tombé
-    private String GetRandomCustomSentence() {
+    private String[] GetRandomCustomSentence() {
         int min=0;
         int max = customSentencesList.size()-1;
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
-        String res=customSentencesList.remove(number);
-        savedSentenceList.add(res);
+        String[] res=customSentencesList.remove(number);
+        savedSentenceList.add(res[2]);//on rajoute la deuxième case qui correspond à la deuxième
         return res;
     }
 
-    private String GetRandomGage() {
+    private String[] GetRandomGage() {
 
         int min=0;
         int max = gagesList.size()-1;
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
-        String res=gagesList.remove(number);
-        savedSentenceList.add(res);
+        String[] res=gagesList.remove(number);
+        savedSentenceList.add(res[2]);//on rajoute la deuxième case qui correspond à la deuxième
         return res;
     }
 
-    private String GetRandomMiniGame() {
+    private String[] GetRandomMiniGame() {
         int min=0;
         int max = miniGamesList.size()-1;
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
-        String res= miniGamesList.remove(number);
-        savedSentenceList.add(res);
+        String[] res= miniGamesList.remove(number);
+        savedSentenceList.add(res[2]);//on rajoute la deuxième case qui correspond à la deuxième
         return res;
     }
 
-    private String GetRandomSentence() {
+    private String[] GetRandomSentence() {
         int min=0;
         int max = sentenceList.size()-1;
+        Log.d(TAG, "GetRandomSentence: "+max);
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
-        String res=sentenceList.remove(number);
-        savedSentenceList.add(res);
+        String[] res=sentenceList.remove(number);
+        savedSentenceList.add(res[2]);//on rajoute la deuxième case qui correspond à la deuxième
         return res;
     }
 
