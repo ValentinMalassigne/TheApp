@@ -1,13 +1,12 @@
-package fr.mapoe.appproject;
-
-import static android.content.ContentValues.TAG;
+package fr.mapoe.appproject.sqlite;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import fr.mapoe.appproject.sqlite.MySQLiteOpenHelper;
 
 public class DataBaseManager extends AppCompatActivity {
 

@@ -12,9 +12,9 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +29,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import fr.mapoe.appproject.tools.ThemeManager;
 
 
 public class CharacterChooseActivity extends AppCompatActivity {
@@ -58,6 +60,9 @@ public class CharacterChooseActivity extends AppCompatActivity {
         this.addPlayer = (Button) findViewById(R.id.add_player_button);
         this.goToGame = (Button) findViewById(R.id.game_button);
         this.goToMenu = (Button) findViewById(R.id.menu_button);
+        ThemeManager themeManager = new ThemeManager(this, "blue");
+        Drawable buttonDrawable = themeManager.getButtonDrawable();
+        addPlayer.setBackground(buttonDrawable);
         // recupération des valeurs passé en param
         Bundle extras = getIntent().getExtras();
 
@@ -82,9 +87,9 @@ public class CharacterChooseActivity extends AppCompatActivity {
         // changer le bg des buttons si on ApePiment
         if (typeOfGame==2) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                addPlayer.setBackground(getDrawable(R.drawable.button2));
-                goToGame.setBackground(getDrawable(R.drawable.button2));
-                goToMenu.setBackground(getDrawable(R.drawable.button2));
+                addPlayer.setBackground(getDrawable(R.drawable.button_apepiment));
+                goToGame.setBackground(getDrawable(R.drawable.button_apepiment));
+                goToMenu.setBackground(getDrawable(R.drawable.button_apepiment));
             }
         }
 
@@ -311,7 +316,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         // chnagement du bg button on fonction du mode de jeu
         if(typeOfGame == 2) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                okButton.setBackground(getDrawable(R.drawable.button2));
+                okButton.setBackground(getDrawable(R.drawable.button_apepiment));
             }
         }
         okButton.setOnClickListener(new View.OnClickListener() {

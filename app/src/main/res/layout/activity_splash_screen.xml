@@ -16,7 +16,6 @@
         android:textSize="35sp"
         android:textColor="@color/white"
         android:fontFamily="@font/convergence"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/cardview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,23 +1,18 @@
-package fr.mapoe.appproject;
-
-import static android.content.ContentValues.TAG;
+package fr.mapoe.appproject.sqlite;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
-import fr.mapoe.appproject.tools.AccesHTTP;
+import fr.mapoe.appproject.R;
+import fr.mapoe.appproject.sqlite.DataBaseManager;
+
 
 public class UpdateLocalDataBase extends AppCompatActivity {
     private static final String FILE_NAME = "custom_sentences.txt";
@@ -25,8 +20,6 @@ public class UpdateLocalDataBase extends AppCompatActivity {
     private Context mainActivityContext;
     public void checkForUpdate(Context context){
         mainActivityContext = context;
-        AccesHTTP accesHTTP = new AccesHTTP(context);
-        accesHTTP.execute();
         int onlineVersion=1; // normalement il faudra récup la version de la base de donnée online;
         //on charge la version de la db enregistrée dans les shared preferences
         SharedPreferences localDBVersion = context.getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
@@ -66,20 +59,6 @@ public class UpdateLocalDataBase extends AppCompatActivity {
         adaptedSentence[8]=sentence[0];
         return adaptedSentence;
     }
-
-    /* Ne marche pas et jsp pas pourquoi, il y a une erreur avec sentenceTab.length, car sentenceTab est null, ducoup le getter ne semble pas marcher
-    public void updateFromOnlineDB(Context context){
-        AccesHTTP accesHTTP = new AccesHTTP(context);
-        accesHTTP.execute();
-
-        String[][] sentenceTab=accesHTTP.getSentenceTab();
-
-        for(int i=0;i<sentenceTab.length;i++){
-            for(int j=0;j<10;j++){
-                Log.d("anus",sentenceTab[i][j]);
-            }
-        }
-    }*/
 
     //uniquement utile tant que l'on a des fichiers local
     private void setUpList(Context context) throws IOException {

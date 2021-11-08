@@ -1,8 +1,5 @@
 package fr.mapoe.appproject;
 
-import static android.content.ContentValues.TAG;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,9 +11,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,14 +26,7 @@ import android.widget.Toast;
 
 import androidx.core.text.HtmlCompat;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
+import fr.mapoe.appproject.sqlite.DataBaseManager;
 
 
 public class AddSentenceActivity extends AppCompatActivity {
@@ -512,14 +500,14 @@ public class AddSentenceActivity extends AppCompatActivity {
     private void setButtonBg(String gameMode){
         if(gameMode.equals("ApeChill")){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                sentenceEditNextButton.setBackground(getDrawable(R.drawable.button));
-                answerEditNextButton.setBackground(getDrawable(R.drawable.button));
-                buttonsEditNextButton.setBackground(getDrawable(R.drawable.button));
-                editButton1.setBackground(getDrawable(R.drawable.button));
-                editButton2.setBackground(getDrawable(R.drawable.button));
-                scrollableEditButton1.setBackground(getDrawable(R.drawable.button));
-                scrollableEditButton2.setBackground(getDrawable(R.drawable.button));
-                visualizeButton.setBackground(getDrawable(R.drawable.button));
+                sentenceEditNextButton.setBackground(getDrawable(R.drawable.button_red));
+                answerEditNextButton.setBackground(getDrawable(R.drawable.button_red));
+                buttonsEditNextButton.setBackground(getDrawable(R.drawable.button_red));
+                editButton1.setBackground(getDrawable(R.drawable.button_red));
+                editButton2.setBackground(getDrawable(R.drawable.button_red));
+                scrollableEditButton1.setBackground(getDrawable(R.drawable.button_red));
+                scrollableEditButton2.setBackground(getDrawable(R.drawable.button_red));
+                visualizeButton.setBackground(getDrawable(R.drawable.button_red));
                 button1Point.setBackground(getDrawable(R.drawable.roud_button));
                 button2Points.setBackground(getDrawable(R.drawable.roud_button));
                 button3Points.setBackground(getDrawable(R.drawable.roud_button));
@@ -529,14 +517,14 @@ public class AddSentenceActivity extends AppCompatActivity {
         else{
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                sentenceEditNextButton.setBackground(getDrawable(R.drawable.button2));
-                answerEditNextButton.setBackground(getDrawable(R.drawable.button2));
-                buttonsEditNextButton.setBackground(getDrawable(R.drawable.button2));
-                editButton1.setBackground(getDrawable(R.drawable.button2));
-                editButton2.setBackground(getDrawable(R.drawable.button2));
-                scrollableEditButton1.setBackground(getDrawable(R.drawable.button2));
-                scrollableEditButton2.setBackground(getDrawable(R.drawable.button2));
-                visualizeButton.setBackground(getDrawable(R.drawable.button2));
+                sentenceEditNextButton.setBackground(getDrawable(R.drawable.button_apepiment));
+                answerEditNextButton.setBackground(getDrawable(R.drawable.button_apepiment));
+                buttonsEditNextButton.setBackground(getDrawable(R.drawable.button_apepiment));
+                editButton1.setBackground(getDrawable(R.drawable.button_apepiment));
+                editButton2.setBackground(getDrawable(R.drawable.button_apepiment));
+                scrollableEditButton1.setBackground(getDrawable(R.drawable.button_apepiment));
+                scrollableEditButton2.setBackground(getDrawable(R.drawable.button_apepiment));
+                visualizeButton.setBackground(getDrawable(R.drawable.button_apepiment));
                 button1Point.setBackground(getDrawable(R.drawable.roud_button2));
                 button2Points.setBackground(getDrawable(R.drawable.roud_button2));
                 button3Points.setBackground(getDrawable(R.drawable.roud_button2));
@@ -729,7 +717,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         alertDialog.show();
         if(typeOfGame ==2){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                answerButton.setBackground(getDrawable(R.drawable.button2));
+                answerButton.setBackground(getDrawable(R.drawable.button_apepiment));
             }
         }
         titleDisplay.setText(title);

@@ -1,6 +1,5 @@
 package fr.mapoe.appproject;
 
-import static android.content.ContentValues.TAG;
 import static java.lang.String.valueOf;
 
 import android.annotation.SuppressLint;
@@ -13,11 +12,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,19 +27,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.text.HtmlCompat;
-import androidx.core.widget.TextViewCompat;
 
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import fr.mapoe.appproject.sqlite.DataBaseManager;
 
 public class OptionActivity extends AppCompatActivity {
 

@@ -2,21 +2,17 @@ package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
-import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -68,7 +64,7 @@ public class GameEndActivity extends AppCompatActivity {
         Button restart = (Button) findViewById(R.id.restart_button);
         if(typeOfGame==2){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                restart.setBackground(getDrawable(R.drawable.button2));
+                restart.setBackground(getDrawable(R.drawable.button_apepiment));
             }
         }
         restart.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +90,7 @@ public class GameEndActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        Intent mainActivity = new Intent(getApplicationContext(), fr.mapoe.appproject.MainActivity.class);
+        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(mainActivity);
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         finish();

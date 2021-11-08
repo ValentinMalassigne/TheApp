@@ -2,6 +2,7 @@ package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -23,7 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.Locale;
 
-import fr.mapoe.appproject.tools.AccesHTTP;
+import fr.mapoe.appproject.sqlite.UpdateLocalDataBase;
+import fr.mapoe.appproject.tools.ThemeManager;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -45,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
         //mise à jour de la base de données local
         UpdateLocalDataBase updateLocalDataBase = new UpdateLocalDataBase();
         updateLocalDataBase.checkForUpdate(getApplicationContext());
+
+        // modification du background
+        ThemeManager backgroundManager = new ThemeManager(this,"blue");
+        Drawable drawable = backgroundManager.getDrawableRes();
+        ConstraintLayout constraintLayout = findViewById(R.id.main_layout);
+        constraintLayout.setBackground(drawable);
 
         // si restart on ouvre la popup de ApeBus
         if(restart)

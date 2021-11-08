@@ -100,7 +100,7 @@
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/button"
+            android:background="@drawable/button_red"
             android:layout_marginBottom="20dp"
             android:text="@string/restart_button"
             android:textAllCaps="false"

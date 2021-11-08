@@ -37,15 +37,14 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
+
+import fr.mapoe.appproject.sqlite.DataBaseManager;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -175,7 +174,7 @@ public class GameActivity extends AppCompatActivity {
 
         if (typeOfGame == 2) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                answerButton.setBackground(getDrawable(R.drawable.button2));
+                answerButton.setBackground(getDrawable(R.drawable.button_apepiment));
             }
         }
         answerButton.setOnClickListener(new View.OnClickListener() {
@@ -298,7 +297,7 @@ public class GameActivity extends AppCompatActivity {
         // chnagement du bg button on fonction du mode de jeu
         if (typeOfGame == 2) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                okButton.setBackground(getDrawable(R.drawable.button2));
+                okButton.setBackground(getDrawable(R.drawable.button_apepiment));
             }
         }
         okButton.setOnClickListener(new View.OnClickListener() {
@@ -347,9 +346,9 @@ public class GameActivity extends AppCompatActivity {
         // change bg suivant le jeu
         if (typeOfGame == 2) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                yesButton.setBackground(getDrawable(R.drawable.button2));
-                noButton.setBackground(getDrawable(R.drawable.button2));
-                nextButton.setBackground(getDrawable(R.drawable.button2));
+                yesButton.setBackground(getDrawable(R.drawable.button_apepiment));
+                noButton.setBackground(getDrawable(R.drawable.button_apepiment));
+                nextButton.setBackground(getDrawable(R.drawable.button_apepiment));
             }
         }
         dialogBuilder.setView(layoutView);

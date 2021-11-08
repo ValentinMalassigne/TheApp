@@ -59,7 +59,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:background="@drawable/button"
+        android:background="@drawable/button_red"
         android:text="@string/ok_button"
         android:textColor="#FFFFFF"
         android:textSize="20sp"

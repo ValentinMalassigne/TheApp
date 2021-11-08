@@ -306,7 +306,7 @@ public class CardGameActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent mainActivity = new Intent(getApplicationContext(),MainActivity.class);
+        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(mainActivity);
         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
         finish();
