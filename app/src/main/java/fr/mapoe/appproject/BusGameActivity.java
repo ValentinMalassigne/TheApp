@@ -4,8 +4,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -26,6 +28,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
+
+import fr.mapoe.appproject.tools.ThemeManager;
 
 public class BusGameActivity extends AppCompatActivity {
     private ImageView cardBack;
@@ -444,6 +448,9 @@ public class BusGameActivity extends AppCompatActivity {
         plusButton.setVisibility(View.INVISIBLE);
         minusButton.setVisibility(View.INVISIBLE);
         Button restart = findViewById(R.id.restart_button);
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
+        restart.setBackground(themeManager.getButtonDrawable());
         cardBack.setVisibility(View.GONE);
         cardRemain.setVisibility(View.GONE);
         restart.setVisibility(View.VISIBLE);

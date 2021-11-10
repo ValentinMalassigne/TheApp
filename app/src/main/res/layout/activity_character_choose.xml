@@ -53,7 +53,7 @@
                 android:id="@+id/add_player_button"
                 android:layout_width="140dp"
                 android:layout_height="50dp"
-
+                android:background="@drawable/button_red"
                 android:text="@string/addPlayer_button"
                 android:textColor="#FFFFFF"
                 android:textSize="12sp"

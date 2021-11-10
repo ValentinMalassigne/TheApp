@@ -1,9 +1,12 @@
 package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -19,6 +22,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import fr.mapoe.appproject.tools.ThemeManager;
+
 
 public class GameEndActivity extends AppCompatActivity {
 
@@ -33,6 +38,11 @@ public class GameEndActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_end);
+        // recupère le theme
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
+        ConstraintLayout constraintLayout = findViewById(R.id.game_end_layout);
+        constraintLayout.setBackground(themeManager.getBackgroundDrawable());
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -66,6 +76,9 @@ public class GameEndActivity extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 restart.setBackground(getDrawable(R.drawable.button_apepiment));
             }
+        }
+        else{
+            restart.setBackground(themeManager.getButtonDrawable());
         }
         restart.setOnClickListener(new View.OnClickListener() {
             @Override

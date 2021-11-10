@@ -2,6 +2,7 @@ package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.annotation.SuppressLint;
@@ -49,6 +50,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
     boolean restart= false;
     private int typeOfGame = 0;
     private ArrayList<String> savedSentenceList;
+    private Drawable buttonDrawable;
 
 
     @Override
@@ -60,8 +62,11 @@ public class CharacterChooseActivity extends AppCompatActivity {
         this.addPlayer = (Button) findViewById(R.id.add_player_button);
         this.goToGame = (Button) findViewById(R.id.game_button);
         this.goToMenu = (Button) findViewById(R.id.menu_button);
-        ThemeManager themeManager = new ThemeManager(this, "blue");
-        Drawable buttonDrawable = themeManager.getButtonDrawable();
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
+        ConstraintLayout constraintLayout = findViewById(R.id.character_main_layout);
+        constraintLayout.setBackground(themeManager.getBackgroundDrawable());
+        this.buttonDrawable = themeManager.getButtonDrawable();
         addPlayer.setBackground(buttonDrawable);
         // recupération des valeurs passé en param
         Bundle extras = getIntent().getExtras();
@@ -91,6 +96,11 @@ public class CharacterChooseActivity extends AppCompatActivity {
                 goToGame.setBackground(getDrawable(R.drawable.button_apepiment));
                 goToMenu.setBackground(getDrawable(R.drawable.button_apepiment));
             }
+        }
+        else{
+            addPlayer.setBackground(buttonDrawable);
+            goToGame.setBackground(buttonDrawable);
+            goToMenu.setBackground(buttonDrawable);
         }
 
         // ajout des TextView à chaque clique
@@ -153,7 +163,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         if(!restart)
         {
             //on vérifie si l'utilisateur à bloqué la popup
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+            sharedPreferences = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
             String alcohol_reminder_popup_blocked = "";
             if(sharedPreferences.contains("block_alcohol_reminder_popup")){
                 alcohol_reminder_popup_blocked = sharedPreferences.getString("block_alcohol_reminder_popup","");
@@ -305,6 +315,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(CharacterChooseActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
         Button okButton = layoutView.findViewById(R.id.ok_button);
+        okButton.setBackground(buttonDrawable);
         ImageView nextButton = layoutView.findViewById(R.id.right_popup_arrow);
         ImageView leftButton = layoutView.findViewById(R.id.left_popup_arrow);
         leftButton.setVisibility(View.GONE);

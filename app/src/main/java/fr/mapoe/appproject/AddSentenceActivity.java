@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -24,9 +25,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.text.HtmlCompat;
 
 import fr.mapoe.appproject.sqlite.DataBaseManager;
+import fr.mapoe.appproject.tools.ThemeManager;
 
 
 public class AddSentenceActivity extends AppCompatActivity {
@@ -67,6 +70,7 @@ public class AddSentenceActivity extends AppCompatActivity {
     private Button button2Points;
     private Button button3Points;
     private Button button4Points;
+    private Drawable buttonDrawable;
 
 
     @Override
@@ -92,6 +96,9 @@ public class AddSentenceActivity extends AppCompatActivity {
     }
     //déclaration
     private void init(){
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
+        this.buttonDrawable = themeManager.getButtonDrawable();
         this.sentenceEditNextButton = findViewById(R.id.sentence_edit_next_button);
         this.answerEditNextButton = findViewById(R.id.answer_edit_next_button);
         this.buttonsEditNextButton = findViewById(R.id.buttons_edit_next_button);
@@ -99,8 +106,13 @@ public class AddSentenceActivity extends AppCompatActivity {
         this.editButton2 = findViewById(R.id.edit_button2);
         this.scrollableEditButton1 = findViewById(R.id.scrollable_edit_button1);
         this.scrollableEditButton2 = findViewById(R.id.scrollable_edit_button2);
-
         this.visualizeButton = findViewById(R.id.visualize_button);
+        sentenceEditNextButton.setBackground(buttonDrawable);
+        answerEditNextButton.setBackground(buttonDrawable);
+        editButton1.setBackground(buttonDrawable);
+        editButton2.setBackground(buttonDrawable);
+        scrollableEditButton1.setBackground(buttonDrawable);
+        scrollableEditButton2.setBackground(buttonDrawable);
         // affichage du haut
         this.questionTextView = findViewById(R.id.question_textView);
         this.gameTypeLayout = findViewById(R.id.game_type_layout);
@@ -115,6 +127,10 @@ public class AddSentenceActivity extends AppCompatActivity {
         this.button2Points = findViewById(R.id.button_2_points);
         this.button3Points = findViewById(R.id.button_3_points);
         this.button4Points = findViewById(R.id.button_4_points);
+        button1Point.setBackground(buttonDrawable);
+        button2Points.setBackground(buttonDrawable);
+        button3Points.setBackground(buttonDrawable);
+        button4Points.setBackground(buttonDrawable);
 
         //affichage du scrollView
         this.scrollableGameModeLayout = findViewById(R.id.scrollable_game_mode_layout);
@@ -129,6 +145,8 @@ public class AddSentenceActivity extends AppCompatActivity {
         this.scrollablePointList = findViewById(R.id.scrollable_point_list);
         this.scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
         this.scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
+        ConstraintLayout constraintLayout = findViewById(R.id.add_sentence_layout);
+        constraintLayout.setBackground(themeManager.getBackgroundDrawable());
     }
 
     private void start(){
@@ -621,6 +639,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         View layoutView = getLayoutInflater().inflate(layout, null);
 
         Button okButton = layoutView.findViewById(R.id.ok_button);
+        okButton.setBackground(buttonDrawable);
         TextView textInfo = layoutView.findViewById(R.id.text_info);
         TextView bonusText = layoutView.findViewById(R.id.bonus_text);
         ImageView imageInfo = layoutView.findViewById(R.id.image_info);
@@ -710,6 +729,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         TextView titleDisplay = layoutView.findViewById(R.id.current_title_display);
         TextView textDisplay = layoutView.findViewById(R.id.current_text_display);
         Button answerButton = layoutView.findViewById(R.id.answer_button);
+        answerButton.setBackground(buttonDrawable);
         ImageView skip_button = layoutView.findViewById(R.id.skip_button);
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
@@ -750,6 +770,11 @@ public class AddSentenceActivity extends AppCompatActivity {
         Button addButton = layoutView.findViewById(R.id.add_button);
         Button nextButton = layoutView.findViewById(R.id.next_button);
         Button modifySentenceButton = layoutView.findViewById(R.id.modify_sentence_button);
+        yesButton.setBackground(buttonDrawable);
+        noButton.setBackground(buttonDrawable);
+        addButton.setBackground(buttonDrawable);
+        nextButton.setBackground(buttonDrawable);
+        modifySentenceButton.setBackground(buttonDrawable);
         ImageView xButton = layoutView.findViewById(R.id.x_answer_button);
         ImageView leftArrow = layoutView.findViewById(R.id.left_answer_arrow);
         TextView answerText = layoutView.findViewById(R.id.text_display);

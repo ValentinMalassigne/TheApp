@@ -55,7 +55,6 @@
     <string name="wheel_player_call">" spin the wheel by clicking on Spin"</string>
     <string name="or">or</string>
     <string name="black">Black</string>
-    <string name="red">Red</string>
     <string name="end_of_black_or_red">End of Game</string>
     <string name="games_election_button">Game Selection</string>
     <string name="type_gage">Dare</string>
@@ -178,4 +177,8 @@
     <string name="ape_bus_rules">Wait until the animation is finish, try to guess if the card drawn is plus or minus that the previous one</string>
     <string name="ape_bus_rules2">Is better if one of your friend make you play</string>
     <string name="welcome">Welcome</string>
+    <string name="theme">Themes</string>
+    <string name="red">Red</string>
+    <string name="blue">Blue</string>
+    <string name="green">Green</string>
 </resources>

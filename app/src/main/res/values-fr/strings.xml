@@ -177,4 +177,7 @@
     <string name="ape_bus_rules">Attend la fin de l\'animation. Tente de deviner si la carte tiré sera plus ou moins grande que la carte zommé</string>
     <string name="ape_bus_rules2">C\'est mieux si un amis te fait jouer</string>
     <string name="welcome">Bienvenue</string>
+    <string name="theme">Themes</string>
+    <string name="blue">Bleu</string>
+    <string name="green">Vert</string>
 </resources>

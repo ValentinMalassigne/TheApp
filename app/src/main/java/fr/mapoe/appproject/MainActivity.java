@@ -16,6 +16,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -45,13 +46,16 @@ public class MainActivity extends AppCompatActivity {
             restart = extras.getBoolean("apebus restart");
         }
 
+
         //mise à jour de la base de données local
         UpdateLocalDataBase updateLocalDataBase = new UpdateLocalDataBase();
         updateLocalDataBase.checkForUpdate(getApplicationContext());
 
         // modification du background
-        ThemeManager backgroundManager = new ThemeManager(this,"blue");
-        Drawable drawable = backgroundManager.getDrawableRes();
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+
+        ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
+        Drawable drawable = themeManager.getBackgroundDrawable();
         ConstraintLayout constraintLayout = findViewById(R.id.main_layout);
         constraintLayout.setBackground(drawable);
 

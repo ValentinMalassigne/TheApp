@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/simple_wheel_layout"
+    android:id="@+id/wheel_layout"
     android:background="@drawable/background_gradient_color_red"
     tools:context=".MainActivity">
 
@@ -44,7 +44,7 @@
         android:layout_width="180dp"
         android:layout_height="60dp"
         android:layout_marginTop="45dp"
-        android:background="@drawable/spin_button"
+        android:background="@drawable/button_red"
         android:shadowColor="#000000"
         android:shadowDx="3"
         android:shadowDy="-2"
