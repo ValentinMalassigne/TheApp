@@ -1,11 +1,17 @@
 package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -17,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
+
+import fr.mapoe.appproject.tools.ThemeManager;
 
 public class SimpleWheelActivity extends AppCompatActivity {
 
@@ -32,6 +40,16 @@ public class SimpleWheelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_wheel);
+        ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.wheel_layout);
+        final Button spinBtn = findViewById(R.id.spinBtn);
+        // met le theme à jour
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        String color = sharedPreferences.getString("theme","");
+        Log.d("theme", color);
+        ThemeManager themeManager = new ThemeManager(this, color);
+        spinBtn.setBackground(themeManager.getButtonDrawable());
+        constraintLayout.setBackground(themeManager.getBackgroundDrawable());
+
 
         ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
         xButton.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +89,7 @@ public class SimpleWheelActivity extends AppCompatActivity {
             }
         });
 
-        final Button spinBtn = findViewById(R.id.spinBtn);
+
         wheel = findViewById(R.id.wheel);
 
         getDegreeForSectors();

@@ -17,6 +17,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -45,6 +46,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import fr.mapoe.appproject.sqlite.DataBaseManager;
+import fr.mapoe.appproject.tools.ThemeManager;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -75,6 +77,7 @@ public class GameActivity extends AppCompatActivity {
     private String thirdPlayer;
     private DataBaseManager dataBaseManager;
     boolean restart = false;
+    private Drawable buttonDrawable;
 
     {
         idRedCardList = new ArrayList<Integer>(Arrays.asList
@@ -108,7 +111,10 @@ public class GameActivity extends AppCompatActivity {
         dataBaseManager = new DataBaseManager();
 
         ConstraintLayout gameLayout = (ConstraintLayout) findViewById(R.id.game_layout);
-
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
+        gameLayout.setBackground(themeManager.getBackgroundDrawable());
+        this.buttonDrawable = themeManager.getButtonDrawable();
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -127,6 +133,7 @@ public class GameActivity extends AppCompatActivity {
         scoreTab = new String[playerTab.length];
         Arrays.fill(scoreTab, "0");
         this.answerButton = (Button) findViewById(R.id.answer_button);
+        answerButton.setBackground(buttonDrawable);
         //setUp des list
         try {
             setUpList();
@@ -263,7 +270,6 @@ public class GameActivity extends AppCompatActivity {
         });
         {
             //on vérifie si l'utilisateur à bloqué la popup
-            SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
             String alcohol_reminder_popup_blocked = "";
             if (sharedPreferences.contains("block_apechill_tutorial_popup")) {
                 alcohol_reminder_popup_blocked = sharedPreferences.getString("block_apechill_tutorial_popup", "");
@@ -280,6 +286,7 @@ public class GameActivity extends AppCompatActivity {
         View layoutView = getLayoutInflater().inflate(layout, null);
 
         Button okButton = layoutView.findViewById(R.id.ok_button);
+        okButton.setBackground(buttonDrawable);
         TextView textInfo = layoutView.findViewById(R.id.text_info);
         ImageView imageInfo = layoutView.findViewById(R.id.image_info);
         ImageView nextButton = layoutView.findViewById(R.id.right_popup_arrow);
@@ -288,8 +295,6 @@ public class GameActivity extends AppCompatActivity {
         leftButton.setVisibility(View.GONE);
         textInfo.setText(getString(R.string.game_description));
         imageInfo.setImageResource(R.drawable.skip_button);
-
-
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -350,6 +355,11 @@ public class GameActivity extends AppCompatActivity {
                 noButton.setBackground(getDrawable(R.drawable.button_apepiment));
                 nextButton.setBackground(getDrawable(R.drawable.button_apepiment));
             }
+        }
+        else{
+            yesButton.setBackground(buttonDrawable);
+            noButton.setBackground(buttonDrawable);
+            nextButton.setBackground(buttonDrawable);
         }
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
@@ -1254,6 +1264,7 @@ public class GameActivity extends AppCompatActivity {
 
                 //on fait apparaitre le bouton suivant
                 Button next_button = findViewById(R.id.next_button);
+                next_button.setBackground(buttonDrawable);
                 next_button.setVisibility(View.VISIBLE);
                 next_button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -1334,6 +1345,7 @@ public class GameActivity extends AppCompatActivity {
         Button blackButton = (Button) findViewById(R.id.black_button);
         Button redButton = (Button) findViewById(R.id.red_button);
         Button nextButton = (Button) findViewById(R.id.next_button_red_or_black_game);
+        nextButton.setBackground(buttonDrawable);
         TextView cardColor = (TextView) findViewById(R.id.card_color_display);
         TextView orText = (TextView) findViewById(R.id.or_text);
         this.cardImage = (ImageView) findViewById(R.id.card_image);

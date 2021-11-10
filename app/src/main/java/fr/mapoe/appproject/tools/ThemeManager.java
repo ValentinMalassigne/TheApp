@@ -1,6 +1,7 @@
 package fr.mapoe.appproject.tools;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 
 
@@ -16,16 +17,14 @@ public class ThemeManager {
         this.context = context;
     }
 
-    public Drawable getDrawableRes() {
-        color = "background_gradient_color_"+color;
-        int file = context.getResources().getIdentifier(color,"drawable",context.getPackageName());
+    public Drawable getBackgroundDrawable() {
+        int file = context.getResources().getIdentifier("background_gradient_color_"+color,"drawable",context.getPackageName());
          backgroundDrawable = context.getResources().getDrawable(file);
         return backgroundDrawable;
     }
 
     public Drawable getButtonDrawable() {
-        color = "button_"+color;
-        int file = context.getResources().getIdentifier(color,"drawable",context.getPackageName());
+        int file = context.getResources().getIdentifier("button_"+color,"drawable",context.getPackageName());
         buttonDrawable = context.getResources().getDrawable(file);
         return buttonDrawable;
     }

@@ -136,7 +136,7 @@
             android:layout_width="180dp"
             android:layout_height="60dp"
             android:layout_marginTop="45dp"
-            android:background="@drawable/spin_button"
+            android:background="@drawable/button_red"
             android:shadowColor="#000000"
             android:shadowDx="3"
             android:shadowDy="-2"

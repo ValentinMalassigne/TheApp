@@ -14,10 +14,12 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.text.HtmlCompat;
 
@@ -32,10 +35,11 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import fr.mapoe.appproject.sqlite.DataBaseManager;
+import fr.mapoe.appproject.tools.ThemeManager;
 
 public class OptionActivity extends AppCompatActivity {
 
-    SharedPreferences language;
+    SharedPreferences sharedPreferences;
     private float scale;
     private ArrayList<String[]> customSentencesList;
     private static final String FILE_NAME = "custom_sentences.txt";
@@ -49,8 +53,11 @@ public class OptionActivity extends AppCompatActivity {
         scale = getResources().getDisplayMetrics().density;
 
         //initialisation du SharedPreferences
-        language= getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
-
+        sharedPreferences= getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
+        ConstraintLayout constraintLayout = findViewById(R.id.option_layout);
+        constraintLayout.setBackground(themeManager.getBackgroundDrawable());
+        Log.d("theme",sharedPreferences.getString("theme",""));
         LinearLayout languageLayout = (LinearLayout) findViewById(R.id.language_layout);
         languageLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +142,13 @@ public class OptionActivity extends AppCompatActivity {
                 getCustomSentencesFromDB();
                 showSentence(R.layout.sentences_popup);
 
+            }
+        });
+        LinearLayout themeLayout = (LinearLayout) findViewById(R.id.theme);
+        themeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showThemePopup(R.layout.theme_popup);
             }
         });
 
@@ -381,7 +395,7 @@ public class OptionActivity extends AppCompatActivity {
 
     private void setLocale(String choseLanguage) {
         //ici on enregistre dans les SharedPreferences la langue choisie par l'utilisateur
-        SharedPreferences.Editor editor = language.edit();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("language",choseLanguage);
         editor.apply();
         //instructinos pour changer la langue actuelement utilisé par l'appli
@@ -393,6 +407,48 @@ public class OptionActivity extends AppCompatActivity {
         res.updateConfiguration(conf, dm);
         //on refresh la page pour y appliquer le changement de langue
         Intent refresh = new Intent(this, OptionActivity.class);
+        finish();
+        startActivity(refresh);
+    }
+    private void showThemePopup(int layout){
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(OptionActivity.this);
+        View layoutView = getLayoutInflater().inflate(layout,null);
+        Button redButton = layoutView.findViewById(R.id.red_button);
+        Button greenButton = layoutView.findViewById(R.id.green_button);
+        Button blueButton = layoutView.findViewById(R.id.blue_button);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        redButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTheme("red");
+                alertDialog.dismiss();
+            }
+        });
+        greenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTheme("green");
+                alertDialog.dismiss();
+            }
+        });
+        blueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setTheme("blue");
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+    // fonction pour modifier le sharedPreference
+    private void setTheme(String theme){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("theme",theme);
+        editor.apply();
+        Intent refresh = new Intent(this,OptionActivity.class);
         finish();
         startActivity(refresh);
     }

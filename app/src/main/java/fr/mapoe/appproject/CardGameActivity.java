@@ -1,9 +1,12 @@
 package fr.mapoe.appproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +21,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+
+import fr.mapoe.appproject.tools.ThemeManager;
 
 public class CardGameActivity extends AppCompatActivity {
 
@@ -57,7 +62,10 @@ public class CardGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_card_game);
 
         init();
-
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
+        ConstraintLayout constraintLayout = findViewById(R.id.card_game_layout);
+        constraintLayout.setBackground(themeManager.getBackgroundDrawable());
         ImageButton xButton = (ImageButton) findViewById(R.id.x_button);
         xButton.setOnClickListener(new View.OnClickListener() {
             @Override
