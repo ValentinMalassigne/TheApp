@@ -40,6 +40,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private String requestENAddress = "https://apetime.000webhostapp.com/requestEN.php";
     private final int SPLASH_SCREEN_TIMEOUT = 1500;
     public String[][] sentenceTab;
+    private SharedPreferences sharedPreferences;
     private Context context = SplashScreenActivity.this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         ConstraintLayout constraintLayout = findViewById(R.id.splash_screen_layout);
-        SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        this.sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         ThemeManager themeManager = new ThemeManager(this, sharedPreferences.getString("theme", ""));
         constraintLayout.setBackground(themeManager.getBackgroundDrawable());
         ConnectivityManager cm =
@@ -57,7 +58,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         Log.d("internet:", Boolean.toString(isConnected));
-        double localVersion = 1.1; // VALENTIN
+
+        //int localVersion = 1;
+        int localVersion = sharedPreferences.getInt("localVersion",0); // VALENTIN -> obligé de mettre un nombre pour i et du coup ça compte tout le temps 0 ajout en ligne 85
+        Log.d("numéro de version local",Integer.toString(localVersion));
         // si on est co:
         if (isConnected) {
             requestDBVersion(localVersion); // on lance la requete pour obtenir le num de version
@@ -66,29 +70,24 @@ public class SplashScreenActivity extends AppCompatActivity {
             Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
 
     }
-    private void requestDBVersion(double localVersion){
+    private void requestDBVersion(int localVersion){
         AccesHTTP accesHTTP = new AccesHTTP(versionAddress, new AsyncResponse() {
             @Override
             public void onTaskCompleted(String output) {
                 if (output != null) {
                     // si le JSON est parse
-                    double [] result = parseVersion(output);
+                    int [] result = parseVersion(output);
                     // si on a réussi à parse les données
                     if (result[0]==1) {
                         // si le numéro de version est le meme que celui passé en params
                         if(result[1]==localVersion) {
                             Log.d("checkVersion","pas de nouvelle version de la db");
+                            // on change le numéro de version local
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt("localVersion",result[1]);
+                            editor.apply();
                             // lance le main activity avec un delay de 1,5sec
-                            Runnable runnable = new Runnable() {
-                                @Override
-                                public void run() {
-                                    // start page
-                                    Intent intent = new Intent(context, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            };
-                            new Handler().postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
+                            startMain();
                         }
                         // il faut recupérer les nouvelles phrases
                         else{
@@ -109,6 +108,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private void requestSentence(String[] urls){
         for(int i=0;i< urls.length;i++) {
             String url = urls[i];
+            int finalI = i;
             AccesHTTP accesHTTP = new AccesHTTP(url, new AsyncResponse() {
                 @Override
                 public void onTaskCompleted(String output) {
@@ -118,19 +118,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                             // lance l'udapte de la base SQLITE VALENTIN
                         /*UpdateLocalDataBase updateLocalDataBase = new UpdateLocalDataBase();
                         updateLocalDataBase.updateFromOnlineDB(sentenceTab, context);*/
-
-                            // lance le main activity avec un delay de 1,5sec
-                            Runnable runnable = new Runnable() {
-                                @Override
-                                public void run() {
-                                    // start page
-                                    Intent intent = new Intent(context, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            };
-                            new Handler().postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
-
+                            if(finalI ==urls.length-1){ //
+                                startMain();
+                            }
 
                         } else {
                             Toast.makeText(context, "Unable to parse data", Toast.LENGTH_SHORT).show();
@@ -171,8 +161,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     // fonction pour parse le numéro de version
-    private double[] parseVersion(String data) {
-        double[] result = new double[2];// 0: succes 1: numéro de version
+    private int[] parseVersion(String data) {
+        int[] result = new int[2];// 0: succes 1: numéro de version
         result[0] = 0;
         try {
             JSONArray jsonArray = new JSONArray(data);
@@ -185,6 +175,19 @@ public class SplashScreenActivity extends AppCompatActivity {
         }
 
         return result;
+    }
+    private void startMain(){
+        // lance le main activity avec un delay de 1,5sec
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                // start page
+                Intent intent = new Intent(context, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        };
+        new Handler().postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
     }
 }
 

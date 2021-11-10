@@ -10,7 +10,7 @@ import org.json.JSONObject;
 public class Parser {
     public String[] result; // 0: typeOfGame 1:sentenceType 2:sentence3: answer4:rightButton 5:leftButton 6: signe 7:punition 8: point 9: minimumPlayer
     private JSONObject jsonSentence;
-    public double dbVersion;
+    public int dbVersion;
     public Parser(JSONObject jsonObject) {
         this.jsonSentence = jsonObject;
     }
@@ -36,14 +36,14 @@ public class Parser {
     // fonction pour parse le num de version
     public void parseVersionNumber(){
         try{
-            dbVersion = jsonSentence.getDouble("dbVersion");
+            dbVersion = jsonSentence.getInt("dbVersion");
         }
         catch (JSONException e){
             e.printStackTrace();
         }
     }
 
-    public double getDbVersion() {
+    public int getDbVersion() {
         return dbVersion;
     }
 
