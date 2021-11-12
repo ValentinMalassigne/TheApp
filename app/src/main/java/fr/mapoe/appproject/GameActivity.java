@@ -123,7 +123,7 @@ public class GameActivity extends AppCompatActivity {
             typeOfGame = extras.getInt("typeOfGame");
             restart = extras.getBoolean("restart");
             if (restart) {
-                //savedSentenceList = extras.getStringArrayList("savedList");
+                savedSentenceList = extras.getStringArrayList("savedList");
             } else {
                 savedSentenceList = new ArrayList<String>();
             }
@@ -137,7 +137,6 @@ public class GameActivity extends AppCompatActivity {
         //setUp des list
         try {
             setUpList();
-            //testApp();
             newDisplay(gameLayout);
         } catch (IOException e) {
             e.printStackTrace();
@@ -570,8 +569,6 @@ public class GameActivity extends AppCompatActivity {
                 customSentencesList.add(tempSentence);
             }
         }
-
-
         // on vérifie si la list savedSentenceList est remplis
         if (savedSentenceList != null) {
             RemoveSentenceFromList();

@@ -26,7 +26,6 @@ import org.json.JSONException;
 import fr.mapoe.appproject.conhttp.AccesHTTP;
 import fr.mapoe.appproject.conhttp.AsyncResponse;
 import fr.mapoe.appproject.sqlite.DataBaseManager;
-import fr.mapoe.appproject.sqlite.UpdateLocalDataBase;
 import fr.mapoe.appproject.tools.Parser;
 import fr.mapoe.appproject.tools.ThemeManager;
 

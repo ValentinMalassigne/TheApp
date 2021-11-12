@@ -11,7 +11,6 @@ import fr.mapoe.appproject.sqlite.MySQLiteOpenHelper;
 public class DataBaseManager extends AppCompatActivity {
 
     private MySQLiteOpenHelper accesDB;
-    private DataBaseManager dataBaseManager = new DataBaseManager();
 
     //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: la punition 8:typeOfGame
     public void addSentenceToDB(String language, String[] sentenceData,Context context){ //language doit valoir FR,EN,ES,...
@@ -101,7 +100,7 @@ public class DataBaseManager extends AppCompatActivity {
 
     public void updateFromOnlineDB(String[][] sentenceTab,String language,Context context){
         for(int i=0;i<sentenceTab.length;i++){
-            dataBaseManager.addSentenceToDB(language,adaptToLocalBase(sentenceTab[i]),context);
+            addSentenceToDB(language,adaptToLocalBase(sentenceTab[i]),context);
         }
     }
 

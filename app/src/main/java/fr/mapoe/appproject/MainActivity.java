@@ -26,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.Locale;
 
-import fr.mapoe.appproject.sqlite.UpdateLocalDataBase;
 import fr.mapoe.appproject.tools.ThemeManager;
 
 
