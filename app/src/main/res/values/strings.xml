@@ -181,4 +181,6 @@
     <string name="red">Red</string>
     <string name="blue">Blue</string>
     <string name="green">Green</string>
+    <string name="con_error">Welcome to ApeTime, during your first use, you need to be connect to the internet</string>
+    <string name="no_con">No connection</string>
 </resources>

@@ -156,6 +156,7 @@ public class AddSentenceActivity extends AppCompatActivity {
 
         //bouton ApeChill
         Button buttonApeChill = findViewById(R.id.button_ape_chill);
+        buttonApeChill.setBackground(buttonDrawable);
         buttonApeChill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -516,16 +517,17 @@ public class AddSentenceActivity extends AppCompatActivity {
     }
 
     private void setButtonBg(String gameMode){
+
         if(gameMode.equals("ApeChill")){
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                sentenceEditNextButton.setBackground(getDrawable(R.drawable.button_red));
-                answerEditNextButton.setBackground(getDrawable(R.drawable.button_red));
-                buttonsEditNextButton.setBackground(getDrawable(R.drawable.button_red));
-                editButton1.setBackground(getDrawable(R.drawable.button_red));
-                editButton2.setBackground(getDrawable(R.drawable.button_red));
-                scrollableEditButton1.setBackground(getDrawable(R.drawable.button_red));
-                scrollableEditButton2.setBackground(getDrawable(R.drawable.button_red));
-                visualizeButton.setBackground(getDrawable(R.drawable.button_red));
+                sentenceEditNextButton.setBackground(buttonDrawable);
+                answerEditNextButton.setBackground(buttonDrawable);
+                buttonsEditNextButton.setBackground(buttonDrawable);
+                editButton1.setBackground(buttonDrawable);
+                editButton2.setBackground(buttonDrawable);
+                scrollableEditButton1.setBackground(buttonDrawable);
+                scrollableEditButton2.setBackground(buttonDrawable);
+                visualizeButton.setBackground(buttonDrawable);
                 button1Point.setBackground(getDrawable(R.drawable.roud_button));
                 button2Points.setBackground(getDrawable(R.drawable.roud_button));
                 button3Points.setBackground(getDrawable(R.drawable.roud_button));

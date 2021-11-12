@@ -127,6 +127,39 @@
                 android:layout_marginStart="40dp" />
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/theme"
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="35sp"
+                android:fontFamily="@font/convergence"
+                android:text="@string/theme"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:layout_weight="0"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/themes"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="40dp"
+                />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/popup_layout"
