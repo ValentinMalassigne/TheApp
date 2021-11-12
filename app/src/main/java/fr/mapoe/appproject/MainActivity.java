@@ -151,6 +151,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //share App
+        ImageView shareApp = (ImageView) findViewById(R.id.share_button);
+        shareApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("test/plain");
+                String body = "Download ApeTime : ";
+                String sub = "https://play.google.com/store/apps/details?id=fr.mapoe.appproject";
+                intent.putExtra(Intent.EXTRA_TEXT, body+sub);
+                startActivity(Intent.createChooser(intent,"Share using"));
+            }
+        });
+
         //setup la popup warning
         warningPopup();
     }
