@@ -53,16 +53,17 @@
 
     </TextView>
 
+
     <Button
         android:id="@+id/ok_button"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="center"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/button_red"
         android:text="@string/ok_button"
+        android:textAllCaps="false"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:backgroundTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +99,6 @@
         android:src="@drawable/right_arrow"
         android:layout_marginLeft="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/block_popup_checkBox"
-
         app:layout_constraintStart_toEndOf="@+id/block_popup_checkBox"
         app:layout_constraintTop_toTopOf="@+id/block_popup_checkBox" />
 

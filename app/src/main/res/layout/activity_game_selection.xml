@@ -170,6 +170,46 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <!-- ApeBus -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/bus_game_layout"
+                android:layout_marginTop="15dp"
+                android:background="@android:drawable/list_selector_background"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/bus" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ApeBus"
+                        android:textSize="35sp"
+                        android:fontFamily="@font/convergence"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:textColor="@color/white"
+                        android:text="@string/apebus_description" />
+                </LinearLayout>
+
+            </LinearLayout>
             <!-- Roulette -->
 
             <LinearLayout
@@ -284,46 +324,6 @@
                             android:text="@string/description_red_or_black"
                             android:textColor="@color/white" />
                     </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/bus_game_layout"
-                android:layout_marginTop="15dp"
-                android:background="@android:drawable/list_selector_background"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:src="@drawable/bus" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ApeBus"
-                        android:textSize="35sp"
-                        android:fontFamily="@font/convergence"
-                        android:textColor="@color/white"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:textColor="@color/white"
-                        android:text="@string/apebus_description" />
                 </LinearLayout>
 
             </LinearLayout>

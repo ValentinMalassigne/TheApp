@@ -35,10 +35,10 @@ public class SplashScreenActivity extends AppCompatActivity {
     private String versionAddress = "https://apetime.000webhostapp.com/dbVersion.php";
     private String requestENAddress = "https://apetime.000webhostapp.com/requestEN.php";
     private final int SPLASH_SCREEN_TIMEOUT = 1500;
-    private DataBaseManager dataBaseManager = new DataBaseManager();
     public String[][] sentenceTab;
     private SharedPreferences sharedPreferences;
     private Context context = SplashScreenActivity.this;
+    private DataBaseManager dataBaseManager = new DataBaseManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -51,8 +51,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         boolean isConnected = checkCon();
         Log.d("internet:", Boolean.toString(isConnected));
 
-        int localVersion ;
-        localVersion = sharedPreferences.getInt("localVersion",0); // VALENTIN -> obligé de mettre un nombre pour i et du coup ça compte tout le temps 0 ajout en ligne 85
+        //int localVersion = 1;
+        int localVersion = sharedPreferences.getInt("localVersion",0); // VALENTIN -> obligé de mettre un nombre pour i et du coup ça compte tout le temps 0 ajout en ligne 85
         Log.d("numéro de version local",Integer.toString(localVersion));
         // si on est co:
         if (isConnected) {
@@ -79,10 +79,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                         // si le numéro de version est le meme que celui passé en params
                         if(result[1]==localVersion) {
                             Log.d("checkVersion","pas de nouvelle version de la db");
-                            // on change le numéro de version local
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putInt("localVersion",result[1]);
-                            editor.apply();
                             // lance le main activity avec un delay de 1,5sec
                             startMain();
                         }
@@ -90,7 +86,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                         else{
                             String[] urls = new String[]{requestENAddress,requestFRAddress};
                             Log.d("checkVersion","nouvelle version disponible de la db");
-                            requestSentence(urls);
+                            int newDBVersion = result[1];
+                            requestSentence(urls,newDBVersion);
                         }
                     } else {
                         Toast.makeText(context, "Unable to parse data", Toast.LENGTH_SHORT).show();
@@ -102,8 +99,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         });
         accesHTTP.execute();
     }
-    private void requestSentence(String[] urls){
-        for(int i=0;i< urls.length;i++) { //1er url = ENSENTENCES, 2eme = FRSENTENCES
+    private void requestSentence(String[] urls,int newDBVersion){
+        for(int i=0;i< urls.length;i++) {
             String url = urls[i];
             int finalI = i;
             AccesHTTP accesHTTP = new AccesHTTP(url, new AsyncResponse() {
@@ -118,6 +115,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                                 dataBaseManager.updateFromOnlineDB(sentenceTab,"FR",context);
                             }
                             if(finalI ==urls.length-1){ //
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putInt("localVersion",newDBVersion);
+                                editor.apply();
                                 startMain();
                             }
 
@@ -215,7 +215,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 if(isConnect) {
                     Log.d("connection", "connection rétablis");
                     String[] urls = new String[]{requestENAddress,requestFRAddress};
-                    requestSentence(urls);
+                    requestDBVersion(0);
                     alertDialog.dismiss();
                 }
                 else{
@@ -231,7 +231,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 if(isConnect) {
                     Log.d("connection", "connection rétablis");
                     String[] urls = new String[]{requestENAddress,requestFRAddress};
-                    requestSentence(urls);
+                    requestDBVersion(0);
                     alertDialog.dismiss();
                 }
                 else{

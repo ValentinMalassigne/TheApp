@@ -137,6 +137,7 @@ public class GameActivity extends AppCompatActivity {
         //setUp des list
         try {
             setUpList();
+            //testApp();
             newDisplay(gameLayout);
         } catch (IOException e) {
             e.printStackTrace();
@@ -569,6 +570,8 @@ public class GameActivity extends AppCompatActivity {
                 customSentencesList.add(tempSentence);
             }
         }
+
+
         // on vérifie si la list savedSentenceList est remplis
         if (savedSentenceList != null) {
             RemoveSentenceFromList();
@@ -633,112 +636,6 @@ public class GameActivity extends AppCompatActivity {
                 helpText.setVisibility(View.GONE);
             }
 
-        }
-    }
-
-    private void testApp() throws IOException {
-        String res;
-        int nbSentences = dataBaseManager.getNumberOfSentences("FR",getApplicationContext());
-        for (int i=1;i<=nbSentences;i++){
-            res="";
-            String[] sentenceFromDB = dataBaseManager.getSentenceFromDB("FR",i,getApplicationContext());
-            for(int j=0;j<9;j++){
-                res=res+sentenceFromDB[j];
-            }
-            Log.d(TAG, "testApp: "+res);
-        }
-        /*ArrayList<String> testList = testSetUpList();
-        int nbSentences = 0;
-        while (!testList.isEmpty()) {
-            nbSentences++;
-            testGetNextInformations(testList.remove(0));
-        }*/
-    }
-
-    private void testGetNextInformations(String testPhrase) {
-        Log.d(TAG, "testGetNextInformations: "+testPhrase);
-        String ligne = testPhrase;
-        boolean result = false;
-        boolean temp = false;
-        int i = 0;
-        int j;
-        if (ligne.equals("Spinning Wheel")) {
-            //setUpWheel();
-            currentChallenge[2]=testPhrase;
-        } else if (ligne.equals("Red or Black")) {
-           //startCardGame();
-            currentChallenge[2]=testPhrase;
-        } else {
-            //currentChallenge[3] = tempTab[0]; on vérifie pas le type de la phrase c'est useless
-            String points;
-            String answers;
-            String sentence;
-            String rightAnswer;
-            String button1Text;
-            String button2Text;
-            String punition;
-
-            //on lit tant que l'on est pas a / pour savoir quelle est le premier bouton
-            while (!temp) {
-                if (ligne.substring(i, i + 1).equals("/")) {
-                    temp = true;
-                } else {
-                    i++;
-                }
-            }
-            button1Text = ligne.substring(0, i);
-            j = i + 1;//on sauvergarde à quelle caractère il faut reprendre la lecture
-
-            //on lit tant que l'on est pas a + ou - pour savoir quelle est le deuxième bouton
-            temp = false;
-            while (!temp) {
-                if (ligne.substring(i, i + 1).equals("+") || ligne.substring(i, i + 1).equals("-")) {
-                    temp = true;
-                } else {
-                    i++;
-                }
-            }
-
-            button2Text = ligne.substring(j, i);
-
-            rightAnswer = ligne.substring(i, i + 1);//on recup le + ou - qui se trouve juste après la deuxième rep
-            points = ligne.substring(i + 1, i + 2);//on recup le nb de points qui est juste après le + ou -
-
-            j = i + 1;//on sauvergarde à quelle caractère il faut reprendre la lecture
-
-            //on lit tant que l'on a est pas a ¤ pour avoir la réponse
-            temp = false;
-            while (!temp) {
-                if (ligne.substring(i, i + 1).equals("¤")) {
-                    temp = true;
-                } else {
-                    i++;
-                }
-            }
-            answers = ligne.substring(j + 1, i); //la phrase qui demande quelle est la bonne réponse
-
-            j = i + 1;
-            temp = false;
-            while (!temp) {
-                if (ligne.substring(j, j + 1).equals("¤")) {
-                    temp = true;
-                } else {
-                    j++;
-                }
-            }
-
-            sentence = ligne.substring(i + 1, j);//on lit la phrase
-            punition = ligne.substring(j + 1);
-
-            currentChallenge[0] = points;
-            currentChallenge[1]=SetNamesInAnswer(answers);
-            currentChallenge[2]=SetNameInSentence(sentence);
-            currentChallenge[4] = rightAnswer;
-            String[] btnText = SetNameInButton(button1Text, button2Text); // 0: btn1 1:btn2
-            currentChallenge[5] = btnText[0];
-            currentChallenge[6] = btnText[1];
-            currentChallenge[7] = punition;
-            result = true;
         }
     }
 
