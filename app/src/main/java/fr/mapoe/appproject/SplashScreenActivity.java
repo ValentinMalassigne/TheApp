@@ -25,6 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import fr.mapoe.appproject.conhttp.AccesHTTP;
 import fr.mapoe.appproject.conhttp.AsyncResponse;
+import fr.mapoe.appproject.sqlite.DataBaseManager;
+import fr.mapoe.appproject.sqlite.UpdateLocalDataBase;
 import fr.mapoe.appproject.tools.Parser;
 import fr.mapoe.appproject.tools.ThemeManager;
 
@@ -34,6 +36,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private String versionAddress = "https://apetime.000webhostapp.com/dbVersion.php";
     private String requestENAddress = "https://apetime.000webhostapp.com/requestEN.php";
     private final int SPLASH_SCREEN_TIMEOUT = 1500;
+    private DataBaseManager dataBaseManager = new DataBaseManager();
     public String[][] sentenceTab;
     private SharedPreferences sharedPreferences;
     private Context context = SplashScreenActivity.this;
@@ -49,8 +52,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         boolean isConnected = checkCon();
         Log.d("internet:", Boolean.toString(isConnected));
 
-        int localVersion = 1;
-        //int localVersion = sharedPreferences.getInt("localVersion",0); // VALENTIN -> obligé de mettre un nombre pour i et du coup ça compte tout le temps 0 ajout en ligne 85
+        int localVersion ;
+        localVersion = sharedPreferences.getInt("localVersion",0); // VALENTIN -> obligé de mettre un nombre pour i et du coup ça compte tout le temps 0 ajout en ligne 85
         Log.d("numéro de version local",Integer.toString(localVersion));
         // si on est co:
         if (isConnected) {
@@ -101,7 +104,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         accesHTTP.execute();
     }
     private void requestSentence(String[] urls){
-        for(int i=0;i< urls.length;i++) {
+        for(int i=0;i< urls.length;i++) { //1er url = ENSENTENCES, 2eme = FRSENTENCES
             String url = urls[i];
             int finalI = i;
             AccesHTTP accesHTTP = new AccesHTTP(url, new AsyncResponse() {
@@ -110,9 +113,11 @@ public class SplashScreenActivity extends AppCompatActivity {
                     if (output != null) {
                         // si on a réussi à parse le json on lance le main
                         if (parseSentence(output) == 1) {
-                            // lance l'udapte de la base SQLITE VALENTIN
-                        /*UpdateLocalDataBase updateLocalDataBase = new UpdateLocalDataBase();
-                        updateLocalDataBase.updateFromOnlineDB(sentenceTab, context);*/
+                            if(finalI==0){//cas ou l'on a les phrases anglaises
+                                dataBaseManager.updateFromOnlineDB(sentenceTab,"EN",context);
+                            }else if(finalI==1){
+                                dataBaseManager.updateFromOnlineDB(sentenceTab,"FR",context);
+                            }
                             if(finalI ==urls.length-1){ //
                                 startMain();
                             }

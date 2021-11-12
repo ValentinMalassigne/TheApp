@@ -745,41 +745,6 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private ArrayList<String> testSetUpList() throws IOException {
-        ArrayList<String> testList=new ArrayList<String>();
-        //on récup la langue acctuelement utilisé par l'appli
-        String language = getResources().getConfiguration().locale.getLanguage();
-
-        InputStream inputStream = null;
-        if (language.equals("fr")) {
-            inputStream = this.getResources().openRawResource(R.raw.fr_sentences);
-        } else {
-            inputStream = this.getResources().openRawResource(R.raw.en_sentences);
-        }
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-
-        //on passe toute les lignes tant que l'on est pas aux lignes du mode génant
-        if (typeOfGame == 2) {
-            while (!reader.readLine().equals("End")) {
-            }
-        }
-
-        String tempLine;
-        reader.readLine();
-        tempLine = reader.readLine();//skip de la ligne gages
-        while (!tempLine.equals("End")) {
-            if(tempLine.equals("gages")||tempLine.equals("minigames")||tempLine.equals("questions")){
-
-            }else{
-                testList.add(tempLine);
-            }
-            tempLine = reader.readLine();
-        }
-
-        inputStream.close();
-        return testList;
-    }
-
     private boolean GetNextInformations(){
         //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: la punition 8:typeOfGame
         String type = getChallengeTurn();

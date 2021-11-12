@@ -11,6 +11,7 @@ import fr.mapoe.appproject.sqlite.MySQLiteOpenHelper;
 public class DataBaseManager extends AppCompatActivity {
 
     private MySQLiteOpenHelper accesDB;
+    private DataBaseManager dataBaseManager = new DataBaseManager();
 
     //0: point    1: réponse    2: phrase    3:type  4:rightAnswer (+ = oui) 5:boutonrep1 6: boutonrep2 7: la punition 8:typeOfGame
     public void addSentenceToDB(String language, String[] sentenceData,Context context){ //language doit valoir FR,EN,ES,...
@@ -96,5 +97,25 @@ public class DataBaseManager extends AppCompatActivity {
         accesDB = new MySQLiteOpenHelper(context,"GamesDataBase",null,1);
         db = accesDB.getWritableDatabase();
         db.execSQL("DELETE FROM "+language+"SENTENCES WHERE sentence = \""+index+"\"");
+    }
+
+    public void updateFromOnlineDB(String[][] sentenceTab,String language,Context context){
+        for(int i=0;i<sentenceTab.length;i++){
+            dataBaseManager.addSentenceToDB(language,adaptToLocalBase(sentenceTab[i]),context);
+        }
+    }
+
+    private String[] adaptToLocalBase(String[] sentence){
+        String[] adaptedSentence=new String[10];
+        adaptedSentence[0]=sentence[8];
+        adaptedSentence[1]=sentence[3];
+        adaptedSentence[2]=sentence[2];
+        adaptedSentence[3]=sentence[1];
+        adaptedSentence[4]=sentence[6];
+        adaptedSentence[5]=sentence[4];
+        adaptedSentence[6]=sentence[5];
+        adaptedSentence[7]=sentence[7];
+        adaptedSentence[8]=sentence[0];
+        return adaptedSentence;
     }
 }

@@ -46,11 +46,6 @@ public class MainActivity extends AppCompatActivity {
             restart = extras.getBoolean("apebus restart");
         }
 
-
-        //mise à jour de la base de données local
-        UpdateLocalDataBase updateLocalDataBase = new UpdateLocalDataBase();
-        updateLocalDataBase.checkForUpdate(getApplicationContext());
-
         // modification du background
         SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
 

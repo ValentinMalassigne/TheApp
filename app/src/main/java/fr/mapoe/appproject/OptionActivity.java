@@ -42,7 +42,6 @@ public class OptionActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     private float scale;
     private ArrayList<String[]> customSentencesList;
-    private static final String FILE_NAME = "custom_sentences.txt";
     private DataBaseManager dataBaseManager = new DataBaseManager();
     private String[] currentSentence;
     @SuppressLint("ClickableViewAccessibility")
