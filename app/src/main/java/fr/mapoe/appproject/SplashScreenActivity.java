@@ -1,35 +1,30 @@
 package fr.mapoe.appproject;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.nfc.Tag;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import org.json.JSONArray;
 import org.json.JSONException;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import fr.mapoe.appproject.conhttp.AccesHTTP;
 import fr.mapoe.appproject.conhttp.AsyncResponse;
-import fr.mapoe.appproject.sqlite.UpdateLocalDataBase;
 import fr.mapoe.appproject.tools.Parser;
 import fr.mapoe.appproject.tools.ThemeManager;
 
@@ -51,23 +46,23 @@ public class SplashScreenActivity extends AppCompatActivity {
         this.sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         ThemeManager themeManager = new ThemeManager(this, sharedPreferences.getString("theme", ""));
         constraintLayout.setBackground(themeManager.getBackgroundDrawable());
-        ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+        boolean isConnected = checkCon();
         Log.d("internet:", Boolean.toString(isConnected));
 
-        //int localVersion = 1;
-        int localVersion = sharedPreferences.getInt("localVersion",0); // VALENTIN -> obligé de mettre un nombre pour i et du coup ça compte tout le temps 0 ajout en ligne 85
+        int localVersion = 1;
+        //int localVersion = sharedPreferences.getInt("localVersion",0); // VALENTIN -> obligé de mettre un nombre pour i et du coup ça compte tout le temps 0 ajout en ligne 85
         Log.d("numéro de version local",Integer.toString(localVersion));
         // si on est co:
         if (isConnected) {
             requestDBVersion(localVersion); // on lance la requete pour obtenir le num de version
 
-        } else
-            Toast.makeText(context, "No internet connection", Toast.LENGTH_SHORT).show();
+        } else if(!isConnected && localVersion!=0) // si on a pas de co mais que le num dé version est !=0
+            startMain();
+        else { //  cas ou c'est la première fois qu'on se co
+            Log.d("checkConnection","pas de co et c'est la première fois qu'il lance l'appli");
+            showInfoDialog(R.layout.info_popup);
+
+        }
 
     }
     private void requestDBVersion(int localVersion){
@@ -188,6 +183,67 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         };
         new Handler().postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
+    }
+    // pour le cas particulier de la première utilisation et qu'il a pas internet
+    private void showInfoDialog(int layout){
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        View layoutView = getLayoutInflater().inflate(layout, null);
+        ImageView imageView = layoutView.findViewById(R.id.image_info);
+        imageView.setVisibility(View.GONE);
+        ImageView imageView1 = layoutView.findViewById(R.id.left_popup_arrow);
+        imageView1.setVisibility(View.GONE);
+        ImageView imageView2 = layoutView.findViewById(R.id.right_popup_arrow);
+        imageView2.setVisibility(View.GONE);
+        CheckBox checkBox = layoutView.findViewById(R.id.block_popup_checkBox);
+        checkBox.setVisibility(View.GONE);
+        Button okButton = layoutView.findViewById(R.id.ok_button);
+        TextView textInfo = layoutView.findViewById(R.id.text_info);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+        textInfo.setText(R.string.con_error);
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean isConnect = checkCon();
+                if(isConnect) {
+                    Log.d("connection", "connection rétablis");
+                    String[] urls = new String[]{requestENAddress,requestFRAddress};
+                    requestSentence(urls);
+                    alertDialog.dismiss();
+                }
+                else{
+                    textInfo.setText(R.string.no_con);
+                }
+
+            }
+        });
+        alertDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialogInterface) {
+                boolean isConnect = checkCon();
+                if(isConnect) {
+                    Log.d("connection", "connection rétablis");
+                    String[] urls = new String[]{requestENAddress,requestFRAddress};
+                    requestSentence(urls);
+                    alertDialog.dismiss();
+                }
+                else{
+                    showInfoDialog(R.layout.info_popup);
+                }
+            }
+        });
+    }
+    private Boolean checkCon(){
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        Boolean isConnect = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        return isConnect;
     }
 }
 
