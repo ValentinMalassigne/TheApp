@@ -158,9 +158,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("test/plain");
-                String body = "Download ApeTime : ";
-                String sub = "https://play.google.com/store/apps/details?id=fr.mapoe.appproject";
-                intent.putExtra(Intent.EXTRA_TEXT, body+sub);
+                intent.putExtra(Intent.EXTRA_TEXT, "Download ApeTime = https://play.google.com/store/apps/details?id=fr.mapoe.appproject");
                 startActivity(Intent.createChooser(intent,"Share using"));
             }
         });
