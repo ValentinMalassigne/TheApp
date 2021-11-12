@@ -16,7 +16,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -26,11 +25,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.Locale;
 
-import fr.mapoe.appproject.sqlite.UpdateLocalDataBase;
 import fr.mapoe.appproject.tools.ThemeManager;
 
 
 public class MainActivity extends AppCompatActivity {
+    private Drawable buttonDrawable;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -46,11 +45,6 @@ public class MainActivity extends AppCompatActivity {
             restart = extras.getBoolean("apebus restart");
         }
 
-
-        //mise à jour de la base de données local
-        UpdateLocalDataBase updateLocalDataBase = new UpdateLocalDataBase();
-        updateLocalDataBase.checkForUpdate(getApplicationContext());
-
         // modification du background
         SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
 
@@ -58,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         Drawable drawable = themeManager.getBackgroundDrawable();
         ConstraintLayout constraintLayout = findViewById(R.id.main_layout);
         constraintLayout.setBackground(drawable);
+        this.buttonDrawable = themeManager.getButtonDrawable();
 
         // si restart on ouvre la popup de ApeBus
         if(restart)
@@ -237,6 +232,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MainActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
         Button okButton = layoutView.findViewById(R.id.ok_button);
+        okButton.setBackground(buttonDrawable);
         CheckBox checkBox = layoutView.findViewById(R.id.block_popup_checkBox);
         ImageView imageInfo = layoutView.findViewById(R.id.image_info);
         ImageView nextButton = layoutView.findViewById(R.id.right_popup_arrow);

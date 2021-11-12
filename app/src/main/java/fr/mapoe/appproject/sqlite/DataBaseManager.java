@@ -97,4 +97,24 @@ public class DataBaseManager extends AppCompatActivity {
         db = accesDB.getWritableDatabase();
         db.execSQL("DELETE FROM "+language+"SENTENCES WHERE sentence = \""+index+"\"");
     }
+
+    public void updateFromOnlineDB(String[][] sentenceTab,String language,Context context){
+        for(int i=0;i<sentenceTab.length;i++){
+            addSentenceToDB(language,adaptToLocalBase(sentenceTab[i]),context);
+        }
+    }
+
+    private String[] adaptToLocalBase(String[] sentence){
+        String[] adaptedSentence=new String[10];
+        adaptedSentence[0]=sentence[8];
+        adaptedSentence[1]=sentence[3];
+        adaptedSentence[2]=sentence[2];
+        adaptedSentence[3]=sentence[1];
+        adaptedSentence[4]=sentence[6];
+        adaptedSentence[5]=sentence[4];
+        adaptedSentence[6]=sentence[5];
+        adaptedSentence[7]=sentence[7];
+        adaptedSentence[8]=sentence[0];
+        return adaptedSentence;
+    }
 }

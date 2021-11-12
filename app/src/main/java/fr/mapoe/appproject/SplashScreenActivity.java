@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import fr.mapoe.appproject.conhttp.AccesHTTP;
 import fr.mapoe.appproject.conhttp.AsyncResponse;
+import fr.mapoe.appproject.sqlite.DataBaseManager;
 import fr.mapoe.appproject.tools.Parser;
 import fr.mapoe.appproject.tools.ThemeManager;
 
@@ -37,6 +38,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     public String[][] sentenceTab;
     private SharedPreferences sharedPreferences;
     private Context context = SplashScreenActivity.this;
+    private DataBaseManager dataBaseManager = new DataBaseManager();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -49,8 +51,8 @@ public class SplashScreenActivity extends AppCompatActivity {
         boolean isConnected = checkCon();
         Log.d("internet:", Boolean.toString(isConnected));
 
-        int localVersion = 1;
-        //int localVersion = sharedPreferences.getInt("localVersion",0); // VALENTIN -> obligé de mettre un nombre pour i et du coup ça compte tout le temps 0 ajout en ligne 85
+        //int localVersion = 1;
+        int localVersion = sharedPreferences.getInt("localVersion",0); // VALENTIN -> obligé de mettre un nombre pour i et du coup ça compte tout le temps 0 ajout en ligne 85
         Log.d("numéro de version local",Integer.toString(localVersion));
         // si on est co:
         if (isConnected) {
@@ -77,10 +79,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                         // si le numéro de version est le meme que celui passé en params
                         if(result[1]==localVersion) {
                             Log.d("checkVersion","pas de nouvelle version de la db");
-                            // on change le numéro de version local
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putInt("localVersion",result[1]);
-                            editor.apply();
                             // lance le main activity avec un delay de 1,5sec
                             startMain();
                         }
@@ -88,7 +86,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                         else{
                             String[] urls = new String[]{requestENAddress,requestFRAddress};
                             Log.d("checkVersion","nouvelle version disponible de la db");
-                            requestSentence(urls);
+                            int newDBVersion = result[1];
+                            requestSentence(urls,newDBVersion);
                         }
                     } else {
                         Toast.makeText(context, "Unable to parse data", Toast.LENGTH_SHORT).show();
@@ -100,7 +99,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         });
         accesHTTP.execute();
     }
-    private void requestSentence(String[] urls){
+    private void requestSentence(String[] urls,int newDBVersion){
         for(int i=0;i< urls.length;i++) {
             String url = urls[i];
             int finalI = i;
@@ -110,10 +109,15 @@ public class SplashScreenActivity extends AppCompatActivity {
                     if (output != null) {
                         // si on a réussi à parse le json on lance le main
                         if (parseSentence(output) == 1) {
-                            // lance l'udapte de la base SQLITE VALENTIN
-                        /*UpdateLocalDataBase updateLocalDataBase = new UpdateLocalDataBase();
-                        updateLocalDataBase.updateFromOnlineDB(sentenceTab, context);*/
+                            if(finalI==0){//cas ou l'on a les phrases anglaises
+                                dataBaseManager.updateFromOnlineDB(sentenceTab,"EN",context);
+                            }else if(finalI==1){
+                                dataBaseManager.updateFromOnlineDB(sentenceTab,"FR",context);
+                            }
                             if(finalI ==urls.length-1){ //
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putInt("localVersion",newDBVersion);
+                                editor.apply();
                                 startMain();
                             }
 
@@ -211,7 +215,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 if(isConnect) {
                     Log.d("connection", "connection rétablis");
                     String[] urls = new String[]{requestENAddress,requestFRAddress};
-                    requestSentence(urls);
+                    requestDBVersion(0);
                     alertDialog.dismiss();
                 }
                 else{
@@ -227,7 +231,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 if(isConnect) {
                     Log.d("connection", "connection rétablis");
                     String[] urls = new String[]{requestENAddress,requestFRAddress};
-                    requestSentence(urls);
+                    requestDBVersion(0);
                     alertDialog.dismiss();
                 }
                 else{
