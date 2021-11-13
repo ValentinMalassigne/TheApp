@@ -36,6 +36,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     private String requestENAddress = "https://apetime.000webhostapp.com/requestEN.php";
     private final int SPLASH_SCREEN_TIMEOUT = 1500;
     public String[][] sentenceTab;
+    private boolean restartApeBus=false;
+    private boolean isCalledFromApeBus=false;
     private SharedPreferences sharedPreferences;
     private Context context = SplashScreenActivity.this;
     private DataBaseManager dataBaseManager = new DataBaseManager();
@@ -44,6 +46,16 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            restartApeBus = extras.getBoolean("apebus restart");
+            isCalledFromApeBus=true;
+            startMain();
+        }
+
+
+
         ConstraintLayout constraintLayout = findViewById(R.id.splash_screen_layout);
         this.sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         ThemeManager themeManager = new ThemeManager(this, sharedPreferences.getString("theme", ""));
@@ -183,7 +195,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                 // start page
                 Intent intent = new Intent(context, MainActivity.class);
                 startActivity(intent);
+                if(isCalledFromApeBus) {
+                    intent.putExtra("fixBugApeBus", true);
+                    intent.putExtra("apebus restart", restartApeBus);
+                }
                 finish();
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
             }
         };
         new Handler().postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);

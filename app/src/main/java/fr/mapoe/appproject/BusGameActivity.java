@@ -1,5 +1,7 @@
 package fr.mapoe.appproject;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +10,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -15,6 +19,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 import fr.mapoe.appproject.tools.ThemeManager;
@@ -49,8 +55,12 @@ public class BusGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        //on change la langue
+        getLanguage();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_game);
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             nbCard = extras.getInt("nbCard");
@@ -62,11 +72,11 @@ public class BusGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // ouvre l'activity End game
-                Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+                Intent mainActivity = new Intent(getApplicationContext(), SplashScreenActivity.class);
+                finish();
+                mainActivity.putExtra("apebus restart", false);
                 startActivity(mainActivity);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-                finish();
-
             }
         });
         xButton.setOnTouchListener(new View.OnTouchListener() {
@@ -98,6 +108,7 @@ public class BusGameActivity extends AppCompatActivity {
         infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getLanguage();
                 showInfoDialog(R.layout.info_popup,0);
             }
         });
@@ -126,7 +137,6 @@ public class BusGameActivity extends AppCompatActivity {
                 return false;
             }
         });
-
     }
     @SuppressLint("ClickableViewAccessibility")
     private void init(){
@@ -458,10 +468,10 @@ public class BusGameActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+                finish();
                 mainActivity.putExtra("apebus restart", true);
                 startActivity(mainActivity);
                 overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
-                finish();
             }
         });
     }
@@ -554,6 +564,7 @@ public class BusGameActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getLanguage();
                 textInfo.setText(R.string.ape_bus_rules2);
                 nextButton.setVisibility(View.GONE);
                 okButton.setVisibility(View.VISIBLE);
@@ -579,6 +590,30 @@ public class BusGameActivity extends AppCompatActivity {
         else if (currentCard == 4){
             horizontalScrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
         }
+    }
+
+    private void getLanguage(){
+        //on charge le langage enregistrée dans les shared preferences
+        SharedPreferences language = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        String choseLanguage = language.getString("language","");
+        Log.d(TAG, "getLanguage: chose: "+choseLanguage);
+        //on récup la langue acctuelement utilisé par l'appli
+        Configuration conf = getResources().getConfiguration();
+        String localLanguage = conf.locale.getLanguage();
+        Log.d(TAG, "getLanguage: local: "+choseLanguage);
+        //on vérifie si la langue actuelle et la langue enregistré par l'utilisateur sont la même (pour éviter de changer en boucle la langue)
+        if(!choseLanguage.equals("") & !localLanguage.equals(choseLanguage)){
+            setLocale(choseLanguage);//si la langue de sharedpréférencies existe et qu'elle est différente de celle du tel alors on l'utilise
+        }
+    }
+    //on met a jour la langue de l'appli
+    private void setLocale(String choseLanguage) {
+        Locale myLocale = new Locale(choseLanguage);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package fr.mapoe.appproject;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -16,6 +18,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -30,6 +33,7 @@ import fr.mapoe.appproject.tools.ThemeManager;
 
 public class MainActivity extends AppCompatActivity {
     private Drawable buttonDrawable;
+    boolean isCalledFromApeBus = false;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -37,13 +41,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_selection);
 
-        //changement de la langue
-        getLanguage();
         Bundle extras = getIntent().getExtras();
-        Boolean restart = false;
+        boolean restart = false;
         if (extras != null) {
+            isCalledFromApeBus = true;
             restart = extras.getBoolean("apebus restart");
         }
+
+        //changement de la langue
+        if(!isCalledFromApeBus)
+            getLanguage();
 
         // modification du background
         SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
@@ -56,16 +63,16 @@ public class MainActivity extends AppCompatActivity {
 
         // si restart on ouvre la popup de ApeBus
         if(restart)
-        showNbCardDialog(R.layout.activity_popup_drink_selection);
+            showNbCardDialog(R.layout.activity_popup_drink_selection);
         //go to option
         ImageView goToOption = (ImageView) findViewById(R.id.setting_button);
         goToOption.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent optionActivity = new Intent(getApplicationContext(), OptionActivity.class);
+                finish();
                 startActivity(optionActivity);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
-                finish();
             }
         });
 
@@ -165,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
         //setup la popup warning
         warningPopup();
+
     }
 
     private void warningPopup(){
@@ -276,7 +284,7 @@ public class MainActivity extends AppCompatActivity {
         Configuration conf = getResources().getConfiguration();
         String localLanguage = conf.locale.getLanguage();
         //on vérifie si la langue actuelle et la langue enregistré par l'utilisateur sont la même (pour éviter de changer en boucle la langue)
-        if(choseLanguage!="" & !localLanguage.equals(choseLanguage)){
+        if(!choseLanguage.equals("") & !localLanguage.equals(choseLanguage)){
             setLocale(choseLanguage);//si la langue de sharedpréférencies existe et qu'elle est différente de celle du tel alors on l'utilise
         }
     }
