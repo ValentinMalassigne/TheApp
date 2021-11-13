@@ -267,5 +267,3 @@ public class SplashScreenActivity extends AppCompatActivity {
         return isConnect;
     }
 }
-
-

@@ -102,14 +102,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:padding="10dp"
+                    android:gravity="center"
                     android:background="@drawable/edit_shape"
                     android:fontFamily="@font/convergence"
                     android:hint="@string/text"
                     android:inputType="textMultiLine|textCapSentences"
                     android:maxLines="5"
+                    android:minHeight="70dp"
                     android:maxLength="150"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/grey"
+                    android:textColorHint="@color/white"
                     />
 
 
@@ -131,172 +133,12 @@
                 app:backgroundTint = "@null"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:autoSizeMaxTextSize="18sp"
+                android:autoSizeTextType="uniform"
                 android:text="@string/next"
                 android:layout_gravity="center"
                 />
 
-        </LinearLayout>
-
-        <!-- Le layout pour qu'il rentre la réponse-->
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/answer_edit_layout"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/answer_edit_text"
-                    android:layout_width="245dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:padding="10dp"
-                    android:background="@drawable/edit_shape"
-                    android:fontFamily="@font/convergence"
-                    android:hint="@string/show_answer"
-                    android:inputType="textMultiLine|textCapSentences"
-                    android:maxLines="5"
-                    android:maxLength="150"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/grey"
-                    />
-
-
-                <ImageView
-                    android:id="@+id/add_player_to_answer"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/add_player" />
-            </LinearLayout>
-            <Button
-                android:id="@+id/answer_edit_next_button"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/button_red"
-                app:backgroundTint = "@null"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:textSize="18sp"
-                android:text="@string/next"
-                android:layout_gravity="center"
-                />
-
-        </LinearLayout>
-
-        <!-- Le layout pour qu'il rentre le bouton réponse et le bouton fail-->
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:visibility="gone"
-            android:orientation="vertical"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/answer_button_layout">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_gravity="center"
-                    android:orientation="vertical"
-                    android:layout_marginRight="30dp">
-
-                    <CheckBox
-                        android:checked="true"
-                        android:id="@+id/right_answer_is_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/right_answer"
-                        android:textColor="@color/white"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_gravity="center"
-                        android:id="@+id/edit_button1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:background="@drawable/button_shape_red"
-                        android:fontFamily="@font/convergence"
-                        android:textSize="18sp"
-                        android:hint="@string/yes_button"
-                        android:inputType="textMultiLine|textCapSentences"
-                        android:lines="1"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        android:maxLength="10"
-                        />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <CheckBox
-                        android:id="@+id/right_answer_is_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/right_answer"
-                        android:textColor="@color/white"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_gravity="center"
-                        android:id="@+id/edit_button2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp"
-                        android:gravity="center"
-                        android:padding="10dp"
-                        android:background="@drawable/button_shape_red"
-                        android:fontFamily="@font/convergence"
-                        android:hint="@string/no_button"
-                        android:inputType="textMultiLine|textCapSentences"
-                        android:lines="1"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white"
-                        android:maxLength="10"
-                        />
-
-                </LinearLayout>
-            </LinearLayout>
-            <Button
-                android:id="@+id/buttons_edit_next_button"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/button_red"
-                app:backgroundTint = "@null"
-                android:text="@string/next"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:layout_gravity="center"
-                />
         </LinearLayout>
 
         <!-- Le layout pour qu'il rentre le nombre de points-->
@@ -322,11 +164,11 @@
                     app:backgroundTint = "@null"
                     android:textColor="@color/white"
                     android:layout_marginRight="20dp"
-                    android:background="@drawable/roud_button"/>
+                    android:background="@drawable/roud_button_red_shape"/>
 
                 <Button
                     android:id="@+id/button_2_points"
-                    android:background="@drawable/roud_button"
+                    android:background="@drawable/roud_button_red_shape"
                     app:backgroundTint = "@null"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -337,7 +179,7 @@
 
                 <Button
                     android:id="@+id/button_3_points"
-                    android:background="@drawable/roud_button"
+                    android:background="@drawable/roud_button_red_shape"
                     app:backgroundTint = "@null"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -348,7 +190,7 @@
 
                 <Button
                     android:id="@+id/button_4_points"
-                    android:background="@drawable/roud_button"
+                    android:background="@drawable/roud_button_red_shape"
                     app:backgroundTint = "@null"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
@@ -416,7 +258,7 @@
 
             <!-- Le layout qui contient le gameMode -->
             <LinearLayout
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="50dp"
                 android:id="@+id/scrollable_game_mode_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -441,7 +283,7 @@
             </LinearLayout>
             <!-- Le layout qui contient la phrase -->
             <LinearLayout
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="60dp"
                 android:id="@+id/scrollable_sentence_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -466,15 +308,18 @@
                         android:id="@+id/scrollable_sentence_edit_text"
                         android:layout_width="245dp"
                         android:layout_height="wrap_content"
+                        android:minHeight="70dp"
+                        android:layout_marginTop="10dp"
                         android:padding="10dp"
+                        android:gravity="center"
                         android:background="@drawable/edit_shape"
                         android:fontFamily="@font/convergence"
-                        android:hint="@string/sentence"
+                        android:hint="@string/text"
                         android:inputType="textMultiLine|textCapSentences"
                         android:maxLines="5"
                         android:maxLength="150"
                         android:textColor="@color/white"
-                        android:textColorHint="@color/grey"
+                        android:textColorHint="@color/white"
                         />
 
                     <ImageView
@@ -487,145 +332,9 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <!-- Le layout qui contient la réponse -->
-            <LinearLayout
-                android:layout_marginTop="30dp"
-                android:id="@+id/scrollable_answer_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/show_answer"
-                    android:textColor="@color/white"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="24sp"/>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    >
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/scrollable_answer_edit_text"
-                        android:layout_width="245dp"
-                        android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:background="@drawable/edit_shape"
-                        android:fontFamily="@font/convergence"
-                        android:hint="@string/show_answer"
-                        android:inputType="textMultiLine|textCapSentences"
-                        android:maxLines="5"
-                        android:maxLength="150"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/grey"
-                        />
-
-                    <ImageView
-                        android:id="@+id/scrollable_add_player_to_answer"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/add_player"
-                        android:layout_marginLeft="10dp"/>
-                </LinearLayout>
-
-            </LinearLayout>
-            <!-- Le layout qui contient les boutons -->
-
-            <LinearLayout
-                android:layout_marginTop="30dp"
-                android:id="@+id/scrollable_buttons_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1"
-                        >
-
-                        <CheckBox
-                            android:checked="true"
-                            android:id="@+id/scrollable_right_answer_is_1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/right_answer"
-                            android:textColor="@color/white"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_gravity="center"
-                            android:id="@+id/scrollable_edit_button1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:background="@drawable/button_shape_red"
-                            android:fontFamily="@font/convergence"
-                            android:textSize="18sp"
-                            android:hint="@string/yes_button"
-                            android:inputType="textMultiLine|textCapSentences"
-                            android:lines="1"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white"
-                            android:maxLength="10"
-                            />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_marginLeft="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="1">
-
-                        <CheckBox
-                            android:id="@+id/scrollable_right_answer_is_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/wrong_answer"
-                            android:textColor="@color/white"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/scrollable_edit_button2"
-                             android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:background="@drawable/button_shape_red"
-                            android:fontFamily="@font/convergence"
-                            android:hint="@string/no_button"
-                            android:inputType="textMultiLine|textCapSentences"
-                            android:lines="1"
-                            android:textColor="@color/white"
-                            android:textColorHint="@color/white"
-                            android:maxLength="10"
-                            />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
             <!-- Layout qui contient les points -->
             <LinearLayout
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="60dp"
                 android:id="@+id/scrollable_point_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

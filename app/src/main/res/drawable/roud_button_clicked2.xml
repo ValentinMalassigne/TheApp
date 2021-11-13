@@ -4,9 +4,9 @@
     <gradient
         android:angle="45"
         android:centerX="35%"
-        android:centerColor="#910000"
-        android:startColor="#C5C4C4"
-        android:endColor="#10CCBF"
+        android:centerColor="#873695"
+        android:startColor="#BC4F74"
+        android:endColor="#9B60B5"
         android:type="linear"
         />
     <stroke

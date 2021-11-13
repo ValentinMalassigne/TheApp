@@ -383,25 +383,25 @@ public class BusGameActivity extends AppCompatActivity {
     // pour comparer 2 cartes entres elles
     private Boolean CompareCard(int id1,int id2,String type){
         Boolean correct = true;
-            //recuperer l'id des deux cartes
-            id1 = reduceId(id1);
-            id2 = reduceId(id2);
+        //recuperer l'id des deux cartes
+        id1 = reduceId(id1);
+        id2 = reduceId(id2);
 
-            if(id2>id1 && type.equals("+")){
-                correct=true;
-            }
-            else if(id2<id1 && type.equals("+")){
-                correct=false;
-            }
-            else if(id2>id1 && type.equals("-")){
-                correct=false;
-            }
-            else if(id2<id1 && type.equals("-")){
-                correct=true;
-            }
-            else if(id2==id1){
-                correct=false;
-            }
+        if(id2>id1 && type.equals("+")){
+            correct=true;
+        }
+        else if(id2<id1 && type.equals("+")){
+            correct=false;
+        }
+        else if(id2>id1 && type.equals("-")){
+            correct=false;
+        }
+        else if(id2<id1 && type.equals("-")){
+            correct=true;
+        }
+        else if(id2==id1){
+            correct=false;
+        }
         return correct;
     }
     private String CheckCorrect(Boolean correct){
@@ -525,11 +525,11 @@ public class BusGameActivity extends AppCompatActivity {
 
     /**
      * permet de zoomer sur la carte actuelle
-      */
+     */
     private void SetCurrentCardEffect(){
         for(int i=0;i<cardTurn.length;i++){
-                cardTurn[i].setLayoutParams(normalParams);
-            }
+            cardTurn[i].setLayoutParams(normalParams);
+        }
         cardTurn[currentCard].setLayoutParams(zoomParams);
     }
 

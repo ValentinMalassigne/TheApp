@@ -1,6 +1,5 @@
 package fr.mapoe.appproject;
 
-import static java.lang.String.valueOf;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
