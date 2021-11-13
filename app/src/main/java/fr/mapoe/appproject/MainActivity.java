@@ -119,11 +119,11 @@ public class MainActivity extends AppCompatActivity {
         goToApePiment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent characterChooseActivity = new Intent(getApplicationContext(), CharacterChooseActivity.class);
+                Intent characterChooseActivity = new Intent(getApplicationContext(), CharacterChooseActivity.class);
                 characterChooseActivity.putExtra("typeOfGame",2);
                 startActivity(characterChooseActivity);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                finish();*/
+                finish();
             }
         });
         // go to Simple Wheel

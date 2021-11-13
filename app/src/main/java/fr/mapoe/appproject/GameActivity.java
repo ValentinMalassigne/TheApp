@@ -134,7 +134,6 @@ public class GameActivity extends AppCompatActivity {
         //setUp des list
         try {
             setUpList();
-            //testApp();
             newDisplay(gameLayout);
         } catch (IOException e) {
             e.printStackTrace();
@@ -557,14 +556,16 @@ public class GameActivity extends AppCompatActivity {
 
         for(int i=1;i<=numberOfSentences;i++) {
             tempSentence=dataBaseManager.getSentenceFromDB(language,i,getApplicationContext());
-            if(tempSentence[3].equals("gages")){
-                gagesList.add(tempSentence);
-            }else if(tempSentence[3].equals("minigames")){
-                miniGamesList.add(tempSentence);
-            }else if(tempSentence[3].equals("questions")){
-                sentenceList.add(tempSentence);
-            }else if(tempSentence[3].equals("custom")){
-                customSentencesList.add(tempSentence);
+            if((typeOfGame==1 && tempSentence[8].equals("ApeChill")) || (typeOfGame==2 && tempSentence[8].equals("ApePiment"))){
+                if (tempSentence[3].equals("gages")) {
+                    gagesList.add(tempSentence);
+                } else if (tempSentence[3].equals("minigames")) {
+                    miniGamesList.add(tempSentence);
+                } else if (tempSentence[3].equals("questions")) {
+                    sentenceList.add(tempSentence);
+                } else if (tempSentence[3].equals("custom")) {
+                    customSentencesList.add(tempSentence);
+                }
             }
         }
 

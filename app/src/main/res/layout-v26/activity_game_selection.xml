@@ -8,15 +8,6 @@
     android:layout="@id/main_layout"
     android:id="@+id/main_layout"
     tools:context=".MainActivity">
-    <ImageView
-        android:id="@+id/share_button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/share"
-        android:layout_marginLeft="2dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/share_button"
