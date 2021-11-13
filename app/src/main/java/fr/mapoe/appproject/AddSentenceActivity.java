@@ -36,42 +36,30 @@ public class AddSentenceActivity extends AppCompatActivity {
 
     private int maxAddPlayerText=0,maxAddAnswerText=0,typeOfGame=1,rightAnswer=0;//rightAnswer=0 veut dire que la bonne réponse est celle de gauche
     private Button sentenceEditNextButton;
-    private Button answerEditNextButton;
     private Button buttonsEditNextButton;
-    private EditText editButton1;
-    private EditText editButton2;
-    private EditText scrollableEditButton1;
-    private EditText scrollableEditButton2;
+
+
     private LinearLayout gameTypeLayout;
     private LinearLayout scrollableGameModeLayout;
     private Spinner gameModeSpinner;
     private TextView questionTextView;
     private TextView textViewResume;
     private LinearLayout sentenceEditLayout;
-    private LinearLayout answerEditLayout;
     private LinearLayout scrollableSentenceLayout;
     private EditText scrollableSentenceEditText;
     private LinearLayout answerButtonLayout;
-    private LinearLayout scrollableAnswerLayout;
-    private EditText scrollableAnswerEditText;
     private LinearLayout pointLayout;
-    private LinearLayout scrollableButtonLayout;
     private LinearLayout scrollablePointLayout;
     private Spinner scrollablePointList;
     private Button visualizeButton;
-    private CheckBox rightAnswerIs1;
-    private CheckBox rightAnswerIs2;
-    private CheckBox scrollableRightAnswerIs2;
-    private CheckBox scrollableRightAnswerIs1;
     private boolean editSentence = false;
-    private int editSentenceIndex;
     private String[] decodedSentence;
     private Button button1Point;
     private Button button2Points;
     private Button button3Points;
     private Button button4Points;
     private Drawable buttonDrawable;
-
+    private String color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,40 +85,25 @@ public class AddSentenceActivity extends AppCompatActivity {
     //déclaration
     private void init(){
         SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
-        ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
+        color = sharedPreferences.getString("theme","");
+        ThemeManager themeManager = new ThemeManager(this,color);
         this.buttonDrawable = themeManager.getButtonDrawable();
         this.sentenceEditNextButton = findViewById(R.id.sentence_edit_next_button);
-        this.answerEditNextButton = findViewById(R.id.answer_edit_next_button);
-        this.buttonsEditNextButton = findViewById(R.id.buttons_edit_next_button);
-        this.editButton1 = findViewById(R.id.edit_button1);
-        this.editButton2 = findViewById(R.id.edit_button2);
-        this.scrollableEditButton1 = findViewById(R.id.scrollable_edit_button1);
-        this.scrollableEditButton2 = findViewById(R.id.scrollable_edit_button2);
+
         this.visualizeButton = findViewById(R.id.visualize_button);
         sentenceEditNextButton.setBackground(buttonDrawable);
-        answerEditNextButton.setBackground(buttonDrawable);
-        editButton1.setBackground(buttonDrawable);
-        editButton2.setBackground(buttonDrawable);
-        scrollableEditButton1.setBackground(buttonDrawable);
-        scrollableEditButton2.setBackground(buttonDrawable);
+
         // affichage du haut
         this.questionTextView = findViewById(R.id.question_textView);
         this.gameTypeLayout = findViewById(R.id.game_type_layout);
         this.sentenceEditLayout = findViewById(R.id.sentence_edit_layout);
-        this.answerEditLayout = findViewById(R.id.answer_edit_layout);
-        this.answerButtonLayout = findViewById(R.id.answer_button_layout);
-        this.pointLayout = findViewById(R.id.point_layout);
 
-        this.rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
-        this.rightAnswerIs2 = findViewById(R.id.right_answer_is_2);
+        this.pointLayout = findViewById(R.id.point_layout);
         this.button1Point = findViewById(R.id.button_1_point);
         this.button2Points = findViewById(R.id.button_2_points);
         this.button3Points = findViewById(R.id.button_3_points);
         this.button4Points = findViewById(R.id.button_4_points);
-        button1Point.setBackground(buttonDrawable);
-        button2Points.setBackground(buttonDrawable);
-        button3Points.setBackground(buttonDrawable);
-        button4Points.setBackground(buttonDrawable);
+
 
         //affichage du scrollView
         this.scrollableGameModeLayout = findViewById(R.id.scrollable_game_mode_layout);
@@ -138,13 +111,10 @@ public class AddSentenceActivity extends AppCompatActivity {
         this.textViewResume = findViewById(R.id.textViewResume);
         this.scrollableSentenceLayout = findViewById(R.id.scrollable_sentence_layout);
         this.scrollableSentenceEditText = findViewById(R.id.scrollable_sentence_edit_text);
-        this.scrollableAnswerLayout = findViewById(R.id.scrollable_answer_layout);
-        this.scrollableAnswerEditText = findViewById(R.id.scrollable_answer_edit_text);
-        this.scrollableButtonLayout = findViewById(R.id.scrollable_buttons_layout);
+
         this.scrollablePointLayout = findViewById(R.id.scrollable_point_layout);
         this.scrollablePointList = findViewById(R.id.scrollable_point_list);
-        this.scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
-        this.scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
+
         ConstraintLayout constraintLayout = findViewById(R.id.add_sentence_layout);
         constraintLayout.setBackground(themeManager.getBackgroundDrawable());
     }
@@ -172,7 +142,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                 gameModeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        setButtonBg(gameModeSpinner.getSelectedItem().toString());
+                        setButtonBg(gameModeSpinner.getSelectedItem().toString(),color);
                     }
 
                     @Override
@@ -206,7 +176,7 @@ public class AddSentenceActivity extends AppCompatActivity {
                 gameModeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                        setButtonBg(gameModeSpinner.getSelectedItem().toString());
+                        setButtonBg(gameModeSpinner.getSelectedItem().toString(),color);
                     }
 
                     @Override
@@ -227,8 +197,6 @@ public class AddSentenceActivity extends AppCompatActivity {
             visualizeButton.setVisibility(View.VISIBLE);
             scrollableGameModeLayout.setVisibility(View.VISIBLE);
             scrollableSentenceLayout.setVisibility(View.VISIBLE);
-            //scrollableAnswerLayout.setVisibility(View.VISIBLE);
-            //scrollableButtonLayout.setVisibility(View.VISIBLE);
             scrollablePointLayout.setVisibility(View.VISIBLE);
             scrollableGameModeLayout.setVisibility(View.VISIBLE);
 
@@ -239,7 +207,7 @@ public class AddSentenceActivity extends AppCompatActivity {
             gameModeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    setButtonBg(gameModeSpinner.getSelectedItem().toString());
+                    setButtonBg(gameModeSpinner.getSelectedItem().toString(),color);
                 }
 
                 @Override
@@ -261,50 +229,22 @@ public class AddSentenceActivity extends AppCompatActivity {
             decodedSentence[2]= decodedSentence[2].replaceAll("§",getString(R.string.player_landmark));
             decodedSentence[1]=decodedSentence[1].replaceAll("§",getString(R.string.player_landmark));
             scrollableSentenceEditText.setText(decodedSentence[2]);
-            scrollableAnswerEditText.setText(decodedSentence[1]);
 
-            if(decodedSentence[4].equals("+")){
-                rightAnswer=0;//rightAnswer = 0 veut dire que la bonne rep est a gauche, =1 si c'est celle de droite
 
-                //on check ou décheck les box
-                rightAnswerIs2.setChecked(false);
-                scrollableRightAnswerIs2.setChecked(false);
-                scrollableRightAnswerIs1.setChecked(true);
 
-                //on change le text des checkbox
-                rightAnswerIs1.setText(R.string.right_answer);
-                rightAnswerIs2.setText(R.string.wrong_answer);
-                scrollableRightAnswerIs1.setText(R.string.right_answer);
-                scrollableRightAnswerIs2.setText(R.string.wrong_answer);
-            }else{
-                rightAnswer=1;
-
-                rightAnswerIs2.setChecked(true);
-                scrollableRightAnswerIs1.setChecked(false);
-                scrollableRightAnswerIs2.setChecked(true);
-
-                rightAnswerIs1.setText(R.string.wrong_answer);
-                rightAnswerIs2.setText(R.string.right_answer);
-                scrollableRightAnswerIs1.setText(R.string.wrong_answer);
-                scrollableRightAnswerIs2.setText(R.string.right_answer);
-            }
-
-            scrollableEditButton1.setText(decodedSentence[5]);
-            scrollableEditButton2.setText(decodedSentence[6]);
 
             scrollablePointList.setSelection(Integer.parseInt(decodedSentence[0])-1);
             visualizeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     String text = scrollableSentenceEditText.getText().toString();
-                    String answer = scrollableAnswerEditText.getText().toString();
                     if (numberOfOccurrences(text) == 0) {
                         text = getString(R.string.player_landmark) + " " + text;
                     }
                     text = getCleanText(text);
-                    answer = getCleanText(answer);
+
                     String point = scrollablePointList.getSelectedItem().toString();
-                    showValidatePopup(R.layout.visualisation_popup, "Custom", text, answer, point);
+                    showValidatePopup(R.layout.visualisation_popup, "Custom", text,point);
                 }
             });
         }
@@ -314,25 +254,6 @@ public class AddSentenceActivity extends AppCompatActivity {
             sentenceEditNextButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    /* ce qui servait à afficher la demande de la réponse
-                    //on change la visibilité des éléments nécessaire
-                    EditText sentenceEditText = findViewById(R.id.sentence_edit_text);
-                    String text = sentenceEditText.getText().toString();
-                    if (!text.equals("")) {
-                        sentenceEditLayout.setVisibility(View.GONE);
-                        answerEditLayout.setVisibility(View.VISIBLE);
-                        scrollableSentenceLayout.setVisibility(View.VISIBLE);
-                        //on transfert ce qu'il a écrit dans la case answer dans la case qui est dans le scrollview
-
-                        scrollableSentenceEditText.setText(text);
-                        //on change le text qui guide
-                        questionTextView.setText(R.string.write_in_custom_answer_popup);
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Veuillez remplir le champ", Toast.LENGTH_SHORT).show();
-                    }
-                     */
                     //on change la visibilité des éléments nécessaire
                     EditText sentenceEditText = findViewById(R.id.sentence_edit_text);
                     String text = sentenceEditText.getText().toString();
@@ -353,46 +274,6 @@ public class AddSentenceActivity extends AppCompatActivity {
                 }
             });
 
-            //bouton Next après avoir tappé la réponse (inutile vu que l'on ne demande pas la phrase
-
-            /*answerEditNextButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //on change la visibilité des éléments nécessaire
-                    EditText answerEditText = findViewById(R.id.answer_edit_text);
-                    String answer = answerEditText.getText().toString();
-                    if (!answer.equals("")) {
-                        answerEditLayout.setVisibility(View.GONE);
-                        answerButtonLayout.setVisibility(View.VISIBLE);
-                        scrollableAnswerLayout.setVisibility(View.VISIBLE);
-                        //on transfert ce qu'il a écrit dans la case answer dans la case qui est dans le scrollview
-
-                        scrollableAnswerEditText.setText(answer);
-                        //on change le text qui guide
-                        questionTextView = findViewById(R.id.question_textView);
-                        questionTextView.setText(R.string.edit_buttons_and_select_correct_answer);
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Veuillez remplir le champ", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });*/
-            //bouton Next après avoir modifier les boutons
-            buttonsEditNextButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //on change la visibilité des éléments nécessaire
-                    answerButtonLayout.setVisibility(View.GONE);
-                    pointLayout.setVisibility(View.VISIBLE);
-                    scrollableButtonLayout.setVisibility(View.VISIBLE);
-                    //on transfert ce qu'il a écrit dans la case answer dans la case qui est dans le scrollview
-                    scrollableEditButton1.setText(editButton1.getText().toString());
-                    scrollableEditButton2.setText(editButton2.getText().toString());
-                    //on change le text qui guide
-                    questionTextView.setText(R.string.point_case_right_answer);
-                }
-            });
         }
 
 
@@ -432,14 +313,13 @@ public class AddSentenceActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String text = scrollableSentenceEditText.getText().toString();
-                String answer = scrollableAnswerEditText.getText().toString();
                 if (numberOfOccurrences(text) == 0) {
                     text = getString(R.string.player_landmark) + " " + text;
                 }
                 text = getCleanText(text);
-                answer = getCleanText(answer);
+
                 String point = scrollablePointList.getSelectedItem().toString();
-                showValidatePopup(R.layout.visualisation_popup, "Custom", text, answer, point);
+                showValidatePopup(R.layout.visualisation_popup, "Custom", text, point);
             }
         });
         //bouton ajouter un joueur a la phrase quand on te le demande
@@ -451,14 +331,6 @@ public class AddSentenceActivity extends AppCompatActivity {
             }
         });
 
-        //bouton ajouter un joueur a la réponse quand on te le demande
-        ImageView addPlayerToAnswer = findViewById(R.id.add_player_to_answer);
-        addPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addPlayerToSentence(findViewById(R.id.answer_edit_text));
-            }
-        });
 
         //bouton ajouter un joueur a la phrase dans le scrollview
         ImageView scrollableAddPlayerToSentence = findViewById(R.id.scrollable_add_player_to_sentence);
@@ -470,147 +342,33 @@ public class AddSentenceActivity extends AppCompatActivity {
         });
 
 
-        //bouton ajouter un joueur a la réponse dans le scrollview
-        ImageView scrollableAddPlayerToAnswer = findViewById(R.id.scrollable_add_player_to_answer);
-        scrollableAddPlayerToAnswer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addPlayerToSentence(findViewById(R.id.scrollable_answer_edit_text));
-            }
-        });
-
-        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-        CheckBox rightAnswerIs1 = findViewById(R.id.right_answer_is_1);
-        rightAnswerIs1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageCheckBoxSelection(view, 0);
-            }
-        });
-
-        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-        CheckBox rightAnswerIs2 = findViewById(R.id.right_answer_is_2);
-        rightAnswerIs2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageCheckBoxSelection(view, 1);
-            }
-        });
-
-        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-        CheckBox scrollableRightAnswerIs1 = findViewById(R.id.scrollable_right_answer_is_1);
-        scrollableRightAnswerIs1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageCheckBoxSelection(view, 0);
-            }
-        });
-
-        //si on clique la première checkbox alors on choisit que la bonne rep est la rep1 et on déselectionne la deuxième checkbox
-        CheckBox scrollableRightAnswerIs2 = findViewById(R.id.scrollable_right_answer_is_2);
-        scrollableRightAnswerIs2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                manageCheckBoxSelection(view, 1);
-            }
-        });
     }
 
-    private void setButtonBg(String gameMode){
+    private void setButtonBg(String gameMode,String color){
 
         if(gameMode.equals("ApeChill")){
+            Drawable roundBtnDrawable = getRoundButtonBackground(color);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 sentenceEditNextButton.setBackground(buttonDrawable);
-                answerEditNextButton.setBackground(buttonDrawable);
-                buttonsEditNextButton.setBackground(buttonDrawable);
-                editButton1.setBackground(buttonDrawable);
-                editButton2.setBackground(buttonDrawable);
-                scrollableEditButton1.setBackground(buttonDrawable);
-                scrollableEditButton2.setBackground(buttonDrawable);
                 visualizeButton.setBackground(buttonDrawable);
-                button1Point.setBackground(getDrawable(R.drawable.roud_button));
-                button2Points.setBackground(getDrawable(R.drawable.roud_button));
-                button3Points.setBackground(getDrawable(R.drawable.roud_button));
-                button4Points.setBackground(getDrawable(R.drawable.roud_button));
+                button1Point.setBackground(roundBtnDrawable);
+                button2Points.setBackground(roundBtnDrawable);
+                button3Points.setBackground(roundBtnDrawable);
+                button4Points.setBackground(roundBtnDrawable);
             }
         }
         else{
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 sentenceEditNextButton.setBackground(getDrawable(R.drawable.button_apepiment));
-                answerEditNextButton.setBackground(getDrawable(R.drawable.button_apepiment));
-                buttonsEditNextButton.setBackground(getDrawable(R.drawable.button_apepiment));
-                editButton1.setBackground(getDrawable(R.drawable.button_apepiment));
-                editButton2.setBackground(getDrawable(R.drawable.button_apepiment));
-                scrollableEditButton1.setBackground(getDrawable(R.drawable.button_apepiment));
-                scrollableEditButton2.setBackground(getDrawable(R.drawable.button_apepiment));
                 visualizeButton.setBackground(getDrawable(R.drawable.button_apepiment));
-                button1Point.setBackground(getDrawable(R.drawable.roud_button2));
-                button2Points.setBackground(getDrawable(R.drawable.roud_button2));
-                button3Points.setBackground(getDrawable(R.drawable.roud_button2));
-                button4Points.setBackground(getDrawable(R.drawable.roud_button2));
+                button1Point.setBackground(getDrawable(R.drawable.round_button_apepiment));
+                button2Points.setBackground(getDrawable(R.drawable.round_button_apepiment));
+                button3Points.setBackground(getDrawable(R.drawable.round_button_apepiment));
+                button4Points.setBackground(getDrawable(R.drawable.round_button_apepiment));
 
             }
         }
-    }
-
-    //gère les checks box pour éviter d'écrire 4 fois la même chose
-    private void manageCheckBoxSelection(View view,int situation){//situation = 0 veut dire que la bonne rep est a gauche, =1 si c'est celle de droite
-        boolean checked =  ((CheckBox) view).isChecked();
-
-        if(situation==0){
-            if(checked){
-                rightAnswer=0;//rightAnswer = 0 veut dire que la bonne rep est a gauche, =1 si c'est celle de droite
-
-                //on check ou décheck les box
-                rightAnswerIs2.setChecked(false);
-                scrollableRightAnswerIs2.setChecked(false);
-                scrollableRightAnswerIs1.setChecked(true);
-
-                //on change le text des checkbox
-                rightAnswerIs1.setText(R.string.right_answer);
-                rightAnswerIs2.setText(R.string.wrong_answer);
-                scrollableRightAnswerIs1.setText(R.string.right_answer);
-                scrollableRightAnswerIs2.setText(R.string.wrong_answer);
-            }else{
-                rightAnswer=1;
-
-                rightAnswerIs2.setChecked(true);
-                scrollableRightAnswerIs1.setChecked(false);
-                scrollableRightAnswerIs2.setChecked(true);
-
-                rightAnswerIs1.setText(R.string.wrong_answer);
-                rightAnswerIs2.setText(R.string.right_answer);
-                scrollableRightAnswerIs1.setText(R.string.wrong_answer);
-                scrollableRightAnswerIs2.setText(R.string.right_answer);
-            }
-        }else{
-            if(checked){
-                rightAnswer=1;
-
-                rightAnswerIs1.setChecked(false);
-                scrollableRightAnswerIs1.setChecked(false);
-                scrollableRightAnswerIs2.setChecked(true);
-
-                rightAnswerIs1.setText(R.string.wrong_answer);
-                rightAnswerIs2.setText(R.string.right_answer);
-                scrollableRightAnswerIs1.setText(R.string.wrong_answer);
-                scrollableRightAnswerIs2.setText(R.string.right_answer);
-            }else{
-                rightAnswer=0;
-
-                rightAnswerIs1.setChecked(true);
-                scrollableRightAnswerIs2.setChecked(false);
-                scrollableRightAnswerIs1.setChecked(true);
-
-                rightAnswerIs1.setText(R.string.right_answer);
-                rightAnswerIs2.setText(R.string.wrong_answer);
-                scrollableRightAnswerIs1.setText(R.string.right_answer);
-                scrollableRightAnswerIs2.setText(R.string.wrong_answer);
-            }
-        }
-
-
     }
 
     private void managePointsSelection(int pointsAmount){
@@ -723,7 +481,7 @@ public class AddSentenceActivity extends AppCompatActivity {
         }
     }
 
-    private void showValidatePopup(int layout,String title, String text,String answer,String point){
+    private void showValidatePopup(int layout,String title, String text,String point){
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
@@ -819,14 +577,12 @@ public class AddSentenceActivity extends AppCompatActivity {
             public void onClick(View view) {
                 alertDialog.dismiss();
                 String text = scrollableSentenceEditText.getText().toString();
-                String answer = scrollableAnswerEditText.getText().toString();
                 if (numberOfOccurrences(text) == 0) {
                     text = getString(R.string.player_landmark) + " " + text;
                 }
                 text = getCleanText(text);
-                answer = getCleanText(answer);
                 String point = scrollablePointList.getSelectedItem().toString();
-                showValidatePopup(R.layout.visualisation_popup, "Custom", text, answer, point);
+                showValidatePopup(R.layout.visualisation_popup, "Custom", text, point);
             }
         });
 
@@ -924,6 +680,18 @@ public class AddSentenceActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = customSentences.edit();
         editor.putBoolean("customSentences",true);
         editor.apply();
+    }
+    private Drawable getRoundButtonBackground(String color){
+        Drawable drawable = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if(color.equals("blue"))
+            drawable =getDrawable(R.drawable.round_button_blue);
+        else if (color.equals("green"))
+            drawable = getDrawable(R.drawable.roud_button_green);
+        else
+            drawable = getDrawable(R.drawable.round_button_red);
+            }
+        return drawable;
     }
 
     @Override

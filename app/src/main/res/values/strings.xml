@@ -86,7 +86,7 @@
     <string name="block_popup">"Do not show again "</string>
     <string name="popup_reset_button">Reset settings</string>
     <string name="popups_enabled">settings reset</string>
-    <string name="text">text</string>
+    <string name="text">Enter your sentence</string>
     <string name="add_answer">Add your answer</string>
     <string name="add_text">Add your sentence</string>
     <string name="visualize">visualise</string>

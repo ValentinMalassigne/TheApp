@@ -17,6 +17,13 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="counterText">
+        <item name="android:textColor">#aa5353cc</item>
+    </style>
+
+    <style name="counterOverride">
+        <item name="android:textColor">#ff0000</item>
+    </style>
 
     <style name="Theme.AppProject.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
