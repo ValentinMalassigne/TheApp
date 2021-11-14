@@ -329,32 +329,31 @@ public class GameActivity extends AppCompatActivity {
 
     private void showAnswerPopup(int layout, String text, int typeOfCall) {
         final boolean[] rightAnswer = {false};
-        int rightButton;
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
         // déclarer les éléments de la popup
         TextView textDisplay = (TextView) layoutView.findViewById(R.id.text_display);
-        Button yesButton = (Button) layoutView.findViewById(R.id.yes_button);
-        Button noButton = (Button) layoutView.findViewById(R.id.no_button);
+        Button leftButton = (Button) layoutView.findViewById(R.id.left_button);
+        Button rightButton = (Button) layoutView.findViewById(R.id.right_button);
         Button nextButton = (Button) layoutView.findViewById(R.id.next_button);
 
-        yesButton.setText(currentChallenge[5]);//la première rep
-        noButton.setText(currentChallenge[6]);//la deuxième rep est la rightAnswer
+        leftButton.setText(currentChallenge[5]);//la première rep
+        rightButton.setText(currentChallenge[6]);//la deuxième rep est la rightAnswer
 
 
 
         // change bg suivant le jeu
         if (typeOfGame == 2) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                yesButton.setBackground(getDrawable(R.drawable.button_apepiment));
-                noButton.setBackground(getDrawable(R.drawable.button_apepiment));
+                leftButton.setBackground(getDrawable(R.drawable.button_apepiment));
+                rightButton.setBackground(getDrawable(R.drawable.button_apepiment));
                 nextButton.setBackground(getDrawable(R.drawable.button_apepiment));
             }
         }
         else{
-            yesButton.setBackground(buttonDrawable);
-            noButton.setBackground(buttonDrawable);
+            leftButton.setBackground(buttonDrawable);
+            rightButton.setBackground(buttonDrawable);
             nextButton.setBackground(buttonDrawable);
         }
         dialogBuilder.setView(layoutView);
@@ -363,42 +362,42 @@ public class GameActivity extends AppCompatActivity {
         // appel normal y a une réponse
         if (typeOfCall == 1) { // appel normal par réponse
             textDisplay.setText(HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY));
-            yesButton.setOnClickListener(new View.OnClickListener() {
+            leftButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (currentChallenge[4].equals("+")) {//si c'est + et que le joueur répond oui alors il a gagné
+                    if (currentChallenge[4].equals("left")) {//si c'est + et que le joueur répond oui alors il a gagné
                         String temp = getRandomWinSentence();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
-                        noButton.setVisibility(View.GONE);
-                        yesButton.setVisibility(View.GONE);
+                        rightButton.setVisibility(View.GONE);
+                        leftButton.setVisibility(View.GONE);
                         nextButton.setVisibility(View.VISIBLE);
                         // ajout au score
                         rightAnswer[0] = true;
                     } else { //sinon il a perdu
                         String temp = getPunition(0);
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
-                        yesButton.setVisibility(View.GONE);
-                        noButton.setVisibility(View.GONE);
+                        leftButton.setVisibility(View.GONE);
+                        rightButton.setVisibility(View.GONE);
                         nextButton.setVisibility(View.VISIBLE);
                     }
                 }
             });
-            noButton.setOnClickListener(new View.OnClickListener() {
+            rightButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (currentChallenge[4].equals("-")) {//si c'est - et que le joueur répond non alors il a gagné
+                    if (currentChallenge[4].equals("right")) {//si c'est - et que le joueur répond non alors il a gagné
                         String temp = getRandomWinSentence();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
-                        noButton.setVisibility(View.GONE);
-                        yesButton.setVisibility(View.GONE);
+                        rightButton.setVisibility(View.GONE);
+                        leftButton.setVisibility(View.GONE);
                         nextButton.setVisibility(View.VISIBLE);
                         // ajout au score
                         rightAnswer[0] = true;
                     } else { //sinon il a perdu
                         String temp = getPunition(0);
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
-                        yesButton.setVisibility(View.GONE);
-                        noButton.setVisibility(View.GONE);
+                        leftButton.setVisibility(View.GONE);
+                        rightButton.setVisibility(View.GONE);
                         nextButton.setVisibility(View.VISIBLE);
                     }
                 }
@@ -406,8 +405,8 @@ public class GameActivity extends AppCompatActivity {
         }
         // appel sans réponse
         else if (typeOfCall == 2) {
-            yesButton.setVisibility(View.GONE);
-            noButton.setVisibility(View.GONE);
+            leftButton.setVisibility(View.GONE);
+            rightButton.setVisibility(View.GONE);
             nextButton.setVisibility(View.VISIBLE);
             nextButton.setText("ok");
             // affiche le score marqué
@@ -438,8 +437,8 @@ public class GameActivity extends AppCompatActivity {
         else { // appel par skip
             String temp = getPunition(1);
             textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
-            yesButton.setVisibility(View.GONE);
-            noButton.setVisibility(View.GONE);
+            leftButton.setVisibility(View.GONE);
+            rightButton.setVisibility(View.GONE);
             nextButton.setVisibility(View.VISIBLE);
         }
         nextButton.setOnClickListener(new View.OnClickListener() {

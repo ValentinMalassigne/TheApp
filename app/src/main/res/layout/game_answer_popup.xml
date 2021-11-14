@@ -62,7 +62,7 @@
 
 
         <Button
-            android:id="@+id/yes_button"
+            android:id="@+id/left_button"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="10"
@@ -77,7 +77,7 @@
 
         <Button
 
-            android:id="@+id/no_button"
+            android:id="@+id/right_button"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="10"
