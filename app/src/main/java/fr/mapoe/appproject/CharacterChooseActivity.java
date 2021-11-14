@@ -67,7 +67,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         ConstraintLayout constraintLayout = findViewById(R.id.character_main_layout);
         constraintLayout.setBackground(themeManager.getBackgroundDrawable());
         this.buttonDrawable = themeManager.getButtonDrawable();
-        addPlayer.setBackground(buttonDrawable);
+        addPlayer.setBackground(themeManager.getButtonDrawable());
         // recupération des valeurs passé en param
         Bundle extras = getIntent().getExtras();
 
@@ -98,7 +98,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
             }
         }
         else{
-            addPlayer.setBackground(buttonDrawable);
+
             goToGame.setBackground(buttonDrawable);
             goToMenu.setBackground(buttonDrawable);
         }
