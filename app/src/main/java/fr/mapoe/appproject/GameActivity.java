@@ -264,7 +264,7 @@ public class GameActivity extends AppCompatActivity {
                 return false;
             }
         });
-        {
+
             //on vérifie si l'utilisateur à bloqué la popup
             String alcohol_reminder_popup_blocked = "";
             if (sharedPreferences.contains("block_apechill_tutorial_popup")) {
@@ -273,7 +273,6 @@ public class GameActivity extends AppCompatActivity {
             if (!alcohol_reminder_popup_blocked.equals("blocked"))
                 showInfoDialog(R.layout.info_popup);
 
-        }
     }
 
     private void showInfoDialog(int layout) {// créer la popup info

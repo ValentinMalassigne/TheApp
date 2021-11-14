@@ -50,6 +50,7 @@ public class BusGameActivity extends AppCompatActivity {
     private LinearLayout.LayoutParams normalParams;
     private LinearLayout.LayoutParams zoomParams;
     private HorizontalScrollView horizontalScrollView;
+    private SharedPreferences blockPopup;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -66,7 +67,18 @@ public class BusGameActivity extends AppCompatActivity {
             nbCard = extras.getInt("nbCard");
             Log.d("nbCard:",Integer.toString(nbCard));
         }
-        showInfoDialog(R.layout.info_popup,1);
+
+        //on vérifie si l'utilisateur à bloqué la popup
+        String alcohol_reminder_popup_blocked = "";
+        blockPopup = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+        if (blockPopup.contains("block_apebus_tutorial_popup")) {
+            alcohol_reminder_popup_blocked = blockPopup.getString("block_apebus_tutorial_popup", "");
+        }
+        if (!alcohol_reminder_popup_blocked.equals("blocked"))
+            showInfoDialog(R.layout.info_popup,1);
+        else
+            init();
+
         ImageView xButton = (ImageView) findViewById(R.id.x_button);
         xButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -538,16 +550,15 @@ public class BusGameActivity extends AppCompatActivity {
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(BusGameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout,null);
-
         Button okButton = layoutView.findViewById(R.id.ok_button);
-        CheckBox checkBox = layoutView.findViewById(R.id.block_popup_checkBox);
+        CheckBox blockPopupCheckBox = layoutView.findViewById(R.id.block_popup_checkBox);
         ImageView imageInfo = layoutView.findViewById(R.id.image_info);
         ImageView nextButton = layoutView.findViewById(R.id.right_popup_arrow);
         ImageView leftButton = layoutView.findViewById(R.id.left_popup_arrow);
         TextView textInfo = layoutView.findViewById(R.id.text_info);
         leftButton.setVisibility(View.GONE);
-        imageInfo.setVisibility(View.INVISIBLE);
-        checkBox.setVisibility(View.GONE);
+        imageInfo.setImageResource(R.drawable.check);
+        imageInfo.setVisibility(View.GONE);
         okButton.setVisibility(View.GONE);
         textInfo.setText(R.string.ape_bus_rules);
         dialogBuilder.setView(layoutView);
@@ -567,16 +578,31 @@ public class BusGameActivity extends AppCompatActivity {
                 getLanguage();
                 textInfo.setText(R.string.ape_bus_rules2);
                 nextButton.setVisibility(View.GONE);
-                okButton.setVisibility(View.VISIBLE);
+                imageInfo.setVisibility(View.VISIBLE);
             }
         });
-        okButton.setOnClickListener(new View.OnClickListener() {
+        imageInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 alertDialog.dismiss();
                 if (typeOfCall == 1){
                     init();
                 }
+            }
+        });
+        blockPopupCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean checked = ((CheckBox) view).isChecked();
+                //ici on enregistre dans les SharedPreferences si l'utilisateur bloque la popup
+                blockPopup = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = blockPopup.edit();
+                if (checked) {
+                    editor.putString("block_apebus_tutorial_popup", "blocked");
+                } else {
+                    editor.putString("block_apebus_tutorial_popup", "activated");
+                }
+                editor.apply();
             }
         });
     }

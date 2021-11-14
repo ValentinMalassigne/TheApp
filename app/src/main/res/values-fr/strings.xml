@@ -176,12 +176,12 @@
     <string name="lost_game_bus">Perdu, bois µ gorgée(s) et ça recommence, plus ou moins ?</string>
     <string name="well_done_u_win">Bravo ! tu as gagné</string>
     <string name="how_many_card">Niveau de difficulté</string>
-    <string name="ape_bus_rules">Attend la fin de l\'animation. Tente de deviner si la carte tiré sera plus ou moins grande que la carte zommé</string>
-    <string name="ape_bus_rules2">C\'est mieux si un amis te fait jouer</string>
+    <string name="ape_bus_rules">Attend la fin de l\'animation. Tente de deviner si la carte tiré sera plus ou moins grande que la carte zommé. L\'as vaut 1.</string>
+    <string name="ape_bus_rules2">C\'est mieux si un amis te fait jouer.</string>
     <string name="welcome">Bienvenue</string>
     <string name="theme">Thèmes</string>
     <string name="blue">Bleu</string>
     <string name="green">Vert</string>
-    <string name="con_error">Bienvenu sur ApeTime, pour votre première utilisation vous avez besoin d\'être connecté à internet</string>
+    <string name="con_error">Bienvenu sur ApeTime, pour votre première utilisation vous avez besoin d\'être connecté à internet.</string>
     <string name="no_con">Pas de connection</string>
 </resources>
