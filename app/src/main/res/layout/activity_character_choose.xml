@@ -15,7 +15,7 @@
         android:layout_height="0dp"
         android:layout_margin="10sp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintBottom_toTopOf="@+id/game_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -77,42 +77,34 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/menu_button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_red"
+        android:text="@string/games_election_button"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        app:backgroundTint="@null"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/menu_button"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_gravity="left"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/button_red"
-            android:text="@string/games_election_button"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            app:backgroundTint="@null" />
-
-        <Button
-            android:id="@+id/game_button"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/button_red"
-            android:text="@string/game_button"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            app:backgroundTint="@null" />
-    </LinearLayout>
+    <Button
+        android:id="@+id/game_button"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:background="@drawable/button_red"
+        android:text="@string/game_button"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="15dp"
+        app:backgroundTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

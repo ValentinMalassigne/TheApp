@@ -40,9 +40,10 @@ public class GameEndActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_end);
         // recupère le theme
         SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
-        ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
         ConstraintLayout constraintLayout = findViewById(R.id.game_end_layout);
-        constraintLayout.setBackground(themeManager.getBackgroundDrawable());
+        Button restart = (Button) findViewById(R.id.restart_button);
+
+
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -52,6 +53,16 @@ public class GameEndActivity extends AppCompatActivity {
             typeOfGame = extras.getInt("typeOfGame");
             savedSentenceList = extras.getStringArrayList("savedList");
         }
+        String color="";
+        if(typeOfGame==2){
+            color="apepiment";
+        }
+        else{
+            color = sharedPreferences.getString("theme","");
+        }
+        ThemeManager themeManager = new ThemeManager(this,color);
+        constraintLayout.setBackground(themeManager.getBackgroundDrawable());
+        restart.setBackground(themeManager.getButtonDrawable());
 
         // init les tableaux
         classTab();
@@ -69,17 +80,6 @@ public class GameEndActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        // rejouer
-        Button restart = (Button) findViewById(R.id.restart_button);
-        if(typeOfGame==2){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                restart.setBackground(getDrawable(R.drawable.button_apepiment));
-            }
-        }
-        else{
-            restart.setBackground(themeManager.getButtonDrawable());
-        }
         restart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
