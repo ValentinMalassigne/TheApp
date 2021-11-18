@@ -87,7 +87,7 @@ public class GameEndActivity extends AppCompatActivity {
                 characterChosse.putExtra("playerTab", playerTab);
                 characterChosse.putExtra("alcoholTab", alcoholTab);
                 characterChosse.putExtra("restart",true);
-                characterChosse.putExtra("TypeOfGame", typeOfGame);
+                characterChosse.putExtra("typeOfGame", typeOfGame);
                 characterChosse.putExtra("savedList",savedSentenceList);
                 startActivity(characterChosse);
                 overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);

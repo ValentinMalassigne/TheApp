@@ -67,7 +67,6 @@ public class GameActivity extends AppCompatActivity {
     private final ArrayList<Integer> idRedCardList, idBlackCardList;
     private TextView playerCardTurn;
     private int typeOfGame = 0;
-    private static final String FILE_NAME = "custom_sentences.txt";
     private Button answerButton;
     private ImageView skipButton;
     private String secondPlayer;
@@ -112,6 +111,7 @@ public class GameActivity extends AppCompatActivity {
         ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
         gameLayout.setBackground(themeManager.getBackgroundDrawable());
         this.buttonDrawable = themeManager.getButtonDrawable();
+        savedSentenceList = new ArrayList<String>();
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -119,11 +119,8 @@ public class GameActivity extends AppCompatActivity {
             alcoholTab = extras.getStringArray("alcoholTab");
             typeOfGame = extras.getInt("typeOfGame");
             restart = extras.getBoolean("restart");
-            if (restart) {
+            if (restart)
                 savedSentenceList = extras.getStringArrayList("savedList");
-            } else {
-                savedSentenceList = new ArrayList<String>();
-            }
         }
 
         // initialisation du tableau scoreTab et le remplir
@@ -567,7 +564,6 @@ public class GameActivity extends AppCompatActivity {
             }
         }
 
-
         // on vérifie si la list savedSentenceList est remplis
         if (savedSentenceList != null) {
             RemoveSentenceFromList();
@@ -585,18 +581,18 @@ public class GameActivity extends AppCompatActivity {
             }
             for (int i = 0; i < miniGamesList.size(); i++) {
                 if (miniGamesList.get(i)[2].equals(savedSentenceList.get(j))
-                        && !miniGamesList.get(i).equals("Spinning Wheel") && !miniGamesList.get(i).equals("Red or Black")) {
-                    String[] supp = miniGamesList.remove(i);
+                        && !miniGamesList.get(i)[2].equals("Spinning Wheel") && !miniGamesList.get(i)[2].equals("Red or Black")) {
+                    miniGamesList.remove(i);
                 }
             }
             for (int i = 0; i < sentenceList.size(); i++) {
                 if (sentenceList.get(i)[2].equals(savedSentenceList.get(j))) {
-                    String[] supp = sentenceList.remove(i);
+                    sentenceList.remove(i);
                 }
             }
             for (int i = 0; i < customSentencesList.size(); i++) {
                 if (customSentencesList.get(i)[2].equals(savedSentenceList.get(j))) {
-                    String[] supp = customSentencesList.remove(i);
+                    customSentencesList.remove(i);
                 }
             }
         }
@@ -835,7 +831,6 @@ public class GameActivity extends AppCompatActivity {
     private String[] GetRandomSentence() {
         int min=0;
         int max = sentenceList.size()-1;
-        Log.d(TAG, "GetRandomSentence: "+max);
         Random r = new Random();
         int number = r.nextInt((max - min) + 1) + min; //génère de min (inclus) a max(inclus);
         String[] res=sentenceList.remove(number);
