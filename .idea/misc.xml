@@ -65,7 +65,7 @@
         <entry key="..\:/TheApp/app/src/main/res/layout/activity_bus_game.xml" value="0.4" />
         <entry key="..\:/TheApp/app/src/main/res/layout/activity_card_bus.xml" value="0.25416666666666665" />
         <entry key="..\:/TheApp/app/src/main/res/layout/activity_card_game.xml" value="0.4" />
-        <entry key="..\:/TheApp/app/src/main/res/layout/activity_character_choose.xml" value="0.4" />
+        <entry key="..\:/TheApp/app/src/main/res/layout/activity_character_choose.xml" value="0.264" />
         <entry key="..\:/TheApp/app/src/main/res/layout/activity_edit_sentence.xml" value="0.24728260869565216" />
         <entry key="..\:/TheApp/app/src/main/res/layout/activity_game.xml" value="0.264" />
         <entry key="..\:/TheApp/app/src/main/res/layout/activity_game_end.xml" value="0.2" />
@@ -130,6 +130,19 @@
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout/score_popup.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout/sentences_popup.xml" value="0.264" />
         <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/DrinkGame/app/src/main/res/layout/visualisation_popup.xml" value="0.20697463768115942" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/drawable/button_shape_apepiment.xml" value="0.2703125" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/drawable/roud_button.xml" value="0.2703125" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/drawable/roud_button2.xml" value="0.2703125" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/drawable/roud_button_clicked.xml" value="0.2703125" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/drawable/roud_button_clicked2.xml" value="0.2703125" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/layout-v26/activity_game_selection.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/layout/activity_character_choose.xml" value="0.264" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/layout/activity_game.xml" value="0.23143115942028986" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/layout/activity_game_selection.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/layout/activity_transfer.xml" value="0.23550724637681159" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/layout/game_answer_popup.xml" value="0.23143115942028986" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/layout/info_popup.xml" value="0.536" />
+        <entry key="..\:/Users/Proprietaires/AndroidStudioProjects/TheApp/app/src/main/res/layout/sentences_popup.xml" value="0.23143115942028986" />
         <entry key="..\:/appli android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.11296296296296296" />
         <entry key="..\:/appli android/app/src/main/res/drawable/button_shape.xml" value="0.14635416666666667" />
         <entry key="..\:/appli android/app/src/main/res/drawable/game_button_shape.xml" value="0.26615384615384613" />
