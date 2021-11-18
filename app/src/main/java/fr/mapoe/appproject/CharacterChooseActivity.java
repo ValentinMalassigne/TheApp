@@ -102,7 +102,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         constraintLayout.setBackground(themeManager.getBackgroundDrawable());
 
         buttonDrawable = themeManager.getButtonDrawable();
-        addPlayer.setBackground(themeManager.getButtonDrawable());
+        addPlayer.setBackground(buttonDrawable);
         goToMenu.setBackground(buttonDrawable);
         goToGame.setBackground(buttonDrawable);
         // ajout des TextView à chaque clique
