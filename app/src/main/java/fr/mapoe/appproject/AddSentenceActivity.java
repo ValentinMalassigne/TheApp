@@ -525,8 +525,8 @@ public class AddSentenceActivity extends AppCompatActivity {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(AddSentenceActivity.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
         //recuperer les éléments de la popup
-        Button yesButton = layoutView.findViewById(R.id.yes_button);
-        Button noButton = layoutView.findViewById(R.id.no_button);
+        Button yesButton = layoutView.findViewById(R.id.left_button);
+        Button noButton = layoutView.findViewById(R.id.right_button);
         Button addButton = layoutView.findViewById(R.id.add_button);
         Button nextButton = layoutView.findViewById(R.id.next_button);
         Button modifySentenceButton = layoutView.findViewById(R.id.modify_sentence_button);
@@ -652,10 +652,10 @@ public class AddSentenceActivity extends AppCompatActivity {
         encodingSentence[2]=text;
         encodingSentence[3]="custom";
         if(rightAnswer==0){
-            encodingSentence[4]="+";
+            encodingSentence[4]="left";
         }
         else{
-            encodingSentence[4]="-";
+            encodingSentence[4]="right";
         }
         encodingSentence[5]=button1;
         encodingSentence[6]=button2;

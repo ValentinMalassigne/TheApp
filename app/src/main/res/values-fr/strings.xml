@@ -3,7 +3,7 @@
     <string name="app_name">ApeTime</string>
     <string name="start_button">Jouer</string>
     <string name="option_button">Options</string>
-    <string name="language_button">Langue</string>
+    <string name="language_button">Langues</string>
     <string name="about_button">A propos</string>
     <string name="first_ttitle_display">C\'est ici que sera le titre</string>
     <string name="first_display_text">C\'est ici que sera le texte</string>
@@ -165,6 +165,8 @@
     <string name="answerd_button">répondu ?</string>
     <string name="drink_warning">Buvez avec modération et demandez de l\'aide à vos amis si besoins.</string>
     <string name="finish">finis</string>
+    <string name="apetime">ApeTime</string>
+    <string name="ApeBus">ApeBus</string>
     <string name="modify_what_you_want">\"Modifie ce que tu veux et appuie sur suivant !\"</string>
     <string name="spin">Lancer</string>
     <string name="coming_soon">Bientôt disponible</string>
@@ -174,12 +176,12 @@
     <string name="lost_game_bus">Perdu, bois µ gorgée(s) et ça recommence, plus ou moins ?</string>
     <string name="well_done_u_win">Bravo ! tu as gagné</string>
     <string name="how_many_card">Niveau de difficulté</string>
-    <string name="ape_bus_rules">Attend la fin de l\'animation. Tente de deviner si la carte tiré sera plus ou moins grande que la carte zommé</string>
-    <string name="ape_bus_rules2">C\'est mieux si un amis te fait jouer</string>
+    <string name="ape_bus_rules">Attend la fin de l\'animation. Tente de deviner si la carte tiré sera plus ou moins grande que la carte zommé. L\'as vaut 1.</string>
+    <string name="ape_bus_rules2">C\'est mieux si un amis te fait jouer.</string>
     <string name="welcome">Bienvenue</string>
-    <string name="theme">Themes</string>
+    <string name="theme">Thèmes</string>
     <string name="blue">Bleu</string>
     <string name="green">Vert</string>
-    <string name="con_error">Bienvenu sur ApeTime, pour votre première utilisation vous avez besoin d\'être connecté à internet</string>
+    <string name="con_error">Bienvenu sur ApeTime, pour votre première utilisation vous avez besoin d\'être connecté à internet.</string>
     <string name="no_con">Pas de connection</string>
 </resources>

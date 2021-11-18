@@ -67,8 +67,7 @@ public class GameActivity extends AppCompatActivity {
     private final ArrayList<Integer> idRedCardList, idBlackCardList;
     private TextView playerCardTurn;
     private int typeOfGame = 0;
-    private static final String FILE_NAME = "custom_sentences.txt";
-    private Button answerButton;
+    private Button answerButton,rightButtonGame,leftButtonGame;
     private ImageView skipButton;
     private String secondPlayer;
     private String thirdPlayer;
@@ -106,12 +105,9 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         this.activity = this;
         dataBaseManager = new DataBaseManager();
-
+        savedSentenceList = new ArrayList<String>();
         ConstraintLayout gameLayout = (ConstraintLayout) findViewById(R.id.game_layout);
         SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
-        ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
-        gameLayout.setBackground(themeManager.getBackgroundDrawable());
-        this.buttonDrawable = themeManager.getButtonDrawable();
         // recuperer les données
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -121,16 +117,28 @@ public class GameActivity extends AppCompatActivity {
             restart = extras.getBoolean("restart");
             if (restart) {
                 savedSentenceList = extras.getStringArrayList("savedList");
-            } else {
-                savedSentenceList = new ArrayList<String>();
             }
         }
+        String color;
+        if(typeOfGame == 1){
+            color = sharedPreferences.getString("theme","");
+        }
+        else{
+            color ="apepiment";
+        }
+        ThemeManager themeManager = new ThemeManager(this,color);
+        this.buttonDrawable = themeManager.getButtonDrawable();
+        gameLayout.setBackground(themeManager.getBackgroundDrawable());
 
         // initialisation du tableau scoreTab et le remplir
         scoreTab = new String[playerTab.length];
         Arrays.fill(scoreTab, "0");
-        this.answerButton = (Button) findViewById(R.id.answer_button);
+        answerButton = (Button) findViewById(R.id.answer_button);
         answerButton.setBackground(buttonDrawable);
+        rightButtonGame = findViewById(R.id.right_button);
+        leftButtonGame = findViewById(R.id.left_button);
+        rightButtonGame.setBackground(buttonDrawable);
+        leftButtonGame.setBackground(buttonDrawable);
         //setUp des list
         try {
             setUpList();
@@ -187,14 +195,14 @@ public class GameActivity extends AppCompatActivity {
                 if (currentChallenge[5].equals("skip")) {
                     typeOfCall = 2;
                 }
-                showAnswerPopup(R.layout.game_answer_popup, currentChallenge[1], typeOfCall);
+                showAnswerPopup(R.layout.game_answer_popup, currentChallenge[1], typeOfCall,false);
             }
         });
         skipButton = (ImageView) findViewById(R.id.skip_button);
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showAnswerPopup(R.layout.game_answer_popup, currentChallenge[1], 3);
+                showAnswerPopup(R.layout.game_answer_popup, currentChallenge[1], 3,false);
             }
         });
         skipButton.setOnTouchListener(new View.OnTouchListener() {
@@ -327,16 +335,28 @@ public class GameActivity extends AppCompatActivity {
         });
     }
 
-    private void showAnswerPopup(int layout, String text, int typeOfCall) {
+    /**
+     *
+     * @param layout
+     * @param text
+     * @param typeOfCall
+     * @param win -> pour typeOfCall = 4
+     * typeOfCall = 1 -> appel avec answer et text dans les bouttons
+     * typeOfCall = 2 -> pas de réponse et pas de texte dans les boutons
+     * typeOfCall = 3 -> le joueur passe donc il boit
+     * typeOfCall = 4 -> Cas ou y a pas de réponse mais des boutons qui sont dans le gameLayout
+     *                   donc on affiche soit la punition soit l'ajout de point
+     */
+    private void showAnswerPopup(int layout, String text, int typeOfCall, Boolean win) {
+        Log.d("typeOfCall",Integer.toString(typeOfCall));
         final boolean[] rightAnswer = {false};
-        int rightButton;
         AlertDialog alertDialog;
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
         View layoutView = getLayoutInflater().inflate(layout, null);
         // déclarer les éléments de la popup
         TextView textDisplay = (TextView) layoutView.findViewById(R.id.text_display);
-        Button yesButton = (Button) layoutView.findViewById(R.id.yes_button);
-        Button noButton = (Button) layoutView.findViewById(R.id.no_button);
+        Button yesButton = (Button) layoutView.findViewById(R.id.left_button);
+        Button noButton = (Button) layoutView.findViewById(R.id.right_button);
         Button nextButton = (Button) layoutView.findViewById(R.id.next_button);
 
         yesButton.setText(currentChallenge[5]);//la première rep
@@ -357,6 +377,7 @@ public class GameActivity extends AppCompatActivity {
             noButton.setBackground(buttonDrawable);
             nextButton.setBackground(buttonDrawable);
         }
+
         dialogBuilder.setView(layoutView);
         alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -366,7 +387,7 @@ public class GameActivity extends AppCompatActivity {
             yesButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (currentChallenge[4].equals("+")) {//si c'est + et que le joueur répond oui alors il a gagné
+                    if (currentChallenge[4].equals("left")) {//si c'est + et que le joueur répond oui alors il a gagné
                         String temp = getRandomWinSentence();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         noButton.setVisibility(View.GONE);
@@ -386,7 +407,7 @@ public class GameActivity extends AppCompatActivity {
             noButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (currentChallenge[4].equals("-")) {//si c'est - et que le joueur répond non alors il a gagné
+                    if (currentChallenge[4].equals("right")) {//si c'est - et que le joueur répond non alors il a gagné
                         String temp = getRandomWinSentence();
                         textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
                         noButton.setVisibility(View.GONE);
@@ -413,34 +434,31 @@ public class GameActivity extends AppCompatActivity {
             // affiche le score marqué
             String temp = getRandomWinSentence();
             textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
-            nextButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    try {
-
-                        for (int i = 0; i < scoreTab.length; i++) {
-                            if (playerTab[i].equals(currentPlayer)) {
-                                int scoreInt = Integer.parseInt(currentChallenge[0]);
-                                int currentPlayerScore = Integer.parseInt(scoreTab[i]);
-                                int newScore = scoreInt + currentPlayerScore;
-                                scoreTab[i] = Integer.toString(newScore);
-                            }
-                        }
-                        newDisplay(view);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    alertDialog.dismiss();
-                }
-            });
+            rightAnswer[0] = true;
         }
         // appel par skip
-        else { // appel par skip
+        else if (typeOfCall == 3){ // appel par skip
             String temp = getPunition(1);
             textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
             yesButton.setVisibility(View.GONE);
             noButton.setVisibility(View.GONE);
             nextButton.setVisibility(View.VISIBLE);
+        }
+        // on affiche soit la punition soit les points
+        else{
+            yesButton.setVisibility(View.GONE);
+            noButton.setVisibility(View.GONE);
+            nextButton.setVisibility(View.VISIBLE);
+            if(win){
+                // affiche le score marqué
+                String temp = getRandomWinSentence();
+                textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
+                rightAnswer[0] = true;
+            }
+            else{
+                String temp = getPunition(0);
+                textDisplay.setText(HtmlCompat.fromHtml(temp, HtmlCompat.FROM_HTML_MODE_LEGACY));
+            }
         }
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -587,18 +605,18 @@ public class GameActivity extends AppCompatActivity {
             }
             for (int i = 0; i < miniGamesList.size(); i++) {
                 if (miniGamesList.get(i)[2].equals(savedSentenceList.get(j))
-                        && !miniGamesList.get(i).equals("Spinning Wheel") && !miniGamesList.get(i).equals("Red or Black")) {
-                    String[] supp = miniGamesList.remove(i);
+                        && !miniGamesList.get(i)[2].equals("Spinning Wheel") && !miniGamesList.get(i)[2].equals("Red or Black")) {
+                    miniGamesList.remove(i);
                 }
             }
             for (int i = 0; i < sentenceList.size(); i++) {
                 if (sentenceList.get(i)[2].equals(savedSentenceList.get(j))) {
-                    String[] supp = sentenceList.remove(i);
+                    sentenceList.remove(i);
                 }
             }
             for (int i = 0; i < customSentencesList.size(); i++) {
                 if (customSentencesList.get(i)[2].equals(savedSentenceList.get(j))) {
-                    String[] supp = customSentencesList.remove(i);
+                    customSentencesList.remove(i);
                 }
             }
         }
@@ -614,6 +632,11 @@ public class GameActivity extends AppCompatActivity {
         skipButton = findViewById(R.id.skip_button);
         skipButton.setVisibility(View.INVISIBLE);
 
+        LinearLayout buttonLayout = findViewById(R.id.button_layout);
+        buttonLayout.setVisibility(View.GONE);
+        answerButton.setVisibility(View.VISIBLE);
+
+
         if (GetNextInformations()) {//on vérifie si on continue a construire la page avec les textView
             String type = currentChallenge[3];
 
@@ -626,10 +649,42 @@ public class GameActivity extends AppCompatActivity {
             TextView helpText = findViewById(R.id.help_text);
             if (currentChallenge[5].equals("skip")) {
                 answerButton.setText(R.string.answerd_button);
-
                 helpText.setVisibility(View.VISIBLE);
-
-            } else {
+            }
+            else if(currentChallenge[1].equals("") && !currentChallenge[5].equals("skip")){
+                answerButton.setVisibility(View.GONE);
+                buttonLayout.setVisibility(View.VISIBLE);
+                leftButtonGame.setText(currentChallenge[5]);
+                rightButtonGame.setText(currentChallenge[6]);
+                // le left right est inversé mais bon osef
+                rightButtonGame.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Boolean win;
+                        if(currentChallenge[4].equals("right")){
+                            win = true;
+                        }
+                        else{
+                            win = false;
+                        }
+                        showAnswerPopup(R.layout.game_answer_popup,"",4,win);
+                    }
+                });
+                leftButtonGame.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Boolean win;
+                        if(currentChallenge[4].equals("left")){
+                            win = true;
+                        }
+                        else{
+                            win = false;
+                        }
+                        showAnswerPopup(R.layout.game_answer_popup,"",4,win);
+                    }
+                });
+            }
+            else {
                 answerButton.setText(getString(R.string.show_answer));
                 helpText.setVisibility(View.GONE);
             }
@@ -735,7 +790,7 @@ public class GameActivity extends AppCompatActivity {
         boolean nameInBtn2 = button2.substring(0,button2.length()).equals("§");
         // si nom dans boutton 1 mais pas boutton 2
         if(nameInBtn1 &!nameInBtn2){
-              btn1 = currentPlayer;
+            btn1 = currentPlayer;
         }
         // inverse
         else if(!nameInBtn1 & nameInBtn2){
@@ -798,6 +853,9 @@ public class GameActivity extends AppCompatActivity {
         }
         if (type.equals("custom")){
             res=GetRandomCustomSentence();
+        }
+        for(int i=0;i<res.length;i++){
+            Log.d("sentence",res[i]);
         }
         return res;
     }

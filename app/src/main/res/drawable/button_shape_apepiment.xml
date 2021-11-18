@@ -6,9 +6,9 @@
     <gradient
         android:angle="45"
         android:centerX="50%"
-        android:centerColor="#AB47BC"
-        android:startColor="#FF7AA7"
-        android:endColor="#CB87E8"
+        android:centerColor="#E758FF"
+        android:startColor="#CB7AFB"
+        android:endColor="#EE8CFF"
         android:type="linear"
         />
     <size

@@ -27,6 +27,8 @@ public class ThemeManager {
                 backgroundDrawable = context.getDrawable(R.drawable.background_gradient_color_blue);
         else if(color.equals("green"))
             backgroundDrawable = context.getDrawable(R.drawable.background_gradient_color_green);
+        else if(color.equals("apepiment"))
+            backgroundDrawable = context.getDrawable(R.drawable.background_gradient_color_apepiment);
         else
             backgroundDrawable = context.getDrawable(R.drawable.background_gradient_color_red);
         }
@@ -40,6 +42,8 @@ public class ThemeManager {
                 buttonDrawable = context.getDrawable(R.drawable.button_blue);
             else if(color.equals("green"))
                 buttonDrawable = context.getDrawable(R.drawable.button_green);
+            else if(color.equals("apepiment"))
+                buttonDrawable = context.getDrawable(R.drawable.button_apepiment);
             else
                 buttonDrawable = context.getDrawable(R.drawable.button_red);
         }

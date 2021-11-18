@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         boolean restart = false;
         if (extras != null) {
-            isCalledFromApeBus = true;
+            isCalledFromApeBus = extras.getBoolean("fixBugApeBus");
             restart = extras.getBoolean("apebus restart");
         }
-
+        Log.d(TAG, "onCreate: "+isCalledFromApeBus);
         //changement de la langue
         if(!isCalledFromApeBus)
             getLanguage();
@@ -277,6 +277,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getLanguage(){
+        Log.d(TAG, "getLanguage: issou");
         //on charge le langage enregistrée dans les shared preferences
         SharedPreferences language = getApplicationContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
         String choseLanguage = language.getString("language","");

@@ -3,7 +3,7 @@
     <string name="app_name">ApeTime</string>
     <string name="start_button">Play</string>
     <string name="option_button">Options</string>
-    <string name="language_button">Language</string>
+    <string name="language_button">Languages</string>
     <string name="about_button">About</string>
     <string name="first_ttitle_display">The title will be here</string>
     <string name="first_display_text">The text will be here</string>
@@ -162,7 +162,7 @@
     <string name="confirm_or_keep_editing">Do you confirm your modifications or you want to keep editing ?</string>
     <string name="answerd_button">answered ?</string>
     <string name="drink_warning">Drink responsivly and ask your friends for help if you need it.</string>
-    <string name="finish">finis</string>
+    <string name="finish">finish</string>
     <string name="modify_what_you_want">\"Modify what you want and press next !\"</string>
     <string name="spin">spin</string>
     <string name="apetime">ApeTime</string>

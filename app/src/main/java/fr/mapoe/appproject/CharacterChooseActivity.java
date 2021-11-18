@@ -63,11 +63,8 @@ public class CharacterChooseActivity extends AppCompatActivity {
         this.goToGame = (Button) findViewById(R.id.game_button);
         this.goToMenu = (Button) findViewById(R.id.menu_button);
         SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
-        ThemeManager themeManager = new ThemeManager(this,sharedPreferences.getString("theme",""));
         ConstraintLayout constraintLayout = findViewById(R.id.character_main_layout);
-        constraintLayout.setBackground(themeManager.getBackgroundDrawable());
-        this.buttonDrawable = themeManager.getButtonDrawable();
-        addPlayer.setBackground(themeManager.getButtonDrawable());
+
         // recupération des valeurs passé en param
         Bundle extras = getIntent().getExtras();
 
@@ -90,19 +87,20 @@ public class CharacterChooseActivity extends AppCompatActivity {
             Arrays.fill(tempTab, "drink2");
         }
         // changer le bg des buttons si on ApePiment
+        String color;
         if (typeOfGame==2) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                addPlayer.setBackground(getDrawable(R.drawable.button_apepiment));
-                goToGame.setBackground(getDrawable(R.drawable.button_apepiment));
-                goToMenu.setBackground(getDrawable(R.drawable.button_apepiment));
-            }
+            color = "apepiment";
         }
         else{
-
-            goToGame.setBackground(buttonDrawable);
-            goToMenu.setBackground(buttonDrawable);
+            color = sharedPreferences.getString("theme","");
         }
+        ThemeManager themeManager = new ThemeManager(this, color);
+        constraintLayout.setBackground(themeManager.getBackgroundDrawable());
 
+        buttonDrawable = themeManager.getButtonDrawable();
+        addPlayer.setBackground(themeManager.getButtonDrawable());
+        goToMenu.setBackground(buttonDrawable);
+        goToGame.setBackground(buttonDrawable);
         // ajout des TextView à chaque clique
         addPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
