@@ -167,7 +167,6 @@
     <string name="spin">spin</string>
     <string name="apetime">ApeTime</string>
     <string name="coming_soon">Coming soon</string>
-    <string name="new_game_coming_soon">A new game will coming soon be ready !</string>
     <string name="ApeBus">ApeBus</string>
     <string name="apebus_description">"The famous game auto-bus is here two ! "</string>
     <string name="temp_win_bus">Good job ! Now next card, plus or minus ?</string>
@@ -183,4 +182,5 @@
     <string name="green">Green</string>
     <string name="con_error">Welcome to ApeTime, during your first use, you need to be connect to the internet</string>
     <string name="no_con">No connection</string>
+    <string name="new_game">Next game</string>
 </resources>
