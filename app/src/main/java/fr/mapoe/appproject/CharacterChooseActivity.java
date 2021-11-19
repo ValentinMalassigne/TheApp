@@ -72,7 +72,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         String[] savePlayerTab=new String[0],saveAlcoholTab = new String[0];
-        addPlayerEditText.setMinimumWidth((int) (220*scale));
+        addPlayerEditText.setMinimumWidth((int) (210*scale));
 
         if (extras != null) {
             typeOfGame = extras.getInt("typeOfGame");
