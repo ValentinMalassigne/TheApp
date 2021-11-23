@@ -163,10 +163,13 @@ public class MainActivity extends AppCompatActivity {
         shareApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("test/plain");
-                intent.putExtra(Intent.EXTRA_TEXT, "Download ApeTime = https://play.google.com/store/apps/details?id=fr.mapoe.appproject");
-                startActivity(Intent.createChooser(intent,"Share using"));
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                String shareSub = "Download Apetime !";
+                String shareBody = "https://play.google.com/store/apps/details?id=fr.mapoe.appproject";
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(shareIntent, "Download Apetime !"));
             }
         });
 

@@ -31,27 +31,26 @@
             android:textSize="24sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/add_player_edit_text"
-                android:layout_width="wrap_content"
-                android:minWidth="250dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:hint="@string/playe_name_hint"
                 android:inputType="text"
+                android:layout_weight="1"
                 android:maxLength="12"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white" />
 
             <Button
                 android:id="@+id/add_player_button"
-                android:layout_width="140dp"
+                android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:layout_marginRight="5dp"
                 android:background="@drawable/button_red"
                 android:gravity="center"
                 android:text="@string/addPlayer_button"
@@ -59,6 +58,7 @@
                 android:textAllCaps="false"
                 android:textSize="12sp"
                 app:backgroundTint="@null" />
+
 
         </LinearLayout>
 

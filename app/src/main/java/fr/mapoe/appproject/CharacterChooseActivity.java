@@ -39,6 +39,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
     private int nbJoueurs = 0; // stock egalement l'id de chaque joueur
     private LinearLayout scrollViewLayout;
     private LinearLayout containerLayout;
+    private EditText addPlayerEditText;
     public String[] tempTab = new String[10]; // liste temporaire pour stocker si le joueur bois ou pas
     public static String[][] tabJoueurs;
     private int idLayouts=100;
@@ -51,15 +52,17 @@ public class CharacterChooseActivity extends AppCompatActivity {
     private int typeOfGame = 0;
     private ArrayList<String> savedSentenceList;
     private Drawable buttonDrawable;
+    private float scale;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_character_choose);
-
+        this.scale = getResources().getDisplayMetrics().density;
         this.scrollViewLayout = findViewById(R.id.myDynamicLayout);
         this.addPlayer = (Button) findViewById(R.id.add_player_button);
+        this.addPlayerEditText = (EditText) findViewById(R.id.add_player_edit_text);
         this.goToGame = (Button) findViewById(R.id.game_button);
         this.goToMenu = (Button) findViewById(R.id.menu_button);
         SharedPreferences sharedPreferences = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);
@@ -69,6 +72,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         String[] savePlayerTab=new String[0],saveAlcoholTab = new String[0];
+        addPlayerEditText.setMinimumWidth((int) (210*scale));
 
         if (extras != null) {
             typeOfGame = extras.getInt("typeOfGame");
@@ -98,7 +102,7 @@ public class CharacterChooseActivity extends AppCompatActivity {
         constraintLayout.setBackground(themeManager.getBackgroundDrawable());
 
         buttonDrawable = themeManager.getButtonDrawable();
-        addPlayer.setBackground(themeManager.getButtonDrawable());
+        addPlayer.setBackground(buttonDrawable);
         goToMenu.setBackground(buttonDrawable);
         goToGame.setBackground(buttonDrawable);
         // ajout des TextView à chaque clique
@@ -175,7 +179,6 @@ public class CharacterChooseActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void addPlayers(String[] savePlayerTab, String[] saveAlcoholTab, boolean initialisation,int i){
         // Créer les différents params
-        float scale = getResources().getDisplayMetrics().density;
         if (nbJoueurs < 10) {
             EditText addPlayerEditText = findViewById(R.id.add_player_edit_text);
             //on vérifie que le nom n'est pas celui d'un joueur déjà existant

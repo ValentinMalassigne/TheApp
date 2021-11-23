@@ -558,6 +558,8 @@ public class BusGameActivity extends AppCompatActivity {
         TextView textInfo = layoutView.findViewById(R.id.text_info);
         leftButton.setVisibility(View.GONE);
         imageInfo.setImageResource(R.drawable.check);
+        float scale = getResources().getDisplayMetrics().density;
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams((int) (60*scale),(int) (60*scale));
         imageInfo.setVisibility(View.GONE);
         okButton.setVisibility(View.GONE);
         textInfo.setText(R.string.ape_bus_rules);

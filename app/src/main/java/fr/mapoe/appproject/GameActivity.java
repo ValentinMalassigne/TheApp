@@ -585,6 +585,19 @@ public class GameActivity extends AppCompatActivity {
                     customSentencesList.add(tempSentence);
                 }
             }
+
+        }
+        //ajout des minijeux custom à la liste des mini-jeux possible :
+        tempSentence=new String[9];
+        tempSentence[0]="1";
+        tempSentence[3]="minigames";
+        tempSentence[2]="Spinning Wheel";
+        for(int i=0;i<3;i++){
+            miniGamesList.add(tempSentence);
+        }
+        tempSentence[2]="Red or Black";
+        for(int i=0;i<3;i++){
+            miniGamesList.add(tempSentence);
         }
 
 

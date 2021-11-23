@@ -1,5 +1,6 @@
 package fr.mapoe.appproject;
 
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -102,10 +103,20 @@ public class SplashScreenActivity extends AppCompatActivity {
                             requestSentence(urls,newDBVersion);
                         }
                     } else {
-                        Toast.makeText(context, "Unable to parse data", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(context, "Unable to dowload data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, getString(R.string.error_message), Toast.LENGTH_LONG).show();
+                    Runnable runnable = new Runnable() {
+                        @Override
+                        public void run() {
+                            // start page
+                            finish();
+                            System.exit(0);
+                        }
+                    };
+                    new Handler().postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
+
                 }
             }
         });

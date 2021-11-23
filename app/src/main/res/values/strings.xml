@@ -183,4 +183,5 @@
     <string name="green">Green</string>
     <string name="con_error">Welcome to ApeTime, during your first use, you need to be connect to the internet</string>
     <string name="no_con">No connection</string>
+    <string name="error_message">"Connexion failed, pleese change your setting, your wifi might block our data "</string>
 </resources>
