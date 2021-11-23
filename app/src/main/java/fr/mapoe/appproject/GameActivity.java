@@ -662,21 +662,21 @@ public class GameActivity extends AppCompatActivity {
                 answerButton.setText(R.string.answerd_button);
                 helpText.setVisibility(View.VISIBLE);
             }
-            else if(currentChallenge[1].equals("") && !currentChallenge[5].equals("skip")){
+            else if(currentChallenge[1].equals("")){
                 answerButton.setVisibility(View.GONE);
                 buttonLayout.setVisibility(View.VISIBLE);
                 leftButtonGame.setText(currentChallenge[5]);
                 rightButtonGame.setText(currentChallenge[6]);
-                // le left right est inversé mais bon osef
+                // le left right est inversé mais bon osef, bah non en fait
                 rightButtonGame.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Boolean win;
+                        boolean win;
                         if(currentChallenge[4].equals("right")){
-                            win = true;
+                            win = false;
                         }
                         else{
-                            win = false;
+                            win = true;
                         }
                         showAnswerPopup(R.layout.game_answer_popup,"",4,win);
                     }
@@ -684,12 +684,12 @@ public class GameActivity extends AppCompatActivity {
                 leftButtonGame.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Boolean win;
+                        boolean win;
                         if(currentChallenge[4].equals("left")){
-                            win = true;
+                            win = false;
                         }
                         else{
-                            win = false;
+                            win = true;
                         }
                         showAnswerPopup(R.layout.game_answer_popup,"",4,win);
                     }
@@ -864,9 +864,6 @@ public class GameActivity extends AppCompatActivity {
         }
         if (type.equals("custom")){
             res=GetRandomCustomSentence();
-        }
-        for(int i=0;i<res.length;i++){
-            Log.d("sentence",res[i]);
         }
         return res;
     }
