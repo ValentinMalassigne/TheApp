@@ -102,20 +102,14 @@ public class SplashScreenActivity extends AppCompatActivity {
                             int newDBVersion = result[1];
                             requestSentence(urls,newDBVersion);
                         }
-                    } else {
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                    } else {// enable to parse data = serveur mort
+                        ShowErrorDialog(R.layout.error_popup,1,localVersion);
                     }
-                } else {
-                    Toast.makeText(context, getString(R.string.error_message), Toast.LENGTH_LONG).show();
-                    Runnable runnable = new Runnable() {
-                        @Override
-                        public void run() {
-                            // start page
-                            finish();
-                            System.exit(0);
-                        }
-                    };
-                    new Handler().postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
+                } else {// probleme de co
+                    if(localVersion == 0) // si numéro de version = 0 (premiere fois on lance le message d'erreur)
+                        ShowErrorDialog(R.layout.error_popup,2,localVersion);
+                    else // c'est pas grave on lance le main car il a déjà des phrases
+                        startMain();
 
                 }
             }
@@ -258,7 +252,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 boolean isConnect = checkCon();
                 if(isConnect) {
                     Log.d("connection", "connection rétablis");
-                    String[] urls = new String[]{requestENAddress,requestFRAddress};
+
                     requestDBVersion(0);
                     alertDialog.dismiss();
                 }
@@ -268,6 +262,54 @@ public class SplashScreenActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * typeOfCall = 1 Probleme de parse (signifie que le serveur est down)
+     * typeOfCall = 2 Probleme de wifi il faut que l'utilisateur change de co
+     * localVersion pour rappeler la fonction quand on appuie sur retry
+    */
+    private void ShowErrorDialog(int layout, int typeOfCall, int localVersion){
+        AlertDialog alertDialog;
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        View layoutView = getLayoutInflater().inflate(layout, null);
+        Button leaveButton = layoutView.findViewById(R.id.leave_button);
+        Button retryButton = layoutView.findViewById(R.id.retry_button);
+        TextView textInfo = layoutView.findViewById(R.id.text_info);
+        dialogBuilder.setView(layoutView);
+        alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        alertDialog.show();
+        // le serveur down
+        if(typeOfCall == 1 ){
+            textInfo.setText(getString(R.string.parse_error));
+            leaveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finishApp();
+                }
+            });
+        }
+        // la co est bloqué
+        else{
+            textInfo.setText(getString(R.string.con_block));
+            leaveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    finishApp();
+                }
+            });
+            retryButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    boolean isConnect = checkCon();
+                    if(isConnect) {
+                        requestDBVersion(localVersion);
+                        alertDialog.dismiss();
+                    }
+                }
+            });
+        }
+
+    }
     private Boolean checkCon(){
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -276,5 +318,16 @@ public class SplashScreenActivity extends AppCompatActivity {
         Boolean isConnect = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
         return isConnect;
+    }
+    private void finishApp(){
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                // start page
+                finish();
+                System.exit(0);
+            }
+        };
+        new Handler().postDelayed(runnable, SPLASH_SCREEN_TIMEOUT);
     }
 }

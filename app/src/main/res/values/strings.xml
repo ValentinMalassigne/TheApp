@@ -184,4 +184,8 @@
     <string name="con_error">Welcome to ApeTime, during your first use, you need to be connect to the internet</string>
     <string name="no_con">No connection</string>
     <string name="error_message">"Connexion failed, pleese change your setting, your wifi might block our data "</string>
+    <string name="retry">Retry</string>
+    <string name="leave">Leave</string>
+    <string name="parse_error">error, we are having connection problems please try again later</string>
+    <string name="con_block">error, your wifi connection seems to block downloading, please switch to a private wifi or a 4g connection</string>
 </resources>
